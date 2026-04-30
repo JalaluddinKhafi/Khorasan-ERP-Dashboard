@@ -1,4 +1,17 @@
     }
+    
+    .table-mobile-card .mobile-row:last-child {
+        border-bottom: none;
+    }
+    
+    .table-mobile-card .mobile-label {
+        font-weight: 600;
+        color: #666;
+    }
+    
+    .table-mobile-card .mobile-value {
+        text-align: left;
+    }
 }
 
 /* ============================================
