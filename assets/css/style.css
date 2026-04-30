@@ -1,3 +1,15 @@
+
+/* ============================================
+   کلاس‌های کمکی ریسپانسیو
+   ============================================ */
+.hide-on-mobile {
+    display: inline-flex;
+}
+
+.show-on-mobile {
+    display: none;
+}
+
 @media (max-width: 768px) {
     .hide-on-mobile {
         display: none !important;
