@@ -1,3 +1,15 @@
+    }
+}
+
+/* ============================================
+   بهبود نمایش در حالت چاپ
+   ============================================ */
+@media print {
+    .sidebar, .top-navbar, .btn, .no-print, 
+    .action-buttons, .mobile-menu-btn, #sidebarCollapse {
+        display: none !important;
+    }
+    
     .main-content {
         margin: 0 !important;
         padding: 0 !important;
