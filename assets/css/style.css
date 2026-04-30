@@ -1,3 +1,15 @@
+        height: 35px !important;
+    }
+}
+
+/* ============================================
+   LOGO STYLES
+   ============================================ */
+.sidebar-logo,
+.navbar-logo {
+    filter: brightness(0) invert(1); /* سفید برای پس‌زمینه تیره سایدبار */
+    transition: filter 0.2s ease;
+}
 
 /* در لایت‌مود، لوگوی هدر به حالت عادی برمی‌گردد */
 body:not(.dark-mode) .navbar-logo {
