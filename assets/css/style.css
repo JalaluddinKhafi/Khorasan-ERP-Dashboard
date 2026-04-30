@@ -1,5 +1,17 @@
     }
     
+    .table th, .table td {
+        padding: 8px 10px;
+        font-size: 0.7rem;
+        white-space: nowrap;
+    }
+    
+    /* دکمه‌های جدول */
+    .table .btn-sm {
+        padding: 4px 8px;
+        margin: 2px;
+    }
+    
     /* فرم‌ها */
     .form-control, .form-select {
         padding: 8px 10px;
