@@ -1,3 +1,15 @@
+    
+    .main-content {
+        margin-right: 0 !important;
+    }
+}
+
+/* صفحه‌های بزرگتر از تبلت (حداقل 769px) */
+@media (min-width: 769px) {
+    .mobile-menu-btn {
+        display: none;
+    }
+    
     /* دکمه نمایش سایدبار در دسکتاپ */
     #sidebarCollapse {
         display: inline-flex;
