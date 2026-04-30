@@ -1,3 +1,15 @@
+    .customer-info-bar {
+        padding: 10px;
+    }
+    
+    .customer-info-bar .row {
+        gap: 10px;
+    }
+    
+    /* فیلترها */
+    .filter-bar .row {
+        gap: 8px;
+    }
     
     /* فوتر */
     .footer .row {
