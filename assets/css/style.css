@@ -1,3 +1,15 @@
+        width: 100%;
+        margin-bottom: 15px;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 10px;
+    }
+    
+    .table-mobile-card .mobile-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid #f0f0f0;
     }
     
     .table-mobile-card .mobile-row:last-child {
