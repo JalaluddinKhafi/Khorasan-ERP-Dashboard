@@ -1,3 +1,16 @@
+    /* دکمه نمایش سایدبار در دسکتاپ */
+    #sidebarCollapse {
+        display: inline-flex;
+    }
+}
+
+/* صفحه‌های خیلی بزرگ (دسکتاپ بزرگ) */
+@media (min-width: 1400px) {
+    .container-fluid {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+}
 
 /* ============================================
    کلاس‌های کمکی ریسپانسیو
