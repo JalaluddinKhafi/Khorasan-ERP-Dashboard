@@ -1,3 +1,15 @@
+    
+    /* فوتر */
+    .footer .row {
+        text-align: center;
+    }
+    
+    .footer .col-md-4 {
+        margin-bottom: 20px;
+    }
+}
+
+/* صفحه‌های متوسط (تبلت - بین 577px و 768px) */
 @media (min-width: 577px) and (max-width: 768px) {
     .container-fluid {
         padding: 15px !important;
