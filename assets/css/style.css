@@ -1,3 +1,15 @@
+
+/* در لایت‌مود، لوگوی هدر به حالت عادی برمی‌گردد */
+body:not(.dark-mode) .navbar-logo {
+    filter: brightness(1) invert(0);
+}
+
+/* در دارک‌مود، لوگوی هدر سفید می‌شود */
+body.dark-mode .navbar-logo {
+    filter: brightness(0) invert(1);
+}
+
+/* حالت hover برای لوگو (اختیاری) */
 .sidebar-logo:hover,
 .navbar-logo:hover {
     opacity: 0.85;
