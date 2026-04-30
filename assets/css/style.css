@@ -1,3 +1,15 @@
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-right: 0 !important;
+    }
+    
+    /* دکمه باز کردن سایدبار در موبایل */
+    .mobile-menu-btn {
+        display: block;
+    }
     
     /* ولکام کارت */
     .welcome-card {
