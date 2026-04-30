@@ -1,3 +1,16 @@
+    /* تنظیمات کلی */
+    body {
+        font-size: 13px;
+    }
+    
+    .container-fluid {
+        padding: 10px !important;
+    }
+    
+    /* هدر */
+    .top-navbar {
+        padding: 8px 12px;
+    }
     
     .nav-right {
         gap: 6px;
