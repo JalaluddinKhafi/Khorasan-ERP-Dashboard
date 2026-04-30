@@ -1,3 +1,15 @@
+    
+    /* ولکام کارت */
+    .welcome-card {
+        padding: 15px;
+    }
+    
+    .welcome-card h2 {
+        font-size: 1rem;
+    }
+    
+    .quick-action-btn {
+        padding: 5px 10px;
         font-size: 11px;
         margin-bottom: 5px;
     }
