@@ -1,3 +1,16 @@
+        font-size: 11px;
+        margin-bottom: 5px;
+    }
+    
+    /* صفحات بیلانس و صورت حساب */
+    .balance-card {
+        padding: 10px;
+    }
+    
+    .balance-card h3 {
+        font-size: 1rem;
+    }
+    
     .customer-info-bar {
         padding: 10px;
     }
