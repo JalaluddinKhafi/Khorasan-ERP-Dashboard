@@ -1,3 +1,16 @@
+        font-size: 1.1rem;
+    }
+    
+    .card-header {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .table-responsive {
+        overflow-x: auto;
+    }
+    
+    .table {
         min-width: 500px;
     }
     
