@@ -1,3 +1,16 @@
+.sidebar.collapsed .sidebar-logo {
+    width: 45px !important;
+    height: 45px !important;
+}
+
+/* در موبایل */
+@media (max-width: 768px) {
+    .sidebar-logo {
+        width: 40px !important;
+        height: 40px !important;
+    }
+    .navbar-logo {
+        width: 35px !important;
         height: 35px !important;
     }
 }
