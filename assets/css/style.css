@@ -1,3 +1,16 @@
+    font-weight: 500;
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.btn i { font-size: 0.8rem; }
+.btn-sm { padding: 0.25rem 0.5rem; font-size: 0.7rem; }
+.btn-lg { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
+
+.btn-primary { background: var(--primary); border: none; color: white; }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-success { background: var(--secondary); border: none; color: white; }
 .btn-success:hover { background: var(--secondary-dark); }
 .btn-danger { background: var(--danger); border: none; color: white; }
 .btn-danger:hover { background: var(--danger-dark); }
