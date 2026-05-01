@@ -1,3 +1,15 @@
+/* ============================================
+   DARK MODE
+   ============================================ */
+body.dark-mode { background: #0f172a; }
+body.dark-mode .stat-card,
+body.dark-mode .card,
+body.dark-mode .top-navbar,
+body.dark-mode .modal-content,
+body.dark-mode .toast-notification { background: #1e293b; color: #e2e8f0; }
+body.dark-mode .stat-info h3,
+body.dark-mode .card-header { color: #f1f5f9; }
+body.dark-mode .table { color: #cbd5e1; }
 body.dark-mode .table th { color: #94a3b8; }
 body.dark-mode .form-control,
 body.dark-mode .form-select { background: #334155; border-color: #475569; color: #f1f5f9; }
