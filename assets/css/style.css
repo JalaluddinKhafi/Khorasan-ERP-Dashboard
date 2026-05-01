@@ -1,3 +1,15 @@
+body.dark-mode .table th { color: #94a3b8; }
+body.dark-mode .form-control,
+body.dark-mode .form-select { background: #334155; border-color: #475569; color: #f1f5f9; }
+body.dark-mode .btn-light { background: #334155; color: #e2e8f0; border-color: #475569; }
+body.dark-mode .dropdown-menu { background: #1e293b; border-color: #334155; }
+body.dark-mode .dropdown-item { color: #e2e8f0; }
+body.dark-mode .dropdown-item:hover { background: #334155; }
+
+/* ============================================
+   WELCOME CARD
+   ============================================ */
+.welcome-card {
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     border-radius: 12px;
     padding: 1.2rem;
