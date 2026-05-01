@@ -1,3 +1,15 @@
+.customer-info-bar {
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 0.8rem;
+    margin-bottom: 1.2rem;
+    border-right: 3px solid var(--primary);
+}
+.filter-bar {
+    background: white;
+    border-radius: 10px;
+    padding: 0.8rem;
+    margin-bottom: 1.2rem;
     box-shadow: var(--shadow-sm);
 }
 
