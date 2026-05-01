@@ -1,3 +1,15 @@
+    box-shadow: var(--shadow-sm);
+}
+
+/* ============================================
+   PURCHASE PAGE - استایل‌های اختصاصی
+   ============================================ */
+#itemsTable th, #itemsTable td {
+    vertical-align: middle;
+    text-align: center;
+    font-size: 0.75rem;
+    padding: 0.5rem;
+}
 #itemsTable .form-control {
     font-size: 0.75rem;
     padding: 0.3rem 0.5rem;
