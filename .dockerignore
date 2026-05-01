@@ -1,0 +1,10 @@
+.git
+.env
+.env.*
+!.env.example
+.idea
+.codex-review
+node_modules
+tmp
+backend/target/*
+!backend/target/khorasan-1.0.0.jar
