@@ -1,3 +1,15 @@
+.btn-success:hover { background: var(--secondary-dark); }
+.btn-danger { background: var(--danger); border: none; color: white; }
+.btn-danger:hover { background: var(--danger-dark); }
+.btn-warning { background: var(--warning); border: none; color: white; }
+.btn-warning:hover { background: var(--warning-dark); }
+.btn-info { background: var(--info); border: none; color: white; }
+.btn-info:hover { background: var(--info-dark); }
+.btn-outline-primary { border: 1px solid var(--primary); color: var(--primary); background: transparent; }
+.btn-outline-primary:hover { background: var(--primary); color: white; }
+.btn-light { background: var(--gray-soft); border: 1px solid #e5e7eb; color: var(--dark); }
+
+/* ============================================
    BADGES
    ============================================ */
 .badge { padding: 0.2rem 0.5rem; border-radius: 20px; font-weight: 500; font-size: 0.65rem; }
