@@ -1,3 +1,16 @@
+/* ============================================
+   UTILITIES
+   ============================================ */
+.text-primary { color: var(--primary) !important; }
+.text-success { color: var(--secondary) !important; }
+.text-danger { color: var(--danger) !important; }
+.text-warning { color: var(--warning) !important; }
+.cursor-pointer { cursor: pointer; }
+.rounded-xl { border-radius: 12px; }
+.shadow-hover { transition: var(--transition); }
+.shadow-hover:hover { box-shadow: var(--shadow-hover); }
+
+/* ============================================
    PRINT
    ============================================ */
 @media print {
