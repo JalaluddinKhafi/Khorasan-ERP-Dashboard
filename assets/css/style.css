@@ -1,3 +1,16 @@
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-radius: 12px;
+    padding: 1.2rem;
+    color: white;
+    margin-bottom: 1.25rem;
+}
+.welcome-card h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.3rem; }
+.quick-action-btn {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
     margin-left: 0.5rem;
     font-size: 0.75rem;
 }
