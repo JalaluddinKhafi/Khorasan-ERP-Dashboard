@@ -1,3 +1,16 @@
+#itemsTable .form-control {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.5rem;
+}
+#grandTotal {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+#purchaseModal .modal-xl {
+    max-width: 1100px;
+}
+
 /* ============================================
    PRODUCTS PAGE - استایل‌های جدول
    ============================================ */
