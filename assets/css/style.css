@@ -1,3 +1,15 @@
+}
+.percentage-bar { height: 4px; background: #e5e7eb; border-radius: 2px; overflow: hidden; }
+.percentage-fill { height: 100%; background: var(--primary); }
+.top-product-img { width: 36px; height: 36px; border-radius: 8px; object-fit: cover; }
+
+/* ============================================
+   CATEGORY TREE
+   ============================================ */
+.tree-node { padding: 6px 0; border-bottom: 1px solid #e5e7eb; }
+.tree-node-children { margin-right: 25px; border-right: 1px dashed #e5e7eb; }
+.category-badge { background: #e2e8f0; padding: 2px 10px; border-radius: 20px; font-size: 11px; margin-right: 6px; }
+.tree-actions { opacity: 0; transition: var(--transition); }
 .tree-node:hover .tree-actions { opacity: 1; }
 
 /* ============================================
