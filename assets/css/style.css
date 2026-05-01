@@ -1,3 +1,15 @@
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+.timeline-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    flex-shrink: 0;
 }
 .percentage-bar { height: 4px; background: #e5e7eb; border-radius: 2px; overflow: hidden; }
 .percentage-fill { height: 100%; background: var(--primary); }
