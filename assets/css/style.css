@@ -1,3 +1,15 @@
+    width: 50px !important;
+    height: 50px !important;
+    object-fit: contain;
+}
+
+.navbar-logo {
+    width: 42px !important;
+    height: 42px !important;
+    object-fit: contain;
+}
+
+/* در حالت جمع شده سایدبار */
 .sidebar.collapsed .sidebar-logo {
     width: 45px !important;
     height: 45px !important;
