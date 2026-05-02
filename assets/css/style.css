@@ -1,3 +1,15 @@
+/* ============================================
+   LAYOUT
+   ============================================ */
+.wrapper { display: flex; min-height: 100vh; }
+
+/* Sidebar */
+.sidebar {
+    width: var(--sidebar-width);
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    color: #e2e8f0;
+    position: fixed;
+    right: 0;
     top: 0;
     bottom: 0;
     z-index: 1000;
