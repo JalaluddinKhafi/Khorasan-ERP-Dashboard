@@ -1,3 +1,15 @@
+    color: white;
+    flex-shrink: 0;
+}
+.stat-info h3 { font-size: 1.2rem; font-weight: 700; margin: 0; color: var(--dark); }
+.stat-info p { margin: 0; color: var(--gray); font-size: 0.7rem; }
+
+/* ============================================
+   CARDS
+   ============================================ */
+.card {
+    border: none;
+    border-radius: 12px;
     box-shadow: var(--shadow-card);
     background: var(--white);
     margin-bottom: 1.25rem;
