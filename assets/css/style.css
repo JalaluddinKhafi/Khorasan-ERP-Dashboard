@@ -1,3 +1,15 @@
+    padding: 0.6rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+.nav-right, .nav-left { display: flex; align-items: center; gap: 0.75rem; }
+.breadcrumb-custom { color: var(--gray); font-size: 0.8rem; }
+
  /* استایل‌های اختصاصی داشبورد */
         .welcome-card {
             background: linear-gradient(135deg, #2563eb, #1e40af);
