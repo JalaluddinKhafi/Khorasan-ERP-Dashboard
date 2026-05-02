@@ -1,3 +1,16 @@
+    top: 0;
+    bottom: 0;
+    z-index: 1000;
+    transition: var(--transition);
+    overflow-y: auto;
+}
+
+.sidebar.collapsed { width: var(--sidebar-collapsed); }
+.sidebar.collapsed .sidebar-nav span,
+.sidebar.collapsed .sidebar-header span,
+.sidebar.collapsed .sidebar-header h3 { display: none; }
+.sidebar.collapsed .sidebar-nav li a { justify-content: center; padding: 12px; }
+.sidebar.collapsed .sidebar-nav li a i { margin: 0; font-size: 1.2rem; }
 
 .sidebar-header {
     padding: 1rem 1.25rem;
