@@ -1,3 +1,16 @@
+.table td { vertical-align: middle; padding: 0.6rem 0.8rem; }
+.table-striped > tbody > tr:nth-of-type(odd) { background-color: rgba(0, 0, 0, 0.02); }
+.table-hover > tbody > tr:hover { background-color: rgba(37, 99, 235, 0.04); }
+
+/* DataTables */
+.dataTables_wrapper .dataTables_filter input {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 0.3rem 0.6rem;
+    margin-right: 0.5rem;
+    font-size: 0.8rem;
+}
+.dataTables_wrapper .dataTables_length select {
     border: 1px solid #e5e7eb;
     border-radius: 8px;
     padding: 0.2rem 0.4rem;
