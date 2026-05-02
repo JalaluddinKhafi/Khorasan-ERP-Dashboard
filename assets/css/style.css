@@ -1,3 +1,15 @@
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--gray-soft); border-radius: 10px; }
+::-webkit-scrollbar-thumb { background: var(--gray-light); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gray); }
+
 /* ============================================
    LAYOUT
    ============================================ */
