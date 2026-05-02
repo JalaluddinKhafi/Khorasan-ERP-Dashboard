@@ -1,3 +1,15 @@
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .percentage-fill {
+            height: 100%;
+            background: #2563eb;
+            border-radius: 3px;
+        }
+
+/* ============================================
    STATS CARDS - اصلاح شده برای سایز مناسب
    ============================================ */
 .stat-card, .stat-card-dashboard {
