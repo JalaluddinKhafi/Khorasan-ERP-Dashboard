@@ -1,3 +1,15 @@
+
+.sidebar-header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.sidebar-header h3 { font-size: 1.1rem; font-weight: 600; margin: 0; color: white; }
+.sidebar-header h3 i { color: var(--primary); margin-left: 8px; }
+
+.toggle-sidebar {
     background: rgba(255,255,255,0.1);
     border: none;
     color: white;
