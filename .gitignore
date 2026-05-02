@@ -1,0 +1,6 @@
+.env
+.idea/
+backend/target/
+tmp/
+node_modules/
+.codex-review/
