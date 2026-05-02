@@ -1,3 +1,15 @@
+   STATS CARDS - اصلاح شده برای سایز مناسب
+   ============================================ */
+.stat-card, .stat-card-dashboard {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    box-shadow: var(--shadow-card);
+    transition: var(--transition);
+    border: 1px solid rgba(0,0,0,0.03);
 }
 .stat-card:hover, .stat-card-dashboard:hover {
     transform: translateY(-2px);
