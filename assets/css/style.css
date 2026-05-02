@@ -1,3 +1,16 @@
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    color: #cbd5e1;
+    font-size: 0.85rem;
+    border-right: 3px solid transparent;
+}
+.sidebar-nav li a i { width: 22px; font-size: 1rem; }
+.sidebar-nav li a:hover, .sidebar-nav li a.active {
+    background: rgba(37,99,235,0.15);
+    color: white;
+    border-right-color: var(--primary);
+}
 
 /* Main Content */
 .main-content {
