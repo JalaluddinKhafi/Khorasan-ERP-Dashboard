@@ -1,3 +1,16 @@
+/* ============================================
+   IMPORT FONTS
+   ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ============================================
+   VARIABLES & ROOT
+   ============================================ */
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --primary-light: #3b82f6;
+    --primary-soft: #eff6ff;
     --secondary: #10b981;
     --secondary-dark: #059669;
     --danger: #ef4444;
