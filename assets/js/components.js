@@ -1,3 +1,15 @@
+            sidebarLogo.style.filter = 'brightness(0) invert(1)';
+        } else {
+            sidebarLogo.style.filter = 'none';
+        }
+    }
+    if (navbarLogo) {
+        if (isDark) {
+            navbarLogo.style.filter = 'brightness(0) invert(1)';
+        } else {
+            navbarLogo.style.filter = 'none';
+        }
+    }
 }
 
 function toggleDarkMode() {
