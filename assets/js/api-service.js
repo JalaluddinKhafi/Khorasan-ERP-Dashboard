@@ -1,3 +1,15 @@
+// سرویس فرضی برای اتصال به API (آماده جایگزینی با Spring Boot)
+const API_BASE = '/api'; // بعداً http://localhost:8080/api
+
+export async function fetchData(endpoint) {
+    // نمونه fetch واقعی
+    // return fetch(`${API_BASE}/${endpoint}`).then(res => res.json());
+    // در حال حاضر داده‌های نمونه محلی
+    return mockDatabase[endpoint] || [];
+}
+
+// دیتابیس محلی با اطلاعات فارسی
+const mockDatabase = {
     'dashboard/stats': {
         totalProducts: 248,
         totalCustomers: 1240,
