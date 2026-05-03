@@ -1,3 +1,15 @@
+    
+    const darkBtn = document.getElementById('darkModeToggle');
+    if (darkBtn) {
+        darkBtn.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    }
+    
+    updateLogoForDarkMode(isDark);
+}
+
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar) {
         sidebar.classList.toggle('collapsed');
         
         // تنظیم سایز لوگو در حالت جمع شده
