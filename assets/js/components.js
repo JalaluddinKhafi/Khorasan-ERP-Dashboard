@@ -1,3 +1,15 @@
+    } else {
+        document.body.classList.remove('dark-mode');
+        updateLogoForDarkMode(false);
+    }
+}
+
+function updateLogoForDarkMode(isDark) {
+    const sidebarLogo = document.querySelector('.sidebar-logo');
+    const navbarLogo = document.querySelector('.navbar-logo');
+    
+    if (sidebarLogo) {
+        if (isDark) {
             sidebarLogo.style.filter = 'brightness(0) invert(1)';
         } else {
             sidebarLogo.style.filter = 'none';
