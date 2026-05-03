@@ -1,3 +1,15 @@
+        sidebar.classList.toggle('collapsed');
+        
+        // تنظیم سایز لوگو در حالت جمع شده
+        const sidebarLogo = document.querySelector('.sidebar-logo');
+        if (sidebarLogo) {
+            if (sidebar.classList.contains('collapsed')) {
+                sidebarLogo.style.width = '50px';
+                sidebarLogo.style.height = 'auto';
+            } else {
+                sidebarLogo.style.width = '160px';
+                sidebarLogo.style.height = 'auto';
+            }
         }
     }
 }
