@@ -1,3 +1,13 @@
+    <!-- متن شرکت -->
+    <text x="130" y="55" font-family="IRANSans, Tahoma, sans-serif" font-size="22" font-weight="bold" fill="white">
+        شرکت مدیریت جامع
+    </text>
+    <text x="130" y="80" font-family="IRANSans, Tahoma, sans-serif" font-size="12" fill="#94a3b8">
+        نمایندگی رسمی | مدیریت فروش، انبار، خرید و مالی
+    </text>
+    <text x="130" y="100" font-family="IRANSans, Tahoma, sans-serif" font-size="11" fill="#64748b">
+        تهران، خیابان ولیعصر، پلاک ۱۲۳ | تلفن: ۰۲۱-۱۲۳۴۵۶۷۸
+    </text>
     
     <!-- خط جداکننده -->
     <line x1="120" y1="120" x2="750" y2="120" stroke="#334155" stroke-width="1"/>
