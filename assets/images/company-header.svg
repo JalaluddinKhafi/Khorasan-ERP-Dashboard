@@ -1,3 +1,13 @@
+    </defs>
+    
+    <!-- پس‌زمینه -->
+    <rect width="800" height="150" fill="url(#bgGrad)" rx="10"/>
+    
+    <!-- لوگو (آیکون نمودار) -->
+    <circle cx="70" cy="75" r="40" fill="white" opacity="0.1"/>
+    <circle cx="70" cy="75" r="35" fill="url(#logoGrad)"/>
+    <polyline points="50,90 65,65 80,80 95,55" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>
+    
     <!-- متن شرکت -->
     <text x="130" y="55" font-family="IRANSans, Tahoma, sans-serif" font-size="22" font-weight="bold" fill="white">
         شرکت مدیریت جامع
