@@ -1,3 +1,15 @@
+        }
+    }
+}
+
+function setBreadcrumb(items) {
+    const breadcrumb = document.getElementById('breadcrumb');
+    if (breadcrumb) {
+        if (typeof items === 'string') {
+            breadcrumb.innerHTML = '<span>' + items + '</span>';
+        } else {
+            let html = '';
+            for (let i = 0; i < items.length; i++) {
                 if (i === items.length - 1) {
                     html += '<span>' + items[i] + '</span>';
                 } else {
