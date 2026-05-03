@@ -1,0 +1,9 @@
+    
+    <!-- خط جداکننده -->
+    <line x1="120" y1="120" x2="750" y2="120" stroke="#334155" stroke-width="1"/>
+    
+    <!-- اطلاعات تماس در پایین -->
+    <text x="130" y="138" font-family="IRANSans, Tahoma, sans-serif" font-size="10" fill="#64748b">
+        info@armanmanagement.com | www.armanmanagement.com | کد پستی: ۱۲۳۴۵۶۷۸۹۰
+    </text>
+</svg>
