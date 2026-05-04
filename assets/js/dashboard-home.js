@@ -1,3 +1,15 @@
+        { id: "F-1003", customer: "مهدی رضایی", amount: 8900000, date: "۱۴۰۲/۱۲/۰۴" },
+        { id: "F-1004", customer: "فروشگاه دیجیتال", amount: 45200000, date: "۱۴۰۲/۱۲/۰۳" }
+    ],
+    latestPurchases: [
+        { id: "P-2001", supplier: "توزیع کننده البرز", amount: 56000000, date: "۱۴۰۲/۱۲/۰۵" },
+        { id: "P-2002", supplier: "واردات سامسونگ", amount: 234000000, date: "۱۴۰۲/۱۲/۰۴" }
+    ]
+};
+
+function renderDashboardHome() {
+    renderStats();
+    renderCharts();
     renderTopProducts();
     renderLatestTables();
 }
