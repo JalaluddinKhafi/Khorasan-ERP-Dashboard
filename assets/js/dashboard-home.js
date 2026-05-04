@@ -1,3 +1,15 @@
+
+function renderTopProducts() {
+    const tbody = document.querySelector('#topProductsTable tbody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = dashboardData.topProducts.map(p => `
+        <tr>
+            <td>${p.name}</td>
+            <td>${p.sales} عدد</td>
+            <td>${p.amount.toLocaleString()} تومان</td>
+        </tr>
+    `).join('');
     
     $('#topProductsTable').DataTable({
         language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
