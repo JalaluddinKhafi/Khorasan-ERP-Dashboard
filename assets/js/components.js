@@ -1,3 +1,15 @@
+    const darkModeBtn = document.getElementById('darkModeToggle');
+    if (darkModeBtn) {
+        const newBtn = darkModeBtn.cloneNode(true);
+        darkModeBtn.parentNode.replaceChild(newBtn, darkModeBtn);
+        newBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            toggleDarkMode();
+        });
+    }
+    
+    // بستن سایدبار در موبایل بعد از کلیک روی لینک
+    const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
     sidebarLinks.forEach(link => {
         link.addEventListener('click', function() {
             if (window.innerWidth < 992) {
