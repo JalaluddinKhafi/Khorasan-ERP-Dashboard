@@ -1,3 +1,15 @@
+    const isDarkMode = localStorage.getItem('darkMode') === 'true';
+    
+    // مسیر لوگو
+    const logoSrc = '../assets/images/logo2.png';
+    
+    // ========== سایدبار ==========
+    sidebar.innerHTML = `
+        <div class="sidebar-header">
+            <div class="d-flex align-items-center justify-content-center w-100">
+                <img src="${logoSrc}" alt="لوگو" class="sidebar-logo" 
+                     style="width: 160px; height: auto; object-fit: contain; border-radius: 0;">
+            </div>
             <button class="toggle-sidebar btn btn-sm btn-light d-md-none" onclick="toggleSidebar()">
                 <i class="fas fa-bars"></i>
             </button>
