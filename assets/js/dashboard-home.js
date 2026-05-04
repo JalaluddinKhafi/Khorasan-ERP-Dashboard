@@ -1,3 +1,15 @@
+    new ApexCharts(document.querySelector("#monthlySalesChart"), {
+        series: [{ name: 'فروش', data: [185, 202, 230, 245, 268, 290, 310, 335, 360, 385, 410, 445] }],
+        chart: { type: 'bar', height: 300 },
+        xaxis: { categories: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'] },
+        colors: ['#10b981']
+    }).render();
+    
+    // نمودار خرید ماهانه
+    new ApexCharts(document.querySelector("#monthlyPurchaseChart"), {
+        series: [{ name: 'خرید', data: [95, 112, 130, 125, 148, 160, 155, 170, 185, 190, 210, 225] }],
+        chart: { type: 'area', height: 300 },
+        xaxis: { categories: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'] },
         colors: ['#f59e0b']
     }).render();
     
