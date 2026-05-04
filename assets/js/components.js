@@ -1,3 +1,15 @@
+        const pageNames = {
+            'dashboard': 'داشبورد', 'products': 'مدیریت کالاها', 'categories': 'دسته‌بندی',
+            'suppliers': 'تامین‌کنندگان', 'customers': 'مشتریان', 'purchases': 'خرید',
+            'sales': 'فروش', 'inventory': 'انبار', 'payments': 'پرداخت‌ها',
+            'expenses': 'مصارف', 'financial': 'مالی', 'reports': 'گزارشات',
+            'users': 'کاربران', 'balance': 'بیلانس مشتری', 'receipts': 'رسیدها',
+            'price': 'لیست قیمت', 'website': 'مدیریت وبسایت'
+        };
+        breadcrumb.innerHTML = '<span>' + (pageNames[activePage] || 'داشبورد') + '</span>';
+    }
+    
+    // رویداد دارک‌مود
     const darkModeBtn = document.getElementById('darkModeToggle');
     if (darkModeBtn) {
         const newBtn = darkModeBtn.cloneNode(true);
