@@ -1,3 +1,15 @@
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#">📄 فاکتور جدید فروش ثبت شد</a></li>
+                    <li><a class="dropdown-item" href="#">⚠️ کالای کم موجودی: لپ تاپ</a></li>
+                    <li><a class="dropdown-item" href="#">💰 پرداخت جدید واریز شد</a></li>
+                </ul>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="hide-on-mobile"> ادمین</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> پروفایل</a></li>
                     <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> تنظیمات</a></li>
                     <li><hr class="dropdown-divider"></li>
