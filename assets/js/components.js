@@ -1,3 +1,15 @@
+            <button class="toggle-sidebar btn btn-sm btn-light d-md-none" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <ul class="sidebar-nav">
+            <li><a href="dashboard.html" class="${activePage === 'dashboard' ? 'active' : ''}"><i class="fas fa-tachometer-alt"></i> <span>داشبورد</span></a></li>
+            <li><a href="products.html" class="${activePage === 'products' ? 'active' : ''}"><i class="fas fa-boxes"></i> <span>مدیریت کالاها</span></a></li>
+            <li><a href="categories.html" class="${activePage === 'categories' ? 'active' : ''}"><i class="fas fa-tags"></i> <span>دسته‌بندی</span></a></li>
+            <li><a href="suppliers.html" class="${activePage === 'suppliers' ? 'active' : ''}"><i class="fas fa-truck"></i> <span>تامین‌کنندگان</span></a></li>
+            <li><a href="customers.html" class="${activePage === 'customers' ? 'active' : ''}"><i class="fas fa-users"></i> <span>مشتریان</span></a></li>
+            <li><a href="purchases.html" class="${activePage === 'purchases' ? 'active' : ''}"><i class="fas fa-shopping-cart"></i> <span>خرید</span></a></li>
+            <li><a href="sales.html" class="${activePage === 'sales' ? 'active' : ''}"><i class="fas fa-chart-simple"></i> <span>فروش</span></a></li>
             <li><a href="inventory.html" class="${activePage === 'inventory' ? 'active' : ''}"><i class="fas fa-warehouse"></i> <span>انبار</span></a></li>
             <li><a href="payments.html" class="${activePage === 'payments' ? 'active' : ''}"><i class="fas fa-credit-card"></i> <span>پرداخت‌ها</span></a></li>
             <li><a href="expenses.html" class="${activePage === 'expenses' ? 'active' : ''}"><i class="fas fa-file-invoice-dollar"></i> <span>مصارف</span></a></li>
