@@ -1,3 +1,15 @@
+    `;
+    
+    // ========== هدر ==========
+    navbar.innerHTML = `
+        <div class="nav-right">
+            <img src="${logoSrc}" alt="لوگو" class="navbar-logo" 
+                 style="width: 40px; height: auto; object-fit: contain; border-radius: 0;">
+            <button id="sidebarCollapse" class="btn btn-light hide-on-mobile" onclick="toggleSidebar()">
+                <i class="fas fa-align-right"></i>
+            </button>
+            <button id="mobileMenuBtn" class="btn btn-light show-on-mobile" onclick="openSidebarOnMobile()">
+                <i class="fas fa-bars"></i>
             </button>
             <div class="breadcrumb-custom" id="breadcrumb"></div>
         </div>
