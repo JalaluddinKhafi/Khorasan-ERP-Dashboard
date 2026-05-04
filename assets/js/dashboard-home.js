@@ -1,3 +1,14 @@
+    renderTopProducts();
+    renderLatestTables();
+}
+
+function renderStats() {
+    const stats = dashboardData.stats;
+    const container = document.getElementById('statsContainer');
+    if (!container) return;
+    
+    container.innerHTML = `
+        <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-primary"><i class="fas fa-box"></i></div><div class="stat-info"><h3>${stats.totalProducts}</h3><p>کل کالاها</p></div></div></div>
         <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-success"><i class="fas fa-user-friends"></i></div><div class="stat-info"><h3>${stats.totalCustomers}</h3><p>مشتریان</p></div></div></div>
         <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-warning"><i class="fas fa-truck-loading"></i></div><div class="stat-info"><h3>${stats.totalSuppliers}</h3><p>تامین‌کنندگان</p></div></div></div>
         <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-danger"><i class="fas fa-file-invoice"></i></div><div class="stat-info"><h3>${stats.totalPurchaseInvoices}</h3><p>فاکتورهای خرید</p></div></div></div>
