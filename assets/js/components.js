@@ -1,3 +1,15 @@
+            </button>
+            <div class="breadcrumb-custom" id="breadcrumb"></div>
+        </div>
+        <div class="nav-left">
+            <button id="darkModeToggle" class="btn btn-light mode-toggle">
+                <i class="fas ${isDarkMode ? 'fa-sun' : 'fa-moon'}"></i>
+            </button>
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge bg-danger">3</span>
+                </button>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="#">📄 فاکتور جدید فروش ثبت شد</a></li>
                     <li><a class="dropdown-item" href="#">⚠️ کالای کم موجودی: لپ تاپ</a></li>
