@@ -1,3 +1,15 @@
+        <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-success"><i class="fas fa-user-friends"></i></div><div class="stat-info"><h3>${stats.totalCustomers}</h3><p>مشتریان</p></div></div></div>
+        <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-warning"><i class="fas fa-truck-loading"></i></div><div class="stat-info"><h3>${stats.totalSuppliers}</h3><p>تامین‌کنندگان</p></div></div></div>
+        <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-danger"><i class="fas fa-file-invoice"></i></div><div class="stat-info"><h3>${stats.totalPurchaseInvoices}</h3><p>فاکتورهای خرید</p></div></div></div>
+        <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-info"><i class="fas fa-file-signature"></i></div><div class="stat-info"><h3>${stats.totalSalesInvoices}</h3><p>فاکتورهای فروش</p></div></div></div>
+        <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-secondary"><i class="fas fa-dollar-sign"></i></div><div class="stat-info"><h3>${stats.todaySales.toLocaleString()} تومان</h3><p>فروش امروز</p></div></div></div>
+        <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-dark"><i class="fas fa-chart-line"></i></div><div class="stat-info"><h3>${stats.monthSales.toLocaleString()} تومان</h3><p>فروش ماه جاری</p></div></div></div>
+        <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-purple"><i class="fas fa-coins"></i></div><div class="stat-info"><h3>${stats.monthProfit.toLocaleString()} تومان</h3><p>سود ماه جاری</p></div></div></div>
+        <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-danger"><i class="fas fa-hand-holding-usd"></i></div><div class="stat-info"><h3>${stats.debtCustomers.toLocaleString()} تومان</h3><p>بدهی مشتریان</p></div></div></div>
+        <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-orange"><i class="fas fa-money-bill-wave"></i></div><div class="stat-info"><h3>${stats.debtSuppliers.toLocaleString()} تومان</h3><p>بدهی به تامین‌کنندگان</p></div></div></div>
+    `;
+}
+
 function renderCharts() {
     // نمودار فروش روزانه
     new ApexCharts(document.querySelector("#dailySalesChart"), {
