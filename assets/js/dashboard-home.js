@@ -1,3 +1,14 @@
+        colors: ['#f59e0b']
+    }).render();
+    
+    // نمودار سود و زیان
+    new ApexCharts(document.querySelector("#profitLossChart"), {
+        series: [{ name: 'سود خالص', data: [45, 62, 75, 85, 95, 108, 120, 135, 148, 160, 175, 195] }],
+        chart: { type: 'line', height: 300 },
+        xaxis: { categories: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'] },
+        colors: ['#8b5cf6']
+    }).render();
+}
 
 function renderTopProducts() {
     const tbody = document.querySelector('#topProductsTable tbody');
