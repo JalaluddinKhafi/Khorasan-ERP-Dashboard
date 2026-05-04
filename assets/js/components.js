@@ -1,3 +1,15 @@
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth < 992) {
+                closeSidebarOnMobile();
+            }
+        });
+    });
+    
+    // اعمال تم
+    if (isDarkMode) {
+        document.body.classList.add('dark-mode');
+        updateLogoForDarkMode(true);
     } else {
         document.body.classList.remove('dark-mode');
         updateLogoForDarkMode(false);
