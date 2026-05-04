@@ -1,3 +1,15 @@
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> پروفایل</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> تنظیمات</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i> خروج</a></li>
+                </ul>
+            </div>
+        </div>
+    `;
+    
+    // تنظیم breadcrumb
+    const breadcrumb = document.getElementById('breadcrumb');
+    if (breadcrumb) {
         const pageNames = {
             'dashboard': 'داشبورد', 'products': 'مدیریت کالاها', 'categories': 'دسته‌بندی',
             'suppliers': 'تامین‌کنندگان', 'customers': 'مشتریان', 'purchases': 'خرید',
