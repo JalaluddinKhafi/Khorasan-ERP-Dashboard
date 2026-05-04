@@ -1,3 +1,15 @@
+// داده‌های نمونه برای داشبورد
+const dashboardData = {
+    stats: {
+        totalProducts: 248,
+        totalCustomers: 1240,
+        totalSuppliers: 56,
+        totalPurchaseInvoices: 312,
+        totalSalesInvoices: 589,
+        todaySales: 18420000,
+        monthSales: 478300000,
+        monthProfit: 112400000,
+        debtCustomers: 45800000,
         debtSuppliers: 23700000
     },
     topProducts: [
