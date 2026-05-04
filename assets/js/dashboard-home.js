@@ -1,3 +1,14 @@
+        debtSuppliers: 23700000
+    },
+    topProducts: [
+        { name: "لپ تاپ ایسوس ROG", sales: 342, amount: 11970000000 },
+        { name: "گوشی سامسونگ S24", sales: 298, amount: 12516000000 },
+        { name: "هدفون سونی XM5", sales: 512, amount: 4556800000 },
+        { name: "تبلت اپل iPad Pro", sales: 187, amount: 7480000000 }
+    ],
+    latestSales: [
+        { id: "F-1001", customer: "آرمان پوراحمد", amount: 12500000, date: "۱۴۰۲/۱۲/۰۵" },
+        { id: "F-1002", customer: "شرکت تدبیر", amount: 33600000, date: "۱۴۰۲/۱۲/۰۴" },
         { id: "F-1003", customer: "مهدی رضایی", amount: 8900000, date: "۱۴۰۲/۱۲/۰۴" },
         { id: "F-1004", customer: "فروشگاه دیجیتال", amount: 45200000, date: "۱۴۰۲/۱۲/۰۳" }
     ],
