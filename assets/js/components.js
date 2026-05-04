@@ -1,3 +1,15 @@
+            <li><a href="inventory.html" class="${activePage === 'inventory' ? 'active' : ''}"><i class="fas fa-warehouse"></i> <span>انبار</span></a></li>
+            <li><a href="payments.html" class="${activePage === 'payments' ? 'active' : ''}"><i class="fas fa-credit-card"></i> <span>پرداخت‌ها</span></a></li>
+            <li><a href="expenses.html" class="${activePage === 'expenses' ? 'active' : ''}"><i class="fas fa-file-invoice-dollar"></i> <span>مصارف</span></a></li>
+            <li><a href="financial-transactions.html" class="${activePage === 'financial' ? 'active' : ''}"><i class="fas fa-chart-pie"></i> <span>مالی</span></a></li>
+            <li><a href="reports.html" class="${activePage === 'reports' ? 'active' : ''}"><i class="fas fa-chart-bar"></i> <span>گزارشات</span></a></li>
+            <li><a href="users.html" class="${activePage === 'users' ? 'active' : ''}"><i class="fas fa-user-shield"></i> <span>کاربران</span></a></li>
+            <li><a href="customer-balance.html" class="${activePage === 'balance' ? 'active' : ''}"><i class="fas fa-chart-line"></i> <span>بیلانس مشتری</span></a></li>
+            <li><a href="receipts.html" class="${activePage === 'receipts' ? 'active' : ''}"><i class="fas fa-receipt"></i> <span>رسیدها</span></a></li>
+            <li><a href="price-list.html" class="${activePage === 'price' ? 'active' : ''}"><i class="fas fa-list"></i> <span>لیست قیمت</span></a></li>
+            <li class="mt-3"><hr class="mx-3 my-2" style="border-color: rgba(0,0,0,0.1);"></li>
+            <li><a href="website-management.html" class="${activePage === 'website' ? 'active' : ''}"><i class="fas fa-globe"></i> <span>مدیریت وبسایت</span></a></li>
+        </ul>
     `;
     
     // ========== هدر ==========
