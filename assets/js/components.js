@@ -1,3 +1,16 @@
+// ============================================
+// کامپوننت‌های مشترک (سایدبار، هدر، و غیره)
+// ============================================
+
+function loadSidebarAndNavbar(activePage) {
+    const sidebar = document.getElementById('sidebar');
+    const navbar = document.querySelector('.top-navbar');
+    
+    if (!sidebar || !navbar) {
+        console.error('Sidebar or Navbar element not found');
+        return;
+    }
+    
     const isDarkMode = localStorage.getItem('darkMode') === 'true';
     
     // مسیر لوگو
