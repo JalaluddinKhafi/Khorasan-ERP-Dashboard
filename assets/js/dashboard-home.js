@@ -1,3 +1,14 @@
+    
+    $('#topProductsTable').DataTable({
+        language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+        pageLength: 5
+    });
+}
+
+function renderLatestTables() {
+    const salesTbody = document.querySelector('#latestSalesTable tbody');
+    if (salesTbody) {
+        salesTbody.innerHTML = dashboardData.latestSales.map(s => `
             <tr><td>${s.id}</td><td>${s.customer}</td><td>${s.amount.toLocaleString()} تومان</td><td>${s.date}</td></tr>
         `).join('');
     }
