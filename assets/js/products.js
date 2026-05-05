@@ -1,3 +1,15 @@
+}
+
+function editProduct(id) {
+    const product = productsData.find(p => p.id === id);
+    if (!product) return;
+    
+    currentProductId = id;
+    document.getElementById('modalTitle').innerText = 'ویرایش کالا';
+    document.getElementById('productCode').value = product.code;
+    document.getElementById('productName').value = product.name;
+    document.getElementById('productCategory').value = product.category;
+    document.getElementById('purchasePrice').value = product.purchasePrice;
     document.getElementById('salePrice').value = product.salePrice;
     document.getElementById('productUnit').value = product.unit;
     document.getElementById('productStatus').value = product.status;
