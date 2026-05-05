@@ -1,3 +1,15 @@
+        name: document.getElementById('productName').value,
+        category: document.getElementById('productCategory').value,
+        purchasePrice: parseInt(document.getElementById('purchasePrice').value),
+        salePrice: parseInt(document.getElementById('salePrice').value),
+        unit: document.getElementById('productUnit').value,
+        status: document.getElementById('productStatus').value,
+        description: document.getElementById('productDescription').value,
+        stock: currentProductId ? productsData.find(p => p.id === currentProductId)?.stock || 0 : 0
+    };
+    
+    if (currentProductId) {
+        const index = productsData.findIndex(p => p.id === currentProductId);
         if (index !== -1) {
             productsData[index] = { ...productsData[index], ...product };
         }
