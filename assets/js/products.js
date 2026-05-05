@@ -1,3 +1,15 @@
+let productsData = [];
+let currentProductId = null;
+let deleteProductId = null;
+let productsTable = null;
+
+// داده‌های نمونه
+const sampleProducts = [
+    { id: 1, code: "P1001", name: "لپ تاپ ایسوس", category: "الکترونیک", purchasePrice: 25000000, salePrice: 28500000, unit: "عدد", status: "موجود", stock: 45, description: "لپ تاپ گیمینگ", image: "" },
+    { id: 2, code: "P1002", name: "گوشی سامسونگ", category: "الکترونیک", purchasePrice: 38000000, salePrice: 42000000, unit: "عدد", status: "موجود", stock: 28, description: "", image: "" },
+    { id: 3, code: "P1003", name: "هدفون سونی", category: "الکترونیک", purchasePrice: 6500000, salePrice: 8900000, unit: "عدد", status: "موجود", stock: 112, description: "", image: "" }
+];
+
 function initProductsPage() {
     loadProducts();
     setupEventListeners();
