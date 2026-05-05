@@ -1,3 +1,15 @@
+            <td>${p.stock}</td>
+            <td><span class="badge ${p.status === 'موجود' ? 'bg-success' : 'bg-danger'}">${p.status}</span></td>
+            <td>
+                <button class="btn btn-sm btn-info edit-product" data-id="${p.id}"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-sm btn-danger delete-product" data-id="${p.id}"><i class="fas fa-trash"></i></button>
+            </td>
+        </tr>
+    `).join('');
+    
+    // راه‌اندازی DataTable
+    if (productsTable) {
+        productsTable.destroy();
     }
     productsTable = $('#productsTable').DataTable({
         language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
