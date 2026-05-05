@@ -1,3 +1,15 @@
+    document.getElementById('salePrice').value = product.salePrice;
+    document.getElementById('productUnit').value = product.unit;
+    document.getElementById('productStatus').value = product.status;
+    document.getElementById('productDescription').value = product.description || '';
+    
+    new bootstrap.Modal(document.getElementById('productModal')).show();
+}
+
+function showDeleteModal(id) {
+    deleteProductId = id;
+    new bootstrap.Modal(document.getElementById('deleteModal')).show();
+}
 
 function confirmDelete() {
     if (deleteProductId) {
