@@ -1,3 +1,15 @@
+    const tbody = document.getElementById('productsTableBody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = productsData.map(p => `
+        <tr>
+            <td>${p.code}</td>
+            <td><img src="${p.image || 'https://via.placeholder.com/50'}" width="50" height="50" style="object-fit: cover; border-radius: 8px;"></td>
+            <td>${p.name}</td>
+            <td>${p.category}</td>
+            <td>${p.purchasePrice.toLocaleString()}</td>
+            <td>${p.salePrice.toLocaleString()}</td>
+            <td>${p.unit}</td>
             <td>${p.stock}</td>
             <td><span class="badge ${p.status === 'موجود' ? 'bg-success' : 'bg-danger'}">${p.status}</span></td>
             <td>
