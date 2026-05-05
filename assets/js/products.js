@@ -1,3 +1,15 @@
+    }
+    productsTable = $('#productsTable').DataTable({
+        language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+        pageLength: 10
+    });
+    
+    // رویدادهای دکمه‌ها
+    document.querySelectorAll('.edit-product').forEach(btn => {
+        btn.addEventListener('click', () => editProduct(parseInt(btn.dataset.id)));
+    });
+    document.querySelectorAll('.delete-product').forEach(btn => {
+        btn.addEventListener('click', () => showDeleteModal(parseInt(btn.dataset.id)));
     });
 }
 
