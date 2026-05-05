@@ -1,3 +1,15 @@
+        // در حالت واقعی: upload to server
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            product.image = e.target.result;
+            renderProductsTable();
+        };
+        reader.readAsDataURL(imageFile);
+    }
+    
+    renderProductsTable();
+    bootstrap.Modal.getInstance(document.getElementById('productModal')).hide();
+    resetForm();
 }
 
 function editProduct(id) {
