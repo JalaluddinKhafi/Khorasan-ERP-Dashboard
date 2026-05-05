@@ -1,3 +1,15 @@
+    const search = document.getElementById('searchInput')?.value.toLowerCase() || '';
+    const category = document.getElementById('categoryFilter')?.value || '';
+    
+    const filtered = productsData.filter(p => {
+        const matchSearch = p.name.toLowerCase().includes(search) || p.code.toLowerCase().includes(search);
+        const matchCategory = !category || p.category === category;
+        return matchSearch && matchCategory;
+    });
+    
+    const tbody = document.getElementById('productsTableBody');
+    if (tbody) {
+        tbody.innerHTML = filtered.map(p => `...`).join('');
         if (productsTable) {
             productsTable.clear();
             productsTable.rows.add(filtered);
