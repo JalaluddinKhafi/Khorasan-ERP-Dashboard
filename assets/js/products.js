@@ -1,3 +1,15 @@
+        if (productsTable) {
+            productsTable.clear();
+            productsTable.rows.add(filtered);
+            productsTable.draw();
+        }
+    }
+}
+
+function saveProduct() {
+    const product = {
+        id: currentProductId || Date.now(),
+        code: document.getElementById('productCode').value,
         name: document.getElementById('productName').value,
         category: document.getElementById('productCategory').value,
         purchasePrice: parseInt(document.getElementById('purchasePrice').value),
