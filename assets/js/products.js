@@ -1,3 +1,15 @@
+function initProductsPage() {
+    loadProducts();
+    setupEventListeners();
+}
+
+function loadProducts() {
+    // در حالت واقعی: fetch('/api/products')
+    productsData = [...sampleProducts];
+    renderProductsTable();
+}
+
+function renderProductsTable() {
     const tbody = document.getElementById('productsTableBody');
     if (!tbody) return;
     
