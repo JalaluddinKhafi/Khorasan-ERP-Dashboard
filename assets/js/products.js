@@ -1,3 +1,15 @@
+
+function confirmDelete() {
+    if (deleteProductId) {
+        productsData = productsData.filter(p => p.id !== deleteProductId);
+        renderProductsTable();
+        showToast('محصول با موفقیت حذف شد', 'success');
+        bootstrap.Modal.getInstance(document.getElementById('deleteModal')).hide();
+        deleteProductId = null;
+    }
+}
+
+function previewImage() {
     const file = document.getElementById('productImage').files[0];
     const preview = document.getElementById('imagePreview');
     if (file && preview) {
