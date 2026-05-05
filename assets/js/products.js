@@ -1,3 +1,15 @@
+        if (index !== -1) {
+            productsData[index] = { ...productsData[index], ...product };
+        }
+        showToast('محصول با موفقیت ویرایش شد', 'success');
+    } else {
+        productsData.push(product);
+        showToast('محصول با موفقیت اضافه شد', 'success');
+    }
+    
+    // آپلود تصویر (نمونه)
+    const imageFile = document.getElementById('productImage').files[0];
+    if (imageFile) {
         // در حالت واقعی: upload to server
         const reader = new FileReader();
         reader.onload = (e) => {
