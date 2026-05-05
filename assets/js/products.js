@@ -1,3 +1,15 @@
+    const file = document.getElementById('productImage').files[0];
+    const preview = document.getElementById('imagePreview');
+    if (file && preview) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            preview.innerHTML = `<img src="${e.target.result}" width="100" class="img-thumbnail">`;
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+function resetForm() {
     currentProductId = null;
     document.getElementById('modalTitle').innerText = 'افزودن کالا';
     document.getElementById('productForm').reset();
