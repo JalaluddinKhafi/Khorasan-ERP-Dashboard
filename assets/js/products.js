@@ -1,3 +1,15 @@
+    });
+}
+
+function setupEventListeners() {
+    document.getElementById('saveProductBtn')?.addEventListener('click', saveProduct);
+    document.getElementById('confirmDeleteBtn')?.addEventListener('click', confirmDelete);
+    document.getElementById('searchInput')?.addEventListener('input', filterProducts);
+    document.getElementById('categoryFilter')?.addEventListener('change', filterProducts);
+    document.getElementById('productImage')?.addEventListener('change', previewImage);
+}
+
+function filterProducts() {
     const search = document.getElementById('searchInput')?.value.toLowerCase() || '';
     const category = document.getElementById('categoryFilter')?.value || '';
     
