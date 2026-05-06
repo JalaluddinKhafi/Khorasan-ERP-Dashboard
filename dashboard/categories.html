@@ -1,3 +1,15 @@
+                        <button class="btn btn-sm btn-danger delete-category-table" data-id="${cat.id}"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+            
+            if (categoriesTable) categoriesTable.destroy();
+            categoriesTable = $('#categoriesTable').DataTable({
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" }
+            });
+            
+            attachTableEvents();
+        }
         
         function attachTableEvents() {
             document.querySelectorAll('.edit-category-table').forEach(btn => {
