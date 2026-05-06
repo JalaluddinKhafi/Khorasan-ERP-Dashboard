@@ -1,3 +1,16 @@
+        
+        function renderCategoriesTable() {
+            const tbody = document.getElementById('categoriesTableBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = categoriesData.map(cat => `
+                <tr>
+                    <td>${cat.id}</td>
+                    <td>${cat.name}</td>
+                    <td>${cat.parentName || '---'}</td>
+                    <td>${cat.productCount}</td>
+                    <td>
+                        <button class="btn btn-sm btn-info edit-category-table" data-id="${cat.id}"><i class="fas fa-edit"></i></button>
                         <button class="btn btn-sm btn-danger delete-category-table" data-id="${cat.id}"><i class="fas fa-trash"></i></button>
                     </td>
                 </tr>
