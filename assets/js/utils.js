@@ -1,3 +1,14 @@
+    if (el) {
+        el.innerHTML = '<div class="text-center p-4"><i class="fas fa-spinner fa-spin fa-2x text-primary"></i><p class="mt-2">در حال بارگذاری...</p></div>';
+    }
+}
+
+// مخفی کردن لودینگ
+function hideLoading(elementId, content) {
+    const el = document.getElementById(elementId);
+    if (el && content !== undefined) {
+        el.innerHTML = content;
+    }
 }
 
 // کپی در کلیپ‌بورد
