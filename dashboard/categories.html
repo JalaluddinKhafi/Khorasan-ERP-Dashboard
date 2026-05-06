@@ -1,3 +1,15 @@
+            if (deleteCategoryId) {
+                categoriesData = categoriesData.filter(c => c.id !== deleteCategoryId);
+                renderCategoryTree();
+                renderCategoriesTable();
+                showToast('دسته‌بندی با موفقیت حذف شد', 'success');
+                bootstrap.Modal.getInstance(document.getElementById('deleteModal')).hide();
+                deleteCategoryId = null;
+            }
+        }
+        
+        function resetCategoryForm() {
+            document.getElementById('categoryId').value = '';
             document.getElementById('categoryModalTitle').innerText = 'افزودن دسته‌بندی';
             document.getElementById('categoryForm').reset();
         }
