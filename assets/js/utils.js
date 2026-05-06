@@ -1,3 +1,14 @@
+}
+
+// اعتبارسنجی فرم
+function validateForm(formId, rules) {
+    const form = document.getElementById(formId);
+    if (!form) return true;
+    
+    let isValid = true;
+    const inputs = form.querySelectorAll('input, select, textarea');
+    
+    inputs.forEach(function(input) {
         if (rules[input.name] && rules[input.name].required && !input.value) {
             showToast('فیلد ' + (input.placeholder || input.name) + ' الزامی است', 'error');
             isValid = false;
