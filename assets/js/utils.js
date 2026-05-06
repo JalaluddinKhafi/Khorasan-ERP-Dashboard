@@ -1,3 +1,14 @@
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+        <span>${message}</span>
+    `;
+    document.body.appendChild(toast);
+    
+    setTimeout(function() {
+        toast.remove();
+    }, 3000);
+}
+
+// فرمت اعداد به تومان
 function formatPrice(price) {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " تومان";
 }
