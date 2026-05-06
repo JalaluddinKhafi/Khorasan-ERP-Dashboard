@@ -1,3 +1,15 @@
+function formatPrice(price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " تومان";
+}
+
+// فرمت تاریخ فارسی
+function formatDate(date) {
+    return new Date(date).toLocaleDateString('fa-IR');
+}
+
+// دریافت تاریخ امروز
+function getTodayDate() {
+    return new Date().toLocaleDateString('fa-IR');
 }
 
 // اعتبارسنجی فرم
