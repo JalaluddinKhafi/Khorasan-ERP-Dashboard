@@ -1,3 +1,15 @@
+        
+        function attachTableEvents() {
+            document.querySelectorAll('.edit-category-table').forEach(btn => {
+                btn.addEventListener('click', () => editCategory(parseInt(btn.dataset.id)));
+            });
+            document.querySelectorAll('.delete-category-table').forEach(btn => {
+                btn.addEventListener('click', () => showDeleteModal(parseInt(btn.dataset.id)));
+            });
+        }
+        
+        function editCategory(id) {
+            const category = categoriesData.find(c => c.id === id);
             if (!category) return;
             
             document.getElementById('categoryModalTitle').innerText = 'ویرایش دسته‌بندی';
