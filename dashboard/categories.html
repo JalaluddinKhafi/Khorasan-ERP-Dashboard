@@ -1,3 +1,15 @@
+            `;
+            
+            if (children.length > 0) {
+                html += `<div class="tree-node-children">`;
+                children.forEach(child => {
+                    html += buildTreeHTML(child, level + 1);
+                });
+                html += `</div>`;
+            }
+            
+            return html;
+        }
         
         function renderCategoriesTable() {
             const tbody = document.getElementById('categoriesTableBody');
