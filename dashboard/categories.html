@@ -1,3 +1,16 @@
+            document.getElementById('categoryModalTitle').innerText = 'افزودن دسته‌بندی';
+            document.getElementById('categoryForm').reset();
+        }
+        
+        function addSubcategory(parentId, parentName) {
+            document.getElementById('categoryModalTitle').innerText = `افزودن زیرمجموعه برای ${parentName}`;
+            document.getElementById('categoryId').value = '';
+            document.getElementById('categoryName').value = '';
+            document.getElementById('parentCategory').value = parentId;
+            document.getElementById('categoryDesc').value = '';
+            document.getElementById('categoryStatus').value = 'active';
+            
+            new bootstrap.Modal(document.getElementById('categoryModal')).show();
         }
         
         document.getElementById('saveCategoryBtn')?.addEventListener('click', saveCategory);
