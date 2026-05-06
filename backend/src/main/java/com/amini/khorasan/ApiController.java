@@ -46,3 +46,32 @@ public class ApiController {
       token.getHeaderName()
     );
   }
+
+  @GetMapping("/api/me")
+  Map<String, Object> me(Principal p) {
+    return ledger.one(
+      "SELECT id,username,name,role FROM app_users WHERE username=?",
+      p.getName()
+    );
+  }
+
+  @GetMapping("/api/settings")
+  Map<String, Object> settings() {
+    return ledger.one("SELECT * FROM settings WHERE id=1");
+  }
+
+  @PutMapping("/api/settings")
+  @Transactional
+  Map<String, Object> settings(@RequestBody Map<String, Object> m) {
+    String header = image(m, "header_image"),
+      logo = image(m, "logo_image");
+    db.update(
+      "UPDATE settings SET company_name=?,phone=?,address=?,brands=?,terms=?,header_image=?,logo_image=? WHERE id=1",
+      required(m, "company_name", 160),
+      text(m, "phone", 100),
+      text(m, "address", 500),
+      text(m, "brands", 500),
+      text(m, "terms", 1000),
+      header,
+      logo
+    );
