@@ -1,3 +1,15 @@
+    <script>
+        let categoriesData = [];
+        let deleteCategoryId = null;
+        let categoriesTable = null;
+        
+        function loadCategories() {
+            categoriesData = [
+                { id: 1, name: "الکترونیک", parentId: null, parentName: "ریشه", productCount: 48, status: "active", description: "محصولات الکترونیکی" },
+                { id: 2, name: "لپ تاپ", parentId: 1, parentName: "الکترونیک", productCount: 15, status: "active", description: "" },
+                { id: 3, name: "گوشی موبایل", parentId: 1, parentName: "الکترونیک", productCount: 12, status: "active", description: "" },
+                { id: 4, name: "هدفون", parentId: 1, parentName: "الکترونیک", productCount: 8, status: "active", description: "" },
+                { id: 5, name: "پوشاک", parentId: null, parentName: "ریشه", productCount: 32, status: "active", description: "" },
                 { id: 6, name: "زنانه", parentId: 5, parentName: "پوشاک", productCount: 18, status: "active", description: "" },
                 { id: 7, name: "مردانه", parentId: 5, parentName: "پوشاک", productCount: 14, status: "inactive", description: "" }
             ];
