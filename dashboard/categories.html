@@ -1,3 +1,15 @@
+        }
+        
+        document.getElementById('saveCategoryBtn')?.addEventListener('click', saveCategory);
+        document.getElementById('confirmDeleteCategoryBtn')?.addEventListener('click', confirmDelete);
+        
+        function attachTreeEvents() {
+            setTimeout(() => {
+                document.querySelectorAll('.edit-category').forEach(btn => {
+                    btn.addEventListener('click', () => editCategory(parseInt(btn.dataset.id)));
+                });
+                document.querySelectorAll('.delete-category').forEach(btn => {
+                    btn.addEventListener('click', () => showDeleteModal(parseInt(btn.dataset.id)));
                 });
                 document.querySelectorAll('.add-subcategory').forEach(btn => {
                     btn.addEventListener('click', () => addSubcategory(parseInt(btn.dataset.id), btn.dataset.name));
