@@ -1,3 +1,15 @@
+            if (!category) return;
+            
+            document.getElementById('categoryModalTitle').innerText = 'ویرایش دسته‌بندی';
+            document.getElementById('categoryId').value = category.id;
+            document.getElementById('categoryName').value = category.name;
+            document.getElementById('parentCategory').value = category.parentId || '';
+            document.getElementById('categoryDesc').value = category.description || '';
+            document.getElementById('categoryStatus').value = category.status;
+            
+            new bootstrap.Modal(document.getElementById('categoryModal')).show();
+        }
+        
         function showDeleteModal(id) {
             deleteCategoryId = id;
             new bootstrap.Modal(document.getElementById('deleteModal')).show();
