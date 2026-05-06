@@ -1,5 +1,17 @@
 }
 
+// کپی در کلیپ‌بورد
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text);
+    showToast('متن با موفقیت کپی شد', 'success');
+}
+
+// دریافت پارامتر از URL
+function getUrlParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
 // تبدیل عدد به حروف (برای مبالغ)
 function numberToWords(num) {
     if (num === 0) return "صفر";
