@@ -1,3 +1,15 @@
+                parentName: parentId ? categoriesData.find(c => c.id === parseInt(parentId))?.name : 'ریشه',
+                description: document.getElementById('categoryDesc').value,
+                status: document.getElementById('categoryStatus').value,
+                productCount: 0
+            };
+            
+            if (id) {
+                const index = categoriesData.findIndex(c => c.id === parseInt(id));
+                if (index !== -1) {
+                    categoriesData[index] = { ...categoriesData[index], ...newCategory };
+                }
+                showToast('دسته‌بندی با موفقیت ویرایش شد', 'success');
             } else {
                 categoriesData.push(newCategory);
                 showToast('دسته‌بندی با موفقیت اضافه شد', 'success');
