@@ -1,3 +1,15 @@
+            } else {
+                categoriesData.push(newCategory);
+                showToast('دسته‌بندی با موفقیت اضافه شد', 'success');
+            }
+            
+            renderCategoryTree();
+            renderCategoriesTable();
+            bootstrap.Modal.getInstance(document.getElementById('categoryModal')).hide();
+            resetCategoryForm();
+        }
+        
+        function confirmDelete() {
             if (deleteCategoryId) {
                 categoriesData = categoriesData.filter(c => c.id !== deleteCategoryId);
                 renderCategoryTree();
