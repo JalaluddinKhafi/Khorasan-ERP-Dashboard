@@ -1,3 +1,15 @@
+        if (rules[input.name] && rules[input.name].required && !input.value) {
+            showToast('فیلد ' + (input.placeholder || input.name) + ' الزامی است', 'error');
+            isValid = false;
+        }
+    });
+    
+    return isValid;
+}
+
+// نمایش لودینگ
+function showLoading(elementId) {
+    const el = document.getElementById(elementId);
     if (el) {
         el.innerHTML = '<div class="text-center p-4"><i class="fas fa-spinner fa-spin fa-2x text-primary"></i><p class="mt-2">در حال بارگذاری...</p></div>';
     }
