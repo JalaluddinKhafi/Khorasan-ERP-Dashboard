@@ -1,3 +1,15 @@
+                });
+                document.querySelectorAll('.add-subcategory').forEach(btn => {
+                    btn.addEventListener('click', () => addSubcategory(parseInt(btn.dataset.id), btn.dataset.name));
+                });
+            }, 100);
+        }
+        
+        function renderAndAttach() {
+            renderCategoryTree();
+            attachTreeEvents();
+        }
+        
         loadSidebarAndNavbar('categories');
         loadCategories();
         
