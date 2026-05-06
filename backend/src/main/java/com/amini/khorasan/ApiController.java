@@ -25,3 +25,24 @@ public class ApiController {
   ApiController(
     JdbcTemplate db,
     LedgerService ledger,
+    PasswordEncoder encoder
+  ) {
+    this.db = db;
+    this.ledger = ledger;
+    this.encoder = encoder;
+  }
+
+  @GetMapping("/")
+  RedirectView home() {
+    return new RedirectView("/public-site/index.html");
+  }
+
+  @GetMapping("/api/csrf")
+  Map<String, String> csrf(CsrfToken token) {
+    return Map.of(
+      "token",
+      token.getToken(),
+      "headerName",
+      token.getHeaderName()
+    );
+  }
