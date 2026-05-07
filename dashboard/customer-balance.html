@@ -1,3 +1,15 @@
+                ['نام مشتری:', cust.name],
+                ['کد مشتری:', cust.code],
+                ['شماره تماس:', cust.phone],
+                ['آدرس:', cust.address],
+                ['تاریخ چاپ:', new Date().toLocaleDateString('fa-IR')],
+                ['']
+            ];
+            
+            var totalDebit = 0, totalCredit = 0;
+            for (var i = 0; i < trans.length; i++) {
+                totalDebit += trans[i].debit;
+                totalCredit += trans[i].credit;
             }
             
             data.push(['خلاصه ارقام']);
