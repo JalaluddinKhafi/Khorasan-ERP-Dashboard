@@ -1,3 +1,15 @@
+            for (var i = 0; i < trans.length; i++) {
+                totalDebit += trans[i].debit;
+                totalCredit += trans[i].credit;
+            }
+            var balance = totalDebit - totalCredit;
+
+            document.getElementById('totalDebit').innerHTML = totalDebit.toLocaleString() + ' USD';
+            document.getElementById('totalCredit').innerHTML = totalCredit.toLocaleString() + ' USD';
+            document.getElementById('currentBalance').innerHTML = balance.toLocaleString() + ' USD';
+
+            var balanceBox = document.getElementById('balanceBox');
+            if (balance > 0) balanceBox.className = 'alert alert-danger text-center';
             else if (balance < 0) balanceBox.className = 'alert alert-success text-center';
             else balanceBox.className = 'alert alert-secondary text-center';
 
