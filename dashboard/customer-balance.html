@@ -1,3 +1,16 @@
+
+            document.getElementById('balanceContainer').style.display = 'block';
+        }
+
+        // ========== سه تابع ساده برای چاپ، PDF و Excel ==========
+        
+        function printReport() {
+            window.print();
+        }
+
+        function exportToPDF() {
+            var element = document.getElementById('reportContent');
+            html2pdf().from(element).save('customer_balance_' + new Date().toLocaleDateString('fa-IR') + '.pdf');
         }
 
         function exportToExcel() {
