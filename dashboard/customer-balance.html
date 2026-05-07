@@ -1,3 +1,16 @@
+                { row: 1, date: "1405/01/01", ref: "بیلانس افتتاحیه", type: "debit", desc: "بیلانس افتتاحیه", debit: 5000000, credit: 0, balance: 5000000 },
+                { row: 2, date: "1405/01/20", ref: "فاکتور 50", type: "debit", desc: "فاکتور فروش", debit: 3500000, credit: 0, balance: 8500000 },
+                { row: 3, date: "1405/02/05", ref: "رسید 30", type: "credit", desc: "دریافت وجه", debit: 0, credit: 5000000, balance: 3500000 }
+            ]
+        };
+
+        var currentTable = null;
+
+        function showBalance() {
+            var customerId = document.getElementById('customerSelect').value;
+            if (!customerId) {
+                alert('لطفاً مشتری را انتخاب کنید');
+                return;
             }
 
             var cust = customers[customerId];
