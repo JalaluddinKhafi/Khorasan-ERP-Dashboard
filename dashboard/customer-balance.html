@@ -1,3 +1,16 @@
+            else if (balance < 0) balanceBox.className = 'alert alert-success text-center';
+            else balanceBox.className = 'alert alert-secondary text-center';
+
+            var tbody = document.getElementById('transBody');
+            tbody.innerHTML = '';
+            var sumDebit = 0, sumCredit = 0;
+
+            for (var j = 0; j < trans.length; j++) {
+                var t = trans[j];
+                sumDebit += t.debit;
+                sumCredit += t.credit;
+                var typeText = t.type === 'debit' ? 'بدهکار' : 'بستانکار';
+                var typeClass = t.type === 'debit' ? 'bg-danger' : 'bg-success';
                 tbody.innerHTML += `
                     <tr>
                         <td>${t.row}</td>
