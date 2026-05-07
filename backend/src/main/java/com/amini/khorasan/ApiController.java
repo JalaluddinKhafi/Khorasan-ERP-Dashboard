@@ -75,3 +75,26 @@ public class ApiController {
       header,
       logo
     );
+    ledger.audit("SETTINGS", 1);
+    return settings();
+  }
+
+  static String image(Map<String, Object> m, String key) {
+    String s = text(m, key, 4000000);
+    if (
+      !s.isBlank() &&
+      !s.matches("^data:image/(png|jpeg|webp);base64,[A-Za-z0-9+/=\\r\\n]+$")
+    ) throw bad("تصویر باید PNG، JPEG یا WebP باشد");
+    return s;
+  }
+
+  static final Set<String> ENTITIES = Set.of(
+    "products",
+    "categories",
+    "customers",
+    "suppliers",
+    "employees",
+    "users",
+    "currencies",
+    "content"
+  );
