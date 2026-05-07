@@ -1,3 +1,15 @@
+        }
+
+        function exportToExcel() {
+            var customerId = document.getElementById('customerSelect').value;
+            if (!customerId) { alert('لطفاً ابتدا یک مشتری انتخاب کنید'); return; }
+            
+            var cust = customers[customerId];
+            var trans = transactions[customerId] || [];
+            
+            var data = [
+                ['شرکت مدیریت جامع - صورت حساب مشتری'],
+                [''],
                 ['نام مشتری:', cust.name],
                 ['کد مشتری:', cust.code],
                 ['شماره تماس:', cust.phone],
