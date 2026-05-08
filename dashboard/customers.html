@@ -1,3 +1,15 @@
+            }
+            
+            new bootstrap.Modal(document.getElementById('customerDetailsModal')).show();
+        }
+        
+        function saveCustomer() {
+            const id = document.getElementById('customerId').value;
+            
+            const customer = {
+                id: id ? parseInt(id) : Date.now(),
+                code: id ? customersData.find(c => c.id === parseInt(id))?.code : `C-${Date.now()}`,
+                name: document.getElementById('customerName').value,
                 type: document.getElementById('customerType').value,
                 phone: document.getElementById('customerPhone').value,
                 email: document.getElementById('customerEmail').value,
