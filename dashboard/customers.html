@@ -1,3 +1,15 @@
+                    customersData[index] = { ...customersData[index], ...customer };
+                }
+                showToast('مشتری با موفقیت ویرایش شد', 'success');
+            } else {
+                customersData.push(customer);
+                showToast('مشتری با موفقیت اضافه شد', 'success');
+            }
+            
+            renderCustomersTable();
+            bootstrap.Modal.getInstance(document.getElementById('customerModal')).hide();
+            resetCustomerForm();
+        }
         
         function resetCustomerForm() {
             document.getElementById('customerId').value = '';
