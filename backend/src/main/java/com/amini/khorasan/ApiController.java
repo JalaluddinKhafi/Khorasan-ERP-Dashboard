@@ -144,3 +144,27 @@ public class ApiController {
   ) {
     return save(entity, null, m);
   }
+
+  @PutMapping(
+    "/api/{entity:products|categories|customers|suppliers|employees|users|currencies|content}/{id}"
+  )
+  @Transactional
+  Map<String, Object> update(
+    @PathVariable String entity,
+    @PathVariable String id,
+    @RequestBody Map<String, Object> m
+  ) {
+    return save(entity, id, m);
+  }
+
+  Map<String, Object> save(
+    String entity,
+    String identifier,
+    Map<String, Object> m
+  ) {
+    String t = table(entity),
+      pk = entity.equals("currencies") ? "code" : "id";
+    Object key = identifier;
+    if (entity.equals("categories")) db.queryForList(
+      "SELECT id FROM categories ORDER BY id FOR UPDATE"
+    );
