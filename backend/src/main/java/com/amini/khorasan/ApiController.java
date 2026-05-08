@@ -123,3 +123,24 @@ public class ApiController {
       case "users" -> db.queryForList(
         "SELECT id,username,name,role,active FROM app_users ORDER BY id DESC"
       );
+      case "customers", "suppliers" -> db.queryForList(
+        "SELECT p.*,p.opening_balance+COALESCE((SELECT SUM(total_usd) FROM invoices WHERE party_id=p.id AND voided=FALSE),0)-COALESCE((SELECT SUM(amount_usd) FROM payments WHERE party_id=p.id),0) AS balance FROM parties p WHERE kind=? ORDER BY id DESC",
+        entity.equals("customers") ? "CUSTOMER" : "SUPPLIER"
+      );
+      case "currencies" -> db.queryForList(
+        "SELECT * FROM currencies ORDER BY code"
+      );
+      default -> db.queryForList("SELECT * FROM " + t + " ORDER BY id DESC");
+    };
+  }
+
+  @PostMapping(
+    "/api/{entity:products|categories|customers|suppliers|employees|users|currencies|content}"
+  )
+  @Transactional
+  Map<String, Object> create(
+    @PathVariable String entity,
+    @RequestBody Map<String, Object> m
+  ) {
+    return save(entity, null, m);
+  }
