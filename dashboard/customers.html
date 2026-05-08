@@ -1,3 +1,16 @@
+                </div>
+            `;
+            
+            const purchaseBody = document.getElementById('purchaseHistoryBody');
+            if (purchaseBody) {
+                purchaseBody.innerHTML = purchaseHistory.map(p => `
+                    <tr>
+                        <td>${p.date}</td>
+                        <td>${p.invoiceNo}</td>
+                        <td>${p.amount.toLocaleString()} تومان</td>
+                        <td><span class="badge ${p.status === 'پرداخت شده' ? 'bg-success' : 'bg-warning'}">${p.status}</span></td>
+                    </tr>
+                `).join('');
             }
             
             const paymentBody = document.getElementById('paymentHistoryBody');
