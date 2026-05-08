@@ -1,5 +1,17 @@
             }
             
+            const paymentBody = document.getElementById('paymentHistoryBody');
+            if (paymentBody) {
+                paymentBody.innerHTML = paymentHistory.map(p => `
+                    <tr>
+                        <td>${p.date}</td>
+                        <td>${p.amount.toLocaleString()} تومان</td>
+                        <td>${p.method}</td>
+                        <td>${p.tracking}</td>
+                    </tr>
+                `).join('');
+            }
+            
             new bootstrap.Modal(document.getElementById('customerDetailsModal')).show();
         }
         
