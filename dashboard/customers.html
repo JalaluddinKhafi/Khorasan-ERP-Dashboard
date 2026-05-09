@@ -1,3 +1,16 @@
+            setupFilters();
+        }
+        
+        function attachCustomerEvents() {
+            document.querySelectorAll('.edit-customer').forEach(btn => {
+                btn.addEventListener('click', () => editCustomer(parseInt(btn.dataset.id)));
+            });
+            document.querySelectorAll('.view-customer-details').forEach(btn => {
+                btn.addEventListener('click', () => viewCustomerDetails(parseInt(btn.dataset.id)));
+            });
+            document.querySelectorAll('.delete-customer').forEach(btn => {
+                btn.addEventListener('click', () => deleteCustomer(parseInt(btn.dataset.id)));
+            });
         }
         
         function setupFilters() {
