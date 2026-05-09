@@ -1,3 +1,16 @@
+        }
+        
+        function viewCustomerDetails(id) {
+            const customer = customersData.find(c => c.id === id);
+            if (!customer) return;
+            
+            // نمونه داده‌های تاریخچه خرید و پرداخت
+            const purchaseHistory = [
+                { date: "۱۴۰۲/۱۲/۰۵", invoiceNo: "S-1001", amount: 12500000, status: "پرداخت شده" },
+                { date: "۱۴۰۲/۱۱/۲۰", invoiceNo: "S-0988", amount: 8900000, status: "پرداخت شده" },
+                { date: "۱۴۰۲/۱۰/۱۵", invoiceNo: "S-0955", amount: 33600000, status: "در انتظار پرداخت" }
+            ];
+            
             const paymentHistory = [
                 { date: "۱۴۰۲/۱۲/۰۱", amount: 5000000, method: "کارت به کارت", tracking: "TRX123456" },
                 { date: "۱۴۰۲/۱۱/۲۵", amount: 10000000, method: "واریز بانکی", tracking: "BNK789012" }
