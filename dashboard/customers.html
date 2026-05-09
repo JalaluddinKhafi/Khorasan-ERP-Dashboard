@@ -1,3 +1,15 @@
+                            <button class="btn btn-sm btn-primary view-customer-details" data-id="${c.id}"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-sm btn-danger delete-customer" data-id="${c.id}"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `).join('');
+                attachCustomerEvents();
+            }
+        }
+        
+        function editCustomer(id) {
+            const customer = customersData.find(c => c.id === id);
+            if (!customer) return;
             
             currentCustomerId = id;
             document.getElementById('customerId').value = customer.id;
