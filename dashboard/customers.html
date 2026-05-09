@@ -1,5 +1,17 @@
         }
         
+        function setupFilters() {
+            const searchInput = document.getElementById('searchCustomer');
+            const typeFilter = document.getElementById('customerTypeFilter');
+            
+            if (searchInput) {
+                searchInput.addEventListener('keyup', () => filterCustomers());
+            }
+            if (typeFilter) {
+                typeFilter.addEventListener('change', () => filterCustomers());
+            }
+        }
+        
         function filterCustomers() {
             const searchTerm = document.getElementById('searchCustomer')?.value.toLowerCase() || '';
             const type = document.getElementById('customerTypeFilter')?.value || 'all';
