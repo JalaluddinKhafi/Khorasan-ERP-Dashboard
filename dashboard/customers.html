@@ -1,3 +1,16 @@
+                { id: 1, code: "C-1001", name: "آرمان پوراحمد", type: "حقیقی", phone: "۰۹۱۲۱۲۳۴۵۶۷", email: "arman@gmail.com", address: "تهران، خیابان انقلاب", nationalId: "۱۲۳۴۵۶۷۸۹۰", creditLimit: 50000000, debt: 12500000, totalPurchases: 3 },
+                { id: 2, code: "C-1002", name: "شرکت تدبیر", type: "حقوقی", phone: "۰۲۱-۸۸۷۷۶۶۵۵", email: "info@tadbir.com", address: "تهران، خیابان ولیعصر", nationalId: "۱۰۱۰۱۲۳۴۵۶۷", creditLimit: 200000000, debt: 33600000, totalPurchases: 8 },
+                { id: 3, code: "C-1003", name: "مهدی رضایی", type: "حقیقی", phone: "۰۹۳۵۵۴۴۳۳۲۲", email: "mahdi@yahoo.com", address: "اصفهان، خیابان سپاه", nationalId: "۲۳۴۵۶۷۸۹۰۱", creditLimit: 20000000, debt: 0, totalPurchases: 1 },
+                { id: 4, code: "C-1004", name: "فروشگاه دیجیتال", type: "حقوقی", phone: "۰۲۱-۵۵۴۴۳۳۲۱", email: "shop@digital.com", address: "مشهد، خیابان احمدآباد", nationalId: "۱۰۱۰۹۸۷۶۵۴۳", creditLimit: 150000000, debt: 45200000, totalPurchases: 12 }
+            ];
+            renderCustomersTable();
+        }
+        
+        function renderCustomersTable() {
+            const tbody = document.getElementById('customersTableBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = customersData.map(c => `
                 <tr>
                     <td>${c.code}</td>
                     <td>${c.name}</td>
