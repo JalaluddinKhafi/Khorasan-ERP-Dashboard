@@ -168,3 +168,26 @@ public class ApiController {
     if (entity.equals("categories")) db.queryForList(
       "SELECT id FROM categories ORDER BY id FOR UPDATE"
     );
+    if (identifier != null) ledger.one(
+      "SELECT " + pk + " FROM " + t + " WHERE " + pk + "=? FOR UPDATE",
+      identifier
+    );
+    var values = new LinkedHashMap<String, Object>();
+    switch (entity) {
+      case "categories" -> {
+        values.put("name", required(m, "name", 160));
+        Long parent =
+          m.get("parent_id") == null || m.get("parent_id").toString().isBlank()
+            ? null
+            : id(m, "parent_id");
+        Set<Long> visited = new HashSet<>();
+        if (identifier != null) visited.add(Long.parseLong(identifier));
+        Long cursor = parent;
+        while (cursor != null) {
+          if (!visited.add(cursor)) throw bad(
+            "دسته نمی‌تواند والد خودش یا یکی از والدهای بالاتر خود باشد"
+          );
+          var ancestor = ledger.one(
+            "SELECT parent_id FROM categories WHERE id=?",
+            cursor
+          );
