@@ -1,3 +1,15 @@
+            
+            currentCustomerId = id;
+            document.getElementById('customerId').value = customer.id;
+            document.getElementById('customerName').value = customer.name;
+            document.getElementById('customerType').value = customer.type;
+            document.getElementById('customerPhone').value = customer.phone;
+            document.getElementById('customerEmail').value = customer.email;
+            document.getElementById('customerAddress').value = customer.address || '';
+            document.getElementById('customerNationalId').value = customer.nationalId;
+            document.getElementById('customerCreditLimit').value = customer.creditLimit;
+            
+            new bootstrap.Modal(document.getElementById('customerModal')).show();
         }
         
         function viewCustomerDetails(id) {
