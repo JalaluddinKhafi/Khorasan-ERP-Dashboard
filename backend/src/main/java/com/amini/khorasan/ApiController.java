@@ -239,3 +239,22 @@ public class ApiController {
             ? null
             : id(m, "category_id")
         );
+        if (values.get("category_id") != null) {
+          var category = ledger.one(
+            "SELECT active FROM categories WHERE id=?",
+            values.get("category_id")
+          );
+          boolean unchanged =
+            identifier != null &&
+            Objects.equals(
+              ledger
+                .one("SELECT category_id FROM products WHERE id=?", identifier)
+                .get("category_id"),
+              values.get("category_id")
+            );
+          if (
+            !Boolean.TRUE.equals(category.get("active")) && !unchanged
+          ) throw bad("دسته‌بندی انتخاب‌شده غیرفعال است");
+        }
+        values.put("image", image(m, "image"));
+        values.put("barcode", text(m, "barcode", 100));
