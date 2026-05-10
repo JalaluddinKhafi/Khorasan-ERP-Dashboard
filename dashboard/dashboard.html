@@ -1,3 +1,15 @@
+            
+            if (purchasesBody) {
+                purchasesBody.innerHTML = latestPurchases.map(p => `
+                    <tr>
+                        <td>${p.id}</td>
+                        <td>${p.supplier}</td>
+                        <td>${p.amount.toLocaleString()} تومان</td>
+                        <td>${p.date}</td>
+                        <td><span class="badge ${p.status === 'پرداخت شده' ? 'bg-success' : (p.status === 'پرداخت جزئی' ? 'bg-warning' : 'bg-danger')}">${p.status}</span></td>
+                    </tr>
+                `).join('');
+            }
         }
 
         // رندر هشدار موجودی کم
