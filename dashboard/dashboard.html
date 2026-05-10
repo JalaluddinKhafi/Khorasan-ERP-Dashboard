@@ -1,3 +1,15 @@
+                            <small class="text-muted">${a.time}</small>
+                        </div>
+                        <p class="mb-0 small">${a.details}</p>
+                        <small class="text-muted">کاربر: ${a.user}</small>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // رندر جداول آخرین فاکتورها
+        function renderLatestTables() {
+            const salesBody = document.querySelector('#latestSalesTable tbody');
             const purchasesBody = document.querySelector('#latestPurchasesTable tbody');
             
             if (salesBody) {
