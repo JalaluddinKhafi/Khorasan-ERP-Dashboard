@@ -1,3 +1,15 @@
+
+        // رندر فعالیت‌های اخیر
+        function renderRecentActivities() {
+            const container = document.getElementById('activityTimeline');
+            container.innerHTML = recentActivities.map(a => `
+                <div class="timeline-item">
+                    <div class="timeline-icon ${a.color} text-white">
+                        <i class="fas ${a.icon}"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="d-flex justify-content-between">
+                            <strong>${a.action}</strong>
                             <small class="text-muted">${a.time}</small>
                         </div>
                         <p class="mb-0 small">${a.details}</p>
