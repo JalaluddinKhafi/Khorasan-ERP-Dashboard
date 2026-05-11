@@ -280,3 +280,25 @@ public class ApiController {
           "نام کاربری حداقل سه حرف لاتین باشد"
         );
         values.put("username", username);
+        values.put("name", required(m, "name", 160));
+        var role = required(m, "role", 20);
+        if (!Set.of("ADMIN", "EMPLOYEE").contains(role)) throw bad(
+          "نقش نامعتبر است"
+        );
+        values.put("role", role);
+        values.put("active", !Boolean.FALSE.equals(m.get("active")));
+        if (identifier != null) {
+          var old = ledger.one(
+            "SELECT * FROM app_users WHERE id=?",
+            identifier
+          );
+          if (
+            old.get("username").equals(ledger.actor()) &&
+            ((!role.equals("ADMIN") && old.get("role").equals("ADMIN")) ||
+              Boolean.FALSE.equals(values.get("active")))
+          ) throw bad("نقش و وضعیت حساب جاری را تغییر داده نمی‌توانید");
+        }
+        String pass = text(m, "password", 72);
+        if (identifier == null || !pass.isBlank()) {
+          if (pass.length() < 12) throw bad("رمز عبور حداقل ۱۲ حرف باشد");
+          values.put("password", encoder.encode(pass));
