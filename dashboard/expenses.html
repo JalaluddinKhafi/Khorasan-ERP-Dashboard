@@ -1,3 +1,15 @@
+                    expensesData[index] = { ...expensesData[index], ...expense };
+                }
+                showToast('مصرف با موفقیت ویرایش شد', 'success');
+            } else {
+                expensesData.push(expense);
+                showToast('مصرف با موفقیت ثبت شد', 'success');
+            }
+            
+            renderExpensesTable();
+            renderStats();
+            renderCharts();
+            renderCategoryBreakdown();
             
             bootstrap.Modal.getInstance(document.getElementById('expenseModal')).hide();
             document.getElementById('expenseForm').reset();
