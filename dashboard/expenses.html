@@ -1,3 +1,15 @@
+                        <td>
+                            <button class="btn btn-sm btn-info edit-expense" data-id="${e.id}"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-danger delete-expense" data-id="${e.id}"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `).join('');
+                attachExpenseEvents();
+            }
+        }
+        
+        function renderStats() {
+            const currentMonth = "۱۴۰۲/۱۲";
             const currentMonthExpenses = expensesData.filter(e => e.date.startsWith("۱۴۰۲/۱۲"));
             const lastMonthExpenses = expensesData.filter(e => e.date.startsWith("۱۴۰۲/۱۱"));
             
