@@ -1,3 +1,15 @@
+                legend: { position: 'bottom' },
+                title: { text: 'توزیع مصارف بر اساس دسته' }
+            });
+            expenseChart.render();
+        }
+        
+        function renderCategoryBreakdown() {
+            const categories = {};
+            expensesData.forEach(e => {
+                if (!categories[e.category]) categories[e.category] = 0;
+                categories[e.category] += e.amount;
+            });
             
             const container = document.getElementById('categoryBreakdown');
             if (container) {
