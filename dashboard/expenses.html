@@ -1,3 +1,15 @@
+            }
+        }
+        
+        function getCategoryColor(category) {
+            const colors = { 'کرایه': '#f59e0b', 'معاش': '#ef4444', 'برق': '#10b981', 'حمل و نقل': '#8b5cf6', 'سایر': '#06b6d4' };
+            return colors[category] || '#6b7280';
+        }
+        
+        function saveExpense() {
+            const id = document.getElementById('expenseId').value;
+            
+            const expense = {
                 id: id ? parseInt(id) : Date.now(),
                 date: document.getElementById('expenseDate').value ? 
                     new Date(document.getElementById('expenseDate').value).toLocaleDateString('fa-IR') : "۱۴۰۲/۱۲/۰۵",
