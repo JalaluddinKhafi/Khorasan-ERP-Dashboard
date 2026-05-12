@@ -1,3 +1,15 @@
+            new bootstrap.Modal(document.getElementById('deleteModal')).show();
+        }
+        
+        function confirmDelete() {
+            if (deleteExpenseId) {
+                expensesData = expensesData.filter(e => e.id !== deleteExpenseId);
+                renderExpensesTable();
+                renderStats();
+                renderCharts();
+                renderCategoryBreakdown();
+                showToast('مصرف با موفقیت حذف شد', 'success');
+                bootstrap.Modal.getInstance(document.getElementById('deleteModal')).hide();
                 deleteExpenseId = null;
             }
         }
