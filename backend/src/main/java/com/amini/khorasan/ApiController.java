@@ -302,3 +302,26 @@ public class ApiController {
         if (identifier == null || !pass.isBlank()) {
           if (pass.length() < 12) throw bad("رمز عبور حداقل ۱۲ حرف باشد");
           values.put("password", encoder.encode(pass));
+        }
+      }
+      case "currencies" -> {
+        String code = required(m, "code", 3).toUpperCase(Locale.ROOT);
+        if (!code.matches("[A-Z]{3}")) throw bad("کد ارز سه حرف لاتین باشد");
+        if (identifier != null && !identifier.equals(code)) throw bad(
+          "کد ارز قابل تغییر نیست"
+        );
+        values.put("code", code);
+        values.put("name", required(m, "name", 100));
+        BigDecimal r;
+        try {
+          r = new BigDecimal(Objects.toString(m.get("rate")));
+        } catch (Exception e) {
+          throw bad("نرخ نامعتبر است");
+        }
+        if (
+          r.signum() <= 0 ||
+          r.scale() > 8 ||
+          r.precision() > 20 ||
+          (code.equals("USD") && r.compareTo(BigDecimal.ONE) != 0)
+        ) throw bad("نرخ دالر همیشه یک است؛ نرخ فرعی باید مثبت باشد");
+        values.put("rate", r);
