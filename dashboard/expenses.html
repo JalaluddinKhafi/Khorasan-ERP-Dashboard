@@ -1,0 +1,12 @@
+                deleteExpenseId = null;
+            }
+        }
+        
+        document.getElementById('saveExpenseBtn')?.addEventListener('click', saveExpense);
+        document.getElementById('confirmDeleteBtn')?.addEventListener('click', confirmDelete);
+        
+        loadSidebarAndNavbar('expenses');
+        loadExpenses();
+    </script>
+</body>
+</html>
