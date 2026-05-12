@@ -1,3 +1,16 @@
+                id: id ? parseInt(id) : Date.now(),
+                date: document.getElementById('expenseDate').value ? 
+                    new Date(document.getElementById('expenseDate').value).toLocaleDateString('fa-IR') : "۱۴۰۲/۱۲/۰۵",
+                category: document.getElementById('expenseCategory').value,
+                desc: document.getElementById('expenseDesc').value,
+                amount: parseInt(document.getElementById('expenseAmount').value),
+                method: document.getElementById('expenseMethod').value,
+                docNo: document.getElementById('expenseDocNo').value
+            };
+            
+            if (id) {
+                const index = expensesData.findIndex(e => e.id === parseInt(id));
+                if (index !== -1) {
                     expensesData[index] = { ...expensesData[index], ...expense };
                 }
                 showToast('مصرف با موفقیت ویرایش شد', 'success');
