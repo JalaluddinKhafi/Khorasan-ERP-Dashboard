@@ -1,3 +1,15 @@
+            renderCharts();
+            renderCategoryBreakdown();
+        }
+        
+        function renderExpensesTable() {
+            const tbody = document.getElementById('expensesTableBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = expensesData.map(e => `
+                <tr>
+                    <td>${e.date}</td>
+                    <td><span class="badge bg-secondary">${e.category}</span></td>
                     <td>${e.desc}</td>
                     <td class="text-danger fw-bold">${e.amount.toLocaleString()} تومان</td>
                     <td>${e.method}</td>
