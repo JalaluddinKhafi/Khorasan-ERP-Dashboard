@@ -1,3 +1,15 @@
+            document.querySelectorAll('.delete-expense').forEach(btn => {
+                btn.addEventListener('click', () => showDeleteModal(parseInt(btn.dataset.id)));
+            });
+        }
+        
+        function setupFilters() {
+            const searchInput = document.getElementById('searchExpense');
+            const categoryFilter = document.getElementById('categoryFilter');
+            
+            if (searchInput) {
+                searchInput.addEventListener('keyup', filterExpenses);
+            }
             if (categoryFilter) {
                 categoryFilter.addEventListener('change', filterExpenses);
             }
