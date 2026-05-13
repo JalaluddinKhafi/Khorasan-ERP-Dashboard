@@ -346,3 +346,24 @@ public class ApiController {
         values.put("published", Boolean.TRUE.equals(m.get("published")));
       }
     }
+    if (identifier == null) {
+      String cols = String.join(",", values.keySet());
+      String marks = String.join(",", Collections.nCopies(values.size(), "?"));
+      db.update(
+        "INSERT INTO " + t + "(" + cols + ") VALUES(" + marks + ")",
+        values.values().toArray()
+      );
+      if (!entity.equals("currencies")) key = ledger.inserted();
+      if (
+        entity.equals("products") &&
+        ((BigDecimal) values.get("stock")).signum() > 0
+      ) db.update(
+        "INSERT INTO stock_movements(product_id,movement_date,quantity,notes) VALUES(?,?,?,?)",
+        key,
+        LocalDate.now(ZoneId.of("Asia/Kabul")),
+        values.get("stock"),
+        "موجودی افتتاحیه"
+      );
+    } else {
+      var args = new ArrayList<>(values.values());
+      args.add(identifier);
