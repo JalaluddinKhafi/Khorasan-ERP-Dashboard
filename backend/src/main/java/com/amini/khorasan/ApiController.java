@@ -367,3 +367,27 @@ public class ApiController {
     } else {
       var args = new ArrayList<>(values.values());
       args.add(identifier);
+      db.update(
+        "UPDATE " +
+          t +
+          " SET " +
+          String.join(
+            ",",
+            values
+              .keySet()
+              .stream()
+              .map(k -> k + "=?")
+              .toList()
+          ) +
+          " WHERE " +
+          pk +
+          "=?",
+        args.toArray()
+      );
+    }
+    ledger.audit(
+      (identifier == null ? "CREATE_" : "UPDATE_") + entity,
+      entity.equals("currencies") ? 0 : Long.parseLong(key.toString())
+    );
+    var result = ledger.one("SELECT * FROM " + t + " WHERE " + pk + "=?", key);
+    result.remove("password");
