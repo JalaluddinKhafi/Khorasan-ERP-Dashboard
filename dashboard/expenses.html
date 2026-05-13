@@ -1,3 +1,15 @@
+                    <td>${e.desc}</td>
+                    <td class="text-danger fw-bold">${e.amount.toLocaleString()} تومان</td>
+                    <td>${e.method}</td>
+                    <td>
+                        <button class="btn btn-sm btn-info edit-expense" data-id="${e.id}"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-danger delete-expense" data-id="${e.id}"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+            
+            if (expensesTable) expensesTable.destroy();
+            expensesTable = $('#expensesTable').DataTable({
                 language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
                 pageLength: 10,
                 searching: false
