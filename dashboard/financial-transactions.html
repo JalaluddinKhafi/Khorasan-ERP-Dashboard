@@ -1,3 +1,15 @@
+            const typeFilter = document.getElementById('typeFilter');
+            
+            if (searchInput) {
+                searchInput.addEventListener('keyup', filterTransactions);
+            }
+            if (typeFilter) {
+                typeFilter.addEventListener('change', filterTransactions);
+            }
+        }
+        
+        function filterTransactions() {
+            const searchTerm = document.getElementById('searchTransaction')?.value.toLowerCase() || '';
             const type = document.getElementById('typeFilter')?.value || 'all';
             
             const filtered = transactionsData.filter(t => {
