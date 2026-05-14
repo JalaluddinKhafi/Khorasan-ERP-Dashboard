@@ -1,3 +1,15 @@
+                { id: 5, date: "۱۴۰۲/۱۲/۰۳", type: "income", title: "فروش کالا - فاکتور S-003", amount: 8900000, category: "فروش", status: "تایید شده" },
+                { id: 6, date: "۱۴۰۲/۱۲/۰۳", type: "outcome", title: "اجاره دفتر", amount: 25000000, category: "مصارف", status: "تایید شده" }
+            ];
+            
+            renderTransactionsTable();
+            calculateFinancialStats();
+            renderCashflowChart();
+            renderProfitLossSummary();
+        }
+        
+        function renderTransactionsTable() {
+            const tbody = document.getElementById('transactionsTableBody');
             if (!tbody) return;
             
             tbody.innerHTML = transactionsData.map(t => `
