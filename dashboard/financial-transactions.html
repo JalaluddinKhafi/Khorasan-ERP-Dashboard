@@ -1,3 +1,16 @@
+                tbody.innerHTML = filtered.map(t => `
+                    <tr>
+                        <td>${t.date}</td>
+                        <td><span class="badge ${t.type === 'income' ? 'bg-success' : 'bg-danger'}">${t.type === 'income' ? 'ورودی' : 'خروجی'}</span></td>
+                        <td>${t.title}</td>
+                        <td class="${t.type === 'income' ? 'text-success' : 'text-danger'} fw-bold">${t.amount.toLocaleString()} تومان</td>
+                        <td>${t.category}</td>
+                        <td><span class="badge bg-success">${t.status}</span></td>
+                    </tr>
+                `).join('');
+            }
+        }
+        
         function calculateFinancialStats() {
             const totalIncome = transactionsData.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
             const totalOutcome = transactionsData.filter(t => t.type === 'outcome').reduce((sum, t) => sum + t.amount, 0);
