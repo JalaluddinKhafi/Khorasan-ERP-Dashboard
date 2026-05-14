@@ -1,3 +1,16 @@
+                xaxis: { categories: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'] },
+                colors: ['#10b981', '#ef4444'],
+                title: { text: 'جریان نقدی ماهانه (میلیون تومان)' }
+            }).render();
+        }
+        
+        function renderProfitLossSummary() {
+            const salesTotal = transactionsData.filter(t => t.category === 'فروش').reduce((sum, t) => sum + t.amount, 0);
+            const purchaseTotal = transactionsData.filter(t => t.category === 'خرید').reduce((sum, t) => sum + t.amount, 0);
+            const expenseTotal = transactionsData.filter(t => t.category === 'مصارف').reduce((sum, t) => sum + t.amount, 0);
+            const grossProfit = salesTotal - purchaseTotal;
+            const netProfit = grossProfit - expenseTotal;
+            
             const container = document.getElementById('profitLossSummary');
             if (container) {
                 container.innerHTML = `
