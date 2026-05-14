@@ -1,3 +1,15 @@
+                        <div class="d-flex justify-content-between mt-2">
+                            <span>سود ناخالص:</span>
+                            <span class="text-primary fw-bold">${grossProfit.toLocaleString()} تومان</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mt-2">
+                            <span>مصارف:</span>
+                            <span class="text-danger">${expenseTotal.toLocaleString()} تومان</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mt-2">
+                            <strong>سود خالص:</strong>
                             <strong class="${netProfit >= 0 ? 'text-success' : 'text-danger'}">${netProfit.toLocaleString()} تومان</strong>
                         </div>
                     </div>
