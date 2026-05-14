@@ -1,3 +1,15 @@
+            const container = document.getElementById('profitLossSummary');
+            if (container) {
+                container.innerHTML = `
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span>کل فروش:</span>
+                            <span class="text-success fw-bold">${salesTotal.toLocaleString()} تومان</span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <span>کل خرید:</span>
+                            <span class="text-danger">${purchaseTotal.toLocaleString()} تومان</span>
+                        </div>
                         <div class="d-flex justify-content-between mt-2">
                             <span>سود ناخالص:</span>
                             <span class="text-primary fw-bold">${grossProfit.toLocaleString()} تومان</span>
