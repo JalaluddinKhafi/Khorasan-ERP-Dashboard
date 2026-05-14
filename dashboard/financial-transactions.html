@@ -1,3 +1,15 @@
+        }
+        
+        function renderCashflowChart() {
+            const monthlyIncome = [185, 202, 230, 245, 268, 290, 310, 335, 360, 385, 410, 445];
+            const monthlyOutcome = [95, 112, 130, 125, 148, 160, 155, 170, 185, 190, 210, 225];
+            
+            new ApexCharts(document.querySelector("#cashflowChart"), {
+                series: [
+                    { name: 'ورودی', data: monthlyIncome },
+                    { name: 'خروجی', data: monthlyOutcome }
+                ],
+                chart: { type: 'bar', height: 300, stacked: false },
                 xaxis: { categories: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'] },
                 colors: ['#10b981', '#ef4444'],
                 title: { text: 'جریان نقدی ماهانه (میلیون تومان)' }
