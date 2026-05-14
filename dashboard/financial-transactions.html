@@ -1,3 +1,15 @@
+            const type = document.getElementById('typeFilter')?.value || 'all';
+            
+            const filtered = transactionsData.filter(t => {
+                const matchSearch = t.title.toLowerCase().includes(searchTerm);
+                const matchType = type === 'all' || 
+                    (type === 'income' && t.type === 'income') || 
+                    (type === 'outcome' && t.type === 'outcome');
+                return matchSearch && matchType;
+            });
+            
+            const tbody = document.getElementById('transactionsTableBody');
+            if (tbody) {
                 tbody.innerHTML = filtered.map(t => `
                     <tr>
                         <td>${t.date}</td>
