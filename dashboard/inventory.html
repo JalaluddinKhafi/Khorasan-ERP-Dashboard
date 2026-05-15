@@ -1,3 +1,15 @@
+        function renderInventoryTable() {
+            const tbody = document.getElementById('inventoryTableBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = inventoryData.map(p => {
+                let status = '';
+                let statusClass = '';
+                if (p.stock === 0) {
+                    status = 'ناموجود';
+                    statusClass = 'badge bg-danger';
+                } else if (p.stock <= p.minStock) {
+                    status = 'در آستانه اتمام';
                     statusClass = 'badge bg-warning text-dark';
                 } else {
                     status = 'موجود';
