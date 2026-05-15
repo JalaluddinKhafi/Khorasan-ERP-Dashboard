@@ -466,3 +466,30 @@ public class ApiController {
   Map<String, Object> payroll(@RequestBody Map<String, Object> m) {
     return ledger.expense(m, true);
   }
+
+  @GetMapping("/api/statement/{id}")
+  Map<String, Object> statement(
+    @PathVariable long id,
+    @RequestParam(defaultValue = "2000-01-01") LocalDate from,
+    @RequestParam(defaultValue = "2100-01-01") LocalDate to
+  ) {
+    return ledger.statement(id, from, to);
+  }
+
+  @GetMapping("/api/inventory/movements")
+  List<Map<String, Object>> movements() {
+    return db.queryForList(
+      "SELECT s.*,p.name FROM stock_movements s JOIN products p ON p.id=s.product_id ORDER BY s.id DESC"
+    );
+  }
+
+  @GetMapping("/api/messages")
+  List<Map<String, Object>> messages() {
+    return db.queryForList("SELECT * FROM messages ORDER BY id DESC");
+  }
+
+  @GetMapping("/api/audit")
+  List<Map<String, Object>> audit() {
+    return db.queryForList(
+      "SELECT * FROM audit_log ORDER BY id DESC LIMIT 500"
+    );
