@@ -1,3 +1,15 @@
+                </tr>
+            `).join('');
+            
+            $('#transactionTable').DataTable({
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                destroy: true
+            });
+        }
+        
+        function renderStats() {
+            const totalValue = inventoryData.reduce((sum, p) => sum + (p.stock * 15000000), 0);
+            const totalItems = inventoryData.reduce((sum, p) => sum + p.stock, 0);
             const lowStock = inventoryData.filter(p => p.stock <= p.minStock && p.stock > 0).length;
             const outOfStock = inventoryData.filter(p => p.stock === 0).length;
             
