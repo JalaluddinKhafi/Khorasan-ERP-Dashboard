@@ -1,3 +1,15 @@
+                        <td><span class="${statusClass}">${status}</span></td>
+                        <td>${p.lastIn}</td>
+                    </tr>
+                `;
+            }).join('');
+            
+            $('#inventoryTable').DataTable({
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                destroy: true
+            });
+        }
+        
         function renderTransactionTable() {
             const tbody = document.getElementById('transactionTableBody');
             if (!tbody) return;
