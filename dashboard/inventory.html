@@ -1,3 +1,15 @@
+            const lowStock = inventoryData.filter(p => p.stock <= p.minStock && p.stock > 0).length;
+            const outOfStock = inventoryData.filter(p => p.stock === 0).length;
+            
+            document.getElementById('totalStockValue').innerHTML = totalValue.toLocaleString() + ' تومان';
+            document.getElementById('totalItems').innerHTML = totalItems;
+            document.getElementById('lowStockCount').innerHTML = lowStock;
+            document.getElementById('outOfStockCount').innerHTML = outOfStock;
+        }
+        
+        function renderLowStockAlert() {
+            const lowStockItems = inventoryData.filter(p => p.stock <= p.minStock && p.stock > 0);
+            const container = document.getElementById('lowStockAlert');
             
             if (lowStockItems.length === 0) {
                 container.innerHTML = '<div class="text-center text-muted">هیچ محصول کم موجودی وجود ندارد</div>';
