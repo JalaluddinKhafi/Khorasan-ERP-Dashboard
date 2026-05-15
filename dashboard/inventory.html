@@ -1,3 +1,15 @@
+            
+            if (lowStockItems.length === 0) {
+                container.innerHTML = '<div class="text-center text-muted">هیچ محصول کم موجودی وجود ندارد</div>';
+                return;
+            }
+            
+            container.innerHTML = lowStockItems.map(p => `
+                <div class="warning-stock">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>${p.name}</strong> - کد: ${p.code}
+                            <div class="text-muted small">موجودی فعلی: ${p.stock} | حداقل مجاز: ${p.minStock}</div>
                         </div>
                         <button class="btn btn-sm btn-primary" onclick="alert('سفارش ثبت شد')">ثبت سفارش</button>
                     </div>
