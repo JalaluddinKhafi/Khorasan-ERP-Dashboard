@@ -1,3 +1,15 @@
+        function renderTransactionTable() {
+            const tbody = document.getElementById('transactionTableBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = transactionData.map(t => `
+                <tr>
+                    <td>${t.date}</td>
+                    <td><span class="badge ${t.type === 'ورود' ? 'bg-success' : 'bg-danger'}">${t.type}</span></td>
+                    <td>${t.product}</td>
+                    <td>${t.quantity}</td>
+                    <td>${t.ref}</td>
+                    <td>${t.user}</td>
                 </tr>
             `).join('');
             
