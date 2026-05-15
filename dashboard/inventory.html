@@ -1,3 +1,16 @@
+                    statusClass = 'badge bg-warning text-dark';
+                } else {
+                    status = 'موجود';
+                    statusClass = 'badge bg-success';
+                }
+                
+                return `
+                    <tr>
+                        <td>${p.code}</td>
+                        <td>${p.name}</td>
+                        <td>${p.category}</td>
+                        <td>${p.stock}</td>
+                        <td>${p.minStock}</td>
                         <td><span class="${statusClass}">${status}</span></td>
                         <td>${p.lastIn}</td>
                     </tr>
