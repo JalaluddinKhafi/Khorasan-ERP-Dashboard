@@ -1,3 +1,15 @@
+                <tr>
+                    <td>${s.name}</td>
+                    <td>${s.phone}</td>
+                    <td class="text-danger fw-bold">${s.debt.toLocaleString()} تومان</td>
+                    <td>${s.lastPurchase}</td>
+                    <td>
+                        <button class="btn btn-sm btn-success register-payment" data-type="supplier" data-id="${s.id}" data-name="${s.name}" data-debt="${s.debt}">
+                            <i class="fas fa-money-bill-wave"></i> ثبت پرداخت
+                        </button>
+                        <button class="btn btn-sm btn-info view-payment-history" data-type="supplier" data-id="${s.id}">
+                            <i class="fas fa-history"></i> تاریخچه
+                        </button>
                     </td>
                 </tr>
             `).join('');
