@@ -1,3 +1,15 @@
+                    <td>
+                        <button class="btn btn-sm btn-success register-payment" data-type="customer" data-id="${c.id}" data-name="${c.name}" data-debt="${c.debt}">
+                            <i class="fas fa-hand-holding-usd"></i> ثبت پرداخت
+                        </button>
+                        <button class="btn btn-sm btn-info view-payment-history" data-type="customer" data-id="${c.id}">
+                            <i class="fas fa-history"></i> تاریخچه
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+            
+            $('#customerDebtsTable').DataTable({
                 language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
                 destroy: true,
                 pageLength: 10
