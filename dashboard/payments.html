@@ -1,3 +1,15 @@
+                    customerDebts.map(c => `<option value="customer_${c.id}" data-name="${c.name}" data-debt="${c.debt}">${c.name} (بدهی: ${c.debt.toLocaleString()} تومان)</option>`).join('');
+            } else {
+                modalTitle.innerText = 'ثبت پرداخت به تامین‌کننده';
+                partyLabel.innerText = 'انتخاب تامین‌کننده';
+                partySelect.innerHTML = '<option value="">انتخاب تامین‌کننده</option>' + 
+                    supplierDebts.map(s => `<option value="supplier_${s.id}" data-name="${s.name}" data-debt="${s.debt}">${s.name} (بدهی: ${s.debt.toLocaleString()} تومان)</option>`).join('');
+            }
+        }
+        
+        function registerPayment() {
+            const partyValue = document.getElementById('partySelect').value;
+            if (!partyValue) {
                 showToast('لطفاً طرف حساب را انتخاب کنید', 'error');
                 return;
             }
