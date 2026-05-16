@@ -1,3 +1,15 @@
+            
+            // ثبت در تاریخچه
+            allPayments.unshift({
+                date: new Date().toLocaleDateString('fa-IR'),
+                type: currentPaymentType === 'customer' ? 'دریافت' : 'پرداخت',
+                party: partyName,
+                amount: amount,
+                method: document.getElementById('paymentMethod').value,
+                tracking: document.getElementById('paymentTracking').value || '---',
+                status: 'تایید شده'
+            });
+            
             renderAllPayments();
             calculateStats();
             
