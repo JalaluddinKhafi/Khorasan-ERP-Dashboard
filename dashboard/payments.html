@@ -1,3 +1,16 @@
+            renderAllPayments();
+            calculateStats();
+            
+            showToast('پرداخت با موفقیت ثبت شد', 'success');
+            bootstrap.Modal.getInstance(document.getElementById('registerPaymentModal')).hide();
+            document.getElementById('paymentForm').reset();
+        }
+        
+        function attachPaymentButtons() {
+            document.querySelectorAll('.register-payment').forEach(btn => {
+                btn.removeEventListener('click', handlePaymentClick);
+                btn.addEventListener('click', handlePaymentClick);
+            });
         }
         
         function handlePaymentClick(e) {
