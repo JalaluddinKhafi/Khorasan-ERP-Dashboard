@@ -1,3 +1,15 @@
+            const totalReceived = allPayments.filter(p => p.type === 'دریافت').reduce((sum, p) => sum + p.amount, 0);
+            const totalPaid = allPayments.filter(p => p.type === 'پرداخت').reduce((sum, p) => sum + p.amount, 0);
+            const pendingTotal = customerDebts.reduce((sum, c) => sum + c.debt, 0) + supplierDebts.reduce((sum, s) => sum + s.debt, 0);
+            const netCashflow = totalReceived - totalPaid;
+            
+            document.getElementById('totalReceived').innerHTML = totalReceived.toLocaleString() + ' تومان';
+            document.getElementById('totalPaid').innerHTML = totalPaid.toLocaleString() + ' تومان';
+            document.getElementById('pendingPayments').innerHTML = pendingTotal.toLocaleString() + ' تومان';
+            document.getElementById('netCashflow').innerHTML = netCashflow.toLocaleString() + ' تومان';
+            document.getElementById('netCashflow').style.color = netCashflow >= 0 ? '#10b981' : '#ef4444';
+        }
+        
         let currentPaymentType = 'customer';
         
         function setPaymentType(type) {
