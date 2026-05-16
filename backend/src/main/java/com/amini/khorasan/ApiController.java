@@ -493,3 +493,23 @@ public class ApiController {
     return db.queryForList(
       "SELECT * FROM audit_log ORDER BY id DESC LIMIT 500"
     );
+  }
+
+  @GetMapping("/api/reports")
+  Map<String, Object> reports(
+    @RequestParam(defaultValue = "2000-01-01") LocalDate from,
+    @RequestParam(defaultValue = "2100-01-01") LocalDate to
+  ) {
+    if (from.isAfter(to)) throw bad("بازهٔ تاریخ نادرست است");
+    var sales = db.queryForObject(
+      "SELECT COALESCE(SUM(total_usd),0) FROM invoices WHERE kind='SALE' AND voided=FALSE AND invoice_date BETWEEN ? AND ?",
+      BigDecimal.class,
+      from,
+      to
+    );
+    var cost = db.queryForObject(
+      "SELECT COALESCE(SUM(cost_usd),0) FROM invoices WHERE kind='SALE' AND voided=FALSE AND invoice_date BETWEEN ? AND ?",
+      BigDecimal.class,
+      from,
+      to
+    );
