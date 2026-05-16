@@ -1,3 +1,15 @@
+            if (type === 'customer') {
+                modalTitle.innerText = `ثبت دریافت از ${name}`;
+                partySelect.innerHTML = `<option value="customer_${btn.dataset.id}" data-name="${name}" data-debt="${debt}" selected>${name} (بدهی: ${debt.toLocaleString()} تومان)</option>`;
+            } else {
+                modalTitle.innerText = `ثبت پرداخت به ${name}`;
+                partySelect.innerHTML = `<option value="supplier_${btn.dataset.id}" data-name="${name}" data-debt="${debt}" selected>${name} (بدهی: ${debt.toLocaleString()} تومان)</option>`;
+            }
+            
+            document.getElementById('paymentAmount').value = '';
+            document.getElementById('paymentDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('paymentMethod').value = 'نقدی';
+            document.getElementById('paymentTracking').value = '';
             document.getElementById('paymentDesc').value = '';
             
             new bootstrap.Modal(document.getElementById('registerPaymentModal')).show();
