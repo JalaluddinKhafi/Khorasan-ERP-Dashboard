@@ -1,3 +1,15 @@
+        let currentPaymentType = 'customer';
+        
+        function setPaymentType(type) {
+            currentPaymentType = type;
+            const modalTitle = document.getElementById('paymentModalTitle');
+            const partyLabel = document.getElementById('partyLabel');
+            const partySelect = document.getElementById('partySelect');
+            
+            if (type === 'customer') {
+                modalTitle.innerText = 'ثبت دریافت از مشتری';
+                partyLabel.innerText = 'انتخاب مشتری';
+                partySelect.innerHTML = '<option value="">انتخاب مشتری</option>' + 
                     customerDebts.map(c => `<option value="customer_${c.id}" data-name="${c.name}" data-debt="${c.debt}">${c.name} (بدهی: ${c.debt.toLocaleString()} تومان)</option>`).join('');
             } else {
                 modalTitle.innerText = 'ثبت پرداخت به تامین‌کننده';
