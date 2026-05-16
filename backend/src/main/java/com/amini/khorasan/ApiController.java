@@ -513,3 +513,28 @@ public class ApiController {
       from,
       to
     );
+    var expenses = db.queryForObject(
+      "SELECT COALESCE(SUM(amount_usd),0) FROM expenses WHERE expense_date BETWEEN ? AND ?",
+      BigDecimal.class,
+      from,
+      to
+    );
+    var cash = db.queryForList(
+      "SELECT p.kind,COALESCE(SUM(x.amount_usd),0) AS total FROM payments x JOIN parties p ON p.id=x.party_id WHERE payment_date BETWEEN ? AND ? GROUP BY p.kind",
+      from,
+      to
+    );
+    return Map.of(
+      "sales",
+      sales,
+      "cost",
+      cost,
+      "expenses",
+      expenses,
+      "profit",
+      sales.subtract(cost).subtract(expenses),
+      "cash",
+      cash,
+      "from",
+      from,
+      "to",
