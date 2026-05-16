@@ -1,3 +1,15 @@
+            // بروزرسانی بدهی
+            if (type === 'customer') {
+                const customer = customerDebts.find(c => c.id === parseInt(id));
+                if (customer) {
+                    const newDebt = customer.debt - amount;
+                    if (newDebt < 0) {
+                        showToast('مبلغ پرداختی بیشتر از بدهی است!', 'error');
+                        return;
+                    }
+                    customer.debt = newDebt;
+                }
+                renderCustomerDebts();
             } else {
                 const supplier = supplierDebts.find(s => s.id === parseInt(id));
                 if (supplier) {
