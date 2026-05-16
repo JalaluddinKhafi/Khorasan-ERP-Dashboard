@@ -1,3 +1,15 @@
+        }
+        
+        function renderCustomerDebts() {
+            const tbody = document.getElementById('customerDebtsBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = customerDebts.map(c => `
+                <tr>
+                    <td>${c.name}</td>
+                    <td>${c.phone}</td>
+                                        <td class="text-danger fw-bold">${c.debt.toLocaleString()} تومان</td>
+                    <td>${c.lastPurchase}</td>
                     <td>
                         <button class="btn btn-sm btn-success register-payment" data-type="customer" data-id="${c.id}" data-name="${c.name}" data-debt="${c.debt}">
                             <i class="fas fa-hand-holding-usd"></i> ثبت پرداخت
