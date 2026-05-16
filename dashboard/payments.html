@@ -1,3 +1,16 @@
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                destroy: true,
+                pageLength: 10
+            });
+            
+            attachPaymentButtons();
+        }
+        
+        function renderSupplierDebts() {
+            const tbody = document.getElementById('supplierDebtsBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = supplierDebts.map(s => `
                 <tr>
                     <td>${s.name}</td>
                     <td>${s.phone}</td>
