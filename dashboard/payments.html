@@ -1,3 +1,16 @@
+                    <td>${p.tracking}</td>
+                    <td><span class="badge bg-success">${p.status}</span></td>
+                </tr>
+            `).join('');
+            
+            $('#allPaymentsTable').DataTable({
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                destroy: true,
+                order: [[0, 'desc']]
+            });
+        }
+        
+        function calculateStats() {
             const totalReceived = allPayments.filter(p => p.type === 'دریافت').reduce((sum, p) => sum + p.amount, 0);
             const totalPaid = allPayments.filter(p => p.type === 'پرداخت').reduce((sum, p) => sum + p.amount, 0);
             const pendingTotal = customerDebts.reduce((sum, c) => sum + c.debt, 0) + supplierDebts.reduce((sum, s) => sum + s.debt, 0);
