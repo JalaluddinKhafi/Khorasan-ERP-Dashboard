@@ -1,3 +1,15 @@
+        
+        function renderAllPayments() {
+            const tbody = document.getElementById('allPaymentsBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = allPayments.map(p => `
+                <tr>
+                    <td>${p.date}</td>
+                    <td><span class="badge ${p.type === 'دریافت' ? 'bg-success' : 'bg-danger'}">${p.type}</span></td>
+                    <td>${p.party}</td>
+                    <td>${p.amount.toLocaleString()} تومان</td>
+                    <td>${p.method}</td>
                     <td>${p.tracking}</td>
                     <td><span class="badge bg-success">${p.status}</span></td>
                 </tr>
