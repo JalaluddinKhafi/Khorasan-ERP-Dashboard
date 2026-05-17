@@ -1,3 +1,15 @@
+                { id: 2, name: "واردات سامسونگ", phone: "۰۲۱-۵۵۵۵۶۷۸۹", debt: 234000000, lastPurchase: "۱۴۰۲/۱۲/۰۴" }
+            ];
+            
+            allPayments = [
+                { date: "۱۴۰۲/۱۲/۰۵", type: "دریافت", party: "آرمان پوراحمد", amount: 5000000, method: "کارت به کارت", tracking: "TRX001", status: "تایید شده" },
+                { date: "۱۴۰۲/۱۲/۰۴", type: "پرداخت", party: "توزیع کننده البرز", amount: 20000000, method: "واریز بانکی", tracking: "BNK002", status: "تایید شده" }
+            ];
+            
+            renderCustomerDebts();
+            renderSupplierDebts();
+            renderAllPayments();
+            calculateStats();
         }
         
         function renderCustomerDebts() {
