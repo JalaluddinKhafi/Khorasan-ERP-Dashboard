@@ -1,3 +1,15 @@
+                    <td>${p.name}</td>
+                    <td>${p.category}</td>
+                    <td>${p.purchasePrice.toLocaleString()}</td>
+                    <td class="text-primary fw-bold">${p.salePrice.toLocaleString()}</td>
+                    <td>${p.unit}</td>
+                    <td class="${p.stock <= 10 ? 'text-danger fw-bold' : ''}">${p.stock}</td>
+                </tr>
+            `).join('');
+
+            document.getElementById('totalProductsCount').innerHTML = productsList.length;
+
+            if (priceTable) priceTable.destroy();
             priceTable = $('#priceListTable').DataTable({
                 language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
                 pageLength: 25,
