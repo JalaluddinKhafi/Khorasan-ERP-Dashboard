@@ -1,3 +1,15 @@
+            if (priceTable) {
+                priceTable.clear();
+                priceTable.rows.add(filtered);
+                priceTable.draw();
+            }
+        }
+
+        function printPriceList() {
+            window.print();
+        }
+
+        // تنظیم تاریخ امروز
         document.getElementById('printDate').innerText = new Date().toLocaleDateString('fa-IR');
 
         document.getElementById('searchProduct')?.addEventListener('keyup', filterPriceList);
