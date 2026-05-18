@@ -1,0 +1,12 @@
+        document.getElementById('printDate').innerText = new Date().toLocaleDateString('fa-IR');
+
+        document.getElementById('searchProduct')?.addEventListener('keyup', filterPriceList);
+        document.getElementById('categoryFilter')?.addEventListener('change', filterPriceList);
+        document.getElementById('printPriceList')?.addEventListener('click', printPriceList);
+        document.getElementById('fabPrintBtn')?.addEventListener('click', printPriceList);
+
+        loadSidebarAndNavbar('products');
+        renderPriceList();
+    </script>
+</body>
+</html>
