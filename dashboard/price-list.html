@@ -1,3 +1,15 @@
+            priceTable = $('#priceListTable').DataTable({
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                pageLength: 25,
+                searching: false,
+                ordering: true
+            });
+        }
+
+        function filterPriceList() {
+            const searchTerm = document.getElementById('searchProduct')?.value.toLowerCase() || '';
+            const category = document.getElementById('categoryFilter')?.value || '';
+
             const filtered = productsList.filter(p => {
                 const matchSearch = p.name.toLowerCase().includes(searchTerm) || p.code.toLowerCase().includes(searchTerm);
                 const matchCategory = !category || p.category === category;
