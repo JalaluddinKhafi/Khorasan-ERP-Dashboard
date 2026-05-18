@@ -612,3 +612,23 @@ public class ApiController {
     return db.queryForList(
       "SELECT id,kind,title,body,image FROM content WHERE published=TRUE ORDER BY id DESC"
     );
+  }
+
+  @PostMapping("/api/public/contact")
+  @ResponseStatus(HttpStatus.CREATED)
+  Map<String, Boolean> contact(@RequestBody Map<String, Object> m) {
+    String email = required(m, "email", 200);
+    if (!email.matches("[^@\\s]+@[^@\\s]+\\.[^@\\s]+")) throw bad(
+      "ایمیل نامعتبر است"
+    );
+    db.update(
+      "INSERT INTO messages(name,email,phone,subject,message) VALUES(?,?,?,?,?)",
+      required(m, "name", 160),
+      email,
+      text(m, "phone", 60),
+      text(m, "subject", 180),
+      required(m, "message", 4000)
+    );
+    return Map.of("ok", true);
+  }
+}
