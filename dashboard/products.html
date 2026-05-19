@@ -1,3 +1,15 @@
+                    showToast('کالا با موفقیت ذخیره شد', 'success');
+                    fetchProductsFromAPI();
+                }
+            } catch (error) {
+                console.error('API Error:', error);
+            }
+        }
+
+        // رویدادها
+        document.getElementById('saveProductBtn')?.addEventListener('click', saveProduct);
+        document.getElementById('confirmDeleteBtn')?.addEventListener('click', confirmDelete);
+        document.getElementById('addProductBtn')?.addEventListener('click', () => {
             resetProductForm();
         });
 
