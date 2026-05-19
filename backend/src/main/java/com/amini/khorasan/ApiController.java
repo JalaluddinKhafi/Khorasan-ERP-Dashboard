@@ -632,3 +632,31 @@ public class ApiController {
     return Map.of("ok", true);
   }
 }
+
+@RestControllerAdvice
+class Errors {
+
+  @ExceptionHandler(IllegalArgumentException.class)
+  ResponseEntity<?> badRequest(IllegalArgumentException e) {
+    return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
+  }
+
+  @ExceptionHandler(DataIntegrityViolationException.class)
+  ResponseEntity<?> conflict(DataIntegrityViolationException e) {
+    return ResponseEntity.status(409).body(
+      Map.of(
+        "message",
+        "رکورد تکراری است یا به معاملات دیگر وابسته است؛ آن را غیرفعال کنید."
+      )
+    );
+  }
+
+  @ExceptionHandler(
+    org.springframework.http.converter.HttpMessageNotReadableException.class
+  )
+  ResponseEntity<?> malformed() {
+    return ResponseEntity.badRequest().body(
+      Map.of("message", "دادهٔ ارسالی نامعتبر است")
+    );
+  }
+}
