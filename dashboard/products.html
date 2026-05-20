@@ -1,3 +1,15 @@
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('detailsContent').innerHTML = detailsHtml;
+            new bootstrap.Modal(document.getElementById('detailsModal')).show();
+        }
+
+        // ویرایش محصول
+        function editProduct(id) {
+            const product = productsData.find(p => p.id === id);
+            if (!product) return;
 
             currentProductId = id;
             document.getElementById('modalTitle').innerText = 'ویرایش کالا';
