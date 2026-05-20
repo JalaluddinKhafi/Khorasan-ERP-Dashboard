@@ -1,3 +1,16 @@
+            setupFilters();
+        }
+
+        // اتصال رویدادها به دکمه‌ها
+        function attachProductEvents() {
+            document.querySelectorAll('.view-product').forEach(btn => {
+                btn.addEventListener('click', () => viewProductDetails(parseInt(btn.dataset.id)));
+            });
+            document.querySelectorAll('.edit-product').forEach(btn => {
+                btn.addEventListener('click', () => editProduct(parseInt(btn.dataset.id)));
+            });
+            document.querySelectorAll('.delete-product').forEach(btn => {
+                btn.addEventListener('click', () => showDeleteModal(parseInt(btn.dataset.id), btn.closest('tr').querySelector('td:nth-child(3)').innerText));
             });
         }
 
