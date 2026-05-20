@@ -1,3 +1,15 @@
+            document.getElementById('modalTitle').innerText = 'افزودن کالا';
+            document.getElementById('productForm').reset();
+            document.getElementById('imagePreview').innerHTML = '';
+            document.getElementById('initialStock').value = '0';
+            document.getElementById('minStock').value = '5';
+            currentProductId = null;
+        }
+
+        function showDeleteModal(id, name) {
+            deleteProductId = id;
+            document.getElementById('deleteProductName').innerText = name;
+            new bootstrap.Modal(document.getElementById('deleteModal')).show();
         }
 
         function confirmDelete() {
