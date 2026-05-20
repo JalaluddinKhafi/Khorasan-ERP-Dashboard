@@ -1,3 +1,16 @@
+                saveProductToArray(product, id);
+            } else {
+                saveProductToArray(product, id);
+            }
+        }
+
+        function saveProductToArray(product, id) {
+            if (id) {
+                const index = productsData.findIndex(p => p.id === parseInt(id));
+                if (index !== -1) {
+                    productsData[index] = { ...productsData[index], ...product };
+                }
+                showToast('کالا با موفقیت ویرایش شد', 'success');
             } else {
                 productsData.push(product);
                 showToast('کالا با موفقیت اضافه شد', 'success');
