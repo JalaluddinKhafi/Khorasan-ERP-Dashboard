@@ -1,3 +1,16 @@
+            }
+            if (categoryFilter) {
+                categoryFilter.addEventListener('change', filterProducts);
+            }
+            if (statusFilter) {
+                statusFilter.addEventListener('change', filterProducts);
+            }
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    if (categoryFilter) categoryFilter.value = '';
+                    if (statusFilter) statusFilter.value = '';
+                    filterProducts();
                 });
             }
         }
