@@ -1,3 +1,15 @@
+        document.getElementById('productImage')?.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            const preview = document.getElementById('imagePreview');
+            if (file && preview) {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    preview.innerHTML = `<img src="${ev.target.result}" width="100" class="img-thumbnail">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
         // نمونه fetch برای اتصال به API واقعی
         async function fetchProductsFromAPI() {
             try {
