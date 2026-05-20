@@ -1,3 +1,15 @@
+            if (!product) return;
+
+            const profit = product.salePrice - product.purchasePrice;
+            const profitPercent = ((profit / product.purchasePrice) * 100).toFixed(1);
+
+            const detailsHtml = `
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <img src="${product.image || 'https://via.placeholder.com/200x200/e2e8f0/64748b?text=No+Image'}" 
+                             class="img-fluid rounded mb-3" style="max-height: 200px;">
+                    </div>
+                    <div class="col-md-8">
                         <table class="table table-bordered">
                             <tr><th style="width: 40%">کد کالا</th><td>${product.code}</td></tr>
                             <tr><th>نام کالا</th><td>${product.name}</td></tr>
