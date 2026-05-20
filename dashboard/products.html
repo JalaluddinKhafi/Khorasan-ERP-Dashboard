@@ -1,3 +1,15 @@
+            }
+
+            if (productsTable) {
+                productsTable.clear();
+                productsTable.rows.add(filtered);
+                productsTable.draw();
+            }
+        }
+
+        // مشاهده جزئیات محصول
+        function viewProductDetails(id) {
+            const product = productsData.find(p => p.id === id);
             if (!product) return;
 
             const profit = product.salePrice - product.purchasePrice;
