@@ -1,3 +1,15 @@
+                    category: "الکترونیک", purchasePrice: 1850000, salePrice: 2500000, 
+                    unit: "عدد", stock: 250, minStock: 30, status: "موجود", 
+                    description: "طراحی ارگونومیک، شارژ با USB-C",
+                    image: "", barcode: "1234567891213"
+                }
+            ];
+            renderProductsTable();
+        }
+
+        // رندر جدول محصولات
+        function renderProductsTable() {
+            const tbody = document.getElementById('productsTableBody');
             if (!tbody) return;
 
             tbody.innerHTML = productsData.map(p => `
