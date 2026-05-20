@@ -1,3 +1,16 @@
+                stock: parseInt(document.getElementById('initialStock').value) || 0,
+                minStock: parseInt(document.getElementById('minStock').value) || 0,
+                description: document.getElementById('productDescription').value,
+                status: document.getElementById('productStatus').value,
+                barcode: document.getElementById('productBarcode').value,
+                image: ''
+            };
+
+            // اعتبارسنجی
+            if (!product.code || !product.name || !product.category || !product.purchasePrice || !product.salePrice) {
+                showToast('لطفاً تمام فیلدهای الزامی را پر کنید', 'error');
+                return;
+            }
 
             if (product.salePrice < product.purchasePrice) {
                 showToast('قیمت فروش نمی‌تواند از قیمت خرید کمتر باشد', 'error');
