@@ -1,3 +1,15 @@
+            });
+        }
+
+        // فیلترها
+        function setupFilters() {
+            const searchInput = document.getElementById('searchProductInput');
+            const categoryFilter = document.getElementById('categoryFilter');
+            const statusFilter = document.getElementById('statusFilter');
+            const resetBtn = document.getElementById('resetFiltersBtn');
+
+            if (searchInput) {
+                searchInput.addEventListener('keyup', filterProducts);
             }
             if (categoryFilter) {
                 categoryFilter.addEventListener('change', filterProducts);
