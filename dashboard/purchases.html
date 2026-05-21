@@ -1,3 +1,15 @@
+                status: status,
+                items: items,
+                description: document.getElementById('description').value
+            };
+
+            if (id) {
+                const index = purchasesData.findIndex(p => p.id === parseInt(id));
+                if (index !== -1) purchasesData[index] = purchase;
+                showToast('فاکتور با موفقیت ویرایش شد', 'success');
+            } else {
+                purchasesData.push(purchase);
+                showToast('فاکتور با موفقیت اضافه شد', 'success');
             }
 
             renderPurchasesTable();
