@@ -1,3 +1,15 @@
+                    total: (parseFloat(row.querySelector('.quantity')?.value) * parseFloat(row.querySelector('.unit-price')?.value)) - parseFloat(row.querySelector('.discount')?.value)
+                });
+            });
+
+            const purchase = {
+                id: id ? parseInt(id) : Date.now(),
+                invoiceNo: document.getElementById('invoiceNo').value,
+                supplier: document.getElementById('supplierSelect').value,
+                date: document.getElementById('invoiceDate').value,
+                total: total,
+                paid: paid,
+                remaining: remaining,
                 status: status,
                 items: items,
                 description: document.getElementById('description').value
