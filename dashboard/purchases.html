@@ -1,3 +1,15 @@
+                tbody.insertAdjacentHTML('beforeend', row);
+            });
+            attachRowEvents();
+            calculateItemTotal();
+
+            new bootstrap.Modal(document.getElementById('purchaseModal')).show();
+        }
+
+        function deletePurchase(id) {
+            if (confirm('آیا از حذف این فاکتور اطمینان دارید؟')) {
+                purchasesData = purchasesData.filter(p => p.id !== id);
+                renderPurchasesTable();
                 showToast('فاکتور با موفقیت حذف شد', 'success');
             }
         }
