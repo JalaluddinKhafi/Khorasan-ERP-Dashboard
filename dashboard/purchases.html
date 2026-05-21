@@ -1,3 +1,15 @@
+            if (paid === 0) status = 'پرداخت نشده';
+            else if (paid >= total) status = 'پرداخت شده';
+            else status = 'پرداخت جزئی';
+
+            const items = [];
+            document.querySelectorAll('#itemsBody tr').forEach(row => {
+                items.push({
+                    product: row.querySelector('.product-name')?.value || '',
+                    qty: parseFloat(row.querySelector('.quantity')?.value) || 0,
+                    unit: row.querySelector('.unit')?.value || '',
+                    price: parseFloat(row.querySelector('.unit-price')?.value) || 0,
+                    discount: parseFloat(row.querySelector('.discount')?.value) || 0,
                     total: (parseFloat(row.querySelector('.quantity')?.value) * parseFloat(row.querySelector('.unit-price')?.value)) - parseFloat(row.querySelector('.discount')?.value)
                 });
             });
