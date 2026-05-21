@@ -1,3 +1,15 @@
+                showToast('فاکتور با موفقیت حذف شد', 'success');
+            }
+        }
+
+        // رویدادها
+        document.getElementById('addItemRow')?.addEventListener('click', addItemRow);
+        document.getElementById('savePurchaseBtn')?.addEventListener('click', savePurchase);
+        document.getElementById('paidAmount')?.addEventListener('input', function() {
+            const total = parseInt(document.getElementById('grandTotal').innerHTML.replace(/,/g, '')) || 0;
+            const paid = parseInt(this.value) || 0;
+            const statusSelect = document.getElementById('paymentStatus');
+            if (paid === 0) statusSelect.value = 'پرداخت نشده';
             else if (paid >= total) statusSelect.value = 'پرداخت شده';
             else statusSelect.value = 'پرداخت جزئی';
         });
