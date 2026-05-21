@@ -1,3 +1,15 @@
+            purchase.items.forEach(item => {
+                const row = `
+                    <tr>
+                        <td><input type="text" class="form-control product-name" value="${item.product}" placeholder="نام کالا"></td
+                        <td><input type="number" class="form-control quantity" value="${item.qty}" min="1"></td
+                        <td><input type="text" class="form-control unit" value="${item.unit}" placeholder="واحد"></td
+                        <td><input type="number" class="form-control unit-price" value="${item.price}" min="0"></td
+                        <td><input type="number" class="form-control discount" value="${item.discount}" min="0"></td
+                        <td class="row-total text-primary fw-bold">${item.total.toLocaleString()}</td
+                        <td><button type="button" class="btn btn-sm btn-danger remove-row"><i class="fas fa-trash"></i></button></td
+                    </tr>
+                `;
                 tbody.insertAdjacentHTML('beforeend', row);
             });
             attachRowEvents();
