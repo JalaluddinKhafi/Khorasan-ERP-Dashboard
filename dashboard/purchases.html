@@ -1,0 +1,12 @@
+            else if (paid >= total) statusSelect.value = 'پرداخت شده';
+            else statusSelect.value = 'پرداخت جزئی';
+        });
+
+        // مقداردهی اولیه
+        loadSidebarAndNavbar('purchases');
+        renderPurchasesTable();
+        setupFilters();
+        attachRowEvents();
+    </script>
+</body>
+</html>
