@@ -1,3 +1,16 @@
+            }
+
+            renderPurchasesTable();
+            bootstrap.Modal.getInstance(document.getElementById('purchaseModal')).hide();
+            resetModalForm();
+        }
+
+        function viewPurchase(id) {
+            const purchase = purchasesData.find(p => p.id === id);
+            if (!purchase) return;
+
+            const itemsHtml = purchase.items.map(item => `
+                <td>
                     <td>${item.product}</td
                     <td>${item.qty}</td
                     <td>${item.unit}</td
