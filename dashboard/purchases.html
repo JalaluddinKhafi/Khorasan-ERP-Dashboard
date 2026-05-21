@@ -1,3 +1,16 @@
+            if (!purchase) return;
+
+            currentPurchaseId = id;
+            document.getElementById('purchaseId').value = purchase.id;
+            document.getElementById('modalTitle').innerHTML = 'ویرایش فاکتور خرید';
+            document.getElementById('invoiceNo').value = purchase.invoiceNo;
+            document.getElementById('supplierSelect').value = purchase.supplier;
+            document.getElementById('invoiceDate').value = purchase.date;
+            document.getElementById('paidAmount').value = purchase.paid;
+            document.getElementById('description').value = purchase.description || '';
+
+            const tbody = document.getElementById('itemsBody');
+            tbody.innerHTML = '';
             purchase.items.forEach(item => {
                 const row = `
                     <tr>
