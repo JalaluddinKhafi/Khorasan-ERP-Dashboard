@@ -1,3 +1,15 @@
+                         </td
+                    </tr>
+                `).join('');
+                attachEvents();
+            }
+
+            if (purchasesTable) {
+                purchasesTable.clear();
+                purchasesTable.rows.add(filtered);
+                purchasesTable.draw();
+            }
+        }
 
         // ============================================
         // عملیات روی فاکتورها
