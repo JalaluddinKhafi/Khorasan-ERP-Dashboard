@@ -1,3 +1,15 @@
+                el.removeEventListener('input', calculateItemTotal);
+                el.addEventListener('input', calculateItemTotal);
+            });
+            document.querySelectorAll('.remove-row').forEach(btn => {
+                btn.removeEventListener('click', removeRow);
+                btn.addEventListener('click', removeRow);
+            });
+        }
+
+        function resetModalForm() {
+            document.getElementById('purchaseId').value = '';
+            document.getElementById('modalTitle').innerHTML = 'ایجاد فاکتور خرید جدید';
             document.getElementById('purchaseForm').reset();
             document.getElementById('paidAmount').value = '0';
             document.getElementById('grandTotal').innerHTML = '۰';
