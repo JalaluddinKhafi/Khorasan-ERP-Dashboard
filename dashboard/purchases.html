@@ -1,3 +1,16 @@
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    if (statusFilter) statusFilter.value = 'all';
+                    if (dateFilter) dateFilter.value = '';
+                    filterPurchases();
+                });
+            }
+        }
+
+        function filterPurchases() {
+            const searchTerm = document.getElementById('searchPurchase')?.value.toLowerCase() || '';
+            const status = document.getElementById('statusFilter')?.value || 'all';
             const date = document.getElementById('dateFilter')?.value || '';
 
             const filtered = purchasesData.filter(p => {
