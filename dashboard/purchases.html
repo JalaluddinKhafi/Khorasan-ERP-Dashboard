@@ -1,3 +1,16 @@
+                    <td>${p.invoiceNo}</td
+                    <td>${p.supplier}</td
+                    <td>${p.date}</td
+                    <td>${p.total.toLocaleString()} تومان</td
+                    <td>${p.paid.toLocaleString()} تومان</td
+                    <td class="${p.remaining > 0 ? 'text-danger' : 'text-success'}">${p.remaining.toLocaleString()} تومان</td
+                    <td><span class="badge ${p.status === 'پرداخت شده' ? 'bg-success' : (p.status === 'پرداخت جزئی' ? 'bg-warning' : 'bg-danger')}">${p.status}</span></td
+                    <td>
+                        <button class="btn btn-sm btn-info view-purchase" data-id="${p.id}" title="مشاهده جزئیات"><i class="fas fa-eye"></i></button>
+                        <button class="btn btn-sm btn-primary edit-purchase" data-id="${p.id}" title="ویرایش"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-danger delete-purchase" data-id="${p.id}" title="حذف"><i class="fas fa-trash"></i></button>
+                     </td
+                </tr>
             `).join('');
 
             if (purchasesTable) purchasesTable.destroy();
