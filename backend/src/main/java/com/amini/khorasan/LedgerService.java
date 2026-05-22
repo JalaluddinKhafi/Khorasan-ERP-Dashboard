@@ -127,3 +127,26 @@ public class LedgerService {
   BigDecimal usd(BigDecimal amount, BigDecimal rate) {
     return amount.divide(rate, 4, RoundingMode.HALF_UP);
   }
+
+  @SuppressWarnings("unchecked")
+  public Map<String, Object> invoice(Map<String, Object> m) {
+    String requestKey = requestKey(m);
+    var existing = db.queryForList(
+      "SELECT id FROM invoices WHERE request_key=?",
+      requestKey
+    );
+    if (!existing.isEmpty()) return invoiceDetails(
+      ((Number) existing.get(0).get("id")).longValue()
+    );
+    String kind = required(m, "kind", 20);
+    if (!Set.of("SALE", "PURCHASE").contains(kind)) throw bad(
+      "نوع فاکتور نامعتبر است"
+    );
+    long party = id(m, "party_id");
+    var p = one(
+      "SELECT * FROM parties WHERE id=? AND active=TRUE FOR UPDATE",
+      party
+    );
+    if (
+      !p.get("kind").equals(kind.equals("SALE") ? "CUSTOMER" : "SUPPLIER")
+    ) throw bad("مشتری یا تهیه‌کننده با نوع فاکتور سازگار نیست");
