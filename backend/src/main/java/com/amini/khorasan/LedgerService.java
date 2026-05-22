@@ -99,3 +99,31 @@ public class LedgerService {
     var auth = SecurityContextHolder.getContext().getAuthentication();
     return auth == null ? "system" : auth.getName();
   }
+
+  void audit(String action, long id) {
+    db.update(
+      "INSERT INTO audit_log(actor,action,entity_id) VALUES(?,?,?)",
+      actor(),
+      action,
+      id
+    );
+  }
+
+  BigDecimal rate(Map<String, Object> m) {
+    String c = required(m, "currency", 3);
+    one("SELECT code FROM currencies WHERE code=?", c);
+    if (c.equals("USD")) return BigDecimal.ONE;
+    try {
+      var n = new BigDecimal(Objects.toString(m.get("rate")));
+      if (n.signum() <= 0 || n.scale() > 8 || n.precision() > 20) throw bad(
+        "نرخ نامعتبر"
+      );
+      return n;
+    } catch (Exception e) {
+      throw bad("تعداد واحد ارز فرعی در برابر یک دالر را وارد کنید");
+    }
+  }
+
+  BigDecimal usd(BigDecimal amount, BigDecimal rate) {
+    return amount.divide(rate, 4, RoundingMode.HALF_UP);
+  }
