@@ -1,3 +1,15 @@
+                    <td><input type="number" class="form-control quantity" value="1" min="1"></td
+                    <td><input type="text" class="form-control unit" value="عدد" placeholder="واحد"></td
+                    <td><input type="number" class="form-control unit-price" value="0" min="0"></td
+                    <td><input type="number" class="form-control discount" value="0" min="0"></td
+                    <td class="row-total text-primary fw-bold">۰</td
+                    <td><button type="button" class="btn btn-sm btn-danger remove-row"><i class="fas fa-trash"></i></button></td
+                </tr>
+            `;
+            tbody.insertAdjacentHTML('beforeend', newRow);
+            attachRowEvents();
+        }
+
         function removeRow(e) {
             const row = e.target.closest('tr');
             if (document.querySelectorAll('#itemsBody tr').length > 1) {
