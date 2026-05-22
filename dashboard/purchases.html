@@ -1,3 +1,15 @@
+                    <td><button type="button" class="btn btn-sm btn-danger remove-row"><i class="fas fa-trash"></i></button></td
+                </tr>
+            `;
+            attachRowEvents();
+        }
+
+        function savePurchase() {
+            const id = document.getElementById('purchaseId').value;
+            const total = parseInt(document.getElementById('grandTotal').innerHTML.replace(/,/g, '')) || 0;
+            const paid = parseInt(document.getElementById('paidAmount').value) || 0;
+            const remaining = total - paid;
+            let status = '';
             if (paid === 0) status = 'پرداخت نشده';
             else if (paid >= total) status = 'پرداخت شده';
             else status = 'پرداخت جزئی';
