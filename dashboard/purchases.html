@@ -1,3 +1,15 @@
+            document.getElementById('totalAmount').innerHTML = totalAmount.toLocaleString() + ' تومان';
+            document.getElementById('pendingCount').innerHTML = pending;
+            document.getElementById('paidCount').innerHTML = paid;
+        }
+
+        // رندر جدول
+        function renderPurchasesTable() {
+            const tbody = document.getElementById('purchasesTableBody');
+            if (!tbody) return;
+
+            tbody.innerHTML = purchasesData.map(p => `
+                <tr>
                     <td>${p.invoiceNo}</td
                     <td>${p.supplier}</td
                     <td>${p.date}</td
