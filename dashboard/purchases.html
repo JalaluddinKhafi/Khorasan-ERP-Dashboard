@@ -1,3 +1,15 @@
+
+        let purchasesTable = null;
+        let currentPurchaseId = null;
+
+        // محاسبه آمار
+        function calculateStats() {
+            const total = purchasesData.length;
+            const totalAmount = purchasesData.reduce((sum, p) => sum + p.total, 0);
+            const pending = purchasesData.filter(p => p.status === "پرداخت نشده" || p.status === "پرداخت جزئی").length;
+            const paid = purchasesData.filter(p => p.status === "پرداخت شده").length;
+
+            document.getElementById('totalPurchases').innerHTML = total;
             document.getElementById('totalAmount').innerHTML = totalAmount.toLocaleString() + ' تومان';
             document.getElementById('pendingCount').innerHTML = pending;
             document.getElementById('paidCount').innerHTML = paid;
