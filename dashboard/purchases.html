@@ -1,3 +1,15 @@
+            const date = document.getElementById('dateFilter')?.value || '';
+
+            const filtered = purchasesData.filter(p => {
+                const matchSearch = p.invoiceNo.toLowerCase().includes(searchTerm) || p.supplier.toLowerCase().includes(searchTerm);
+                const matchStatus = status === 'all' || p.status === status;
+                const matchDate = !date || p.date.includes(date);
+                return matchSearch && matchStatus && matchDate;
+            });
+
+            const tbody = document.getElementById('purchasesTableBody');
+            if (tbody) {
+                tbody.innerHTML = filtered.map(p => `
                     <tr>
                         <td>${p.invoiceNo}</td
                         <td>${p.supplier}</td
