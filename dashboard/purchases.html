@@ -1,3 +1,15 @@
+
+        // اتصال رویدادها
+        function attachEvents() {
+            document.querySelectorAll('.view-purchase').forEach(btn => {
+                btn.addEventListener('click', () => viewPurchase(parseInt(btn.dataset.id)));
+            });
+            document.querySelectorAll('.edit-purchase').forEach(btn => {
+                btn.addEventListener('click', () => editPurchase(parseInt(btn.dataset.id)));
+            });
+            document.querySelectorAll('.delete-purchase').forEach(btn => {
+                btn.addEventListener('click', () => deletePurchase(parseInt(btn.dataset.id)));
+            });
         }
 
         // فیلترها
