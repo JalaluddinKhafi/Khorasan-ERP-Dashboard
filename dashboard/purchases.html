@@ -1,3 +1,15 @@
+        }
+
+        // فیلترها
+        function setupFilters() {
+            const searchInput = document.getElementById('searchPurchase');
+            const statusFilter = document.getElementById('statusFilter');
+            const dateFilter = document.getElementById('dateFilter');
+            const resetBtn = document.getElementById('resetFilters');
+
+            if (searchInput) searchInput.addEventListener('keyup', filterPurchases);
+            if (statusFilter) statusFilter.addEventListener('change', filterPurchases);
+            if (dateFilter) dateFilter.addEventListener('keyup', filterPurchases);
             if (resetBtn) {
                 resetBtn.addEventListener('click', () => {
                     if (searchInput) searchInput.value = '';
