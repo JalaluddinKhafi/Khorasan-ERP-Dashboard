@@ -1,3 +1,15 @@
+                            <span>پرداخت کننده:</span>
+                            <span>${r.payerName}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>مبلغ:</span>
+                            <span class="amount-positive">${r.totalAmount.toLocaleString()} ${r.currency}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>نرخ تبدیل:</span>
+                            <span>${r.exchangeRate}</span>
+                        </div>
+                        <div class="detail-row">
                             <span>حساب سابقه:</span>
                             <span>${r.previousBalance.toLocaleString()} ${r.currency}</span>
                         </div>
