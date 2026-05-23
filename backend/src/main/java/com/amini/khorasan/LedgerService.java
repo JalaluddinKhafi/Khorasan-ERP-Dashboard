@@ -150,3 +150,24 @@ public class LedgerService {
     if (
       !p.get("kind").equals(kind.equals("SALE") ? "CUSTOMER" : "SUPPLIER")
     ) throw bad("مشتری یا تهیه‌کننده با نوع فاکتور سازگار نیست");
+    var day = date(m, "invoice_date");
+    var rate = rate(m);
+    String currency = required(m, "currency", 3);
+    if (
+      !(m.get("items") instanceof List<?> raw) ||
+      raw.isEmpty() ||
+      raw.size() > 200
+    ) throw bad("حداقل یک قلم و حداکثر ۲۰۰ قلم انتخاب کنید");
+    List<Map<String, Object>> items = (List<Map<String, Object>>) m.get(
+      "items"
+    );
+    // Lock in stable order to avoid deadlocks; duplicate lines are rejected.
+    var ids = items
+      .stream()
+      .map(i -> id(i, "product_id"))
+      .sorted()
+      .toList();
+    if (new HashSet<>(ids).size() != ids.size()) throw bad(
+      "هر جنس را تنها یک بار اضافه کنید"
+    );
+    Map<Long, Map<String, Object>> products = new HashMap<>();
