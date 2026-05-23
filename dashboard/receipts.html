@@ -1,3 +1,15 @@
+                description: "پرداخت وجه فاکتورهای قبلی",
+                status: "paid"
+            }
+        ];
+
+        function renderReceipts() {
+            const container = document.getElementById('receiptsList');
+            if (!container) return;
+
+            container.innerHTML = receiptsData.map(r => `
+                <div class="col-md-6 col-lg-4">
+                    <div class="receipt-card">
                         <div class="receipt-header">
                             <div class="d-flex justify-content-between">
                                 <span><i class="fas fa-receipt"></i> رسید شماره ${r.receiptNumber}</span>
