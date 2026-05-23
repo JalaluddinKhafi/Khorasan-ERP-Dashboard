@@ -1,3 +1,15 @@
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function saveReceipt() {
+            const newReceipt = {
+                id: Date.now(),
+                receiptNumber: document.getElementById('receiptNumber').value,
+                receiptDate: document.getElementById('receiptDate').value,
+                receiptTime: new Date().toLocaleTimeString('fa-IR'),
                 customerCode: document.getElementById('customerCode').value,
                 customerName: document.getElementById('customerNameReceipt').value,
                 payerName: document.getElementById('payerName').value,
