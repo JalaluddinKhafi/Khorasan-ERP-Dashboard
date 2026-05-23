@@ -1,3 +1,15 @@
+                description: document.getElementById('descriptionReceipt').value,
+                status: "paid"
+            };
+
+            receiptsData.unshift(newReceipt);
+            renderReceipts();
+            bootstrap.Modal.getInstance(document.getElementById('receiptModal')).hide();
+            document.getElementById('receiptForm').reset();
+            showToast('رسید با موفقیت ثبت شد', 'success');
+        }
+
+        document.getElementById('saveReceiptBtn')?.addEventListener('click', saveReceipt);
         document.getElementById('resetReceiptFilters')?.addEventListener('click', () => {
             document.getElementById('searchReceipt').value = '';
             document.getElementById('filterDate').value = '';
