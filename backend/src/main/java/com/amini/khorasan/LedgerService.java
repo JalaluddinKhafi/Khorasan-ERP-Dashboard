@@ -194,3 +194,25 @@ public class LedgerService {
       );
       cost = cost.add(q.multiply((BigDecimal) product.get("purchase_price")));
     }
+    var discount = nonnegative(m, "discount");
+    if (discount.compareTo(subtotal) > 0) throw bad("تخفیف بیشتر از مجموع است");
+    var total = subtotal.subtract(discount);
+    db.update(
+      "INSERT INTO invoices(request_key,kind,party_id,invoice_date,currency,rate,subtotal,discount,total,total_usd,cost_usd,notes,created_by) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
+      requestKey,
+      kind,
+      party,
+      day,
+      currency,
+      rate,
+      subtotal,
+      discount,
+      total,
+      usd(total, rate),
+      cost,
+      text(m, "notes", 1000),
+      actor()
+    );
+    long invoiceId = inserted();
+    for (var i : items) {
+      long productId = id(i, "product_id");
