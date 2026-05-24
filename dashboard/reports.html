@@ -1,3 +1,15 @@
+            // Render Chart
+            if (reportChart) reportChart.destroy();
+            reportChart = new ApexCharts(document.querySelector("#reportChart"), {
+                series: [{ name: report.title, data: report.chartData }],
+                chart: { type: type.includes('sales') ? 'line' : 'bar', height: 350 },
+                xaxis: { categories: report.categories },
+                colors: ['#2563eb'],
+                title: { text: report.title }
+            });
+            reportChart.render();
+            
+            // Render Table
             const thead = document.getElementById('reportTableHead');
             const tbody = document.getElementById('reportTableBody');
             
