@@ -1,3 +1,15 @@
+        document.getElementById('applyDateFilter')?.addEventListener('click', () => {
+            showToast('گزارش بر اساس بازه تاریخ انتخاب شده به‌روزرسانی شد', 'success');
+            // در حالت واقعی، درخواست به API با پارامترهای تاریخ ارسال می‌شود
+        });
+        
+        document.getElementById('exportPDF')?.addEventListener('click', () => {
+            showToast('در حال آماده‌سازی فایل PDF...', 'info');
+            // در حالت واقعی، درخواست export به API ارسال می‌شود
+        });
+        
+        document.getElementById('exportExcel')?.addEventListener('click', () => {
+            showToast('در حال آماده‌سازی فایل Excel...', 'info');
         });
         
         document.getElementById('printReport')?.addEventListener('click', () => {
