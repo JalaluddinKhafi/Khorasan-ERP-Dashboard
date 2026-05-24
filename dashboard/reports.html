@@ -1,3 +1,15 @@
+                    ['توزیع کننده البرز', 'تامین‌کننده', '۵۶,۰۰۰,۰۰۰ تومان', '۱۴۰۲/۱۲/۰۵', 'سررسید گذشته']
+                ]
+            }
+        };
+        
+        function loadReport(type) {
+            currentReport = type;
+            const report = reportData[type];
+            if (!report) return;
+            
+            document.getElementById('reportTitle').innerText = report.title;
+            
             // Render Chart
             if (reportChart) reportChart.destroy();
             reportChart = new ApexCharts(document.querySelector("#reportChart"), {
