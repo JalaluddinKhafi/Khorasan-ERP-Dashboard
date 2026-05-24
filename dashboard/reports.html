@@ -1,3 +1,15 @@
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                pageLength: 10
+            });
+        }
+        
+        document.querySelectorAll('.report-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const reportType = card.dataset.report;
+                loadReport(reportType);
+            });
+        });
+        
         document.getElementById('applyDateFilter')?.addEventListener('click', () => {
             showToast('گزارش بر اساس بازه تاریخ انتخاب شده به‌روزرسانی شد', 'success');
             // در حالت واقعی، درخواست به API با پارامترهای تاریخ ارسال می‌شود
