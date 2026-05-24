@@ -216,3 +216,21 @@ public class LedgerService {
     long invoiceId = inserted();
     for (var i : items) {
       long productId = id(i, "product_id");
+      var pdt = products.get(productId);
+      var q = positive(i, "quantity");
+      var price = nonnegative(i, "price");
+      var delta = kind.equals("SALE") ? q.negate() : q;
+      db.update(
+        "INSERT INTO invoice_items(invoice_id,product_id,name,unit,quantity,price,cost_price,total) VALUES(?,?,?,?,?,?,?,?)",
+        invoiceId,
+        productId,
+        pdt.get("name"),
+        pdt.get("unit"),
+        q,
+        price,
+        pdt.get("purchase_price"),
+        q.multiply(price).setScale(4, RoundingMode.HALF_UP)
+      );
+      if (kind.equals("PURCHASE")) {
+        var oldStock = (BigDecimal) pdt.get("stock");
+        var oldCost = (BigDecimal) pdt.get("purchase_price");
