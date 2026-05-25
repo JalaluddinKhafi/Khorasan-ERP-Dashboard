@@ -1,3 +1,15 @@
+            document.getElementById('customerName').innerText = invoiceData.customer.name;
+            document.getElementById('customerPhone').innerText = invoiceData.customer.phone;
+            document.getElementById('customerAddress').innerText = invoiceData.customer.address;
+            
+            // آیتم‌ها
+            const tbody = document.getElementById('invoiceItemsBody');
+            let subTotal = 0;
+            let discountTotal = 0;
+            
+            tbody.innerHTML = invoiceData.items.map(item => {
+                subTotal += item.total;
+                discountTotal += item.discount;
                 return `
                     <tr>
                         <td>${item.row}</td>
