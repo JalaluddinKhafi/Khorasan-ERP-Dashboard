@@ -257,3 +257,28 @@ public class LedgerService {
         delta,
         productId
       );
+      db.update(
+        "INSERT INTO stock_movements(product_id,invoice_id,movement_date,quantity,notes) VALUES(?,?,?,?,?)",
+        productId,
+        invoiceId,
+        day,
+        delta,
+        kind
+      );
+    }
+    audit("CREATE_" + kind, invoiceId);
+    return invoiceDetails(invoiceId);
+  }
+
+  public Map<String, Object> invoiceDetails(long id) {
+    var row = one(
+      "SELECT i.*,p.name AS party_name,p.phone,p.address FROM invoices i JOIN parties p ON p.id=i.party_id WHERE i.id=?",
+      id
+    );
+    row.put(
+      "items",
+      db.queryForList(
+        "SELECT * FROM invoice_items WHERE invoice_id=? ORDER BY id",
+        id
+      )
+    );
