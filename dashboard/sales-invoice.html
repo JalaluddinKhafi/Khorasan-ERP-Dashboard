@@ -1,3 +1,16 @@
+            paymentMethod: "نقدی / کارت به کارت"
+        };
+
+        function renderInvoice() {
+            // اطلاعات پایه
+            document.getElementById('invoiceNo').innerText = invoiceData.invoiceNo;
+            document.getElementById('invoiceDate').innerText = invoiceData.invoiceDate;
+            document.getElementById('invoiceNumberDisplay').innerText = invoiceData.invoiceNo;
+            document.getElementById('issueDate').innerText = invoiceData.invoiceDate;
+            document.getElementById('dueDate').innerText = invoiceData.dueDate;
+            document.getElementById('paymentMethod').innerText = invoiceData.paymentMethod;
+            
+            // اطلاعات مشتری
             document.getElementById('customerName').innerText = invoiceData.customer.name;
             document.getElementById('customerPhone').innerText = invoiceData.customer.phone;
             document.getElementById('customerAddress').innerText = invoiceData.customer.address;
