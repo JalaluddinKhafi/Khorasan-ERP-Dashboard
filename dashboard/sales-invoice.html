@@ -1,3 +1,15 @@
+    <script src="../assets/js/components.js"></script>
+    <script>
+        // تابع تبدیل عدد به حروف
+        function numberToWords(num) {
+            const units = ["", "یک", "دو", "سه", "چهار", "پنج", "شش", "هفت", "هشت", "نه"];
+            const tens = ["", "ده", "بیست", "سی", "چهل", "پنجاه", "شصت", "هفتاد", "هشتاد", "نود"];
+            const hundreds = ["", "یکصد", "دویست", "سیصد", "چهارصد", "پانصد", "ششصد", "هفتصد", "هشتصد", "نهصد"];
+            
+            if (num === 0) return "صفر تومان";
+            
+            let word = "";
+            if (num >= 1000000) {
                 word += numberToWords(Math.floor(num / 1000000)) + " میلیون ";
                 num %= 1000000;
             }
