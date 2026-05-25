@@ -1,0 +1,12 @@
+            showToast('لینک فاکتور کپی شد', 'success');
+        }
+
+        document.getElementById('printInvoiceBtn')?.addEventListener('click', printInvoice);
+        document.getElementById('downloadInvoiceBtn')?.addEventListener('click', downloadPDF);
+        document.getElementById('shareInvoiceBtn')?.addEventListener('click', shareInvoice);
+
+        loadSidebarAndNavbar('sales');
+        renderInvoice();
+    </script>
+</body>
+</html>
