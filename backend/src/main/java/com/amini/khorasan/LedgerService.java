@@ -304,3 +304,25 @@ public class LedgerService {
     one("SELECT id FROM parties WHERE id=? AND active=TRUE FOR UPDATE", party);
     var amount = positive(m, "amount");
     var rate = rate(m);
+    Long invoice =
+      m.get("invoice_id") == null || m.get("invoice_id").toString().isBlank()
+        ? null
+        : id(m, "invoice_id");
+    if (invoice != null) {
+      var i = one(
+        "SELECT * FROM invoices WHERE id=? AND voided=FALSE FOR UPDATE",
+        invoice
+      );
+      if (((Number) i.get("party_id")).longValue() != party) throw bad(
+        "فاکتور متعلق به این حساب نیست"
+      );
+      var paid = db.queryForObject(
+        "SELECT COALESCE(SUM(amount_usd),0) FROM payments WHERE invoice_id=?",
+        BigDecimal.class,
+        invoice
+      );
+      if (
+        paid.add(usd(amount, rate)).compareTo((BigDecimal) i.get("total_usd")) >
+        0
+      ) throw bad("پرداخت از باقی فاکتور بیشتر است");
+    }
