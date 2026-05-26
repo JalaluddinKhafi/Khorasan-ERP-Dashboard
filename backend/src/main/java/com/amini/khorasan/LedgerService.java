@@ -282,3 +282,25 @@ public class LedgerService {
         id
       )
     );
+    row.put(
+      "paid_usd",
+      db.queryForObject(
+        "SELECT COALESCE(SUM(amount_usd),0) FROM payments WHERE invoice_id=?",
+        BigDecimal.class,
+        id
+      )
+    );
+    return row;
+  }
+
+  public Map<String, Object> payment(Map<String, Object> m) {
+    String requestKey = requestKey(m);
+    var existing = db.queryForList(
+      "SELECT * FROM payments WHERE request_key=?",
+      requestKey
+    );
+    if (!existing.isEmpty()) return existing.get(0);
+    long party = id(m, "party_id");
+    one("SELECT id FROM parties WHERE id=? AND active=TRUE FOR UPDATE", party);
+    var amount = positive(m, "amount");
+    var rate = rate(m);
