@@ -1,3 +1,15 @@
+                        <p><strong>بدهی جاری:</strong> <span class="text-danger">${supplier.debt.toLocaleString()} تومان</span></p>
+                    </div>
+                </div>
+            `;
+            
+            const tbody = document.getElementById('transactionHistoryBody');
+            if (tbody) {
+                tbody.innerHTML = transactions.map(t => `
+                    <tr>
+                        <td>${t.date}</td>
+                        <td>${t.invoiceNo}</td>
+                        <td>${t.amount.toLocaleString()} تومان</td>
                         <td><span class="badge ${t.status === 'پرداخت کامل' ? 'bg-success' : 'bg-warning'}">${t.status}</span></td>
                     </tr>
                 `).join('');
