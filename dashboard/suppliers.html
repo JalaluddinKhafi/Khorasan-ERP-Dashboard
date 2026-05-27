@@ -1,3 +1,15 @@
+        }
+        
+        function resetSupplierForm() {
+            document.getElementById('supplierId').value = '';
+            document.getElementById('supplierForm').reset();
+            currentSupplierId = null;
+        }
+        
+        function showDeleteSupplierModal(id) {
+            currentSupplierId = id;
+            if (confirm(`آیا از حذف تامین‌کننده "${suppliersData.find(s => s.id === id)?.name}" اطمینان دارید؟`)) {
+                suppliersData = suppliersData.filter(s => s.id !== id);
                 renderSuppliersTable();
                 showToast('تامین‌کننده با موفقیت حذف شد', 'success');
             }
