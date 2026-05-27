@@ -351,3 +351,22 @@ public class LedgerService {
       requestKey
     );
     if (!existing.isEmpty()) return existing.get(0);
+    var amount = positive(m, "amount");
+    var rate = rate(m);
+    Long employee = null;
+    String month = null,
+      category = required(m, "category", 100);
+    if (payroll) {
+      employee = id(m, "employee_id");
+      one(
+        "SELECT id FROM employees WHERE id=? AND active=TRUE FOR UPDATE",
+        employee
+      );
+      month = required(m, "salary_month", 7);
+      try {
+        YearMonth.parse(month);
+      } catch (Exception e) {
+        throw bad("ماه معاش نامعتبر است");
+      }
+      category = "معاش";
+    }
