@@ -1,3 +1,15 @@
+                code: document.getElementById('supplierCode').value || `SUP-${Date.now()}`,
+                name: document.getElementById('supplierName').value,
+                phone: document.getElementById('supplierPhone').value,
+                email: document.getElementById('supplierEmail').value,
+                address: document.getElementById('supplierAddress').value,
+                account: document.getElementById('supplierAccount').value,
+                status: document.getElementById('supplierStatus').value,
+                debt: id ? suppliersData.find(s => s.id === parseInt(id))?.debt || 0 : 0
+            };
+            
+            if (id) {
+                const index = suppliersData.findIndex(s => s.id === parseInt(id));
                 if (index !== -1) {
                     suppliersData[index] = { ...suppliersData[index], ...supplier };
                 }
