@@ -1,3 +1,15 @@
+            
+            new bootstrap.Modal(document.getElementById('supplierModal')).show();
+        }
+        
+        function viewSupplierDetails(id) {
+            const supplier = suppliersData.find(s => s.id === id);
+            if (!supplier) return;
+            
+            // تاریخچه تراکنش‌های نمونه
+            const transactions = [
+                { date: "۱۴۰۲/۱۲/۰۵", invoiceNo: "P-2024-001", amount: 56000000, status: "پرداخت کامل" },
+                { date: "۱۴۰۲/۱۱/۲۰", invoiceNo: "P-2024-002", amount: 125000000, status: "پرداخت جزئی" }
             ];
             
             document.getElementById('supplierDetails').innerHTML = `
