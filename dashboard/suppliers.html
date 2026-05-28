@@ -1,3 +1,16 @@
+        function attachSupplierEvents() {
+            document.querySelectorAll('.edit-supplier').forEach(btn => {
+                btn.addEventListener('click', () => editSupplier(parseInt(btn.dataset.id)));
+            });
+            document.querySelectorAll('.view-details').forEach(btn => {
+                btn.addEventListener('click', () => viewSupplierDetails(parseInt(btn.dataset.id)));
+            });
+            document.querySelectorAll('.delete-supplier').forEach(btn => {
+                btn.addEventListener('click', () => showDeleteSupplierModal(parseInt(btn.dataset.id)));
+            });
+        }
+        
+        function editSupplier(id) {
             const supplier = suppliersData.find(s => s.id === id);
             if (!supplier) return;
             
