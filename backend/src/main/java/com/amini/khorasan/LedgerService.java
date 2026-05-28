@@ -396,3 +396,25 @@ public class LedgerService {
   ) {
     if (from.isAfter(to)) throw bad("بازهٔ تاریخ نادرست است");
     var p = one("SELECT * FROM parties WHERE id=?", party);
+    String union =
+      "SELECT opening_date AS entry_date, 'OPENING' AS kind,id AS reference,CASE WHEN opening_balance>0 THEN opening_balance ELSE 0 END AS debit,CASE WHEN opening_balance<0 THEN -opening_balance ELSE 0 END AS credit,'باقی افتتاحیه' AS notes,'USD' AS currency,CAST(1 AS DECIMAL(20,8)) AS rate,opening_balance AS original_amount FROM parties WHERE id=? AND opening_balance<>0 UNION ALL SELECT invoice_date AS entry_date, 'INVOICE' AS kind,id AS reference,total_usd AS debit,CAST(0 AS DECIMAL(20,4)) AS credit,notes,currency,rate,total AS original_amount FROM invoices WHERE party_id=? AND voided=FALSE UNION ALL SELECT payment_date,'PAYMENT',id,0,amount_usd,notes,currency,rate,amount FROM payments WHERE party_id=?";
+    var opening = db.queryForObject(
+      "SELECT COALESCE(SUM(debit-credit),0) FROM (" +
+        union +
+        ") ledger WHERE entry_date<?",
+      BigDecimal.class,
+      party,
+      party,
+      party,
+      from
+    );
+    var rows = db.queryForList(
+      "SELECT * FROM (" +
+        union +
+        ") ledger WHERE entry_date BETWEEN ? AND ? ORDER BY entry_date,CASE kind WHEN 'OPENING' THEN 0 WHEN 'INVOICE' THEN 1 ELSE 2 END,reference",
+      party,
+      party,
+      party,
+      from,
+      to
+    );
