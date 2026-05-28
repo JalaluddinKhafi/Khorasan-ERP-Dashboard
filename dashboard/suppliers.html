@@ -1,3 +1,15 @@
+                { id: 1, code: "SUP-001", name: "توزیع کننده البرز", phone: "۰۲۱-۵۵۵۵۱۲۳۴", email: "info@alborz.com", address: "تهران، خیابان آزادی", account: "IR1234567890", status: "فعال", debt: 56000000 },
+                { id: 2, code: "SUP-002", name: "واردات سامسونگ", phone: "۰۲۱-۵۵۵۵۶۷۸۹", email: "sales@samsung.ir", address: "تهران، خیابان ولیعصر", account: "IR0987654321", status: "فعال", debt: 234000000 },
+                { id: 3, code: "SUP-003", name: "بازرگانی نوین", phone: "۰۲۱-۵۵۵۵۹۰۱۲", email: "info@novin.com", address: "کرج، میدان آزادگان", account: "", status: "غیرفعال", debt: 0 }
+            ];
+            renderSuppliersTable();
+        }
+        
+        function renderSuppliersTable() {
+            const tbody = document.getElementById('suppliersTableBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = suppliersData.map(s => `
                 <tr>
                     <td>${s.code}</td>
                                         <td>${s.name}</td>
