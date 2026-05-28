@@ -1,3 +1,15 @@
+                </tr>
+            `).join('');
+            
+            if (suppliersTable) suppliersTable.destroy();
+            suppliersTable = $('#suppliersTable').DataTable({
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                pageLength: 10
+            });
+            
+            attachSupplierEvents();
+        }
+        
         function attachSupplierEvents() {
             document.querySelectorAll('.edit-supplier').forEach(btn => {
                 btn.addEventListener('click', () => editSupplier(parseInt(btn.dataset.id)));
