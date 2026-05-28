@@ -1,3 +1,15 @@
+            const supplier = suppliersData.find(s => s.id === id);
+            if (!supplier) return;
+            
+            currentSupplierId = id;
+            document.getElementById('supplierId').value = supplier.id;
+            document.getElementById('supplierName').value = supplier.name;
+            document.getElementById('supplierCode').value = supplier.code;
+            document.getElementById('supplierPhone').value = supplier.phone;
+            document.getElementById('supplierEmail').value = supplier.email;
+            document.getElementById('supplierAddress').value = supplier.address;
+            document.getElementById('supplierAccount').value = supplier.account;
+            document.getElementById('supplierStatus').value = supplier.status;
             
             new bootstrap.Modal(document.getElementById('supplierModal')).show();
         }
