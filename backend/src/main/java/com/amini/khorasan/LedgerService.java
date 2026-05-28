@@ -370,3 +370,29 @@ public class LedgerService {
       }
       category = "معاش";
     }
+    db.update(
+      "INSERT INTO expenses(request_key,expense_date,category,currency,rate,amount,amount_usd,notes,employee_id,salary_month,created_by) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
+      requestKey,
+      date(m, "expense_date"),
+      category,
+      m.get("currency"),
+      rate,
+      amount,
+      usd(amount, rate),
+      text(m, "notes", 1000),
+      employee,
+      month,
+      actor()
+    );
+    long eid = inserted();
+    audit(payroll ? "PAYROLL" : "EXPENSE", eid);
+    return one("SELECT * FROM expenses WHERE id=?", eid);
+  }
+
+  public Map<String, Object> statement(
+    long party,
+    LocalDate from,
+    LocalDate to
+  ) {
+    if (from.isAfter(to)) throw bad("بازهٔ تاریخ نادرست است");
+    var p = one("SELECT * FROM parties WHERE id=?", party);
