@@ -1,3 +1,16 @@
+        
+        function loadUsers() {
+            usersData = [
+                { id: 1, username: "admin", fullname: "مدیر سیستم", email: "admin@company.com", phone: "۰۹۱۲۱۲۳۴۵۶۷", role: "مدیر سیستم", status: "فعال", lastLogin: "۱۴۰۲/۱۲/۰۵ ۱۴:۳۰" },
+                { id: 2, username: "reza_ahmadi", fullname: "رضا احمدی", email: "reza@company.com", phone: "۰۹۱۲۲۳۳۴۴۵۵", role: "کارمند", status: "فعال", lastLogin: "۱۴۰۲/۱۲/۰۴ ۱۰:۱۵" },
+                { id: 3, username: "sara_karimi", fullname: "سارا کریمی", email: "sara@company.com", phone: "۰۹۳۵۵۴۴۳۳۲۲", role: "ناظر", status: "فعال", lastLogin: "۱۴۰۲/۱۲/۰۵ ۰۹:۰۰" },
+                { id: 4, username: "mohammad_h", fullname: "محمد حسینی", email: "mohammad@company.com", phone: "۰۹۰۱۲۳۴۵۶۷۸", role: "کارمند", status: "غیرفعال", lastLogin: "۱۴۰۲/۱۱/۲۸ ۱۶:۲۰" }
+            ];
+            renderUsersTable();
+        }
+        
+        function renderUsersTable() {
+            const tbody = document.getElementById('usersTableBody');
             if (!tbody) return;
             
             tbody.innerHTML = usersData.map(u => `
