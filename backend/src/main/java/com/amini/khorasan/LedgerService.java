@@ -440,3 +440,25 @@ public class LedgerService {
       to
     );
   }
+
+  public void voidInvoice(long id) {
+    var i = one("SELECT * FROM invoices WHERE id=? FOR UPDATE", id);
+    if (Boolean.TRUE.equals(i.get("voided"))) throw bad(
+      "این فاکتور قبلاً لغو شده است"
+    );
+    if (
+      db.queryForObject(
+        "SELECT COUNT(*) FROM payments WHERE invoice_id=?",
+        Integer.class,
+        id
+      ) > 0
+    ) throw bad("فاکتور دارای پرداخت است؛ ابتدا با مدیر مالی تصفیه کنید");
+    var items = db.queryForList(
+      "SELECT * FROM invoice_items WHERE invoice_id=? ORDER BY product_id",
+      id
+    );
+    for (var item : items) {
+      long pid = ((Number) item.get("product_id")).longValue();
+      var p = one("SELECT * FROM products WHERE id=? FOR UPDATE", pid);
+      var q = (BigDecimal) item.get("quantity");
+      var delta = i.get("kind").equals("SALE") ? q : q.negate();
