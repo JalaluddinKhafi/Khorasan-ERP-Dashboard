@@ -1,3 +1,16 @@
+            
+            new bootstrap.Modal(document.getElementById('userModal')).show();
+        }
+        
+        function saveUser() {
+            const id = document.getElementById('userId').value;
+            const password = document.getElementById('password').value;
+            
+            const user = {
+                id: id ? parseInt(id) : Date.now(),
+                username: document.getElementById('username').value,
+                fullname: document.getElementById('fullname').value,
+                email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
                 role: document.getElementById('role').value,
                 status: document.getElementById('status').value,
