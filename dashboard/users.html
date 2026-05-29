@@ -1,3 +1,15 @@
+                    }
+                }
+                showToast('کاربر با موفقیت ویرایش شد', 'success');
+            } else {
+                usersData.push(user);
+                showToast('کاربر با موفقیت اضافه شد', 'success');
+            }
+            
+            renderUsersTable();
+            bootstrap.Modal.getInstance(document.getElementById('userModal')).hide();
+            document.getElementById('userForm').reset();
+        }
         
         function showDeleteUserModal(id) {
             deleteUserId = id;
