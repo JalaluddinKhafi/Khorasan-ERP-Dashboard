@@ -1,3 +1,15 @@
+        function editUser(id) {
+            const user = usersData.find(u => u.id === id);
+            if (!user) return;
+            
+            document.getElementById('userId').value = user.id;
+            document.getElementById('username').value = user.username;
+            document.getElementById('fullname').value = user.fullname;
+            document.getElementById('email').value = user.email;
+            document.getElementById('phone').value = user.phone;
+            document.getElementById('role').value = user.role;
+            document.getElementById('status').value = user.status;
+            document.getElementById('password').value = '';
             
             new bootstrap.Modal(document.getElementById('userModal')).show();
         }
