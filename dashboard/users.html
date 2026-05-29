@@ -1,3 +1,15 @@
+            attachUserEvents();
+        }
+        
+        function attachUserEvents() {
+            document.querySelectorAll('.edit-user').forEach(btn => {
+                btn.addEventListener('click', () => editUser(parseInt(btn.dataset.id)));
+            });
+            document.querySelectorAll('.delete-user').forEach(btn => {
+                btn.addEventListener('click', () => showDeleteUserModal(parseInt(btn.dataset.id)));
+            });
+        }
+        
         function editUser(id) {
             const user = usersData.find(u => u.id === id);
             if (!user) return;
