@@ -1,3 +1,15 @@
+        
+        function showDeleteUserModal(id) {
+            deleteUserId = id;
+            new bootstrap.Modal(document.getElementById('deleteModal')).show();
+        }
+        
+        function confirmDeleteUser() {
+            if (deleteUserId) {
+                usersData = usersData.filter(u => u.id !== deleteUserId);
+                renderUsersTable();
+                showToast('کاربر با موفقیت حذف شد', 'success');
+                bootstrap.Modal.getInstance(document.getElementById('deleteModal')).hide();
                 deleteUserId = null;
             }
         }
