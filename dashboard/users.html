@@ -1,3 +1,15 @@
+                        <button class="btn btn-sm btn-info edit-user" data-id="${u.id}"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-danger delete-user" data-id="${u.id}"><i class="fas fa-trash"></i></button>
+                     </td>
+                </tr>
+            `).join('');
+            
+            if (usersTable) usersTable.destroy();
+            usersTable = $('#usersTable').DataTable({
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                pageLength: 10
+            });
+            
             attachUserEvents();
         }
         
