@@ -1,3 +1,15 @@
+                phone: document.getElementById('phone').value,
+                role: document.getElementById('role').value,
+                status: document.getElementById('status').value,
+                lastLogin: id ? usersData.find(u => u.id === parseInt(id))?.lastLogin || "---" : "---"
+            };
+            
+            if (id) {
+                const index = usersData.findIndex(u => u.id === parseInt(id));
+                if (index !== -1) {
+                    usersData[index] = { ...usersData[index], ...user };
+                    if (password) {
+                        showToast('رمز عبور تغییر کرد', 'info');
                     }
                 }
                 showToast('کاربر با موفقیت ویرایش شد', 'success');
