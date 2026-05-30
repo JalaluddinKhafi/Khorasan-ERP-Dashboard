@@ -1,3 +1,15 @@
+            pageLength: 10
+        });
+
+        $('#blogTable').DataTable({
+            language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+            pageLength: 10
+        });
+
+        // پیش‌نمایش سایت
+        document.getElementById('previewSiteBtn')?.addEventListener('click', function() {
+            window.open('../public-site/index.html', '_blank');
+        });
 
         // ذخیره تنظیمات
         document.getElementById('siteSettingsForm')?.addEventListener('submit', function(e) {
