@@ -44,3 +44,21 @@ public class SecurityConfig {
     @Value("${app.admin.password}") String password
   ) {
     return args -> {
+      if (
+        db.queryForObject("SELECT COUNT(*) FROM app_users", Integer.class) == 0
+      ) {
+        if (
+          password == null || password.length() < 12
+        ) throw new IllegalStateException(
+          "ADMIN_PASSWORD باید حداقل ۱۲ حرف باشد"
+        );
+        db.update(
+          "INSERT INTO app_users(username,password,name,role) VALUES(?,?,?,?)",
+          username,
+          encoder.encode(password),
+          "مدیر سیستم",
+          "ADMIN"
+        );
+      }
+    };
+  }
