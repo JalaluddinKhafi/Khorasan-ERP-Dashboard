@@ -1,3 +1,15 @@
+        let currentSearch = "";
+        
+        function getFilteredPosts() {
+            let filtered = [...blogPosts];
+            if (currentCategory !== "all") {
+                filtered = filtered.filter(p => p.category === currentCategory);
+            }
+            if (currentSearch) {
+                filtered = filtered.filter(p => p.title.includes(currentSearch) || p.excerpt.includes(currentSearch));
+            }
+            return filtered;
+        }
         
         function renderBlogPosts() {
             const filtered = getFilteredPosts();
