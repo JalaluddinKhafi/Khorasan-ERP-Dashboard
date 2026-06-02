@@ -107,3 +107,23 @@ public class SecurityConfig {
           .successHandler((req, res, auth) -> {
             res.setContentType("application/json");
             res.getWriter().write("{\"ok\":true}");
+          })
+          .failureHandler((req, res, e) -> {
+            res.setStatus(401);
+            res.setContentType("application/json;charset=UTF-8");
+            res
+              .getWriter()
+              .write("{\"message\":\"نام کاربری یا رمز عبور نادرست است\"}");
+          })
+          .permitAll()
+      )
+      .logout(l ->
+        l
+          .logoutUrl("/api/logout")
+          .logoutSuccessHandler((req, res, auth) -> res.setStatus(204))
+      )
+      .exceptionHandling(e ->
+        e
+          .authenticationEntryPoint((req, res, ex) -> {
+            if (req.getRequestURI().startsWith("/api/")) {
+              res.setStatus(401);
