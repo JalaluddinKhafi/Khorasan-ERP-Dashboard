@@ -1,3 +1,15 @@
+        });
+        
+        document.getElementById('searchBlogInput')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                currentSearch = e.target.value;
+                currentPage = 1;
+                renderBlogPosts();
+            }
+        });
+        
+        document.querySelectorAll('.category-list a').forEach(link => {
+            link.addEventListener('click', (e) => {
                 e.preventDefault();
                 currentCategory = e.target.dataset.category;
                 currentPage = 1;
