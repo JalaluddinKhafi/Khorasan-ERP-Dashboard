@@ -1,3 +1,15 @@
+                });
+            });
+        }
+        
+        function renderRecentPosts() {
+            const recent = [...blogPosts].slice(0, 3);
+            const container = document.getElementById('recentPosts');
+            if (container) {
+                container.innerHTML = recent.map(post => `
+                    <div class="mb-3">
+                        <a href="blog-details.html?id=${post.id}" class="text-decoration-none">
+                            <small class="text-muted">${post.date}</small>
                             <h6 class="mb-0">${post.title}</h6>
                         </a>
                     </div>
