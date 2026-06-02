@@ -1,3 +1,15 @@
+        const blogPosts = [
+            { id: 1, title: "۱۰ راهکار برای افزایش فروش در سال ۱۴۰۳", category: "management", date: "۱۴۰۲/۱۲/۱۰", author: "احمد رضایی", image: "https://via.placeholder.com/800x400/2563eb/white?text=Sales+Tips", excerpt: "در این مقاله به بررسی راهکارهای عملی برای افزایش فروش در سال جدید می‌پردازیم...", tags: ["مدیریت فروش", "بازاریابی"] },
+            { id: 2, title: "بهترین نرم‌افزارهای انبارداری در ایران", category: "technology", date: "۱۴۰۲/۱۲/۰۸", author: "سارا کریمی", image: "https://via.placeholder.com/800x400/10b981/white?text=Warehouse", excerpt: "معرفی و مقایسه بهترین سیستم‌های مدیریت انبار متناسب با کسب و کار ایرانی...", tags: ["انبارداری", "نرم افزار"] },
+            { id: 3, title: "اصول حسابداری برای کسب و کارهای کوچک", category: "finance", date: "۱۴۰۲/۱۲/۰۵", author: "محمد حسینی", image: "https://via.placeholder.com/800x400/f59e0b/white?text=Accounting", excerpt: "آشنایی با اصول پایه حسابداری که هر صاحب کسب و کاری باید بداند...", tags: ["حسابداری", "مالی"] },
+            { id: 4, title: "نقش هوش مصنوعی در مدیریت مدرن", category: "technology", date: "۱۴۰۲/۱۲/۰۳", author: "دکتر کریمی", image: "https://via.placeholder.com/800x400/ef4444/white?text=AI", excerpt: "چگونه هوش مصنوعی می‌تواند فرآیندهای مدیریتی را متحول کند؟", tags: ["هوش مصنوعی", "فناوری"] },
+            { id: 5, title: "مدیریت استراتژیک زنجیره تامین", category: "management", date: "۱۴۰۲/۱۲/۰۱", author: "احمد رضایی", image: "https://via.placeholder.com/800x400/8b5cf6/white?text=Supply+Chain", excerpt: "بهبود کارایی زنجیره تامین با رویکردهای نوین مدیریتی...", tags: ["زنجیره تامین", "مدیریت"] },
+            { id: 6, title: "گزارشگیری حرفه‌ای با Power BI", category: "technology", date: "۱۴۰۲/۱۱/۲۸", author: "سارا کریمی", image: "https://via.placeholder.com/800x400/06b6d4/white?text=Power+BI", excerpt: "آموزش ساخت داشبوردهای مدیریتی با Power BI", tags: ["داشبورد", "گزارش"] }
+        ];
+        
+        let currentPage = 1;
+        const postsPerPage = 4;
+        let currentCategory = "all";
         let currentSearch = "";
         
         function getFilteredPosts() {
