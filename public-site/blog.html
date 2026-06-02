@@ -1,3 +1,15 @@
+        
+        function renderBlogPosts() {
+            const filtered = getFilteredPosts();
+            const totalPages = Math.ceil(filtered.length / postsPerPage);
+            const start = (currentPage - 1) * postsPerPage;
+            const paginatedPosts = filtered.slice(start, start + postsPerPage);
+            
+            const container = document.getElementById('blogPostsContainer');
+            if (!container) return;
+            
+            container.innerHTML = paginatedPosts.map(post => `
+                <div class="blog-card card">
                     <img src="${post.image}" class="blog-img" alt="${post.title}">
                     <div class="card-body">
                         <div class="blog-meta">
