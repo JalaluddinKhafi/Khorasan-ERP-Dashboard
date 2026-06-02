@@ -86,3 +86,24 @@ public class SecurityConfig {
             "/api/settings/**",
             "/api/content/**",
             "/api/messages/**",
+            "/api/audit/**",
+            "/api/expenses/**",
+            "/api/reports/**"
+          )
+          .hasRole("ADMIN")
+          .requestMatchers(HttpMethod.POST, "/api/currencies/**")
+          .hasRole("ADMIN")
+          .requestMatchers(HttpMethod.PUT, "/api/currencies/**")
+          .hasRole("ADMIN")
+          .requestMatchers(HttpMethod.DELETE, "/api/**")
+          .hasRole("ADMIN")
+          .anyRequest()
+          .authenticated()
+      )
+      .formLogin(f ->
+        f
+          .loginPage("/dashboard/login.html")
+          .loginProcessingUrl("/api/login")
+          .successHandler((req, res, auth) -> {
+            res.setContentType("application/json");
+            res.getWriter().write("{\"ok\":true}");
