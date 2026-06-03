@@ -127,3 +127,24 @@ public class SecurityConfig {
           .authenticationEntryPoint((req, res, ex) -> {
             if (req.getRequestURI().startsWith("/api/")) {
               res.setStatus(401);
+              res.setContentType("application/json;charset=UTF-8");
+              res.getWriter().write("{\"message\":\"لطفاً وارد سیستم شوید\"}");
+            } else res.sendRedirect("/dashboard/login.html");
+          })
+          .accessDeniedHandler((req, res, ex) -> {
+            res.setStatus(403);
+            res.setContentType("application/json;charset=UTF-8");
+            res
+              .getWriter()
+              .write(
+                "{\"message\":\"اجازهٔ دسترسی ندارید یا نشست منقضی شده است\"}"
+              );
+          })
+      );
+    http.addFilterAfter(
+      new SessionGuard(db),
+      org.springframework.security.web.authentication.AnonymousAuthenticationFilter.class
+    );
+    return http.build();
+  }
+}
