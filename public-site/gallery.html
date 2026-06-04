@@ -1,3 +1,15 @@
+            const filtered = currentFilter === "all" ? galleryItems : galleryItems.filter(item => item.category === currentFilter);
+            const grid = document.getElementById('galleryGrid');
+            
+            grid.innerHTML = filtered.map(item => `
+                <div class="col-md-4 col-sm-6">
+                    <div class="gallery-item" data-id="${item.id}">
+                        <img src="${item.image}" alt="${item.title}">
+                        <div class="gallery-overlay">
+                            <h6 class="mb-0">${item.title}</h6>
+                        </div>
+                    </div>
+                </div>
             `).join('');
             
             // رویداد کلیک برای لایت‌باکس
