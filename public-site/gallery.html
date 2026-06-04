@@ -1,3 +1,15 @@
+            `).join('');
+            
+            // رویداد کلیک برای لایت‌باکس
+            document.querySelectorAll('.gallery-item').forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    const img = item.querySelector('img').src;
+                    document.getElementById('lightboxImg').src = img;
+                    document.getElementById('lightbox').classList.add('active');
+                });
+            });
+        }
+        
         // فیلترها
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
