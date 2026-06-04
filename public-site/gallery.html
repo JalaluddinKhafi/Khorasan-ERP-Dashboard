@@ -1,3 +1,16 @@
+            { id: 1, category: "products", title: "لپ تاپ ایسوس ROG", image: "https://via.placeholder.com/400x300/2563eb/white?text=ASUS+ROG" },
+            { id: 2, category: "products", title: "گوشی سامسونگ S24", image: "https://via.placeholder.com/400x300/10b981/white?text=Samsung+S24" },
+            { id: 3, category: "products", title: "هدفون سونی XM5", image: "https://via.placeholder.com/400x300/f59e0b/white?text=Sony+XM5" },
+            { id: 4, category: "events", title: "همایش سالانه ۱۴۰۲", image: "https://via.placeholder.com/400x300/ef4444/white?text=Event+2024" },
+            { id: 5, category: "events", title: "کارگاه آموزشی مدیریت فروش", image: "https://via.placeholder.com/400x300/8b5cf6/white?text=Workshop" },
+            { id: 6, category: "office", title: "دفتر مرکزی تهران", image: "https://via.placeholder.com/400x300/06b6d4/white?text=Office" },
+            { id: 7, category: "office", title: "تیم پشتیبانی", image: "https://via.placeholder.com/400x300/14b8a6/white?text=Support+Team" },
+            { id: 8, category: "products", title: "تبلت اپل iPad Pro", image: "https://via.placeholder.com/400x300/3b82f6/white?text=iPad+Pro" }
+        ];
+        
+        let currentFilter = "all";
+        
+        function renderGallery() {
             const filtered = currentFilter === "all" ? galleryItems : galleryItems.filter(item => item.category === currentFilter);
             const grid = document.getElementById('galleryGrid');
             
