@@ -1,0 +1,12 @@
+            document.getElementById('lightbox').classList.remove('active');
+        });
+        document.getElementById('lightbox')?.addEventListener('click', (e) => {
+            if (e.target === document.getElementById('lightbox')) {
+                document.getElementById('lightbox').classList.remove('active');
+            }
+        });
+        
+        renderGallery();
+    </script>
+</body>
+</html>
