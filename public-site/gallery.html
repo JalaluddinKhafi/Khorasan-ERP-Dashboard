@@ -1,3 +1,15 @@
+        // فیلترها
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                renderGallery();
+            });
+        });
+        
+        // لایت‌باکس بستن
+        document.querySelector('.lightbox-close')?.addEventListener('click', () => {
             document.getElementById('lightbox').classList.remove('active');
         });
         document.getElementById('lightbox')?.addEventListener('click', (e) => {
