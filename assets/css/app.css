@@ -24,3 +24,22 @@
   --shadow: 0 12px 40px #0003;
   color-scheme: dark;
 }
+:root[data-accent="blue"] {
+  --primary: #326bc7;
+  --soft: #eaf0fa;
+}
+:root[data-theme="dark"][data-accent="blue"] {
+  --primary: #8ab7ff;
+  --soft: #23334b;
+}
+:root[data-accent="purple"] {
+  --primary: #7952ac;
+  --soft: #f1ebfa;
+}
+:root[data-theme="dark"][data-accent="purple"] {
+  --primary: #c3a1f2;
+  --soft: #362b45;
+}
+* {
+  box-sizing: border-box;
+}
