@@ -1,3 +1,15 @@
+            document.getElementById('modalProductDesc').innerText = product.desc;
+            document.getElementById('modalProductCat').innerText = getCategoryName(product.category);
+            
+            new bootstrap.Modal(document.getElementById('productModal')).show();
+        }
+        
+        function getCategoryName(cat) {
+            const categories = { laptop: 'لپ تاپ', phone: 'گوشی موبایل', audio: 'هدفون' };
+            return categories[cat] || cat;
+        }
+        
+        function filterProducts() {
             const searchTerm = document.getElementById('searchProduct').value.toLowerCase();
             const selectedCategory = document.querySelector('input[name="category"]:checked').value;
             const priceLimit = parseInt(document.getElementById('priceRange').value);
