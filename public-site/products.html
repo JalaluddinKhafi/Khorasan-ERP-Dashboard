@@ -1,3 +1,15 @@
+            const searchTerm = document.getElementById('searchProduct').value.toLowerCase();
+            const selectedCategory = document.querySelector('input[name="category"]:checked').value;
+            const priceLimit = parseInt(document.getElementById('priceRange').value);
+            
+            currentProducts = products.filter(p => {
+                const matchSearch = p.name.toLowerCase().includes(searchTerm);
+                const matchCategory = selectedCategory === 'all' || p.category === selectedCategory;
+                const matchPrice = p.price <= priceLimit;
+                return matchSearch && matchCategory && matchPrice;
+            });
+            
+            renderProducts();
         }
         
         document.getElementById('searchProduct')?.addEventListener('input', filterProducts);
