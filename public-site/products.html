@@ -1,3 +1,15 @@
+            document.querySelectorAll('.view-product').forEach(btn => {
+                btn.addEventListener('click', () => showProductDetails(parseInt(btn.dataset.id)));
+            });
+        }
+        
+        function showProductDetails(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+            
+            document.getElementById('modalProductName').innerText = product.name;
+            document.getElementById('modalProductImage').src = product.image;
+            document.getElementById('modalProductPrice').innerHTML = `${product.price.toLocaleString()} تومان`;
             document.getElementById('modalProductDesc').innerText = product.desc;
             document.getElementById('modalProductCat').innerText = getCategoryName(product.category);
             
