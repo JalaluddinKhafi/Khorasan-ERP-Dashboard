@@ -1,3 +1,15 @@
+            if (!grid) return;
+            
+            grid.innerHTML = currentProducts.map(p => `
+                <div class="col-md-6 col-lg-4">
+                    <div class="product-card card h-100">
+                        <img src="${p.image}" class="product-img card-img-top" alt="${p.name}">
+                        <div class="card-body">
+                            <h5 class="card-title">${p.name}</h5>
+                            <p class="card-text text-muted small">${p.desc.substring(0, 80)}...</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <div>
+                                    <span class="price">${p.price.toLocaleString()} تومان</span>
                                     ${p.oldPrice ? `<div class="old-price">${p.oldPrice.toLocaleString()} تومان</div>` : ''}
                                 </div>
                                 <button class="btn btn-outline-primary btn-sm view-product" data-id="${p.id}">
