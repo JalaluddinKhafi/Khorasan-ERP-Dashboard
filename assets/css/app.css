@@ -62,3 +62,28 @@ select,
 textarea {
   font: inherit;
 }
+button,
+a,
+input,
+select,
+textarea {
+  outline-offset: 4px;
+}
+button,
+.button {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  padding: 9px 17px;
+  border-radius: 9px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+button:hover,
+.button:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
