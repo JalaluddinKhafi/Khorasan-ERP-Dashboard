@@ -1,3 +1,15 @@
+- [Author](#-author)
+- [License](#-license)
+
+---
+
+## 🎯 Overview
+
+**Khorasan System** is a comprehensive enterprise management platform designed for official company representative offices. It includes a **customer-facing website** (SEO optimized) and a **full-featured admin dashboard** for internal management.
+
+### Key Capabilities:
+- ✅ Manage Products, Categories, Suppliers, Customers
+- ✅ Create Purchase and Sales Invoices with dynamic rows
 - ✅ Track Inventory with low stock alerts
 - ✅ Monitor Customer Balances (complete transaction history)
 - ✅ Generate Financial Reports (Daily/Monthly/Yearly)
