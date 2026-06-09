@@ -1,3 +1,14 @@
+- ✅ Dark/Light Mode Toggle (persists via localStorage)
+- ✅ Fully Responsive (Mobile, Tablet, Desktop)
+- ✅ Persian (RTL) Support
+- ✅ Professional Typography (Inter Font)
+- ✅ Beautiful Cards and Tables
+- ✅ Toast Notifications
+- ✅ Confirmation Dialogs
+- ✅ Loading and Empty States
+- ✅ Form Validation
+
+---
 
 ## 🛠️ Tech Stack
 
