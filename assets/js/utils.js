@@ -112,4 +112,15 @@ function numberToWords(num) {
     }
     
     return word.trim();
-}
+                    <li class="nav-item"><a class="nav-link" href="index.html">صفحه نخست</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">درباره ما</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html">محصولات</a></li>
+                    <li class="nav-item"><a class="nav-link" href="services.html">خدمات</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">وبلاگ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">گالری</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">تماس با ما</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+`;
