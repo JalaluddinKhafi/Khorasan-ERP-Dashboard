@@ -580,6 +580,15 @@
         // رویدادها
         document.getElementById('addItemRow')?.addEventListener('click', addItemRow);
         document.getElementById('savePurchaseBtn')?.addEventListener('click', savePurchase);
+        document.getElementById('resetFilters')?.addEventListener('click', () => {
+            document.getElementById('searchPurchase').value = '';
+            document.getElementById('statusFilter').value = 'all';
+            document.getElementById('dateFilter').value = '';
+            filterPurchases();
+        });
+        document.getElementById('searchPurchase')?.addEventListener('keyup', filterPurchases);
+        document.getElementById('statusFilter')?.addEventListener('change', filterPurchases);
+        document.getElementById('dateFilter')?.addEventListener('keyup', filterPurchases);
         document.getElementById('paidAmount')?.addEventListener('input', function() {
             const total = parseInt(document.getElementById('grandTotal').innerHTML.replace(/,/g, '')) || 0;
             const paid = parseInt(this.value) || 0;
@@ -589,10 +598,8 @@
             else statusSelect.value = 'پرداخت جزئی';
         });
 
-        // مقداردهی اولیه
         loadSidebarAndNavbar('purchases');
         renderPurchasesTable();
-        setupFilters();
         attachRowEvents();
     </script>
 </body>
