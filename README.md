@@ -1,3 +1,15 @@
+
+### 📊 Admin Dashboard (13+ Pages)
+
+| Module | Features |
+|--------|----------|
+| **Dashboard** | Statistics cards (12 metrics), 4 interactive charts (ApexCharts), top products, recent invoices, low stock alerts, activity timeline |
+| **Products** | CRUD operations, image upload, search/filter, stock management |
+| **Categories** | Tree structure with parent-child relationships |
+| **Suppliers** | Complete profiles with transaction history |
+| **Customers** | Full profiles, purchase history, payment history, balance tracking |
+| **Purchases** | Create/edit invoices, dynamic product rows, auto-calculation, payment status |
+| **Sales** | Product search, dynamic rows, stock validation, invoice printing |
 | **Inventory** | Current stock, transaction history, low stock warnings |
 | **Payments** | Customer/supplier payments, payment history |
 | **Expenses** | Categorized expenses (rent, salary, electricity, transport, etc.) with charts |
