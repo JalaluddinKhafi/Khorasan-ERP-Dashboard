@@ -1,3 +1,15 @@
+### Public Website (accessible to customers)
+
+| File | Purpose |
+|------|---------|
+| `index.html` | Homepage with hero, products, services, testimonials |
+| `about.html` | Company information and team |
+| `products.html` | Product catalog with filters |
+| `services.html` | Services offered |
+| `blog.html` | Articles and news |
+| `blog-details.html` | Single article view |
+| `gallery.html` | Image gallery |
+| `contact.html` | Contact form and map |
 | `faq.html` | Frequently asked questions |
 | `privacy.html` | Privacy policy |
 | `terms.html` | Terms and conditions |
