@@ -1,3 +1,15 @@
+---
+
+## 📌 Table of Contents
+
+- [Overview](#-overview)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Pages](#-pages)
+- [Getting Started](#-getting-started)
+- [Backend Integration](#-backend-integration)
+- [Screenshots](#-screenshots)
 - [Author](#-author)
 - [License](#-license)
 
