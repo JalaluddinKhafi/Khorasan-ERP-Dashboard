@@ -1,3 +1,15 @@
+| **SheetJS (XLSX)** | Excel export functionality |
+| **html2pdf.js** | PDF generation |
+
+---
+
+## 📁 Project Structure
+<img width="1672" height="941" alt="NoteGPT_Image_20260609170023" src="https://github.com/user-attachments/assets/81f2d55c-2c85-4414-9ec3-d8ecf0285f2c" />
+
+---
+
+## 📄 Pages
+
 ### Public Website (accessible to customers)
 
 | File | Purpose |
