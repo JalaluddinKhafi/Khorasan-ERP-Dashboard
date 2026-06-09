@@ -1,3 +1,15 @@
+# 🚀 خراسان سیستم | Khorasan System - Enterprise Management Platform
+
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?logo=bootstrap&logoColor=white)
+![RTL](https://img.shields.io/badge/RTL-Supported-green)
+![Responsive](https://img.shields.io/badge/Responsive-Yes-brightgreen)
+
+> **A complete, production-ready Frontend system for managing Sales, Inventory, Purchases, Customer Balances, and Financial transactions.** Built specifically for Persian (RTL) businesses with a modern corporate design.
+
 ---
 
 ## 📌 Table of Contents
