@@ -109,3 +109,25 @@ textarea {
   background: var(--surface);
   color: var(--text);
 }
+input[type="checkbox"] {
+  width: 20px;
+}
+input[type="file"] {
+  max-width: 100%;
+}
+label {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+h1 {
+  font-size: 26px;
+  line-height: 1.5;
+}
