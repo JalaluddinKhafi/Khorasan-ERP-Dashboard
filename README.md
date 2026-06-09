@@ -1,3 +1,15 @@
+| `faq.html` | Frequently asked questions |
+| `privacy.html` | Privacy policy |
+| `terms.html` | Terms and conditions |
+
+### Admin Dashboard (restricted access)
+
+| File | Purpose |
+|------|---------|
+| `dashboard.html` | Main dashboard with stats and charts |
+| `products.html` | Product management |
+| `categories.html` | Category tree management |
+| `suppliers.html` | Supplier management |
 | `customers.html` | Customer management with balance |
 | `purchases.html` | Purchase invoice management |
 | `sales.html` | Sales invoice management |
