@@ -558,28 +558,21 @@
                         <td><input type="number" class="form-control unit-price" value="${item.price}" min="0"></td
                         <td><input type="number" class="form-control discount" value="${item.discount}" min="0"></td
                         <td class="row-total text-primary fw-bold">${item.total.toLocaleString()}</td
-                        <td><button type="button" class="btn btn-sm btn-danger remove-row"><i class="fas fa-trash"></i></button></td
-                    </tr>
-                `;
-                tbody.insertAdjacentHTML('beforeend', row);
-            });
-            attachRowEvents();
-            calculateItemTotal();
-
-            new bootstrap.Modal(document.getElementById('purchaseModal')).show();
+            showToast('ویرایش در نسخه بعدی اضافه می‌شود', 'info');
         }
 
         function deletePurchase(id) {
-            if (confirm('آیا از حذف این فاکتور اطمینان دارید؟')) {
+            if (confirm('آیا از حذف اطمینان دارید؟')) {
                 purchasesData = purchasesData.filter(p => p.id !== id);
                 renderPurchasesTable();
-                showToast('فاکتور با موفقیت حذف شد', 'success');
+                showToast('فاکتور حذف شد', 'success');
             }
         }
 
         // رویدادها
         document.getElementById('addItemRow')?.addEventListener('click', addItemRow);
         document.getElementById('savePurchaseBtn')?.addEventListener('click', savePurchase);
+        document.getElementById('printDetailsBtn')?.addEventListener('click', () => window.print());
         document.getElementById('resetFilters')?.addEventListener('click', () => {
             document.getElementById('searchPurchase').value = '';
             document.getElementById('statusFilter').value = 'all';
