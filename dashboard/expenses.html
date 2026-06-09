@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت مصارف | داشبورد</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <aside id="sidebar" class="sidebar"></aside>
+        <main class="main-content">
+            <nav class="top-navbar"></nav>
+            <div class="container-fluid p-4">
+                <!-- Summary Cards -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-danger"><i class="fas fa-chart-line"></i></div>
+                            <div class="stat-info">
+                                <h3 id="totalExpenses">۰</h3>
+                                <p>کل مصارف ماه جاری</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-warning"><i class="fas fa-chart-pie"></i></div>
+                            <div class="stat-info">
+                                <h3 id="avgExpense">۰</h3>
+                                <p>میانگین روزانه</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-info"><i class="fas fa-calendar"></i></div>
+                            <div class="stat-info">
+                                <h3 id="lastMonthExpense">۰</h3>
+                                <p>ماه گذشته</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-primary"><i class="fas fa-trend-up"></i></div>
+                            <div class="stat-info">
+                                <h3 id="expenseChange">۰</h3>
+                                <p>تغییر نسبت به ماه قبل</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card mb-4">
+                            <div class="card-header d-flex justify-content-between">
+                                <h5>لیست مصارف</h5>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#expenseModal">
+                                    <i class="fas fa-plus"></i> ثبت مصرف جدید
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <input type="text" id="searchExpense" class="form-control" placeholder="جستجو...">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select id="categoryFilter" class="form-select">
+                                            <option value="all">همه دسته‌بندی‌ها</option>
+                                            <option value="کرایه">کرایه</option>
+                                            <option value="معاش">معاش</option>
+                                            <option value="برق">برق</option>
+                                            <option value="حمل و نقل">حمل و نقل</option>
+                                            <option value="سایر">سایر</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" id="dateRange" class="form-control" placeholder="محدوده تاریخ">
+                                    </div>
+                                </div>
+                                <table id="expensesTable" class="table table-striped">
+                                    <thead>
+                                        <tr><th>تاریخ</th><th>دسته‌بندی</th><th>شرح</th><th>مبلغ</th><th>نحوه پرداخت</th><th>عملیات</th></tr>
+                                    </thead>
+                                    <tbody id="expensesTableBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5>نمودار توزیع مصارف</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="expenseChart"></div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>مصارف بر اساس دسته‌بندی</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="categoryBreakdown"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal ثبت مصرف -->
+    <div class="modal fade" id="expenseModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ثبت مصرف جدید</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="expenseForm">
+                        <input type="hidden" id="expenseId">
+                        <div class="mb-3">
+                            <label>دسته‌بندی</label>
+                            <select id="expenseCategory" class="form-select" required>
+                                <option value="">انتخاب کنید</option>
+                                <option value="کرایه">کرایه</option>
+                                <option value="معاش">معاش</option>
+                                <option value="برق">برق</option>
+                                <option value="آب">آب</option>
+                                <option value="گاز">گاز</option>
+                                <option value="حمل و نقل">حمل و نقل</option>
+                                <option value="خوراک">خوراک</option>
+                                <option value="تبلیغات">تبلیغات</option>
+                                <option value="سایر">سایر</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label>تاریخ</label>
+                            <input type="date" id="expenseDate" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>شرح مصرف</label>
+                            <textarea id="expenseDesc" class="form-control" rows="2" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label>مبلغ (تومان)</label>
+                            <input type="number" id="expenseAmount" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>نحوه پرداخت</label>
+                            <select id="expenseMethod" class="form-select">
+                                <option value="نقدی">نقدی</option>
+                                <option value="کارت به کارت">کارت به کارت</option>
+                                <option value="واریز بانکی">واریز بانکی</option>
+                                <option value="چک">چک</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label>شماره سند/پیگیری</label>
+                            <input type="text" id="expenseDocNo" class="form-control">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                    <button type="button" class="btn btn-primary" id="saveExpenseBtn">ذخیره</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal حذف -->
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">تایید حذف</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    آیا از حذف این مورد اطمینان دارید؟
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">حذف</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script>
+        let expensesData = [];
+        let expensesTable = null;
+        let deleteExpenseId = null;
+        let expenseChart = null;
+        
+        function loadExpenses() {
+            expensesData = [
+                { id: 1, date: "۱۴۰۲/۱۲/۰۵", category: "کرایه", desc: "اجاره ماهانه دفتر", amount: 25000000, method: "واریز بانکی", docNo: "CHK-001" },
+                { id: 2, date: "۱۴۰۲/۱۲/۰۵", category: "معاش", desc: "حقوق آذر ماه", amount: 185000000, method: "واریز بانکی", docNo: "SAL-001" },
+                { id: 3, date: "۱۴۰۲/۱۲/۰۴", category: "برق", desc: "قبض برق آبان", amount: 3850000, method: "نقدی", docNo: "" },
+                { id: 4, date: "۱۴۰۲/۱۲/۰۳", category: "حمل و نقل", desc: "هزینه حمل کالا", amount: 5600000, method: "کارت به کارت", docNo: "TRX-001" },
+                { id: 5, date: "۱۴۰۲/۱۲/۰۲", category: "سایر", desc: "خرید لوازم التحریر", amount: 850000, method: "نقدی", docNo: "" }
+            ];
+            
+            renderExpensesTable();
+            renderStats();
+            renderCharts();
+            renderCategoryBreakdown();
+        }
+        
+        function renderExpensesTable() {
+            const tbody = document.getElementById('expensesTableBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = expensesData.map(e => `
+                <tr>
+                    <td>${e.date}</td>
+                    <td><span class="badge bg-secondary">${e.category}</span></td>
+                    <td>${e.desc}</td>
+                    <td class="text-danger fw-bold">${e.amount.toLocaleString()} تومان</td>
+                    <td>${e.method}</td>
+                    <td>
+                        <button class="btn btn-sm btn-info edit-expense" data-id="${e.id}"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-danger delete-expense" data-id="${e.id}"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+            
+            if (expensesTable) expensesTable.destroy();
+            expensesTable = $('#expensesTable').DataTable({
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                pageLength: 10,
+                searching: false
+            });
+            
+            attachExpenseEvents();
+            setupFilters();
+        }
+        
+        function attachExpenseEvents() {
+            document.querySelectorAll('.edit-expense').forEach(btn => {
+                btn.addEventListener('click', () => editExpense(parseInt(btn.dataset.id)));
+            });
+            document.querySelectorAll('.delete-expense').forEach(btn => {
+                btn.addEventListener('click', () => showDeleteModal(parseInt(btn.dataset.id)));
+            });
+        }
+        
+        function setupFilters() {
+            const searchInput = document.getElementById('searchExpense');
+            const categoryFilter = document.getElementById('categoryFilter');
+            
+            if (searchInput) {
+                searchInput.addEventListener('keyup', filterExpenses);
+            }
+            if (categoryFilter) {
+                categoryFilter.addEventListener('change', filterExpenses);
+            }
+        }
+        
+        function filterExpenses() {
+            const searchTerm = document.getElementById('searchExpense')?.value.toLowerCase() || '';
+            const category = document.getElementById('categoryFilter')?.value || 'all';
+            
+            const filtered = expensesData.filter(e => {
+                const matchSearch = e.desc.toLowerCase().includes(searchTerm);
+                const matchCategory = category === 'all' || e.category === category;
+                return matchSearch && matchCategory;
+            });
+            
+            const tbody = document.getElementById('expensesTableBody');
+            if (tbody) {
+                tbody.innerHTML = filtered.map(e => `
+                    <tr>
+                        <td>${e.date}</td>
+                        <td><span class="badge bg-secondary">${e.category}</span></td>
+                        <td>${e.desc}</td>
+                        <td class="text-danger fw-bold">${e.amount.toLocaleString()} تومان</td>
+                        <td>${e.method}</td>
+                        <td>
+                            <button class="btn btn-sm btn-info edit-expense" data-id="${e.id}"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-danger delete-expense" data-id="${e.id}"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `).join('');
+                attachExpenseEvents();
+            }
+        }
+        
+        function renderStats() {
+            const currentMonth = "۱۴۰۲/۱۲";
+            const currentMonthExpenses = expensesData.filter(e => e.date.startsWith("۱۴۰۲/۱۲"));
+            const lastMonthExpenses = expensesData.filter(e => e.date.startsWith("۱۴۰۲/۱۱"));
+            
+            const total = currentMonthExpenses.reduce((sum, e) => sum + e.amount, 0);
+            const avg = Math.floor(total / 30) || 0;
+            const lastTotal = lastMonthExpenses.reduce((sum, e) => sum + e.amount, 0);
+            const change = lastTotal ? ((total - lastTotal) / lastTotal * 100).toFixed(1) : 0;
+            
+            document.getElementById('totalExpenses').innerHTML = total.toLocaleString() + ' تومان';
+            document.getElementById('avgExpense').innerHTML = avg.toLocaleString() + ' تومان';
+            document.getElementById('lastMonthExpense').innerHTML = lastTotal.toLocaleString() + ' تومان';
+            document.getElementById('expenseChange').innerHTML = (change >= 0 ? '+' : '') + change + '%';
+            document.getElementById('expenseChange').style.color = change <= 0 ? '#10b981' : '#ef4444';
+        }
+        
+        function renderCharts() {
+            const categories = ['کرایه', 'معاش', 'برق', 'حمل و نقل', 'سایر'];
+            const amounts = [25000000, 185000000, 3850000, 5600000, 850000];
+            
+            if (expenseChart) expenseChart.destroy();
+            expenseChart = new ApexCharts(document.querySelector("#expenseChart"), {
+                series: amounts,
+                chart: { type: 'donut', height: 300 },
+                labels: categories,
+                colors: ['#f59e0b', '#ef4444', '#10b981', '#8b5cf6', '#06b6d4'],
+                legend: { position: 'bottom' },
+                title: { text: 'توزیع مصارف بر اساس دسته' }
+            });
+            expenseChart.render();
+        }
+        
+        function renderCategoryBreakdown() {
+            const categories = {};
+            expensesData.forEach(e => {
+                if (!categories[e.category]) categories[e.category] = 0;
+                categories[e.category] += e.amount;
+            });
+            
+            const container = document.getElementById('categoryBreakdown');
+            if (container) {
+                container.innerHTML = Object.entries(categories).map(([cat, amount]) => `
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span><i class="fas fa-circle" style="color: ${getCategoryColor(cat)}; font-size: 10px;"></i> ${cat}</span>
+                        <span class="fw-bold">${amount.toLocaleString()} تومان</span>
+                    </div>
+                    <div class="progress mb-3" style="height: 6px;">
+                        <div class="progress-bar" style="width: ${(amount / expensesData.reduce((s, e) => s + e.amount, 0) * 100)}%; background-color: ${getCategoryColor(cat)};"></div>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        function getCategoryColor(category) {
+            const colors = { 'کرایه': '#f59e0b', 'معاش': '#ef4444', 'برق': '#10b981', 'حمل و نقل': '#8b5cf6', 'سایر': '#06b6d4' };
+            return colors[category] || '#6b7280';
+        }
+        
+        function saveExpense() {
+            const id = document.getElementById('expenseId').value;
+            
+            const expense = {
+                id: id ? parseInt(id) : Date.now(),
+                date: document.getElementById('expenseDate').value ? 
+                    new Date(document.getElementById('expenseDate').value).toLocaleDateString('fa-IR') : "۱۴۰۲/۱۲/۰۵",
+                category: document.getElementById('expenseCategory').value,
+                desc: document.getElementById('expenseDesc').value,
+                amount: parseInt(document.getElementById('expenseAmount').value),
+                method: document.getElementById('expenseMethod').value,
+                docNo: document.getElementById('expenseDocNo').value
+            };
+            
+            if (id) {
+                const index = expensesData.findIndex(e => e.id === parseInt(id));
+                if (index !== -1) {
+                    expensesData[index] = { ...expensesData[index], ...expense };
+                }
+                showToast('مصرف با موفقیت ویرایش شد', 'success');
+            } else {
+                expensesData.push(expense);
+                showToast('مصرف با موفقیت ثبت شد', 'success');
+            }
+            
+            renderExpensesTable();
+            renderStats();
+            renderCharts();
+            renderCategoryBreakdown();
+            
+            bootstrap.Modal.getInstance(document.getElementById('expenseModal')).hide();
+            document.getElementById('expenseForm').reset();
+        }
+        
+        function editExpense(id) {
+            const expense = expensesData.find(e => e.id === id);
+            if (!expense) return;
+            
+            document.getElementById('expenseId').value = expense.id;
+            document.getElementById('expenseCategory').value = expense.category;
+            document.getElementById('expenseDesc').value = expense.desc;
+            document.getElementById('expenseAmount').value = expense.amount;
+            document.getElementById('expenseMethod').value = expense.method;
+            document.getElementById('expenseDocNo').value = expense.docNo;
+            
+            // تبدیل تاریخ فارسی به میلادی برای input date
+            document.getElementById('expenseDate').value = '2024-01-15';
+            
+            new bootstrap.Modal(document.getElementById('expenseModal')).show();
+        }
+        
+        function showDeleteModal(id) {
+            deleteExpenseId = id;
+            new bootstrap.Modal(document.getElementById('deleteModal')).show();
+        }
+        
+        function confirmDelete() {
+            if (deleteExpenseId) {
+                expensesData = expensesData.filter(e => e.id !== deleteExpenseId);
+                renderExpensesTable();
+                renderStats();
+                renderCharts();
+                renderCategoryBreakdown();
+                showToast('مصرف با موفقیت حذف شد', 'success');
+                bootstrap.Modal.getInstance(document.getElementById('deleteModal')).hide();
+                deleteExpenseId = null;
+            }
+        }
+        
+        document.getElementById('saveExpenseBtn')?.addEventListener('click', saveExpense);
+        document.getElementById('confirmDeleteBtn')?.addEventListener('click', confirmDelete);
+        
+        loadSidebarAndNavbar('expenses');
+        loadExpenses();
+    </script>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لیست قیمت محصولات | داشبورد</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .price-list-header {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .price-list-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+        .price-list-header .company-logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .price-list-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .price-category {
+            background: #f8fafc;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        .price-row {
+            transition: 0.3s;
+        }
+        .price-row:hover {
+            background: #eff6ff;
+        }
+        .print-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        @media print {
+            .sidebar, .top-navbar, .print-btn, .no-print {
+                display: none !important;
+            }
+            .main-content {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .price-list-header {
+                background: #1e293b;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <aside id="sidebar" class="sidebar"></aside>
+        <main class="main-content">
+            <nav class="top-navbar"></nav>
+            <div class="container-fluid p-4">
+                <!-- Header with Company Info -->
+                <div class="price-list-header text-center">
+                    <div class="company-logo">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h1>لیست قیمت محصولات</h1>
+                    <p>شرکت مدیریت جامع | نمایندگی رسمی</p>
+                    <p class="small mt-2">
+                        <i class="fas fa-map-marker-alt"></i> تهران، خیابان ولیعصر، پلاک ۱۲۳ &nbsp;|&nbsp;
+                        <i class="fas fa-phone"></i> ۰۲۱-۱۲۳۴۵۶۷۸ &nbsp;|&nbsp;
+                        <i class="fas fa-globe"></i> www.armanmanagement.com
+                    </p>
+                    <p class="small">تاریخ چاپ: <span id="printDate"></span></p>
+                </div>
+
+                <!-- Filters -->
+                <div class="row mb-4 no-print">
+                    <div class="col-md-4">
+                        <input type="text" id="searchProduct" class="form-control" placeholder="جستجوی محصول...">
+                    </div>
+                    <div class="col-md-3">
+                        <select id="categoryFilter" class="form-select">
+                            <option value="">همه دسته‌بندی‌ها</option>
+                            <option value="الکترونیک">الکترونیک</option>
+                            <option value="پوشاک">پوشاک</option>
+                            <option value="خودرو">خودرو</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary" id="printPriceList">
+                            <i class="fas fa-print"></i> چاپ لیست قیمت
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Price List Table -->
+                <div class="card">
+                    <div class="card-body p-0">
+                        <table class="table table-bordered mb-0" id="priceListTable">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ردیف</th>
+                                    <th>کد کالا</th>
+                                    <th>تصویر</th>
+                                    <th>نام کالا</th>
+                                    <th>دسته‌بندی</th>
+                                    <th>قیمت خرید (تومان)</th>
+                                    <th>قیمت فروش (تومان)</th>
+                                    <th>واحد</th>
+                                    <th>موجودی</th>
+                                </tr>
+                            </thead>
+                            <tbody id="priceListBody"></tbody>
+                            <tfoot class="table-secondary">
+                                <tr>
+                                    <th colspan="6" class="text-end">تعداد کل محصولات:</th>
+                                    <th colspan="3" id="totalProductsCount">۰</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <button class="btn btn-primary print-btn no-print" id="fabPrintBtn">
+        <i class="fas fa-print"></i>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script>
+        // داده‌های محصولات
+        const productsList = [
+            { id: 1, code: "P1001", name: "لپ تاپ ایسوس ROG Zephyrus", category: "الکترونیک", purchasePrice: 28500000, salePrice: 35500000, unit: "عدد", stock: 45, image: "" },
+            { id: 2, code: "P1002", name: "گوشی سامسونگ Galaxy S24 Ultra", category: "الکترونیک", purchasePrice: 38000000, salePrice: 42000000, unit: "عدد", stock: 8, image: "" },
+            { id: 3, code: "P1003", name: "هدفون سونی WH-1000XM5", category: "الکترونیک", purchasePrice: 6500000, salePrice: 8900000, unit: "عدد", stock: 112, image: "" },
+            { id: 4, code: "P1004", name: "تبلت اپل iPad Pro 12.9", category: "الکترونیک", purchasePrice: 42000000, salePrice: 48900000, unit: "عدد", stock: 3, image: "" },
+            { id: 5, code: "P1005", name: "موس بی سیم لاجیتک MX Master 3", category: "الکترونیک", purchasePrice: 1850000, salePrice: 2500000, unit: "عدد", stock: 250, image: "" },
+            { id: 6, code: "P1006", name: "کیبورد مکانیکال ریزر", category: "الکترونیک", purchasePrice: 3200000, salePrice: 4500000, unit: "عدد", stock: 34, image: "" },
+            { id: 7, code: "P1007", name: "مانیتور سامسونگ 32 اینچ", category: "الکترونیک", purchasePrice: 12500000, salePrice: 15900000, unit: "عدد", stock: 12, image: "" }
+        ];
+
+        let priceTable = null;
+
+        function renderPriceList() {
+            const tbody = document.getElementById('priceListBody');
+            if (!tbody) return;
+
+            tbody.innerHTML = productsList.map((p, index) => `
+                <tr class="price-row">
+                    <td>${index + 1}</td>
+                    <td>${p.code}</td>
+                    <td><img src="${p.image || 'https://via.placeholder.com/40x40/e2e8f0/64748b?text=No'}" width="40" height="40" style="object-fit: cover; border-radius: 8px;"></td>
+                    <td>${p.name}</td>
+                    <td>${p.category}</td>
+                    <td>${p.purchasePrice.toLocaleString()}</td>
+                    <td class="text-primary fw-bold">${p.salePrice.toLocaleString()}</td>
+                    <td>${p.unit}</td>
+                    <td class="${p.stock <= 10 ? 'text-danger fw-bold' : ''}">${p.stock}</td>
+                </tr>
+            `).join('');
+
+            document.getElementById('totalProductsCount').innerHTML = productsList.length;
+
+            if (priceTable) priceTable.destroy();
+            priceTable = $('#priceListTable').DataTable({
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                pageLength: 25,
+                searching: false,
+                ordering: true
+            });
+        }
+
+        function filterPriceList() {
+            const searchTerm = document.getElementById('searchProduct')?.value.toLowerCase() || '';
+            const category = document.getElementById('categoryFilter')?.value || '';
+
+            const filtered = productsList.filter(p => {
+                const matchSearch = p.name.toLowerCase().includes(searchTerm) || p.code.toLowerCase().includes(searchTerm);
+                const matchCategory = !category || p.category === category;
+                return matchSearch && matchCategory;
+            });
+
+            const tbody = document.getElementById('priceListBody');
+            if (tbody) {
+                tbody.innerHTML = filtered.map((p, index) => `
+                    <tr class="price-row">
+                        <td>${index + 1}</td>
+                        <td>${p.code}</td>
+                        <td><img src="${p.image || 'https://via.placeholder.com/40x40/e2e8f0/64748b?text=No'}" width="40" height="40" style="object-fit: cover; border-radius: 8px;"></td>
+                        <td>${p.name}</td>
+                        <td>${p.category}</td>
+                        <td>${p.purchasePrice.toLocaleString()}</td>
+                        <td class="text-primary fw-bold">${p.salePrice.toLocaleString()}</td>
+                        <td>${p.unit}</td>
+                        <td class="${p.stock <= 10 ? 'text-danger fw-bold' : ''}">${p.stock}</td>
+                    </tr>
+                `).join('');
+                document.getElementById('totalProductsCount').innerHTML = filtered.length;
+            }
+
+            if (priceTable) {
+                priceTable.clear();
+                priceTable.rows.add(filtered);
+                priceTable.draw();
+            }
+        }
+
+        function printPriceList() {
+            window.print();
+        }
+
+        // تنظیم تاریخ امروز
+        document.getElementById('printDate').innerText = new Date().toLocaleDateString('fa-IR');
+
+        document.getElementById('searchProduct')?.addEventListener('keyup', filterPriceList);
+        document.getElementById('categoryFilter')?.addEventListener('change', filterPriceList);
+        document.getElementById('printPriceList')?.addEventListener('click', printPriceList);
+        document.getElementById('fabPrintBtn')?.addEventListener('click', printPriceList);
+
+        loadSidebarAndNavbar('products');
+        renderPriceList();
+    </script>
+</body>
+</html>

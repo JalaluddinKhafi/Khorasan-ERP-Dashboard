@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت انبار | داشبورد</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .stock-card {
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .warning-stock {
+            background: #fff3cd;
+            border-right: 4px solid #ffc107;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .badge-low {
+            background: #ef4444;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <aside id="sidebar" class="sidebar"></aside>
+        <main class="main-content">
+            <nav class="top-navbar"></nav>
+            <div class="container-fluid p-4">
+                <!-- Stock Summary Cards -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-3">
+                        <div class="stock-card">
+                            <h3 class="mb-0" id="totalStockValue">۰</h3>
+                            <small>ارزش کل موجودی</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stock-card" style="background: linear-gradient(135deg, #10b981, #059669);">
+                            <h3 class="mb-0" id="totalItems">۰</h3>
+                            <small>تعداد اقلام موجود</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stock-card" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                            <h3 class="mb-0" id="lowStockCount">۰</h3>
+                            <small>محصولات کم موجود</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stock-card" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                            <h3 class="mb-0" id="outOfStockCount">۰</h3>
+                            <small>محصولات ناموجود</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Low Stock Alert -->
+                <div class="card mb-4">
+                    <div class="card-header bg-warning text-dark">
+                        <i class="fas fa-exclamation-triangle"></i> هشدار موجودی کم
+                    </div>
+                    <div class="card-body" id="lowStockAlert">
+                        <!-- لیست محصولات کم موجود -->
+                    </div>
+                </div>
+
+                <!-- Current Inventory Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5>موجودی فعلی انبار</h5>
+                    </div>
+                    <div class="card-body">
+                        <table id="inventoryTable" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>کد کالا</th>
+                                    <th>نام کالا</th>
+                                    <th>دسته‌بندی</th>
+                                    <th>موجودی فعلی</th>
+                                    <th>حداقل موجودی</th>
+                                    <th>وضعیت</th>
+                                    <th>آخرین ورود</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventoryTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Transaction History -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5>تاریخچه ورود و خروج کالا</h5>
+                    </div>
+                    <div class="card-body">
+                        <table id="transactionTable" class="table">
+                            <thead>
+                                <tr><th>تاریخ</th><th>نوع</th><th>کالا</th><th>تعداد</th><th>مرجع</th><th>کاربر</th></tr>
+                            </thead>
+                            <tbody id="transactionTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script>
+        let inventoryData = [];
+        let transactionData = [];
+        
+        function loadInventory() {
+            inventoryData = [
+                { id: 1, code: "P1001", name: "لپ تاپ ایسوس", category: "الکترونیک", stock: 45, minStock: 10, lastIn: "۱۴۰۲/۱۲/۰۵" },
+                { id: 2, code: "P1002", name: "گوشی سامسونگ", category: "الکترونیک", stock: 8, minStock: 15, lastIn: "۱۴۰۲/۱۲/۰۳" },
+                { id: 3, code: "P1003", name: "هدفون سونی", category: "الکترونیک", stock: 112, minStock: 20, lastIn: "۱۴۰۲/۱۲/۰۱" },
+                { id: 4, code: "P1004", name: "تبلت اپل", category: "الکترونیک", stock: 3, minStock: 10, lastIn: "۱۴۰۲/۱۱/۲۸" },
+                { id: 5, code: "P1005", name: "موس بی سیم", category: "لوازم جانبی", stock: 250, minStock: 30, lastIn: "۱۴۰۲/۱۲/۰۴" }
+            ];
+            
+            transactionData = [
+                { date: "۱۴۰۲/۱۲/۰۵", type: "ورود", product: "لپ تاپ ایسوس", quantity: 20, ref: "فاکتور P-001", user: "admin" },
+                { date: "۱۴۰۲/۱۲/۰۴", type: "خروج", product: "گوشی سامسونگ", quantity: 5, ref: "فاکتور S-001", user: "admin" },
+                { date: "۱۴۰۲/۱۲/۰۴", type: "ورود", product: "هدفون سونی", quantity: 50, ref: "فاکتور P-002", user: "admin" }
+            ];
+            
+            renderInventoryTable();
+            renderTransactionTable();
+            renderStats();
+            renderLowStockAlert();
+        }
+        
+        function renderInventoryTable() {
+            const tbody = document.getElementById('inventoryTableBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = inventoryData.map(p => {
+                let status = '';
+                let statusClass = '';
+                if (p.stock === 0) {
+                    status = 'ناموجود';
+                    statusClass = 'badge bg-danger';
+                } else if (p.stock <= p.minStock) {
+                    status = 'در آستانه اتمام';
+                    statusClass = 'badge bg-warning text-dark';
+                } else {
+                    status = 'موجود';
+                    statusClass = 'badge bg-success';
+                }
+                
+                return `
+                    <tr>
+                        <td>${p.code}</td>
+                        <td>${p.name}</td>
+                        <td>${p.category}</td>
+                        <td>${p.stock}</td>
+                        <td>${p.minStock}</td>
+                        <td><span class="${statusClass}">${status}</span></td>
+                        <td>${p.lastIn}</td>
+                    </tr>
+                `;
+            }).join('');
+            
+            $('#inventoryTable').DataTable({
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                destroy: true
+            });
+        }
+        
+        function renderTransactionTable() {
+            const tbody = document.getElementById('transactionTableBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = transactionData.map(t => `
+                <tr>
+                    <td>${t.date}</td>
+                    <td><span class="badge ${t.type === 'ورود' ? 'bg-success' : 'bg-danger'}">${t.type}</span></td>
+                    <td>${t.product}</td>
+                    <td>${t.quantity}</td>
+                    <td>${t.ref}</td>
+                    <td>${t.user}</td>
+                </tr>
+            `).join('');
+            
+            $('#transactionTable').DataTable({
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                destroy: true
+            });
+        }
+        
+        function renderStats() {
+            const totalValue = inventoryData.reduce((sum, p) => sum + (p.stock * 15000000), 0);
+            const totalItems = inventoryData.reduce((sum, p) => sum + p.stock, 0);
+            const lowStock = inventoryData.filter(p => p.stock <= p.minStock && p.stock > 0).length;
+            const outOfStock = inventoryData.filter(p => p.stock === 0).length;
+            
+            document.getElementById('totalStockValue').innerHTML = totalValue.toLocaleString() + ' تومان';
+            document.getElementById('totalItems').innerHTML = totalItems;
+            document.getElementById('lowStockCount').innerHTML = lowStock;
+            document.getElementById('outOfStockCount').innerHTML = outOfStock;
+        }
+        
+        function renderLowStockAlert() {
+            const lowStockItems = inventoryData.filter(p => p.stock <= p.minStock && p.stock > 0);
+            const container = document.getElementById('lowStockAlert');
+            
+            if (lowStockItems.length === 0) {
+                container.innerHTML = '<div class="text-center text-muted">هیچ محصول کم موجودی وجود ندارد</div>';
+                return;
+            }
+            
+            container.innerHTML = lowStockItems.map(p => `
+                <div class="warning-stock">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>${p.name}</strong> - کد: ${p.code}
+                            <div class="text-muted small">موجودی فعلی: ${p.stock} | حداقل مجاز: ${p.minStock}</div>
+                        </div>
+                        <button class="btn btn-sm btn-primary" onclick="alert('سفارش ثبت شد')">ثبت سفارش</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        loadSidebarAndNavbar('inventory');
+        loadInventory();
+    </script>
+</body>
+</html>

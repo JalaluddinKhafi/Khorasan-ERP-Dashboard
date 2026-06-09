@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدمات | نمایندگی رسمی</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .service-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            height: 100%;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -12px rgba(0,0,0,0.2);
+        }
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+        .service-icon i {
+            font-size: 2.5rem;
+            color: white;
+        }
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-chart-line text-primary"></i> مدیریت جامع
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="index.html">صفحه نخست</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">درباره ما</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html">محصولات</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="services.html">خدمات</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">وبلاگ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">گالری</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">تماس با ما</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="bg-primary text-white py-5">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold">خدمات ما</h1>
+            <p class="lead">راهکارهای جامع برای مدیریت کسب و کار شما</p>
+        </div>
+    </section>
+
+    <div class="container py-5">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4>مشاوره مدیریت فروش</h4>
+                    <p class="text-muted">ارائه راهکارهای افزایش فروش و بهینه سازی فرآیندهای فروش</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-warehouse"></i>
+                    </div>
+                    <h4>مدیریت انبار</h4>
+                    <p class="text-muted">سیستم‌های پیشرفته مدیریت موجودی و انبارداری</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h4>مشاوره مالی و حسابداری</h4>
+                    <p class="text-muted">خدمات تخصصی در حوزه مالی، مالیاتی و حسابداری</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h4>پشتیبانی ۲۴ ساعته</h4>
+                    <p class="text-muted">تیم پشتیبانی آماده پاسخگویی در تمام ساعات</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chalkboard-user"></i>
+                    </div>
+                    <h4>آموزش و توانمندسازی</h4>
+                    <p class="text-muted">دوره‌های آموزشی تخصصی برای کارکنان سازمان شما</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h4>گزارشات تحلیلی</h4>
+                    <p class="text-muted">داشبوردهای مدیریتی و گزارشات پیشرفته</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Benefits Section -->
+        <section class="mt-5 pt-4">
+            <h2 class="text-center fw-bold mb-4">مزایای استفاده از خدمات ما</h2>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="benefit-item">
+                        <i class="fas fa-clock fa-2x text-primary"></i>
+                        <div>
+                            <h6 class="mb-0">صرفه جویی در زمان</h6>
+                            <small class="text-muted">کاهش ۴۰٪ زمان انجام امور اداری</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="benefit-item">
+                        <i class="fas fa-chart-line fa-2x text-primary"></i>
+                        <div>
+                            <h6 class="mb-0">افزایش سودآوری</h6>
+                            <small class="text-muted">بهبود ۲۵٪ سود خالص</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="benefit-item">
+                        <i class="fas fa-shield-alt fa-2x text-primary"></i>
+                        <div>
+                            <h6 class="mb-0">امنیت اطلاعات</h6>
+                            <small class="text-muted">محافظت از داده‌های حیاتی کسب و کار</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="benefit-item">
+                        <i class="fas fa-mobile-alt fa-2x text-primary"></i>
+                        <div>
+                            <h6 class="mb-0">دسترسی موبایل</h6>
+                            <small class="text-muted">مدیریت کسب و کار از هر مکان</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="bg-dark text-white-50 py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; ۱۴۰۲ تمامی حقوق محفوظ است.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

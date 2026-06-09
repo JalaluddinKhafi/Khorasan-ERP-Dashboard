@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت وبسایت | داشبورد</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .page-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: none;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        .page-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+        .page-icon {
+            font-size: 2.5rem;
+            color: #2563eb;
+        }
+        .status-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        .edit-mode {
+            background: #fef3c7;
+            border-right: 4px solid #f59e0b;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <aside id="sidebar" class="sidebar"></aside>
+        <main class="main-content">
+            <nav class="top-navbar"></nav>
+            <div class="container-fluid p-4">
+                <!-- هدر -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4><i class="fas fa-globe text-primary"></i> مدیریت وبسایت</h4>
+                    <button class="btn btn-outline-primary" id="previewSiteBtn">
+                        <i class="fas fa-eye"></i> پیش‌نمایش سایت
+                    </button>
+                </div>
+
+                <!-- آمار -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-primary"><i class="fas fa-file-alt"></i></div>
+                            <div class="stat-info">
+                                <h3>10</h3>
+                                <p>صفحات عمومی</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-success"><i class="fas fa-eye"></i></div>
+                            <div class="stat-info">
+                                <h3>1,284</h3>
+                                <p>بازدید امروز</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-warning"><i class="fas fa-users"></i></div>
+                            <div class="stat-info">
+                                <h3>42</h3>
+                                <p>فرم‌های تماس</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-info"><i class="fas fa-newspaper"></i></div>
+                            <div class="stat-info">
+                                <h3>12</h3>
+                                <p>مقالات</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- تب‌های مدیریت -->
+                <ul class="nav nav-tabs mb-4" id="websiteTabs">
+                    <li class="nav-item">
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#pagesTab">
+                            <i class="fas fa-file-alt"></i> صفحات سایت
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#blogTab">
+                            <i class="fas fa-newspaper"></i> مقالات وبلاگ
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#sliderTab">
+                            <i class="fas fa-images"></i> اسلایدر اصلی
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#settingsTab">
+                            <i class="fas fa-cog"></i> تنظیمات سایت
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <!-- ========== تب صفحات سایت ========== -->
+                    <div class="tab-pane fade show active" id="pagesTab">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between">
+                                <h5><i class="fas fa-file-alt"></i> لیست صفحات وبسایت</h5>
+                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addPageModal">
+                                    <i class="fas fa-plus"></i> افزودن صفحه جدید
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover" id="pagesTable">
+                                        <thead>
+                                            <tr>
+                                                <th>ردیف</th>
+                                                <th>عنوان صفحه</th>
+                                                <th>آدرس (URL)</th>
+                                                <th>وضعیت</th>
+                                                <th>آخرین بروزرسانی</th>
+                                                <th>عملیات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>1</td><td>صفحه نخست</td><td>/index.html</td><td><span class="badge bg-success">فعال</span></td><td>۱۴۰۲/۱۲/۰۵</td><td><button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button></td></tr>
+                                            <tr><td>2</td><td>درباره ما</td><td>/about.html</td><td><span class="badge bg-success">فعال</span></td><td>۱۴۰۲/۱۲/۰۴</td><td><button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button></td></tr>
+                                            <tr><td>3</td><td>محصولات</td><td>/products.html</td><td><span class="badge bg-success">فعال</span></td><td>۱۴۰۲/۱۲/۰۳</td><td><button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button></td></tr>
+                                            <tr><td>4</td><td>خدمات</td><td>/services.html</td><td><span class="badge bg-success">فعال</span></td><td>۱۴۰۲/۱۲/۰۲</td><td><button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button></td></tr>
+                                            <tr><td>5</td><td>وبلاگ</td><td>/blog.html</td><td><span class="badge bg-success">فعال</span></td><td>۱۴۰۲/۱۲/۰۱</td><td><button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button></td></tr>
+                                            <tr><td>6</td><td>گالری</td><td>/gallery.html</td><td><span class="badge bg-success">فعال</span></td><td>۱۴۰۲/۱۱/۲۸</td><td><button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button></td></tr>
+                                            <tr><td>7</td><td>تماس با ما</td><td>/contact.html</td><td><span class="badge bg-success">فعال</span></td><td>۱۴۰۲/۱۱/۲۵</td><td><button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button></td></tr>
+                                            <tr><td>8</td><td>سوالات متداول</td><td>/faq.html</td><td><span class="badge bg-secondary">غیرفعال</span></td><td>۱۴۰۲/۱۱/۲۰</td><td><button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ========== تب مقالات وبلاگ ========== -->
+                    <div class="tab-pane fade" id="blogTab">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between">
+                                <h5><i class="fas fa-newspaper"></i> مقالات وبلاگ</h5>
+                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addPostModal">
+                                    <i class="fas fa-plus"></i> نوشتن مقاله جدید
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover" id="blogTable">
+                                        <thead>
+                                            <tr><th>ردیف</th><th>عنوان مقاله</th><th>نویسنده</th><th>دسته‌بندی</th><th>تاریخ</th><th>وضعیت</th><th>عملیات</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>1</td><td>۱۰ راهکار افزایش فروش</td><td>احمد رضایی</td><td>مدیریت فروش</td><td>۱۴۰۲/۱۲/۰۵</td><td><span class="badge bg-success">منتشر شده</span></td><td><button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button></td></tr>
+                                            <tr><td>2</td><td>بهترین نرم‌افزارهای انبارداری</td><td>سارا کریمی</td><td>انبارداری</td><td>۱۴۰۲/۱۲/۰۴</td><td><span class="badge bg-success">منتشر شده</span></td><td><button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button></td></tr>
+                                            <tr><td>3</td><td>اصول حسابداری برای کسب و کارها</td><td>محمد حسینی</td><td>حسابداری</td><td>۱۴۰۲/۱۲/۰۳</td><td><span class="badge bg-warning">پیش‌نویس</span></td><td><button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ========== تب اسلایدر اصلی ========== -->
+                    <div class="tab-pane fade" id="sliderTab">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between">
+                                <h5><i class="fas fa-images"></i> اسلایدر صفحه اصلی</h5>
+                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addSlideModal">
+                                    <i class="fas fa-plus"></i> افزودن اسلاید جدید
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="row" id="sliderList">
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card">
+                                            <img src="https://via.placeholder.com/400x200/2563eb/white?text=Slide+1" class="card-img-top" alt="اسلاید ۱">
+                                            <div class="card-body">
+                                                <h6>اسلاید اول</h6>
+                                                <p class="small text-muted">عنوان: مدیریت هوشمند کسب و کار</p>
+                                                <button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card">
+                                            <img src="https://via.placeholder.com/400x200/10b981/white?text=Slide+2" class="card-img-top" alt="اسلاید ۲">
+                                            <div class="card-body">
+                                                <h6>اسلاید دوم</h6>
+                                                <p class="small text-muted">عنوان: فروش ویژه محصولات</p>
+                                                <button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card">
+                                            <img src="https://via.placeholder.com/400x200/f59e0b/white?text=Slide+3" class="card-img-top" alt="اسلاید ۳">
+                                            <div class="card-body">
+                                                <h6>اسلاید سوم</h6>
+                                                <p class="small text-muted">عنوان: پشتیبانی ۲۴ ساعته</p>
+                                                <button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ========== تب تنظیمات سایت ========== -->
+                    <div class="tab-pane fade" id="settingsTab">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-cog"></i> تنظیمات عمومی سایت</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="siteSettingsForm">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">نام شرکت</label>
+                                            <input type="text" class="form-control" value="شرکت مدیریت جامع">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">شعار شرکت</label>
+                                            <input type="text" class="form-control" value="مدیریت هوشمند کسب و کار شما">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">ایمیل پشتیبانی</label>
+                                            <input type="email" class="form-control" value="info@armanmanagement.com">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">شماره تماس</label>
+                                            <input type="text" class="form-control" value="۰۲۱-۱۲۳۴۵۶۷۸">
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label class="form-label">آدرس</label>
+                                            <textarea class="form-control" rows="2">تهران، خیابان ولیعصر، پلاک ۱۲۳</textarea>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">لوگو (آدرس تصویر)</label>
+                                            <input type="text" class="form-control" value="/assets/images/logo.png">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">فاوآیکن (آدرس)</label>
+                                            <input type="text" class="form-control" value="/assets/images/favicon.ico">
+                                        </div>
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-primary">ذخیره تنظیمات</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal افزودن صفحه جدید -->
+    <div class="modal fade" id="addPageModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">افزودن صفحه جدید</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">عنوان صفحه</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">آدرس (URL)</label>
+                            <input type="text" class="form-control" placeholder="مثال: /new-page.html">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">وضعیت</label>
+                            <select class="form-select">
+                                <option>فعال</option>
+                                <option>غیرفعال</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                    <button type="button" class="btn btn-primary">ذخیره</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script>
+        // راه‌اندازی DataTable برای صفحات
+        $('#pagesTable').DataTable({
+            language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+            pageLength: 10
+        });
+
+        $('#blogTable').DataTable({
+            language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+            pageLength: 10
+        });
+
+        // پیش‌نمایش سایت
+        document.getElementById('previewSiteBtn')?.addEventListener('click', function() {
+            window.open('../public-site/index.html', '_blank');
+        });
+
+        // ذخیره تنظیمات
+        document.getElementById('siteSettingsForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            showToast('تنظیمات با موفقیت ذخیره شد', 'success');
+        });
+
+        loadSidebarAndNavbar('website');
+    </script>
+</body>
+</html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت پرداخت‌ها | داشبورد</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <aside id="sidebar" class="sidebar"></aside>
+        <main class="main-content">
+            <nav class="top-navbar"></nav>
+            <div class="container-fluid p-4">
+                <!-- Summary Cards -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-success"><i class="fas fa-hand-holding-usd"></i></div>
+                            <div class="stat-info">
+                                <h3 id="totalReceived">۰</h3>
+                                <p>کل دریافتی‌ها</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-danger"><i class="fas fa-money-bill-wave"></i></div>
+                            <div class="stat-info">
+                                <h3 id="totalPaid">۰</h3>
+                                <p>کل پرداختی‌ها</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-warning"><i class="fas fa-clock"></i></div>
+                            <div class="stat-info">
+                                <h3 id="pendingPayments">۰</h3>
+                                <p>پرداخت‌های در انتظار</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-info"><i class="fas fa-chart-line"></i></div>
+                            <div class="stat-info">
+                                <h3 id="netCashflow">۰</h3>
+                                <p>جریان نقدی خالص</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <ul class="nav nav-tabs mb-4">
+                    <li class="nav-item">
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#customerPayments">
+                            <i class="fas fa-users"></i> پرداخت مشتریان
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#supplierPayments">
+                            <i class="fas fa-truck"></i> پرداخت به تامین‌کنندگان
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#paymentHistory">
+                            <i class="fas fa-history"></i> تاریخچه پرداخت‌ها
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <!-- پرداخت مشتریان -->
+                    <div class="tab-pane fade show active" id="customerPayments">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between">
+                                <h5>لیست بدهی مشتریان</h5>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerPaymentModal" onclick="setPaymentType('customer')">
+                                    <i class="fas fa-plus"></i> ثبت دریافت جدید
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <table id="customerDebtsTable" class="table table-striped">
+                                    <thead>
+                                        <tr><th>مشتری</th><th>شماره تماس</th><th>مبلغ بدهی</th><th>تاریخ آخرین خرید</th><th>عملیات</th></tr>
+                                    </thead>
+                                    <tbody id="customerDebtsBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- پرداخت به تامین‌کنندگان -->
+                    <div class="tab-pane fade" id="supplierPayments">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between">
+                                <h5>لیست بدهی به تامین‌کنندگان</h5>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerPaymentModal" onclick="setPaymentType('supplier')">
+                                    <i class="fas fa-plus"></i> ثبت پرداخت جدید
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <table id="supplierDebtsTable" class="table table-striped">
+                                    <thead>
+                                        <tr><th>تامین‌کننده</th><th>شماره تماس</th><th>مبلغ بدهی</th><th>تاریخ آخرین خرید</th><th>عملیات</th></tr>
+                                    </thead>
+                                    <tbody id="supplierDebtsBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- تاریخچه پرداخت‌ها -->
+                    <div class="tab-pane fade" id="paymentHistory">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>تاریخچه تمام پرداخت‌ها</h5>
+                            </div>
+                            <div class="card-body">
+                                <table id="allPaymentsTable" class="table table-striped">
+                                    <thead>
+                                        <tr><th>تاریخ</th><th>نوع</th><th>گیرنده/پرداخت‌کننده</th><th>مبلغ</th><th>روش پرداخت</th><th>شماره پیگیری</th><th>وضعیت</th></tr>
+                                    </thead>
+                                    <tbody id="allPaymentsBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal ثبت پرداخت -->
+    <div class="modal fade" id="registerPaymentModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentModalTitle">ثبت دریافت از مشتری</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="paymentForm">
+                        <input type="hidden" id="paymentType" value="customer">
+                        <div class="mb-3">
+                            <label id="partyLabel">انتخاب مشتری</label>
+                            <select id="partySelect" class="form-select" required>
+                                <option value="">انتخاب کنید</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label>مبلغ (تومان)</label>
+                            <input type="number" id="paymentAmount" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>تاریخ پرداخت</label>
+                            <input type="date" id="paymentDate" class="form-control" value="2024-01-15">
+                        </div>
+                        <div class="mb-3">
+                            <label>روش پرداخت</label>
+                            <select id="paymentMethod" class="form-select">
+                                <option value="نقدی">نقدی</option>
+                                <option value="کارت به کارت">کارت به کارت</option>
+                                <option value="واریز بانکی">واریز بانکی</option>
+                                <option value="چک">چک</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label>شماره پیگیری</label>
+                            <input type="text" id="paymentTracking" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label>توضیحات</label>
+                            <textarea id="paymentDesc" class="form-control" rows="2"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                    <button type="button" class="btn btn-primary" id="registerPaymentBtn">ثبت پرداخت</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script>
+        let customerDebts = [];
+        let supplierDebts = [];
+        let allPayments = [];
+        
+        function loadPaymentsData() {
+            customerDebts = [
+                { id: 1, name: "آرمان پوراحمد", phone: "۰۹۱۲۱۲۳۴۵۶۷", debt: 12500000, lastPurchase: "۱۴۰۲/۱۲/۰۵" },
+                { id: 2, name: "شرکت تدبیر", phone: "۰۲۱-۸۸۷۷۶۶۵۵", debt: 33600000, lastPurchase: "۱۴۰۲/۱۲/۰۴" },
+                { id: 3, name: "فروشگاه دیجیتال", phone: "۰۲۱-۵۵۴۴۳۳۲۱", debt: 45200000, lastPurchase: "۱۴۰۲/۱۲/۰۳" }
+            ];
+            
+            supplierDebts = [
+                { id: 1, name: "توزیع کننده البرز", phone: "۰۲۱-۵۵۵۵۱۲۳۴", debt: 56000000, lastPurchase: "۱۴۰۲/۱۲/۰۵" },
+                { id: 2, name: "واردات سامسونگ", phone: "۰۲۱-۵۵۵۵۶۷۸۹", debt: 234000000, lastPurchase: "۱۴۰۲/۱۲/۰۴" }
+            ];
+            
+            allPayments = [
+                { date: "۱۴۰۲/۱۲/۰۵", type: "دریافت", party: "آرمان پوراحمد", amount: 5000000, method: "کارت به کارت", tracking: "TRX001", status: "تایید شده" },
+                { date: "۱۴۰۲/۱۲/۰۴", type: "پرداخت", party: "توزیع کننده البرز", amount: 20000000, method: "واریز بانکی", tracking: "BNK002", status: "تایید شده" }
+            ];
+            
+            renderCustomerDebts();
+            renderSupplierDebts();
+            renderAllPayments();
+            calculateStats();
+        }
+        
+        function renderCustomerDebts() {
+            const tbody = document.getElementById('customerDebtsBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = customerDebts.map(c => `
+                <tr>
+                    <td>${c.name}</td>
+                    <td>${c.phone}</td>
+                                        <td class="text-danger fw-bold">${c.debt.toLocaleString()} تومان</td>
+                    <td>${c.lastPurchase}</td>
+                    <td>
+                        <button class="btn btn-sm btn-success register-payment" data-type="customer" data-id="${c.id}" data-name="${c.name}" data-debt="${c.debt}">
+                            <i class="fas fa-hand-holding-usd"></i> ثبت پرداخت
+                        </button>
+                        <button class="btn btn-sm btn-info view-payment-history" data-type="customer" data-id="${c.id}">
+                            <i class="fas fa-history"></i> تاریخچه
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+            
+            $('#customerDebtsTable').DataTable({
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                destroy: true,
+                pageLength: 10
+            });
+            
+            attachPaymentButtons();
+        }
+        
+        function renderSupplierDebts() {
+            const tbody = document.getElementById('supplierDebtsBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = supplierDebts.map(s => `
+                <tr>
+                    <td>${s.name}</td>
+                    <td>${s.phone}</td>
+                    <td class="text-danger fw-bold">${s.debt.toLocaleString()} تومان</td>
+                    <td>${s.lastPurchase}</td>
+                    <td>
+                        <button class="btn btn-sm btn-success register-payment" data-type="supplier" data-id="${s.id}" data-name="${s.name}" data-debt="${s.debt}">
+                            <i class="fas fa-money-bill-wave"></i> ثبت پرداخت
+                        </button>
+                        <button class="btn btn-sm btn-info view-payment-history" data-type="supplier" data-id="${s.id}">
+                            <i class="fas fa-history"></i> تاریخچه
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+            
+            $('#supplierDebtsTable').DataTable({
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                destroy: true,
+                pageLength: 10
+            });
+            
+            attachPaymentButtons();
+        }
+        
+        function renderAllPayments() {
+            const tbody = document.getElementById('allPaymentsBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = allPayments.map(p => `
+                <tr>
+                    <td>${p.date}</td>
+                    <td><span class="badge ${p.type === 'دریافت' ? 'bg-success' : 'bg-danger'}">${p.type}</span></td>
+                    <td>${p.party}</td>
+                    <td>${p.amount.toLocaleString()} تومان</td>
+                    <td>${p.method}</td>
+                    <td>${p.tracking}</td>
+                    <td><span class="badge bg-success">${p.status}</span></td>
+                </tr>
+            `).join('');
+            
+            $('#allPaymentsTable').DataTable({
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                destroy: true,
+                order: [[0, 'desc']]
+            });
+        }
+        
+        function calculateStats() {
+            const totalReceived = allPayments.filter(p => p.type === 'دریافت').reduce((sum, p) => sum + p.amount, 0);
+            const totalPaid = allPayments.filter(p => p.type === 'پرداخت').reduce((sum, p) => sum + p.amount, 0);
+            const pendingTotal = customerDebts.reduce((sum, c) => sum + c.debt, 0) + supplierDebts.reduce((sum, s) => sum + s.debt, 0);
+            const netCashflow = totalReceived - totalPaid;
+            
+            document.getElementById('totalReceived').innerHTML = totalReceived.toLocaleString() + ' تومان';
+            document.getElementById('totalPaid').innerHTML = totalPaid.toLocaleString() + ' تومان';
+            document.getElementById('pendingPayments').innerHTML = pendingTotal.toLocaleString() + ' تومان';
+            document.getElementById('netCashflow').innerHTML = netCashflow.toLocaleString() + ' تومان';
+            document.getElementById('netCashflow').style.color = netCashflow >= 0 ? '#10b981' : '#ef4444';
+        }
+        
+        let currentPaymentType = 'customer';
+        
+        function setPaymentType(type) {
+            currentPaymentType = type;
+            const modalTitle = document.getElementById('paymentModalTitle');
+            const partyLabel = document.getElementById('partyLabel');
+            const partySelect = document.getElementById('partySelect');
+            
+            if (type === 'customer') {
+                modalTitle.innerText = 'ثبت دریافت از مشتری';
+                partyLabel.innerText = 'انتخاب مشتری';
+                partySelect.innerHTML = '<option value="">انتخاب مشتری</option>' + 
+                    customerDebts.map(c => `<option value="customer_${c.id}" data-name="${c.name}" data-debt="${c.debt}">${c.name} (بدهی: ${c.debt.toLocaleString()} تومان)</option>`).join('');
+            } else {
+                modalTitle.innerText = 'ثبت پرداخت به تامین‌کننده';
+                partyLabel.innerText = 'انتخاب تامین‌کننده';
+                partySelect.innerHTML = '<option value="">انتخاب تامین‌کننده</option>' + 
+                    supplierDebts.map(s => `<option value="supplier_${s.id}" data-name="${s.name}" data-debt="${s.debt}">${s.name} (بدهی: ${s.debt.toLocaleString()} تومان)</option>`).join('');
+            }
+        }
+        
+        function registerPayment() {
+            const partyValue = document.getElementById('partySelect').value;
+            if (!partyValue) {
+                showToast('لطفاً طرف حساب را انتخاب کنید', 'error');
+                return;
+            }
+            
+            const amount = parseInt(document.getElementById('paymentAmount').value);
+            if (!amount || amount <= 0) {
+                showToast('لطفاً مبلغ معتبر وارد کنید', 'error');
+                return;
+            }
+            
+            const [type, id] = partyValue.split('_');
+            const partyName = document.getElementById('partySelect').selectedOptions[0].dataset.name;
+            
+            // بروزرسانی بدهی
+            if (type === 'customer') {
+                const customer = customerDebts.find(c => c.id === parseInt(id));
+                if (customer) {
+                    const newDebt = customer.debt - amount;
+                    if (newDebt < 0) {
+                        showToast('مبلغ پرداختی بیشتر از بدهی است!', 'error');
+                        return;
+                    }
+                    customer.debt = newDebt;
+                }
+                renderCustomerDebts();
+            } else {
+                const supplier = supplierDebts.find(s => s.id === parseInt(id));
+                if (supplier) {
+                    const newDebt = supplier.debt - amount;
+                    if (newDebt < 0) {
+                        showToast('مبلغ پرداختی بیشتر از بدهی است!', 'error');
+                        return;
+                    }
+                    supplier.debt = newDebt;
+                }
+                renderSupplierDebts();
+            }
+            
+            // ثبت در تاریخچه
+            allPayments.unshift({
+                date: new Date().toLocaleDateString('fa-IR'),
+                type: currentPaymentType === 'customer' ? 'دریافت' : 'پرداخت',
+                party: partyName,
+                amount: amount,
+                method: document.getElementById('paymentMethod').value,
+                tracking: document.getElementById('paymentTracking').value || '---',
+                status: 'تایید شده'
+            });
+            
+            renderAllPayments();
+            calculateStats();
+            
+            showToast('پرداخت با موفقیت ثبت شد', 'success');
+            bootstrap.Modal.getInstance(document.getElementById('registerPaymentModal')).hide();
+            document.getElementById('paymentForm').reset();
+        }
+        
+        function attachPaymentButtons() {
+            document.querySelectorAll('.register-payment').forEach(btn => {
+                btn.removeEventListener('click', handlePaymentClick);
+                btn.addEventListener('click', handlePaymentClick);
+            });
+        }
+        
+        function handlePaymentClick(e) {
+            const btn = e.currentTarget;
+            const type = btn.dataset.type;
+            const name = btn.dataset.name;
+            const debt = parseInt(btn.dataset.debt);
+            
+            currentPaymentType = type;
+            const modalTitle = document.getElementById('paymentModalTitle');
+            const partySelect = document.getElementById('partySelect');
+            
+            if (type === 'customer') {
+                modalTitle.innerText = `ثبت دریافت از ${name}`;
+                partySelect.innerHTML = `<option value="customer_${btn.dataset.id}" data-name="${name}" data-debt="${debt}" selected>${name} (بدهی: ${debt.toLocaleString()} تومان)</option>`;
+            } else {
+                modalTitle.innerText = `ثبت پرداخت به ${name}`;
+                partySelect.innerHTML = `<option value="supplier_${btn.dataset.id}" data-name="${name}" data-debt="${debt}" selected>${name} (بدهی: ${debt.toLocaleString()} تومان)</option>`;
+            }
+            
+            document.getElementById('paymentAmount').value = '';
+            document.getElementById('paymentDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('paymentMethod').value = 'نقدی';
+            document.getElementById('paymentTracking').value = '';
+            document.getElementById('paymentDesc').value = '';
+            
+            new bootstrap.Modal(document.getElementById('registerPaymentModal')).show();
+        }
+        
+        document.getElementById('registerPaymentBtn')?.addEventListener('click', registerPayment);
+        
+        loadSidebarAndNavbar('payments');
+        loadPaymentsData();
+    </script>
+</body>
+</html>

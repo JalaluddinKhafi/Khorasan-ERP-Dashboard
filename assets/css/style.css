@@ -1,0 +1,982 @@
+/* ============================================
+   IMPORT FONTS
+   ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ============================================
+   VARIABLES & ROOT
+   ============================================ */
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --primary-light: #3b82f6;
+    --primary-soft: #eff6ff;
+    --secondary: #10b981;
+    --secondary-dark: #059669;
+    --danger: #ef4444;
+    --danger-dark: #dc2626;
+    --warning: #f59e0b;
+    --warning-dark: #d97706;
+    --info: #06b6d4;
+    --info-dark: #0891b2;
+    --purple: #8b5cf6;
+    --orange: #f97316;
+    --dark: #1f2937;
+    --gray-dark: #374151;
+    --gray: #6b7280;
+    --gray-light: #9ca3af;
+    --gray-soft: #f3f4f6;
+    --white: #ffffff;
+    
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.12);
+    
+    --transition: 0.2s ease;
+    --sidebar-width: 260px;
+    --sidebar-collapsed: 80px;
+}
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
+    background: var(--gray-soft);
+    direction: rtl;
+    overflow-x: hidden;
+    color: var(--dark);
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--gray-soft); border-radius: 10px; }
+::-webkit-scrollbar-thumb { background: var(--gray-light); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gray); }
+
+/* ============================================
+   LAYOUT
+   ============================================ */
+.wrapper { display: flex; min-height: 100vh; }
+
+/* Sidebar */
+.sidebar {
+    width: var(--sidebar-width);
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    color: #e2e8f0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1000;
+    transition: var(--transition);
+    overflow-y: auto;
+}
+
+.sidebar.collapsed { width: var(--sidebar-collapsed); }
+.sidebar.collapsed .sidebar-nav span,
+.sidebar.collapsed .sidebar-header span,
+.sidebar.collapsed .sidebar-header h3 { display: none; }
+.sidebar.collapsed .sidebar-nav li a { justify-content: center; padding: 12px; }
+.sidebar.collapsed .sidebar-nav li a i { margin: 0; font-size: 1.2rem; }
+
+.sidebar-header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.sidebar-header h3 { font-size: 1.1rem; font-weight: 600; margin: 0; color: white; }
+.sidebar-header h3 i { color: var(--primary); margin-left: 8px; }
+
+.toggle-sidebar {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.sidebar-nav { padding: 0.75rem 0; }
+.sidebar-nav li { margin-bottom: 2px; }
+.sidebar-nav li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    color: #cbd5e1;
+    font-size: 0.85rem;
+    border-right: 3px solid transparent;
+}
+.sidebar-nav li a i { width: 22px; font-size: 1rem; }
+.sidebar-nav li a:hover, .sidebar-nav li a.active {
+    background: rgba(37,99,235,0.15);
+    color: white;
+    border-right-color: var(--primary);
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    margin-right: var(--sidebar-width);
+    transition: var(--transition);
+}
+.sidebar.collapsed ~ .main-content { margin-right: var(--sidebar-collapsed); }
+
+/* Top Navbar */
+.top-navbar {
+    background: var(--white);
+    padding: 0.6rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+.nav-right, .nav-left { display: flex; align-items: center; gap: 0.75rem; }
+.breadcrumb-custom { color: var(--gray); font-size: 0.8rem; }
+
+ /* استایل‌های اختصاصی داشبورد */
+        .welcome-card {
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+        .welcome-card h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .quick-action-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            margin-left: 0.5rem;
+            transition: 0.3s;
+        }
+        .quick-action-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        .stat-card-dashboard {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+            border: 1px solid rgba(0,0,0,0.05);
+            cursor: pointer;
+        }
+        .stat-card-dashboard:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+        .trend-up {
+            color: #10b981;
+            font-size: 0.75rem;
+        }
+        .trend-down {
+            color: #ef4444;
+            font-size: 0.75rem;
+        }
+        .activity-timeline {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .timeline-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .top-product-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        .percentage-bar {
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .percentage-fill {
+            height: 100%;
+            background: #2563eb;
+            border-radius: 3px;
+        }
+
+/* ============================================
+   STATS CARDS - اصلاح شده برای سایز مناسب
+   ============================================ */
+.stat-card, .stat-card-dashboard {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    box-shadow: var(--shadow-card);
+    transition: var(--transition);
+    border: 1px solid rgba(0,0,0,0.03);
+}
+.stat-card:hover, .stat-card-dashboard:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+.stat-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: white;
+    flex-shrink: 0;
+}
+.stat-info h3 { font-size: 1.2rem; font-weight: 700; margin: 0; color: var(--dark); }
+.stat-info p { margin: 0; color: var(--gray); font-size: 0.7rem; }
+
+/* ============================================
+   CARDS
+   ============================================ */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: var(--shadow-card);
+    background: var(--white);
+    margin-bottom: 1.25rem;
+}
+.card-header {
+    background: transparent;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 0.8rem 1.2rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.card-header h5, .card-header h6 { margin: 0; font-size: 0.95rem; }
+.card-body { padding: 1.2rem; }
+
+/* ============================================
+   TABLES - اصلاح شده برای خوانایی بهتر
+   ============================================ */
+.table { margin-bottom: 0; font-size: 0.8rem; }
+.table th { font-weight: 600; color: var(--gray-dark); padding: 0.7rem 0.8rem; background: #f8fafc; }
+.table td { vertical-align: middle; padding: 0.6rem 0.8rem; }
+.table-striped > tbody > tr:nth-of-type(odd) { background-color: rgba(0, 0, 0, 0.02); }
+.table-hover > tbody > tr:hover { background-color: rgba(37, 99, 235, 0.04); }
+
+/* DataTables */
+.dataTables_wrapper .dataTables_filter input {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 0.3rem 0.6rem;
+    margin-right: 0.5rem;
+    font-size: 0.8rem;
+}
+.dataTables_wrapper .dataTables_length select {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 0.2rem 0.4rem;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    border-radius: 6px;
+    margin: 0 2px;
+    padding: 0.3rem 0.7rem;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white !important;
+}
+
+/* ============================================
+   FORMS
+   ============================================ */
+.form-control, .form-select {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 0.4rem 0.7rem;
+    font-size: 0.8rem;
+}
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(37,99,235,0.1);
+}
+.form-label { font-weight: 500; font-size: 0.75rem; margin-bottom: 0.2rem; color: var(--gray-dark); }
+
+/* ============================================
+   BUTTONS - سایزهای متعادل
+   ============================================ */
+.btn {
+    border-radius: 8px;
+    padding: 0.4rem 0.9rem;
+    font-weight: 500;
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.btn i { font-size: 0.8rem; }
+.btn-sm { padding: 0.25rem 0.5rem; font-size: 0.7rem; }
+.btn-lg { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
+
+.btn-primary { background: var(--primary); border: none; color: white; }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-success { background: var(--secondary); border: none; color: white; }
+.btn-success:hover { background: var(--secondary-dark); }
+.btn-danger { background: var(--danger); border: none; color: white; }
+.btn-danger:hover { background: var(--danger-dark); }
+.btn-warning { background: var(--warning); border: none; color: white; }
+.btn-warning:hover { background: var(--warning-dark); }
+.btn-info { background: var(--info); border: none; color: white; }
+.btn-info:hover { background: var(--info-dark); }
+.btn-outline-primary { border: 1px solid var(--primary); color: var(--primary); background: transparent; }
+.btn-outline-primary:hover { background: var(--primary); color: white; }
+.btn-light { background: var(--gray-soft); border: 1px solid #e5e7eb; color: var(--dark); }
+
+/* ============================================
+   BADGES
+   ============================================ */
+.badge { padding: 0.2rem 0.5rem; border-radius: 20px; font-weight: 500; font-size: 0.65rem; }
+
+/* ============================================
+   MODALS
+   ============================================ */
+.modal-content { border-radius: 12px; border: none; }
+.modal-header { border-bottom: 1px solid #e5e7eb; padding: 0.8rem 1.2rem; }
+.modal-header .modal-title { font-weight: 600; font-size: 1rem; }
+.modal-footer { border-top: 1px solid #e5e7eb; padding: 0.8rem 1.2rem; }
+.modal-body { padding: 1.2rem; max-height: 70vh; overflow-y: auto; }
+
+/* ============================================
+   TOAST
+   ============================================ */
+.toast-notification {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 9999;
+    background: white;
+    border-radius: 10px;
+    padding: 0.7rem 1.2rem;
+    box-shadow: var(--shadow-lg);
+    border-right: 3px solid var(--primary);
+    animation: slideInRight 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+}
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* ============================================
+   DARK MODE
+   ============================================ */
+body.dark-mode { background: #0f172a; }
+body.dark-mode .stat-card,
+body.dark-mode .card,
+body.dark-mode .top-navbar,
+body.dark-mode .modal-content,
+body.dark-mode .toast-notification { background: #1e293b; color: #e2e8f0; }
+body.dark-mode .stat-info h3,
+body.dark-mode .card-header { color: #f1f5f9; }
+body.dark-mode .table { color: #cbd5e1; }
+body.dark-mode .table th { color: #94a3b8; }
+body.dark-mode .form-control,
+body.dark-mode .form-select { background: #334155; border-color: #475569; color: #f1f5f9; }
+body.dark-mode .btn-light { background: #334155; color: #e2e8f0; border-color: #475569; }
+body.dark-mode .dropdown-menu { background: #1e293b; border-color: #334155; }
+body.dark-mode .dropdown-item { color: #e2e8f0; }
+body.dark-mode .dropdown-item:hover { background: #334155; }
+
+/* ============================================
+   WELCOME CARD
+   ============================================ */
+.welcome-card {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-radius: 12px;
+    padding: 1.2rem;
+    color: white;
+    margin-bottom: 1.25rem;
+}
+.welcome-card h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.3rem; }
+.quick-action-btn {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    margin-left: 0.5rem;
+    font-size: 0.75rem;
+}
+
+/* ============================================
+   TIMELINE
+   ============================================ */
+.activity-timeline { max-height: 380px; overflow-y: auto; }
+.timeline-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+.timeline-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+}
+.percentage-bar { height: 4px; background: #e5e7eb; border-radius: 2px; overflow: hidden; }
+.percentage-fill { height: 100%; background: var(--primary); }
+.top-product-img { width: 36px; height: 36px; border-radius: 8px; object-fit: cover; }
+
+/* ============================================
+   CATEGORY TREE
+   ============================================ */
+.tree-node { padding: 6px 0; border-bottom: 1px solid #e5e7eb; }
+.tree-node-children { margin-right: 25px; border-right: 1px dashed #e5e7eb; }
+.category-badge { background: #e2e8f0; padding: 2px 10px; border-radius: 20px; font-size: 11px; margin-right: 6px; }
+.tree-actions { opacity: 0; transition: var(--transition); }
+.tree-node:hover .tree-actions { opacity: 1; }
+
+/* ============================================
+   BALANCE PAGE
+   ============================================ */
+.balance-card {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+}
+.balance-card h3 { font-size: 1.3rem; font-weight: 700; margin: 0.3rem 0 0; }
+.customer-info-bar {
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 0.8rem;
+    margin-bottom: 1.2rem;
+    border-right: 3px solid var(--primary);
+}
+.filter-bar {
+    background: white;
+    border-radius: 10px;
+    padding: 0.8rem;
+    margin-bottom: 1.2rem;
+    box-shadow: var(--shadow-sm);
+}
+
+/* ============================================
+   PURCHASE PAGE - استایل‌های اختصاصی
+   ============================================ */
+#itemsTable th, #itemsTable td {
+    vertical-align: middle;
+    text-align: center;
+    font-size: 0.75rem;
+    padding: 0.5rem;
+}
+#itemsTable .form-control {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.5rem;
+}
+#grandTotal {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+#purchaseModal .modal-xl {
+    max-width: 1100px;
+}
+
+/* ============================================
+   PRODUCTS PAGE - استایل‌های جدول
+   ============================================ */
+#productsTable td, #productsTable th {
+    vertical-align: middle;
+    text-align: center;
+}
+#productsTable img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 992px) {
+    .sidebar { transform: translateX(100%); }
+    .sidebar.show { transform: translateX(0); }
+    .main-content { margin-right: 0 !important; }
+}
+@media (max-width: 768px) {
+    .stat-icon { width: 38px; height: 38px; font-size: 1rem; }
+    .stat-info h3 { font-size: 1rem; }
+    .card-header { flex-direction: column; align-items: flex-start; }
+    .top-navbar { padding: 0.5rem 1rem; }
+    .btn { padding: 0.3rem 0.7rem; font-size: 0.7rem; }
+    .table { font-size: 0.7rem; }
+    .table th, .table td { padding: 0.4rem; }
+}
+@media (max-width: 576px) {
+    .container-fluid { padding: 0.8rem !important; }
+    .card-body { padding: 0.8rem; }
+}
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+.text-primary { color: var(--primary) !important; }
+.text-success { color: var(--secondary) !important; }
+.text-danger { color: var(--danger) !important; }
+.text-warning { color: var(--warning) !important; }
+.cursor-pointer { cursor: pointer; }
+.rounded-xl { border-radius: 12px; }
+.shadow-hover { transition: var(--transition); }
+.shadow-hover:hover { box-shadow: var(--shadow-hover); }
+
+/* ============================================
+   PRINT
+   ============================================ */
+@media print {
+    .sidebar, .top-navbar, .btn, .modal, .no-print, .action-buttons { display: none !important; }
+    .main-content { margin: 0 !important; padding: 0 !important; }
+    .card { box-shadow: none !important; border: 1px solid #ddd !important; }
+    body { background: white !important; }
+
+    /* ============================================
+   LOGO STYLES - سایزهای بزرگتر
+   ============================================ */
+.sidebar-logo {
+    width: 50px !important;
+    height: 50px !important;
+    object-fit: contain;
+}
+
+.navbar-logo {
+    width: 42px !important;
+    height: 42px !important;
+    object-fit: contain;
+}
+
+/* در حالت جمع شده سایدبار */
+.sidebar.collapsed .sidebar-logo {
+    width: 45px !important;
+    height: 45px !important;
+}
+
+/* در موبایل */
+@media (max-width: 768px) {
+    .sidebar-logo {
+        width: 40px !important;
+        height: 40px !important;
+    }
+    .navbar-logo {
+        width: 35px !important;
+        height: 35px !important;
+    }
+}
+
+/* ============================================
+   LOGO STYLES
+   ============================================ */
+.sidebar-logo,
+.navbar-logo {
+    filter: brightness(0) invert(1); /* سفید برای پس‌زمینه تیره سایدبار */
+    transition: filter 0.2s ease;
+}
+
+/* در لایت‌مود، لوگوی هدر به حالت عادی برمی‌گردد */
+body:not(.dark-mode) .navbar-logo {
+    filter: brightness(1) invert(0);
+}
+
+/* در دارک‌مود، لوگوی هدر سفید می‌شود */
+body.dark-mode .navbar-logo {
+    filter: brightness(0) invert(1);
+}
+
+/* حالت hover برای لوگو (اختیاری) */
+.sidebar-logo:hover,
+.navbar-logo:hover {
+    opacity: 0.85;
+}
+}
+
+/* ============================================
+   RESPONSIVE STYLES - کامل برای تمام صفحات
+   ============================================ */
+
+/* صفحه‌های بسیار کوچک (موبایل - حداکثر 576px) */
+@media (max-width: 576px) {
+    /* تنظیمات کلی */
+    body {
+        font-size: 13px;
+    }
+    
+    .container-fluid {
+        padding: 10px !important;
+    }
+    
+    /* هدر */
+    .top-navbar {
+        padding: 8px 12px;
+    }
+    
+    .nav-right {
+        gap: 6px;
+    }
+    
+    .navbar-logo {
+        width: 35px !important;
+        height: 35px !important;
+    }
+    
+    .btn-light {
+        padding: 5px 8px;
+    }
+    
+    .btn-light i {
+        font-size: 12px;
+    }
+    
+    /* کارت‌های آماری */
+    .stat-card, .stat-card-dashboard {
+        padding: 10px;
+    }
+    
+    .stat-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+    }
+    
+    .stat-info h3 {
+        font-size: 1rem;
+    }
+    
+    .stat-info p {
+        font-size: 0.65rem;
+    }
+    
+    /* کارت‌ها */
+    .card-header {
+        padding: 10px 12px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .card-header .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .card-body {
+        padding: 12px;
+    }
+    
+    /* جداول - اسکرول افقی */
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .table {
+        min-width: 600px;
+    }
+    
+    .table th, .table td {
+        padding: 8px 10px;
+        font-size: 0.7rem;
+        white-space: nowrap;
+    }
+    
+    /* دکمه‌های جدول */
+    .table .btn-sm {
+        padding: 4px 8px;
+        margin: 2px;
+    }
+    
+    /* فرم‌ها */
+    .form-control, .form-select {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+    
+    /* مودال */
+    .modal-dialog {
+        margin: 10px;
+    }
+    
+    .modal-body {
+        padding: 15px;
+    }
+    
+    /* سایدبار در موبایل */
+    .sidebar {
+        width: 260px;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        z-index: 1050;
+    }
+    
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-right: 0 !important;
+    }
+    
+    /* دکمه باز کردن سایدبار در موبایل */
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    /* ولکام کارت */
+    .welcome-card {
+        padding: 15px;
+    }
+    
+    .welcome-card h2 {
+        font-size: 1rem;
+    }
+    
+    .quick-action-btn {
+        padding: 5px 10px;
+        font-size: 11px;
+        margin-bottom: 5px;
+    }
+    
+    /* صفحات بیلانس و صورت حساب */
+    .balance-card {
+        padding: 10px;
+    }
+    
+    .balance-card h3 {
+        font-size: 1rem;
+    }
+    
+    .customer-info-bar {
+        padding: 10px;
+    }
+    
+    .customer-info-bar .row {
+        gap: 10px;
+    }
+    
+    /* فیلترها */
+    .filter-bar .row {
+        gap: 8px;
+    }
+    
+    /* فوتر */
+    .footer .row {
+        text-align: center;
+    }
+    
+    .footer .col-md-4 {
+        margin-bottom: 20px;
+    }
+}
+
+/* صفحه‌های متوسط (تبلت - بین 577px و 768px) */
+@media (min-width: 577px) and (max-width: 768px) {
+    .container-fluid {
+        padding: 15px !important;
+    }
+    
+    .stat-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+    }
+    
+    .stat-info h3 {
+        font-size: 1.1rem;
+    }
+    
+    .card-header {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .table-responsive {
+        overflow-x: auto;
+    }
+    
+    .table {
+        min-width: 500px;
+    }
+    
+    .sidebar {
+        width: 260px;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-right: 0 !important;
+    }
+}
+
+/* صفحه‌های بزرگتر از تبلت (حداقل 769px) */
+@media (min-width: 769px) {
+    .mobile-menu-btn {
+        display: none;
+    }
+    
+    /* دکمه نمایش سایدبار در دسکتاپ */
+    #sidebarCollapse {
+        display: inline-flex;
+    }
+}
+
+/* صفحه‌های خیلی بزرگ (دسکتاپ بزرگ) */
+@media (min-width: 1400px) {
+    .container-fluid {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+}
+
+/* ============================================
+   کلاس‌های کمکی ریسپانسیو
+   ============================================ */
+.hide-on-mobile {
+    display: inline-flex;
+}
+
+.show-on-mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .hide-on-mobile {
+        display: none !important;
+    }
+    
+    .show-on-mobile {
+        display: inline-flex !important;
+    }
+    
+    /* ستون‌های جدول را در موبایل به صورت بلوک نمایش بده */
+    .table-mobile-card {
+        display: block;
+        width: 100%;
+        margin-bottom: 15px;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 10px;
+    }
+    
+    .table-mobile-card .mobile-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .table-mobile-card .mobile-row:last-child {
+        border-bottom: none;
+    }
+    
+    .table-mobile-card .mobile-label {
+        font-weight: 600;
+        color: #666;
+    }
+    
+    .table-mobile-card .mobile-value {
+        text-align: left;
+    }
+}
+
+/* ============================================
+   بهبود نمایش در حالت چاپ
+   ============================================ */
+@media print {
+    .sidebar, .top-navbar, .btn, .no-print, 
+    .action-buttons, .mobile-menu-btn, #sidebarCollapse {
+        display: none !important;
+    }
+    
+    .main-content {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+        margin-bottom: 15px;
+    }
+    
+    body {
+        background: white !important;
+        padding: 20px;
+    }
+    
+    .table {
+        font-size: 10pt;
+    }
+    
+    .table th, .table td {
+        padding: 5px;
+    }
+}

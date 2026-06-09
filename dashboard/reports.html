@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>گزارشات | داشبورد</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .report-card {
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid #e5e7eb;
+        }
+        .report-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: #2563eb;
+        }
+        .date-range-picker {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <aside id="sidebar" class="sidebar"></aside>
+        <main class="main-content">
+            <nav class="top-navbar"></nav>
+            <div class="container-fluid p-4">
+                <!-- Report Type Selection -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-3">
+                        <div class="report-card card text-center p-3" data-report="daily-sales">
+                            <i class="fas fa-chart-line fa-2x text-primary mb-2"></i>
+                            <h6>گزارش فروش روزانه</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="report-card card text-center p-3" data-report="monthly-sales">
+                            <i class="fas fa-chart-bar fa-2x text-primary mb-2"></i>
+                            <h6>گزارش فروش ماهانه</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="report-card card text-center p-3" data-report="yearly-sales">
+                            <i class="fas fa-chart-pie fa-2x text-primary mb-2"></i>
+                            <h6>گزارش فروش سالانه</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="report-card card text-center p-3" data-report="inventory">
+                            <i class="fas fa-warehouse fa-2x text-primary mb-2"></i>
+                            <h6>گزارش موجودی</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="report-card card text-center p-3" data-report="debts">
+                            <i class="fas fa-hand-holding-usd fa-2x text-primary mb-2"></i>
+                            <h6>گزارش بدهی‌ها</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="report-card card text-center p-3" data-report="expenses">
+                            <i class="fas fa-file-invoice-dollar fa-2x text-primary mb-2"></i>
+                            <h6>گزارش مصارف</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="report-card card text-center p-3" data-report="profit-loss">
+                            <i class="fas fa-chart-simple fa-2x text-primary mb-2"></i>
+                            <h6>گزارش سود و زیان</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="report-card card text-center p-3" data-report="purchases">
+                            <i class="fas fa-shopping-cart fa-2x text-primary mb-2"></i>
+                            <h6>گزارش خرید</h6>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Date Range Picker -->
+                <div class="date-range-picker">
+                    <div class="row align-items-center">
+                        <div class="col-md-3">
+                            <label>از تاریخ:</label>
+                            <input type="date" id="startDate" class="form-control" value="2024-01-01">
+                        </div>
+                        <div class="col-md-3">
+                            <label>تا تاریخ:</label>
+                            <input type="date" id="endDate" class="form-control" value="2024-01-31">
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary mt-4" id="applyDateFilter">
+                                <i class="fas fa-filter"></i> اعمال فیلتر
+                            </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-success mt-4" id="exportPDF">
+                                <i class="fas fa-file-pdf"></i> خروجی PDF
+                            </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-info mt-4" id="exportExcel">
+                                <i class="fas fa-file-excel"></i> خروجی Excel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Report Content -->
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <h5 id="reportTitle">گزارش فروش روزانه</h5>
+                        <button class="btn btn-sm btn-secondary" id="printReport">
+                            <i class="fas fa-print"></i> چاپ
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div id="reportChart"></div>
+                        <div class="mt-4">
+                            <table id="reportTable" class="table table-striped">
+                                <thead id="reportTableHead"></thead>
+                                <tbody id="reportTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script>
+        let currentReport = 'daily-sales';
+        let reportChart = null;
+        let reportTable = null;
+        
+        const reportData = {
+            'daily-sales': {
+                title: 'گزارش فروش روزانه',
+                chartData: [12, 19, 15, 17, 24, 28, 31],
+                categories: ['شنبه', 'یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه'],
+                tableHeaders: ['تاریخ', 'تعداد فاکتور', 'مبلغ فروش', 'میانگین هر فاکتور'],
+                tableData: [
+                    ['۱۴۰۲/۱۲/۰۵', 8, '۱۲,۵۰۰,۰۰۰ تومان', '۱,۵۶۲,۵۰۰ تومان'],
+                    ['۱۴۰۲/۱۲/۰۴', 12, '۳۳,۶۰۰,۰۰۰ تومان', '۲,۸۰۰,۰۰۰ تومان'],
+                    ['۱۴۰۲/۱۲/۰۳', 5, '۸,۹۰۰,۰۰۰ تومان', '۱,۷۸۰,۰۰۰ تومان']
+                ]
+            },
+            'monthly-sales': {
+                title: 'گزارش فروش ماهانه',
+                chartData: [185, 202, 230, 245, 268, 290, 310, 335, 360, 385, 410, 445],
+                categories: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'],
+                tableHeaders: ['ماه', 'تعداد فاکتور', 'مبلغ فروش', 'تغییرات نسبت به ماه قبل'],
+                tableData: [
+                    ['آبان', 45, '۳۶۰,۰۰۰,۰۰۰ تومان', '+5%'],
+                    ['آذر', 52, '۳۸۵,۰۰۰,۰۰۰ تومان', '+7%'],
+                    ['دی', 58, '۴۱۰,۰۰۰,۰۰۰ تومان', '+6.5%']
+                ]
+            },
+            'yearly-sales': {
+                title: 'گزارش فروش سالانه',
+                chartData: [1850, 2020, 2300, 2450, 2680, 2900],
+                categories: ['۱۳۹۸', '۱۳۹۹', '۱۴۰۰', '۱۴۰۱', '۱۴۰۲', '۱۴۰۳'],
+                tableHeaders: ['سال', 'مبلغ فروش', 'تعداد مشتری جدید', 'نرخ رشد'],
+                tableData: [
+                    ['۱۴۰۰', '۲,۳۰۰,۰۰۰,۰۰۰ تومان', 124, '15%'],
+                    ['۱۴۰۱', '۲,۴۵۰,۰۰۰,۰۰۰ تومان', 156, '6.5%'],
+                    ['۱۴۰۲', '۲,۶۸۰,۰۰۰,۰۰۰ تومان', 189, '9.4%']
+                ]
+            },
+            'inventory': {
+                title: 'گزارش موجودی انبار',
+                chartData: [45, 8, 112, 3, 250],
+                categories: ['لپ تاپ ایسوس', 'گوشی سامسونگ', 'هدفون سونی', 'تبلت اپل', 'موس بی سیم'],
+                tableHeaders: ['نام کالا', 'کد کالا', 'موجودی فعلی', 'حداقل موجودی', 'وضعیت'],
+                tableData: [
+                    ['لپ تاپ ایسوس', 'P1001', 45, 10, 'موجود'],
+                    ['گوشی سامسونگ', 'P1002', 8, 15, 'کم موجود'],
+                    ['هدفون سونی', 'P1003', 112, 20, 'موجود']
+                ]
+            },
+            'debts': {
+                title: 'گزارش بدهی مشتریان و تامین‌کنندگان',
+                chartData: [12500000, 33600000, 45200000, 56000000, 234000000],
+                categories: ['آرمان پوراحمد', 'شرکت تدبیر', 'فروشگاه دیجیتال', 'توزیع البرز', 'واردات سامسونگ'],
+                tableHeaders: ['نام', 'نوع', 'مبلغ بدهی', 'تاریخ آخرین تراکنش', 'وضعیت'],
+                tableData: [
+                    ['آرمان پوراحمد', 'مشتری', '۱۲,۵۰۰,۰۰۰ تومان', '۱۴۰۲/۱۲/۰۵', 'در حال پیگیری'],
+                    ['شرکت تدبیر', 'مشتری', '۳۳,۶۰۰,۰۰۰ تومان', '۱۴۰۲/۱۲/۰۴', 'در حال پیگیری'],
+                    ['توزیع کننده البرز', 'تامین‌کننده', '۵۶,۰۰۰,۰۰۰ تومان', '۱۴۰۲/۱۲/۰۵', 'سررسید گذشته']
+                ]
+            }
+        };
+        
+        function loadReport(type) {
+            currentReport = type;
+            const report = reportData[type];
+            if (!report) return;
+            
+            document.getElementById('reportTitle').innerText = report.title;
+            
+            // Render Chart
+            if (reportChart) reportChart.destroy();
+            reportChart = new ApexCharts(document.querySelector("#reportChart"), {
+                series: [{ name: report.title, data: report.chartData }],
+                chart: { type: type.includes('sales') ? 'line' : 'bar', height: 350 },
+                xaxis: { categories: report.categories },
+                colors: ['#2563eb'],
+                title: { text: report.title }
+            });
+            reportChart.render();
+            
+            // Render Table
+            const thead = document.getElementById('reportTableHead');
+            const tbody = document.getElementById('reportTableBody');
+            
+            if (thead) {
+                thead.innerHTML = '<tr>' + report.tableHeaders.map(h => `<th>${h}</th>`).join('') + '</tr>';
+            }
+            if (tbody) {
+                tbody.innerHTML = report.tableData.map(row => '<tr>' + row.map(cell => `<td>${cell}</td>`).join('') + '</tr>').join('');
+            }
+            
+            if (reportTable) reportTable.destroy();
+            reportTable = $('#reportTable').DataTable({
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                pageLength: 10
+            });
+        }
+        
+        document.querySelectorAll('.report-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const reportType = card.dataset.report;
+                loadReport(reportType);
+            });
+        });
+        
+        document.getElementById('applyDateFilter')?.addEventListener('click', () => {
+            showToast('گزارش بر اساس بازه تاریخ انتخاب شده به‌روزرسانی شد', 'success');
+            // در حالت واقعی، درخواست به API با پارامترهای تاریخ ارسال می‌شود
+        });
+        
+        document.getElementById('exportPDF')?.addEventListener('click', () => {
+            showToast('در حال آماده‌سازی فایل PDF...', 'info');
+            // در حالت واقعی، درخواست export به API ارسال می‌شود
+        });
+        
+        document.getElementById('exportExcel')?.addEventListener('click', () => {
+            showToast('در حال آماده‌سازی فایل Excel...', 'info');
+        });
+        
+        document.getElementById('printReport')?.addEventListener('click', () => {
+            window.print();
+        });
+        
+        loadSidebarAndNavbar('reports');
+        loadReport('daily-sales');
+    </script>
+</body>
+</html>

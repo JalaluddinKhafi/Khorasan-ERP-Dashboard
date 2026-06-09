@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت تامین‌کنندگان | داشبورد</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <aside id="sidebar" class="sidebar"></aside>
+        <main class="main-content">
+            <nav class="top-navbar"></nav>
+            <div class="container-fluid p-4">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <h5>لیست تامین‌کنندگان</h5>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#supplierModal">
+                            <i class="fas fa-plus"></i> افزودن تامین‌کننده
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <table id="suppliersTable" class="table table-striped">
+                            <thead>
+                                <tr><th>کد</th><th>نام تامین‌کننده</th><th>شماره تماس</th><th>ایمیل</th><th>بدهی جاری</th><th>وضعیت</th><th>عملیات</th></tr>
+                            </thead>
+                            <tbody id="suppliersTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal تامین‌کننده -->
+    <div class="modal fade" id="supplierModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">افزودن/ویرایش تامین‌کننده</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="supplierForm">
+                        <input type="hidden" id="supplierId">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label>نام تامین‌کننده</label>
+                                <input type="text" id="supplierName" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>کد اقتصادی</label>
+                                <input type="text" id="supplierCode" class="form-control">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>شماره تماس</label>
+                                <input type="tel" id="supplierPhone" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>ایمیل</label>
+                                <input type="email" id="supplierEmail" class="form-control">
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label>آدرس</label>
+                                <textarea id="supplierAddress" class="form-control" rows="2"></textarea>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>شماره حساب</label>
+                                <input type="text" id="supplierAccount" class="form-control">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>وضعیت</label>
+                                <select id="supplierStatus" class="form-select">
+                                    <option value="فعال">فعال</option>
+                                    <option value="غیرفعال">غیرفعال</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                    <button type="button" class="btn btn-primary" id="saveSupplierBtn">ذخیره</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal جزئیات و تاریخچه -->
+    <div class="modal fade" id="detailsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">جزئیات تامین‌کننده و تاریخچه تراکنش‌ها</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="supplierDetails"></div>
+                    <h6 class="mt-4">تاریخچه تراکنش‌های خرید</h6>
+                    <table class="table table-sm" id="transactionHistoryTable">
+                        <thead><tr><th>تاریخ</th><th>شماره فاکتور</th><th>مبلغ</th><th>وضعیت پرداخت</th></tr></thead>
+                        <tbody id="transactionHistoryBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script>
+        let suppliersData = [];
+        let suppliersTable = null;
+        let currentSupplierId = null;
+        
+        function loadSuppliers() {
+            suppliersData = [
+                { id: 1, code: "SUP-001", name: "توزیع کننده البرز", phone: "۰۲۱-۵۵۵۵۱۲۳۴", email: "info@alborz.com", address: "تهران، خیابان آزادی", account: "IR1234567890", status: "فعال", debt: 56000000 },
+                { id: 2, code: "SUP-002", name: "واردات سامسونگ", phone: "۰۲۱-۵۵۵۵۶۷۸۹", email: "sales@samsung.ir", address: "تهران، خیابان ولیعصر", account: "IR0987654321", status: "فعال", debt: 234000000 },
+                { id: 3, code: "SUP-003", name: "بازرگانی نوین", phone: "۰۲۱-۵۵۵۵۹۰۱۲", email: "info@novin.com", address: "کرج، میدان آزادگان", account: "", status: "غیرفعال", debt: 0 }
+            ];
+            renderSuppliersTable();
+        }
+        
+        function renderSuppliersTable() {
+            const tbody = document.getElementById('suppliersTableBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = suppliersData.map(s => `
+                <tr>
+                    <td>${s.code}</td>
+                                        <td>${s.name}</td>
+                    <td>${s.phone}</td>
+                    <td>${s.email}</td>
+                    <td class="${s.debt > 0 ? 'text-danger fw-bold' : 'text-success'}">${s.debt.toLocaleString()} تومان</td>
+                    <td><span class="badge ${s.status === 'فعال' ? 'bg-success' : 'bg-secondary'}">${s.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-info edit-supplier" data-id="${s.id}"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-primary view-details" data-id="${s.id}"><i class="fas fa-eye"></i></button>
+                        <button class="btn btn-sm btn-danger delete-supplier" data-id="${s.id}"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+            
+            if (suppliersTable) suppliersTable.destroy();
+            suppliersTable = $('#suppliersTable').DataTable({
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                pageLength: 10
+            });
+            
+            attachSupplierEvents();
+        }
+        
+        function attachSupplierEvents() {
+            document.querySelectorAll('.edit-supplier').forEach(btn => {
+                btn.addEventListener('click', () => editSupplier(parseInt(btn.dataset.id)));
+            });
+            document.querySelectorAll('.view-details').forEach(btn => {
+                btn.addEventListener('click', () => viewSupplierDetails(parseInt(btn.dataset.id)));
+            });
+            document.querySelectorAll('.delete-supplier').forEach(btn => {
+                btn.addEventListener('click', () => showDeleteSupplierModal(parseInt(btn.dataset.id)));
+            });
+        }
+        
+        function editSupplier(id) {
+            const supplier = suppliersData.find(s => s.id === id);
+            if (!supplier) return;
+            
+            currentSupplierId = id;
+            document.getElementById('supplierId').value = supplier.id;
+            document.getElementById('supplierName').value = supplier.name;
+            document.getElementById('supplierCode').value = supplier.code;
+            document.getElementById('supplierPhone').value = supplier.phone;
+            document.getElementById('supplierEmail').value = supplier.email;
+            document.getElementById('supplierAddress').value = supplier.address;
+            document.getElementById('supplierAccount').value = supplier.account;
+            document.getElementById('supplierStatus').value = supplier.status;
+            
+            new bootstrap.Modal(document.getElementById('supplierModal')).show();
+        }
+        
+        function viewSupplierDetails(id) {
+            const supplier = suppliersData.find(s => s.id === id);
+            if (!supplier) return;
+            
+            // تاریخچه تراکنش‌های نمونه
+            const transactions = [
+                { date: "۱۴۰۲/۱۲/۰۵", invoiceNo: "P-2024-001", amount: 56000000, status: "پرداخت کامل" },
+                { date: "۱۴۰۲/۱۱/۲۰", invoiceNo: "P-2024-002", amount: 125000000, status: "پرداخت جزئی" }
+            ];
+            
+            document.getElementById('supplierDetails').innerHTML = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>نام تامین‌کننده:</strong> ${supplier.name}</p>
+                        <p><strong>کد اقتصادی:</strong> ${supplier.code}</p>
+                        <p><strong>شماره تماس:</strong> ${supplier.phone}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>ایمیل:</strong> ${supplier.email}</p>
+                        <p><strong>آدرس:</strong> ${supplier.address}</p>
+                        <p><strong>بدهی جاری:</strong> <span class="text-danger">${supplier.debt.toLocaleString()} تومان</span></p>
+                    </div>
+                </div>
+            `;
+            
+            const tbody = document.getElementById('transactionHistoryBody');
+            if (tbody) {
+                tbody.innerHTML = transactions.map(t => `
+                    <tr>
+                        <td>${t.date}</td>
+                        <td>${t.invoiceNo}</td>
+                        <td>${t.amount.toLocaleString()} تومان</td>
+                        <td><span class="badge ${t.status === 'پرداخت کامل' ? 'bg-success' : 'bg-warning'}">${t.status}</span></td>
+                    </tr>
+                `).join('');
+            }
+            
+            new bootstrap.Modal(document.getElementById('detailsModal')).show();
+        }
+        
+        function saveSupplier() {
+            const id = document.getElementById('supplierId').value;
+            
+            const supplier = {
+                id: id ? parseInt(id) : Date.now(),
+                code: document.getElementById('supplierCode').value || `SUP-${Date.now()}`,
+                name: document.getElementById('supplierName').value,
+                phone: document.getElementById('supplierPhone').value,
+                email: document.getElementById('supplierEmail').value,
+                address: document.getElementById('supplierAddress').value,
+                account: document.getElementById('supplierAccount').value,
+                status: document.getElementById('supplierStatus').value,
+                debt: id ? suppliersData.find(s => s.id === parseInt(id))?.debt || 0 : 0
+            };
+            
+            if (id) {
+                const index = suppliersData.findIndex(s => s.id === parseInt(id));
+                if (index !== -1) {
+                    suppliersData[index] = { ...suppliersData[index], ...supplier };
+                }
+                showToast('تامین‌کننده با موفقیت ویرایش شد', 'success');
+            } else {
+                suppliersData.push(supplier);
+                showToast('تامین‌کننده با موفقیت اضافه شد', 'success');
+            }
+            
+            renderSuppliersTable();
+            bootstrap.Modal.getInstance(document.getElementById('supplierModal')).hide();
+            resetSupplierForm();
+        }
+        
+        function resetSupplierForm() {
+            document.getElementById('supplierId').value = '';
+            document.getElementById('supplierForm').reset();
+            currentSupplierId = null;
+        }
+        
+        function showDeleteSupplierModal(id) {
+            currentSupplierId = id;
+            if (confirm(`آیا از حذف تامین‌کننده "${suppliersData.find(s => s.id === id)?.name}" اطمینان دارید؟`)) {
+                suppliersData = suppliersData.filter(s => s.id !== id);
+                renderSuppliersTable();
+                showToast('تامین‌کننده با موفقیت حذف شد', 'success');
+            }
+        }
+        
+        document.getElementById('saveSupplierBtn')?.addEventListener('click', saveSupplier);
+        
+        loadSidebarAndNavbar('suppliers');
+        loadSuppliers();
+    </script>
+</body>
+</html>

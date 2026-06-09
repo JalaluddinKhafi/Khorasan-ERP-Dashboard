@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت فروش</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <aside id="sidebar" class="sidebar"></aside>
+        <main class="main-content">
+            <nav class="top-navbar"></nav>
+            <div class="container-fluid p-4">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <h5>لیست فاکتورهای فروش</h5>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#salesModal">
+                            <i class="fas fa-plus"></i> فاکتور فروش جدید
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <table id="salesTable" class="table">
+                            <thead><tr><th>شماره</th><th>مشتری</th><th>تاریخ</th><th>مبلغ</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+                            <tbody id="salesTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal فروش -->
+    <div class="modal fade" id="salesModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>فاکتور فروش جدید</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label>مشتری</label>
+                                <select class="form-select" id="customerSelect">
+                                    <option>آرمان پوراحمد</option>
+                                    <option>شرکت تدبیر</option>
+                                    <option>مهدی رضایی</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label>تاریخ</label>
+                                <input type="date" class="form-control" value="2024-01-15">
+                            </div>
+                        </div>
+                        <div id="productsSearchArea">
+                            <label>جستجوی محصول</label>
+                            <input type="text" class="form-control mb-2" id="productSearch" placeholder="نام محصول را وارد کنید...">
+                            <div id="productSearchResults" class="list-group mb-3" style="max-height: 200px; overflow-y: auto;"></div>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead><tr><th>محصول</th><th>تعداد</th><th>قیمت واحد</th><th>مجموع</th><th></th></tr></thead>
+                            <tbody id="salesItemsBody">
+                                <tr>
+                                    <td><input type="text" class="form-control" value="لپ تاپ ایسوس"></td>
+                                    <td><input type="number" class="form-control quantity-sale" value="1"></td>
+                                    <td><input type="number" class="form-control price-sale" value="28500000"></td>
+                                    <td class="row-total-sale">۲۸,۵۰۰,۰۰۰</td>
+                                    <td><button class="btn btn-danger btn-sm remove-sale-row"><i class="fas fa-trash"></i></button></td>
+                                </tr>
+                            </tbody>
+                            <tfoot><tr><th colspan="3" class="text-end">جمع کل:</th><th id="salesGrandTotal">۲۸,۵۰۰,۰۰۰</th><th></th></tr></tfoot>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                    <button class="btn btn-primary" id="saveSaleBtn">ثبت فاکتور</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script>
+        let salesData = [];
+        function loadSales() {
+            salesData = [
+                { id: 1, invoiceNo: "S-001", customer: "آرمان پوراحمد", date: "۱۴۰۲/۱۲/۰۵", total: 12500000, status: "پرداخت شده" },
+                { id: 2, invoiceNo: "S-002", customer: "شرکت تدبیر", date: "۱۴۰۲/۱۲/۰۴", total: 33600000, status: "در انتظار پرداخت" }
+            ];
+            const tbody = document.getElementById('salesTableBody');
+            if(tbody) {
+                tbody.innerHTML = salesData.map(s => `<tr><td>${s.invoiceNo}</td><td>${s.customer}</td><td>${s.date}</td><td>${s.total.toLocaleString()} تومان</td><td><span class="badge ${s.status === 'پرداخت شده' ? 'bg-success' : 'bg-warning'}">${s.status}</span></td><td><button class="btn btn-sm btn-print" onclick="window.print()"><i class="fas fa-print"></i></button></td></tr>`).join('');
+            }
+            $('#salesTable').DataTable({ language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" } });
+        }
+        
+        document.getElementById('saveSaleBtn')?.addEventListener('click', () => {
+            showToast('فاکتور فروش با موفقیت ثبت شد', 'success');
+            bootstrap.Modal.getInstance(document.getElementById('salesModal')).hide();
+        });
+        
+        loadSidebarAndNavbar('sales');
+        loadSales();
+    </script>
+</body>
+</html>

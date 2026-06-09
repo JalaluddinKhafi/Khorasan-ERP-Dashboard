@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت خرید | داشبورد</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <aside id="sidebar" class="sidebar"></aside>
+        <main class="main-content">
+            <nav class="top-navbar"></nav>
+            <div class="container-fluid p-4">
+                <!-- کارت آمار -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-primary"><i class="fas fa-shopping-cart"></i></div>
+                            <div class="stat-info">
+                                <h3 id="totalPurchases">0</h3>
+                                <p>کل فاکتورها</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-success"><i class="fas fa-dollar-sign"></i></div>
+                            <div class="stat-info">
+                                <h3 id="totalAmount">0</h3>
+                                <p>کل مبلغ خرید</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-warning"><i class="fas fa-clock"></i></div>
+                            <div class="stat-info">
+                                <h3 id="pendingCount">0</h3>
+                                <p>در انتظار پرداخت</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-info"><i class="fas fa-check-circle"></i></div>
+                            <div class="stat-info">
+                                <h3 id="paidCount">0</h3>
+                                <p>پرداخت شده</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- لیست فاکتورها -->
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <h5><i class="fas fa-list"></i> لیست فاکتورهای خرید</h5>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#purchaseModal" id="newPurchaseBtn">
+                            <i class="fas fa-plus"></i> فاکتور خرید جدید
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <!-- فیلترها -->
+                        <div class="row mb-3 g-2">
+                            <div class="col-md-3">
+                                <input type="text" id="searchPurchase" class="form-control" placeholder="جستجو...">
+                            </div>
+                            <div class="col-md-3">
+                                <select id="statusFilter" class="form-select">
+                                    <option value="all">همه وضعیت‌ها</option>
+                                    <option value="پرداخت شده">پرداخت شده</option>
+                                    <option value="پرداخت جزئی">پرداخت جزئی</option>
+                                    <option value="پرداخت نشده">پرداخت نشده</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" id="dateFilter" class="form-control" placeholder="فیلتر تاریخ (مثال: 1405/03)">
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-secondary w-100" id="resetFilters">
+                                    <i class="fas fa-undo"></i> حذف فیلتر
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" id="purchasesTable">
+                                <thead>
+                                    <tr>
+                                        <th>شماره فاکتور</th>
+                                        <th>تامین‌کننده</th>
+                                        <th>تاریخ ثبت</th>
+                                        <th>مبلغ کل</th>
+                                        <th>پرداخت شده</th>
+                                        <th>باقیمانده</th>
+                                        <th>وضعیت</th>
+                                        <th>عملیات</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="purchasesTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal ایجاد/ویرایش فاکتور خرید -->
+    <div class="modal fade" id="purchaseModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">ایجاد فاکتور خرید جدید</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="purchaseForm">
+                        <input type="hidden" id="purchaseId">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label">شماره فاکتور</label>
+                                <input type="text" id="invoiceNo" class="form-control" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">تاریخ فاکتور</label>
+                                <input type="text" id="invoiceDate" class="form-control" placeholder="1405/03/12" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">تامین‌کننده</label>
+                                <select id="supplierSelect" class="form-select" required>
+                                    <option value="">انتخاب تامین‌کننده</option>
+                                    <option value="توزیع کننده البرز">توزیع کننده البرز</option>
+                                    <option value="واردات سامسونگ">واردات سامسونگ</option>
+                                    <option value="بازرگانی نوین">بازرگانی نوین</option>
+                                    <option value="شرکت تدبیر">شرکت تدبیر</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <h6 class="mt-3 mb-2">اقلام خرید</h6>
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="itemsTable">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>کالا</th>
+                                        <th>تعداد</th>
+                                        <th>واحد</th>
+                                        <th>قیمت واحد</th>
+                                        <th>تخفیف</th>
+                                        <th>مجموع</th>
+                                        <th style="width:50px">
+                                            <button type="button" class="btn btn-sm btn-success" id="addItemRow">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="itemsBody">
+                                    <tr>
+                                        <td><input type="text" class="form-control product-name" placeholder="نام کالا"></td
+                                        <td><input type="number" class="form-control quantity" value="1" min="1"></td
+                                        <td><input type="text" class="form-control unit" value="عدد" placeholder="واحد"></td
+                                        <td><input type="number" class="form-control unit-price" value="0" min="0"></td
+                                        <td><input type="number" class="form-control discount" value="0" min="0"></td
+                                        <td class="row-total text-primary fw-bold">۰</td
+                                        <td><button type="button" class="btn btn-sm btn-danger remove-row"><i class="fas fa-trash"></i></button></td
+                                    </tr>
+                                </tbody>
+                                <tfoot class="table-active">
+                                    <tr>
+                                        <th colspan="5" class="text-end">جمع کل:</th>
+                                        <th id="grandTotal">۰</th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label class="form-label">مبلغ پرداختی</label>
+                                <input type="number" id="paidAmount" class="form-control" value="0" min="0">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">وضعیت پرداخت</label>
+                                <select id="paymentStatus" class="form-select">
+                                    <option value="پرداخت نشده">پرداخت نشده</option>
+                                    <option value="پرداخت جزئی">پرداخت جزئی</option>
+                                    <option value="پرداخت شده">پرداخت شده</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <label class="form-label">توضیحات</label>
+                            <textarea id="description" class="form-control" rows="2" placeholder="توضیحات اضافی..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                    <button type="button" class="btn btn-primary" id="savePurchaseBtn">ذخیره فاکتور</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal جزئیات فاکتور -->
+    <div class="modal fade" id="detailsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">جزئیات فاکتور خرید</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="detailsContent"></div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+                    <button class="btn btn-primary" id="printDetailsBtn">
+                        <i class="fas fa-print"></i> چاپ فاکتور
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script>
+        // ============================================
+        // داده‌های نمونه
+        // ============================================
+        let purchasesData = [
+            { id: 1, invoiceNo: "P-2024-001", supplier: "توزیع کننده البرز", date: "1405/03/12", total: 56000000, paid: 56000000, remaining: 0, status: "پرداخت شده", items: [{ product: "لپ تاپ ایسوس", qty: 2, unit: "عدد", price: 25000000, discount: 0, total: 50000000 }, { product: "هدفون سونی", qty: 3, unit: "عدد", price: 2000000, discount: 0, total: 6000000 }] },
+            { id: 2, invoiceNo: "P-2024-002", supplier: "واردات سامسونگ", date: "1405/03/10", total: 234000000, paid: 100000000, remaining: 134000000, status: "پرداخت جزئی", items: [{ product: "گوشی سامسونگ", qty: 10, unit: "عدد", price: 18000000, discount: 0, total: 180000000 }, { product: "هدفون سامسونگ", qty: 20, unit: "عدد", price: 2700000, discount: 0, total: 54000000 }] },
+            { id: 3, invoiceNo: "P-2024-003", supplier: "بازرگانی نوین", date: "1405/03/05", total: 12500000, paid: 0, remaining: 12500000, status: "پرداخت نشده", items: [{ product: "تبلت اپل", qty: 1, unit: "عدد", price: 12500000, discount: 0, total: 12500000 }] }
+        ];
+
+        let purchasesTable = null;
+        let currentPurchaseId = null;
+
+        // محاسبه آمار
+        function calculateStats() {
+            const total = purchasesData.length;
+            const totalAmount = purchasesData.reduce((sum, p) => sum + p.total, 0);
+            const pending = purchasesData.filter(p => p.status === "پرداخت نشده" || p.status === "پرداخت جزئی").length;
+            const paid = purchasesData.filter(p => p.status === "پرداخت شده").length;
+
+            document.getElementById('totalPurchases').innerHTML = total;
+            document.getElementById('totalAmount').innerHTML = totalAmount.toLocaleString() + ' تومان';
+            document.getElementById('pendingCount').innerHTML = pending;
+            document.getElementById('paidCount').innerHTML = paid;
+        }
+
+        // رندر جدول
+        function renderPurchasesTable() {
+            const tbody = document.getElementById('purchasesTableBody');
+            if (!tbody) return;
+
+            tbody.innerHTML = purchasesData.map(p => `
+                <tr>
+                    <td>${p.invoiceNo}</td
+                    <td>${p.supplier}</td
+                    <td>${p.date}</td
+                    <td>${p.total.toLocaleString()} تومان</td
+                    <td>${p.paid.toLocaleString()} تومان</td
+                    <td class="${p.remaining > 0 ? 'text-danger' : 'text-success'}">${p.remaining.toLocaleString()} تومان</td
+                    <td><span class="badge ${p.status === 'پرداخت شده' ? 'bg-success' : (p.status === 'پرداخت جزئی' ? 'bg-warning' : 'bg-danger')}">${p.status}</span></td
+                    <td>
+                        <button class="btn btn-sm btn-info view-purchase" data-id="${p.id}" title="مشاهده جزئیات"><i class="fas fa-eye"></i></button>
+                        <button class="btn btn-sm btn-primary edit-purchase" data-id="${p.id}" title="ویرایش"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-danger delete-purchase" data-id="${p.id}" title="حذف"><i class="fas fa-trash"></i></button>
+                     </td
+                </tr>
+            `).join('');
+
+            if (purchasesTable) purchasesTable.destroy();
+            purchasesTable = $('#purchasesTable').DataTable({
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                pageLength: 10,
+                searching: false
+            });
+
+            attachEvents();
+            calculateStats();
+        }
+
+        // اتصال رویدادها
+        function attachEvents() {
+            document.querySelectorAll('.view-purchase').forEach(btn => {
+                btn.addEventListener('click', () => viewPurchase(parseInt(btn.dataset.id)));
+            });
+            document.querySelectorAll('.edit-purchase').forEach(btn => {
+                btn.addEventListener('click', () => editPurchase(parseInt(btn.dataset.id)));
+            });
+            document.querySelectorAll('.delete-purchase').forEach(btn => {
+                btn.addEventListener('click', () => deletePurchase(parseInt(btn.dataset.id)));
+            });
+        }
+
+        // فیلترها
+        function setupFilters() {
+            const searchInput = document.getElementById('searchPurchase');
+            const statusFilter = document.getElementById('statusFilter');
+            const dateFilter = document.getElementById('dateFilter');
+            const resetBtn = document.getElementById('resetFilters');
+
+            if (searchInput) searchInput.addEventListener('keyup', filterPurchases);
+            if (statusFilter) statusFilter.addEventListener('change', filterPurchases);
+            if (dateFilter) dateFilter.addEventListener('keyup', filterPurchases);
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    if (statusFilter) statusFilter.value = 'all';
+                    if (dateFilter) dateFilter.value = '';
+                    filterPurchases();
+                });
+            }
+        }
+
+        function filterPurchases() {
+            const searchTerm = document.getElementById('searchPurchase')?.value.toLowerCase() || '';
+            const status = document.getElementById('statusFilter')?.value || 'all';
+            const date = document.getElementById('dateFilter')?.value || '';
+
+            const filtered = purchasesData.filter(p => {
+                const matchSearch = p.invoiceNo.toLowerCase().includes(searchTerm) || p.supplier.toLowerCase().includes(searchTerm);
+                const matchStatus = status === 'all' || p.status === status;
+                const matchDate = !date || p.date.includes(date);
+                return matchSearch && matchStatus && matchDate;
+            });
+
+            const tbody = document.getElementById('purchasesTableBody');
+            if (tbody) {
+                tbody.innerHTML = filtered.map(p => `
+                    <tr>
+                        <td>${p.invoiceNo}</td
+                        <td>${p.supplier}</td
+                        <td>${p.date}</td
+                        <td>${p.total.toLocaleString()} تومان</td
+                        <td>${p.paid.toLocaleString()} تومان</td
+                        <td class="${p.remaining > 0 ? 'text-danger' : 'text-success'}">${p.remaining.toLocaleString()} تومان</td
+                        <td><span class="badge ${p.status === 'پرداخت شده' ? 'bg-success' : (p.status === 'پرداخت جزئی' ? 'bg-warning' : 'bg-danger')}">${p.status}</span></td
+                        <td>
+                            <button class="btn btn-sm btn-info view-purchase" data-id="${p.id}"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-sm btn-primary edit-purchase" data-id="${p.id}"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-danger delete-purchase" data-id="${p.id}"><i class="fas fa-trash"></i></button>
+                         </td
+                    </tr>
+                `).join('');
+                attachEvents();
+            }
+
+            if (purchasesTable) {
+                purchasesTable.clear();
+                purchasesTable.rows.add(filtered);
+                purchasesTable.draw();
+            }
+        }
+
+        // ============================================
+        // عملیات روی فاکتورها
+        // ============================================
+
+        // محاسبه جمع کل در مودال
+        function calculateItemTotal() {
+            let grandTotal = 0;
+            document.querySelectorAll('#itemsBody tr').forEach(row => {
+                const qty = parseFloat(row.querySelector('.quantity')?.value) || 0;
+                const price = parseFloat(row.querySelector('.unit-price')?.value) || 0;
+                const discount = parseFloat(row.querySelector('.discount')?.value) || 0;
+                const total = (qty * price) - discount;
+                const totalCell = row.querySelector('.row-total');
+                if (totalCell) totalCell.innerHTML = total.toLocaleString();
+                grandTotal += total;
+            });
+            document.getElementById('grandTotal').innerHTML = grandTotal.toLocaleString();
+        }
+
+        function addItemRow() {
+            const tbody = document.getElementById('itemsBody');
+            const newRow = `
+                <tr>
+                    <td><input type="text" class="form-control product-name" placeholder="نام کالا"></td
+                    <td><input type="number" class="form-control quantity" value="1" min="1"></td
+                    <td><input type="text" class="form-control unit" value="عدد" placeholder="واحد"></td
+                    <td><input type="number" class="form-control unit-price" value="0" min="0"></td
+                    <td><input type="number" class="form-control discount" value="0" min="0"></td
+                    <td class="row-total text-primary fw-bold">۰</td
+                    <td><button type="button" class="btn btn-sm btn-danger remove-row"><i class="fas fa-trash"></i></button></td
+                </tr>
+            `;
+            tbody.insertAdjacentHTML('beforeend', newRow);
+            attachRowEvents();
+        }
+
+        function removeRow(e) {
+            const row = e.target.closest('tr');
+            if (document.querySelectorAll('#itemsBody tr').length > 1) {
+                row.remove();
+                calculateItemTotal();
+            } else {
+                showToast('حداقل یک قلم کالا باید وجود داشته باشد', 'error');
+            }
+        }
+
+        function attachRowEvents() {
+            document.querySelectorAll('.quantity, .unit-price, .discount').forEach(el => {
+                el.removeEventListener('input', calculateItemTotal);
+                el.addEventListener('input', calculateItemTotal);
+            });
+            document.querySelectorAll('.remove-row').forEach(btn => {
+                btn.removeEventListener('click', removeRow);
+                btn.addEventListener('click', removeRow);
+            });
+        }
+
+        function resetModalForm() {
+            document.getElementById('purchaseId').value = '';
+            document.getElementById('modalTitle').innerHTML = 'ایجاد فاکتور خرید جدید';
+            document.getElementById('purchaseForm').reset();
+            document.getElementById('paidAmount').value = '0';
+            document.getElementById('grandTotal').innerHTML = '۰';
+            
+            const tbody = document.getElementById('itemsBody');
+            tbody.innerHTML = `
+                <tr>
+                    <td><input type="text" class="form-control product-name" placeholder="نام کالا"></td
+                    <td><input type="number" class="form-control quantity" value="1" min="1"></td
+                    <td><input type="text" class="form-control unit" value="عدد" placeholder="واحد"></td
+                    <td><input type="number" class="form-control unit-price" value="0" min="0"></td
+                    <td><input type="number" class="form-control discount" value="0" min="0"></td
+                    <td class="row-total text-primary fw-bold">۰</td
+                    <td><button type="button" class="btn btn-sm btn-danger remove-row"><i class="fas fa-trash"></i></button></td
+                </tr>
+            `;
+            attachRowEvents();
+        }
+
+        function savePurchase() {
+            const id = document.getElementById('purchaseId').value;
+            const total = parseInt(document.getElementById('grandTotal').innerHTML.replace(/,/g, '')) || 0;
+            const paid = parseInt(document.getElementById('paidAmount').value) || 0;
+            const remaining = total - paid;
+            let status = '';
+            if (paid === 0) status = 'پرداخت نشده';
+            else if (paid >= total) status = 'پرداخت شده';
+            else status = 'پرداخت جزئی';
+
+            const items = [];
+            document.querySelectorAll('#itemsBody tr').forEach(row => {
+                items.push({
+                    product: row.querySelector('.product-name')?.value || '',
+                    qty: parseFloat(row.querySelector('.quantity')?.value) || 0,
+                    unit: row.querySelector('.unit')?.value || '',
+                    price: parseFloat(row.querySelector('.unit-price')?.value) || 0,
+                    discount: parseFloat(row.querySelector('.discount')?.value) || 0,
+                    total: (parseFloat(row.querySelector('.quantity')?.value) * parseFloat(row.querySelector('.unit-price')?.value)) - parseFloat(row.querySelector('.discount')?.value)
+                });
+            });
+
+            const purchase = {
+                id: id ? parseInt(id) : Date.now(),
+                invoiceNo: document.getElementById('invoiceNo').value,
+                supplier: document.getElementById('supplierSelect').value,
+                date: document.getElementById('invoiceDate').value,
+                total: total,
+                paid: paid,
+                remaining: remaining,
+                status: status,
+                items: items,
+                description: document.getElementById('description').value
+            };
+
+            if (id) {
+                const index = purchasesData.findIndex(p => p.id === parseInt(id));
+                if (index !== -1) purchasesData[index] = purchase;
+                showToast('فاکتور با موفقیت ویرایش شد', 'success');
+            } else {
+                purchasesData.push(purchase);
+                showToast('فاکتور با موفقیت اضافه شد', 'success');
+            }
+
+            renderPurchasesTable();
+            bootstrap.Modal.getInstance(document.getElementById('purchaseModal')).hide();
+            resetModalForm();
+        }
+
+        function viewPurchase(id) {
+            const purchase = purchasesData.find(p => p.id === id);
+            if (!purchase) return;
+
+            const itemsHtml = purchase.items.map(item => `
+                <td>
+                    <td>${item.product}</td
+                    <td>${item.qty}</td
+                    <td>${item.unit}</td
+                    <td>${item.price.toLocaleString()}</td
+                    <td>${item.discount.toLocaleString()}</td
+                    <td>${item.total.toLocaleString()}</td
+                </tr>
+            `).join('');
+
+            document.getElementById('detailsContent').innerHTML = `
+                <div class="row mb-3">
+                    <div class="col-md-4"><strong>شماره فاکتور:</strong> ${purchase.invoiceNo}</div>
+                    <div class="col-md-4"><strong>تاریخ:</strong> ${purchase.date}</div>
+                    <div class="col-md-4"><strong>تامین‌کننده:</strong> ${purchase.supplier}</div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="table-light"><tr><th>کالا</th><th>تعداد</th><th>واحد</th><th>قیمت واحد</th><th>تخفیف</th><th>مجموع</th></tr></thead>
+                        <tbody>${itemsHtml}</tbody>
+                        <tfoot><tr class="table-active"><th colspan="5" class="text-end">جمع کل:</th><th>${purchase.total.toLocaleString()} تومان</th></tr></tfoot>
+                    </table>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-4"><strong>مبلغ پرداختی:</strong> ${purchase.paid.toLocaleString()} تومان</div>
+                    <div class="col-md-4"><strong>باقیمانده:</strong> <span class="text-danger">${purchase.remaining.toLocaleString()} تومان</span></div>
+                    <div class="col-md-4"><strong>وضعیت:</strong> <span class="badge ${purchase.status === 'پرداخت شده' ? 'bg-success' : 'bg-warning'}">${purchase.status}</span></div>
+                </div>
+                ${purchase.description ? `<div class="mt-3"><strong>توضیحات:</strong> ${purchase.description}</div>` : ''}
+            `;
+
+            document.getElementById('printDetailsBtn').onclick = () => window.print();
+            new bootstrap.Modal(document.getElementById('detailsModal')).show();
+        }
+
+        function editPurchase(id) {
+            const purchase = purchasesData.find(p => p.id === id);
+            if (!purchase) return;
+
+            currentPurchaseId = id;
+            document.getElementById('purchaseId').value = purchase.id;
+            document.getElementById('modalTitle').innerHTML = 'ویرایش فاکتور خرید';
+            document.getElementById('invoiceNo').value = purchase.invoiceNo;
+            document.getElementById('supplierSelect').value = purchase.supplier;
+            document.getElementById('invoiceDate').value = purchase.date;
+            document.getElementById('paidAmount').value = purchase.paid;
+            document.getElementById('description').value = purchase.description || '';
+
+            const tbody = document.getElementById('itemsBody');
+            tbody.innerHTML = '';
+            purchase.items.forEach(item => {
+                const row = `
+                    <tr>
+                        <td><input type="text" class="form-control product-name" value="${item.product}" placeholder="نام کالا"></td
+                        <td><input type="number" class="form-control quantity" value="${item.qty}" min="1"></td
+                        <td><input type="text" class="form-control unit" value="${item.unit}" placeholder="واحد"></td
+                        <td><input type="number" class="form-control unit-price" value="${item.price}" min="0"></td
+                        <td><input type="number" class="form-control discount" value="${item.discount}" min="0"></td
+                        <td class="row-total text-primary fw-bold">${item.total.toLocaleString()}</td
+                        <td><button type="button" class="btn btn-sm btn-danger remove-row"><i class="fas fa-trash"></i></button></td
+                    </tr>
+                `;
+                tbody.insertAdjacentHTML('beforeend', row);
+            });
+            attachRowEvents();
+            calculateItemTotal();
+
+            new bootstrap.Modal(document.getElementById('purchaseModal')).show();
+        }
+
+        function deletePurchase(id) {
+            if (confirm('آیا از حذف این فاکتور اطمینان دارید؟')) {
+                purchasesData = purchasesData.filter(p => p.id !== id);
+                renderPurchasesTable();
+                showToast('فاکتور با موفقیت حذف شد', 'success');
+            }
+        }
+
+        // رویدادها
+        document.getElementById('addItemRow')?.addEventListener('click', addItemRow);
+        document.getElementById('savePurchaseBtn')?.addEventListener('click', savePurchase);
+        document.getElementById('paidAmount')?.addEventListener('input', function() {
+            const total = parseInt(document.getElementById('grandTotal').innerHTML.replace(/,/g, '')) || 0;
+            const paid = parseInt(this.value) || 0;
+            const statusSelect = document.getElementById('paymentStatus');
+            if (paid === 0) statusSelect.value = 'پرداخت نشده';
+            else if (paid >= total) statusSelect.value = 'پرداخت شده';
+            else statusSelect.value = 'پرداخت جزئی';
+        });
+
+        // مقداردهی اولیه
+        loadSidebarAndNavbar('purchases');
+        renderPurchasesTable();
+        setupFilters();
+        attachRowEvents();
+    </script>
+</body>
+</html>

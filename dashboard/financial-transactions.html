@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تراکنش‌های مالی | داشبورد</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <aside id="sidebar" class="sidebar"></aside>
+        <main class="main-content">
+            <nav class="top-navbar"></nav>
+            <div class="container-fluid p-4">
+                <!-- Summary Cards -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-success"><i class="fas fa-arrow-down"></i></div>
+                            <div class="stat-info">
+                                <h3 id="totalIncome">۰</h3>
+                                <p>کل ورودی‌ها</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-danger"><i class="fas fa-arrow-up"></i></div>
+                            <div class="stat-info">
+                                <h3 id="totalOutcome">۰</h3>
+                                <p>کل خروجی‌ها</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-primary"><i class="fas fa-chart-line"></i></div>
+                            <div class="stat-info">
+                                <h3 id="netCashflowFinancial">۰</h3>
+                                <p>جریان نقدی خالص</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-info"><i class="fas fa-percent"></i></div>
+                            <div class="stat-info">
+                                <h3 id="profitMargin">۰</h3>
+                                <p>حاشیه سود</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5>لیست تراکنش‌های مالی</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <input type="text" id="searchTransaction" class="form-control" placeholder="جستجو...">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select id="typeFilter" class="form-select">
+                                            <option value="all">همه</option>
+                                            <option value="income">ورودی</option>
+                                            <option value="outcome">خروجی</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <table id="transactionsTable" class="table table-striped">
+                                    <thead>
+                                        <tr><th>تاریخ</th><th>نوع</th><th>عنوان</th><th>مبلغ</th><th>دسته‌بندی</th><th>وضعیت</th></tr>
+                                    </thead>
+                                    <tbody id="transactionsTableBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5>نمودار جریان نقدی ماهانه</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="cashflowChart"></div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>سود و زیان</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="profitLossSummary"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script>
+        let transactionsData = [];
+        let transactionsTable = null;
+        
+        function loadTransactions() {
+            transactionsData = [
+                { id: 1, date: "۱۴۰۲/۱۲/۰۵", type: "income", title: "فروش کالا - فاکتور S-001", amount: 12500000, category: "فروش", status: "تایید شده" },
+                { id: 2, date: "۱۴۰۲/۱۲/۰۵", type: "outcome", title: "خرید کالا - فاکتور P-001", amount: 56000000, category: "خرید", status: "تایید شده" },
+                { id: 3, date: "۱۴۰۲/۱۲/۰۴", type: "income", title: "فروش کالا - فاکتور S-002", amount: 33600000, category: "فروش", status: "تایید شده" },
+                { id: 4, date: "۱۴۰۲/۱۲/۰۴", type: "outcome", title: "پرداخت حقوق", amount: 185000000, category: "مصارف", status: "تایید شده" },
+                { id: 5, date: "۱۴۰۲/۱۲/۰۳", type: "income", title: "فروش کالا - فاکتور S-003", amount: 8900000, category: "فروش", status: "تایید شده" },
+                { id: 6, date: "۱۴۰۲/۱۲/۰۳", type: "outcome", title: "اجاره دفتر", amount: 25000000, category: "مصارف", status: "تایید شده" }
+            ];
+            
+            renderTransactionsTable();
+            calculateFinancialStats();
+            renderCashflowChart();
+            renderProfitLossSummary();
+        }
+        
+        function renderTransactionsTable() {
+            const tbody = document.getElementById('transactionsTableBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = transactionsData.map(t => `
+                <tr>
+                    <td>${t.date}</td>
+                    <td><span class="badge ${t.type === 'income' ? 'bg-success' : 'bg-danger'}">${t.type === 'income' ? 'ورودی' : 'خروجی'}</span></td>
+                    <td>${t.title}</td>
+                    <td class="${t.type === 'income' ? 'text-success' : 'text-danger'} fw-bold">${t.amount.toLocaleString()} تومان</td>
+                    <td>${t.category}</td>
+                    <td><span class="badge bg-success">${t.status}</span></td>
+                </tr>
+            `).join('');
+            
+            if (transactionsTable) transactionsTable.destroy();
+            transactionsTable = $('#transactionsTable').DataTable({
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                pageLength: 10,
+                searching: false
+            });
+            
+            setupTransactionFilters();
+        }
+        
+        function setupTransactionFilters() {
+            const searchInput = document.getElementById('searchTransaction');
+            const typeFilter = document.getElementById('typeFilter');
+            
+            if (searchInput) {
+                searchInput.addEventListener('keyup', filterTransactions);
+            }
+            if (typeFilter) {
+                typeFilter.addEventListener('change', filterTransactions);
+            }
+        }
+        
+        function filterTransactions() {
+            const searchTerm = document.getElementById('searchTransaction')?.value.toLowerCase() || '';
+            const type = document.getElementById('typeFilter')?.value || 'all';
+            
+            const filtered = transactionsData.filter(t => {
+                const matchSearch = t.title.toLowerCase().includes(searchTerm);
+                const matchType = type === 'all' || 
+                    (type === 'income' && t.type === 'income') || 
+                    (type === 'outcome' && t.type === 'outcome');
+                return matchSearch && matchType;
+            });
+            
+            const tbody = document.getElementById('transactionsTableBody');
+            if (tbody) {
+                tbody.innerHTML = filtered.map(t => `
+                    <tr>
+                        <td>${t.date}</td>
+                        <td><span class="badge ${t.type === 'income' ? 'bg-success' : 'bg-danger'}">${t.type === 'income' ? 'ورودی' : 'خروجی'}</span></td>
+                        <td>${t.title}</td>
+                        <td class="${t.type === 'income' ? 'text-success' : 'text-danger'} fw-bold">${t.amount.toLocaleString()} تومان</td>
+                        <td>${t.category}</td>
+                        <td><span class="badge bg-success">${t.status}</span></td>
+                    </tr>
+                `).join('');
+            }
+        }
+        
+        function calculateFinancialStats() {
+            const totalIncome = transactionsData.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
+            const totalOutcome = transactionsData.filter(t => t.type === 'outcome').reduce((sum, t) => sum + t.amount, 0);
+            const netCashflow = totalIncome - totalOutcome;
+            const profitMargin = totalIncome > 0 ? (netCashflow / totalIncome * 100).toFixed(1) : 0;
+            
+            document.getElementById('totalIncome').innerHTML = totalIncome.toLocaleString() + ' تومان';
+            document.getElementById('totalOutcome').innerHTML = totalOutcome.toLocaleString() + ' تومان';
+            document.getElementById('netCashflowFinancial').innerHTML = netCashflow.toLocaleString() + ' تومان';
+            document.getElementById('netCashflowFinancial').style.color = netCashflow >= 0 ? '#10b981' : '#ef4444';
+            document.getElementById('profitMargin').innerHTML = profitMargin + '%';
+            document.getElementById('profitMargin').style.color = profitMargin >= 0 ? '#10b981' : '#ef4444';
+        }
+        
+        function renderCashflowChart() {
+            const monthlyIncome = [185, 202, 230, 245, 268, 290, 310, 335, 360, 385, 410, 445];
+            const monthlyOutcome = [95, 112, 130, 125, 148, 160, 155, 170, 185, 190, 210, 225];
+            
+            new ApexCharts(document.querySelector("#cashflowChart"), {
+                series: [
+                    { name: 'ورودی', data: monthlyIncome },
+                    { name: 'خروجی', data: monthlyOutcome }
+                ],
+                chart: { type: 'bar', height: 300, stacked: false },
+                xaxis: { categories: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'] },
+                colors: ['#10b981', '#ef4444'],
+                title: { text: 'جریان نقدی ماهانه (میلیون تومان)' }
+            }).render();
+        }
+        
+        function renderProfitLossSummary() {
+            const salesTotal = transactionsData.filter(t => t.category === 'فروش').reduce((sum, t) => sum + t.amount, 0);
+            const purchaseTotal = transactionsData.filter(t => t.category === 'خرید').reduce((sum, t) => sum + t.amount, 0);
+            const expenseTotal = transactionsData.filter(t => t.category === 'مصارف').reduce((sum, t) => sum + t.amount, 0);
+            const grossProfit = salesTotal - purchaseTotal;
+            const netProfit = grossProfit - expenseTotal;
+            
+            const container = document.getElementById('profitLossSummary');
+            if (container) {
+                container.innerHTML = `
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span>کل فروش:</span>
+                            <span class="text-success fw-bold">${salesTotal.toLocaleString()} تومان</span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <span>کل خرید:</span>
+                            <span class="text-danger">${purchaseTotal.toLocaleString()} تومان</span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <span>سود ناخالص:</span>
+                            <span class="text-primary fw-bold">${grossProfit.toLocaleString()} تومان</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mt-2">
+                            <span>مصارف:</span>
+                            <span class="text-danger">${expenseTotal.toLocaleString()} تومان</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mt-2">
+                            <strong>سود خالص:</strong>
+                            <strong class="${netProfit >= 0 ? 'text-success' : 'text-danger'}">${netProfit.toLocaleString()} تومان</strong>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        loadSidebarAndNavbar('financial');
+        loadTransactions();
+    </script>
+</body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>داشبورد اصلی | مدیریت جامع</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <aside id="sidebar" class="sidebar"></aside>
+        <main class="main-content">
+            <nav class="top-navbar"></nav>
+            <div class="container-fluid p-4">
+                <!-- Welcome Section with Quick Actions -->
+                <div class="welcome-card">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h2><i class="fas fa-waveform"></i> خوش آمدید، ادمین گرامی!</h2>
+                            <p class="mb-2">امروز <span id="todayDate"></span> - امیدواریم روز پرباری داشته باشید</p>
+                            <div class="mt-3">
+                                <button class="quick-action-btn" onclick="window.location.href='sales.html'">
+                                    <i class="fas fa-plus"></i> فاکتور جدید
+                                </button>
+                                <button class="quick-action-btn" onclick="window.location.href='products.html'">
+                                    <i class="fas fa-box"></i> افزودن کالا
+                                </button>
+                                <button class="quick-action-btn" onclick="window.location.href='reports.html'">
+                                    <i class="fas fa-chart-bar"></i> مشاهده گزارشات
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center d-none d-md-block">
+    <img src="../assets/images/logo.png" alt="لوگو" style="padding-left: 0; margin-left: 0;width: 150px; height: 100px; object-fit: contain;">
+</div>
+                    </div>
+                </div>
+
+                <!-- Statistics Cards Row 1 -->
+                <div class="row g-4 mb-4" id="statsRow1">
+                    <!-- دینامیک توسط JS پر می‌شود -->
+                </div>
+
+                <!-- Statistics Cards Row 2 -->
+                <div class="row g-4 mb-4" id="statsRow2">
+                    <!-- دینامیک توسط JS پر می‌شود -->
+                </div>
+
+                <!-- Charts Row -->
+                <div class="row g-4 mb-4">
+                    <div class="col-xl-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-chart-line text-primary"></i> نمودار فروش روزانه (هفته جاری)</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="dailySalesChart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-chart-bar text-success"></i> نمودار فروش ماهانه</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="monthlySalesChart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-shopping-cart text-warning"></i> نمودار خرید ماهانه</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="monthlyPurchaseChart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-coins text-purple"></i> نمودار سود و زیان</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="profitLossChart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Products & Recent Activities Row -->
+                <div class="row g-4 mb-4">
+                    <div class="col-xl-5">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-trophy text-warning"></i> محصولات پرفروش</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="topProductsList"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-7">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-clock text-info"></i> فعالیت‌های اخیر</h5>
+                            </div>
+                            <div class="card-body activity-timeline" id="activityTimeline">
+                                <!-- توسط JS پر می‌شود -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Latest Invoices Row -->
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-file-invoice text-danger"></i> آخرین فاکتورهای فروش</h5>
+                                <a href="sales.html" class="btn btn-sm btn-outline-primary">مشاهده همه</a>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-sm" id="latestSalesTable">
+                                    <thead>
+                                        <tr><th>شماره</th><th>مشتری</th><th>مبلغ</th><th>تاریخ</th><th>وضعیت</th></tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-file-invoice text-warning"></i> آخرین فاکتورهای خرید</h5>
+                                <a href="purchases.html" class="btn btn-sm btn-outline-primary">مشاهده همه</a>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-sm" id="latestPurchasesTable">
+                                    <thead>
+                                        <tr><th>شماره</th><th>تامین‌کننده</th><th>مبلغ</th><th>تاریخ</th><th>وضعیت</th></tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Low Stock Alert Row -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card border-warning">
+                            <div class="card-header bg-warning text-dark">
+                                <h5><i class="fas fa-exclamation-triangle"></i> هشدار موجودی کالاها</h5>
+                            </div>
+                            <div class="card-body" id="lowStockAlert">
+                                <!-- توسط JS پر می‌شود -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script>
+        // ============================================
+        // داده‌های نمونه داشبورد
+        // ============================================
+        
+        // آمارهای اصلی
+        const dashboardStats = {
+            totalProducts: 248,
+            totalCustomers: 1240,
+            totalSuppliers: 56,
+            totalPurchaseInvoices: 312,
+            totalSalesInvoices: 589,
+            todaySales: 18420000,
+            weekSales: 124500000,
+            monthSales: 478300000,
+            yearSales: 5240000000,
+            monthProfit: 112400000,
+            monthProfitPercent: 18.5,
+            debtCustomers: 45800000,
+            debtSuppliers: 23700000,
+            pendingOrders: 23,
+            lowStockCount: 8
+        };
+
+        // محصولات پرفروش
+        const topProducts = [
+            { id: 1, name: "لپ تاپ ایسوس ROG", sales: 342, amount: 12150000000, growth: 12.5, image: "https://via.placeholder.com/50/2563eb/white?text=ASUS" },
+            { id: 2, name: "گوشی سامسونگ S24", sales: 298, amount: 12516000000, growth: 8.2, image: "https://via.placeholder.com/50/10b981/white?text=SAMS" },
+            { id: 3, name: "هدفون سونی XM5", sales: 512, amount: 4556800000, growth: 15.3, image: "https://via.placeholder.com/50/f59e0b/white?text=SONY" },
+            { id: 4, name: "تبلت اپل iPad Pro", sales: 187, amount: 9150000000, growth: -2.1, image: "https://via.placeholder.com/50/ef4444/white?text=APPLE" },
+            { id: 5, name: "موس بی سیم لاجیتک", sales: 423, amount: 1057500000, growth: 22.7, image: "https://via.placeholder.com/50/8b5cf6/white?text=LOG" }
+        ];
+
+        // آخرین فاکتورهای فروش
+        const latestSales = [
+            { id: "F-1001", customer: "آرمان پوراحمد", amount: 12500000, date: "۱۴۰۲/۱۲/۰۵", status: "پرداخت شده" },
+            { id: "F-1002", customer: "شرکت تدبیر", amount: 33600000, date: "۱۴۰۲/۱۲/۰۴", status: "در انتظار" },
+            { id: "F-1003", customer: "مهدی رضایی", amount: 8900000, date: "۱۴۰۲/۱۲/۰۴", status: "پرداخت شده" },
+            { id: "F-1004", customer: "فروشگاه دیجیتال", amount: 45200000, date: "۱۴۰۲/۱۲/۰۳", status: "پرداخت شده" },
+            { id: "F-1005", customer: "آیدا محمدی", amount: 23000000, date: "۱۴۰۲/۱۲/۰۳", status: "در انتظار" }
+        ];
+
+        // آخرین فاکتورهای خرید
+        const latestPurchases = [
+            { id: "P-2001", supplier: "توزیع کننده البرز", amount: 56000000, date: "۱۴۰۲/۱۲/۰۵", status: "پرداخت شده" },
+            { id: "P-2002", supplier: "واردات سامسونگ", amount: 234000000, date: "۱۴۰۲/۱۲/۰۴", status: "پرداخت جزئی" },
+            { id: "P-2003", supplier: "بازرگانی نوین", amount: 12500000, date: "۱۴۰۲/۱۲/۰۳", status: "پرداخت شده" },
+            { id: "P-2004", supplier: "توزیع کننده البرز", amount: 89000000, date: "۱۴۰۲/۱۲/۰۲", status: "پرداخت نشده" }
+        ];
+
+        // محصولات کم موجود
+        const lowStockProducts = [
+            { id: 1, name: "گوشی سامسونگ S24", code: "P1002", stock: 3, minStock: 15, category: "الکترونیک" },
+            { id: 2, name: "تبلت اپل iPad Pro", code: "P1004", stock: 2, minStock: 10, category: "الکترونیک" },
+            { id: 3, name: "پاوربانک شیائومی", code: "P1008", stock: 5, minStock: 20, category: "لوازم جانبی" }
+        ];
+
+        // فعالیت‌های اخیر
+        const recentActivities = [
+            { time: "۱۰:۳۰", action: "فاکتور فروش جدید", user: "admin", details: "فاکتور شماره F-1006 به مبلغ ۱۵,۲۰۰,۰۰۰ تومان صادر شد", icon: "fa-file-invoice", color: "bg-danger" },
+            { time: "۰۹:۴۵", action: "افزودن کالا", user: "admin", details: "کالای جدید با نام 'هدفون جی بی ال' به انبار اضافه شد", icon: "fa-box", color: "bg-success" },
+            { time: "۰۹:۱۵", action: "پرداخت", user: "admin", details: "پرداخت مبلغ ۵,۰۰۰,۰۰۰ تومان از مشتری آرمان پوراحمد", icon: "fa-credit-card", color: "bg-info" },
+            { time: "۰۸:۳۰", action: "هشدار موجودی", user: "سیستم", details: "موجودی گوشی سامسونگ S24 به زیر حد مجاز رسید", icon: "fa-exclamation-triangle", color: "bg-warning" }
+        ];
+
+        // ============================================
+        // توابع رندرینگ
+        // ============================================
+
+        // رندر تاریخ امروز
+        function renderDate() {
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            const today = new Date().toLocaleDateString('fa-IR', options);
+            document.getElementById('todayDate').innerHTML = today;
+        }
+
+        // رندر کارت‌های آماری
+        function renderStatsCards() {
+            const row1 = document.getElementById('statsRow1');
+            const row2 = document.getElementById('statsRow2');
+            
+            const stats1 = [
+                { icon: "fas fa-box", color: "bg-primary", value: dashboardStats.totalProducts, label: "کل کالاها", trend: "+۱۲", trendUp: true },
+                { icon: "fas fa-users", color: "bg-success", value: dashboardStats.totalCustomers, label: "کل مشتریان", trend: "+۲۴", trendUp: true },
+                { icon: "fas fa-truck", color: "bg-warning", value: dashboardStats.totalSuppliers, label: "تامین‌کنندگان", trend: "+۳", trendUp: true },
+                { icon: "fas fa-file-invoice", color: "bg-danger", value: dashboardStats.totalPurchaseInvoices, label: "فاکتورهای خرید", trend: "+۱۸", trendUp: true },
+                { icon: "fas fa-file-signature", color: "bg-info", value: dashboardStats.totalSalesInvoices, label: "فاکتورهای فروش", trend: "+۲۵", trendUp: true },
+                { icon: "fas fa-dollar-sign", color: "bg-secondary", value: dashboardStats.todaySales, label: "فروش امروز", isPrice: true, trend: "+۸%", trendUp: true }
+            ];
+            
+            const stats2 = [
+                { icon: "fas fa-chart-line", color: "bg-dark", value: dashboardStats.monthSales, label: "فروش ماه جاری", isPrice: true, trend: "+۱۲%", trendUp: true },
+                { icon: "fas fa-coins", color: "bg-purple", value: dashboardStats.monthProfit, label: "سود ماه جاری", isPrice: true, trend: "+۵%", trendUp: true },
+                { icon: "fas fa-hand-holding-usd", color: "bg-danger", value: dashboardStats.debtCustomers, label: "بدهی مشتریان", isPrice: true, trend: "+۲%", trendUp: false },
+                { icon: "fas fa-money-bill-wave", color: "bg-orange", value: dashboardStats.debtSuppliers, label: "بدهی به تامین‌کنندگان", isPrice: true, trend: "-۳%", trendUp: true },
+                { icon: "fas fa-clock", color: "bg-warning", value: dashboardStats.pendingOrders, label: "سفارشات در انتظار", trend: "+۵", trendUp: false },
+                { icon: "fas fa-exclamation-triangle", color: "bg-danger", value: dashboardStats.lowStockCount, label: "محصولات کم موجود", trend: "+۲", trendUp: false }
+            ];
+            
+            row1.innerHTML = stats1.map(s => `
+                <div class="col-xl-2 col-md-4 col-sm-6">
+                    <div class="stat-card-dashboard" onclick="window.location.href='${s.link || '#'}'">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="stat-icon ${s.color}"><i class="${s.icon}"></i></div>
+                            <div class="text-end">
+                                <h3 class="mb-0">${s.isPrice ? (s.value / 1000000).toFixed(1) + 'M' : s.value.toLocaleString()}</h3>
+                                <small class="text-muted">${s.label}</small>
+                                <div class="${s.trendUp ? 'trend-up' : 'trend-down'}">
+                                    <i class="fas fa-arrow-${s.trendUp ? 'up' : 'down'}"></i> ${s.trend}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            row2.innerHTML = stats2.map(s => `
+                <div class="col-xl-2 col-md-4 col-sm-6">
+                    <div class="stat-card-dashboard">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="stat-icon ${s.color}"><i class="${s.icon}"></i></div>
+                            <div class="text-end">
+                                <h3 class="mb-0">${s.isPrice ? (s.value / 1000000).toFixed(1) + 'M' : s.value.toLocaleString()}</h3>
+                                <small class="text-muted">${s.label}</small>
+                                <div class="${s.trendUp ? 'trend-up' : 'trend-down'}">
+                                    <i class="fas fa-arrow-${s.trendUp ? 'up' : 'down'}"></i> ${s.trend}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // رندر نمودارها
+        function renderCharts() {
+            // نمودار فروش روزانه
+            new ApexCharts(document.querySelector("#dailySalesChart"), {
+                series: [{ name: 'فروش', data: [12, 19, 15, 17, 24, 28, 31], type: 'column' }],
+                chart: { type: 'line', height: 300, toolbar: { show: false } },
+                xaxis: { categories: ['شنبه', 'یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه'] },
+                colors: ['#2563eb'],
+                title: { text: 'فروش روزانه (میلیون تومان)' },
+                dataLabels: { enabled: true }
+            }).render();
+            
+            // نمودار فروش ماهانه
+            new ApexCharts(document.querySelector("#monthlySalesChart"), {
+                series: [{ name: 'فروش', data: [185, 202, 230, 245, 268, 290, 310, 335, 360, 385, 410, 445] }],
+                chart: { type: 'area', height: 300, toolbar: { show: false } },
+                xaxis: { categories: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'] },
+                colors: ['#10b981'],
+                fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.7, opacityTo: 0.3 } }
+            }).render();
+            
+            // نمودار خرید ماهانه
+            new ApexCharts(document.querySelector("#monthlyPurchaseChart"), {
+                series: [{ name: 'خرید', data: [95, 112, 130, 125, 148, 160, 155, 170, 185, 190, 210, 225] }],
+                chart: { type: 'bar', height: 300, toolbar: { show: false } },
+                xaxis: { categories: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'] },
+                colors: ['#f59e0b'],
+                plotOptions: { bar: { borderRadius: 8 } }
+            }).render();
+            
+            // نمودار سود و زیان
+            new ApexCharts(document.querySelector("#profitLossChart"), {
+                series: [
+                    { name: 'سود ناخالص', data: [45, 62, 75, 85, 95, 108, 120, 135, 148, 160, 175, 195] },
+                    { name: 'هزینه‌ها', data: [20, 25, 30, 32, 35, 38, 42, 45, 48, 52, 55, 60] },
+                    { name: 'سود خالص', data: [25, 37, 45, 53, 60, 70, 78, 90, 100, 108, 120, 135] }
+                ],
+                chart: { type: 'line', height: 300, toolbar: { show: false } },
+                xaxis: { categories: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'] },
+                colors: ['#8b5cf6', '#ef4444', '#10b981'],
+                stroke: { width: 3 }
+            }).render();
+        }
+
+        // رندر محصولات پرفروش
+        function renderTopProducts() {
+            const container = document.getElementById('topProductsList');
+            const maxSales = Math.max(...topProducts.map(p => p.sales));
+            
+            container.innerHTML = topProducts.map(p => `
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="${p.image}" class="top-product-img" alt="${p.name}">
+                        <div>
+                            <h6 class="mb-0">${p.name}</h6>
+                            <small class="text-muted">${p.sales} عدد فروش</small>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <div class="fw-bold">${(p.amount / 1000000).toFixed(0)}M تومان</div>
+                        <small class="${p.growth >= 0 ? 'text-success' : 'text-danger'}">
+                            <i class="fas fa-arrow-${p.growth >= 0 ? 'up' : 'down'}"></i> ${Math.abs(p.growth)}%
+                        </small>
+                    </div>
+                </div>
+                <div class="percentage-bar mb-3">
+                    <div class="percentage-fill" style="width: ${(p.sales / maxSales) * 100}%"></div>
+                </div>
+            `).join('');
+        }
+
+        // رندر فعالیت‌های اخیر
+        function renderRecentActivities() {
+            const container = document.getElementById('activityTimeline');
+            container.innerHTML = recentActivities.map(a => `
+                <div class="timeline-item">
+                    <div class="timeline-icon ${a.color} text-white">
+                        <i class="fas ${a.icon}"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="d-flex justify-content-between">
+                            <strong>${a.action}</strong>
+                            <small class="text-muted">${a.time}</small>
+                        </div>
+                        <p class="mb-0 small">${a.details}</p>
+                        <small class="text-muted">کاربر: ${a.user}</small>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // رندر جداول آخرین فاکتورها
+        function renderLatestTables() {
+            const salesBody = document.querySelector('#latestSalesTable tbody');
+            const purchasesBody = document.querySelector('#latestPurchasesTable tbody');
+            
+            if (salesBody) {
+                salesBody.innerHTML = latestSales.map(s => `
+                    <tr>
+                        <td>${s.id}</td>
+                        <td>${s.customer}</td>
+                        <td>${s.amount.toLocaleString()} تومان</td>
+                        <td>${s.date}</td>
+                        <td><span class="badge ${s.status === 'پرداخت شده' ? 'bg-success' : 'bg-warning'}">${s.status}</span></td>
+                    </tr>
+                `).join('');
+            }
+            
+            if (purchasesBody) {
+                purchasesBody.innerHTML = latestPurchases.map(p => `
+                    <tr>
+                        <td>${p.id}</td>
+                        <td>${p.supplier}</td>
+                        <td>${p.amount.toLocaleString()} تومان</td>
+                        <td>${p.date}</td>
+                        <td><span class="badge ${p.status === 'پرداخت شده' ? 'bg-success' : (p.status === 'پرداخت جزئی' ? 'bg-warning' : 'bg-danger')}">${p.status}</span></td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        // رندر هشدار موجودی کم
+        function renderLowStockAlert() {
+            const container = document.getElementById('lowStockAlert');
+            if (lowStockProducts.length === 0) {
+                container.innerHTML = '<div class="text-center text-muted py-3">همه محصولات دارای موجودی مناسب هستند</div>';
+                return;
+            }
+            
+            container.innerHTML = `
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr><th>کد کالا</th><th>نام کالا</th><th>دسته‌بندی</th><th>موجودی فعلی</th><th>حداقل مجاز</th><th>وضعیت</th><th>عملیات</th></tr>
+                        </thead>
+                        <tbody>
+                            ${lowStockProducts.map(p => `
+                                <tr>
+                                    <td>${p.code}</td>
+                                    <td>${p.name}</td>
+                                    <td>${p.category}</td>
+                                    <td class="text-danger fw-bold">${p.stock}</td>
+                                    <td>${p.minStock}</td>
+                                    <td><span class="badge bg-warning text-dark">نیاز به سفارش</span></td>
+                                    <td><button class="btn btn-sm btn-primary" onclick="alert('سفارش ثبت شد')">ثبت سفارش</button></td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        // ============================================
+        // مقداردهی اولیه
+        // ============================================
+        
+        loadSidebarAndNavbar('dashboard');
+        renderDate();
+        renderStatsCards();
+        renderCharts();
+        renderTopProducts();
+        renderRecentActivities();
+        renderLatestTables();
+        renderLowStockAlert();
+    </script>
+</body>
+</html>

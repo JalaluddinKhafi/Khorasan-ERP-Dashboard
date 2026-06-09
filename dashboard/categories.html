@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت دسته‌بندی | داشبورد</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <aside id="sidebar" class="sidebar"></aside>
+        <main class="main-content">
+            <nav class="top-navbar"></nav>
+            <div class="container-fluid p-4">
+                <div class="row">
+                    <div class="col-lg-5 mb-4">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between">
+                                <h5>دسته‌بندی کالاها</h5>
+                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#categoryModal" id="addRootCategoryBtn">
+                                    <i class="fas fa-plus"></i> افزودن دسته اصلی
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div id="categoryTree">
+                                    <!-- درخت دسته‌بندی توسط JS پر می‌شود -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>لیست تمام دسته‌بندی‌ها</h5>
+                            </div>
+                            <div class="card-body">
+                                <table id="categoriesTable" class="table table-striped">
+                                    <thead>
+                                        <tr><th>شناسه</th><th>نام دسته</th><th>دسته والد</th><th>تعداد محصولات</th><th>عملیات</th></tr>
+                                    </thead>
+                                    <tbody id="categoriesTableBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal دسته‌بندی -->
+    <div class="modal fade" id="categoryModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="categoryModalTitle">افزودن دسته‌بندی</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="categoryForm">
+                        <input type="hidden" id="categoryId">
+                        <div class="mb-3">
+                            <label>نام دسته‌بندی</label>
+                            <input type="text" id="categoryName" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>دسته والد</label>
+                            <select id="parentCategory" class="form-select">
+                                <option value="">بدون والد (دسته اصلی)</option>
+                                <option value="1">الکترونیک</option>
+                                <option value="2">پوشاک</option>
+                                <option value="3">خودرو</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label>توضیحات</label>
+                            <textarea id="categoryDesc" class="form-control" rows="2"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label>وضعیت</label>
+                            <select id="categoryStatus" class="form-select">
+                                <option value="active">فعال</option>
+                                <option value="inactive">غیرفعال</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                    <button type="button" class="btn btn-primary" id="saveCategoryBtn">ذخیره</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal حذف -->
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">تایید حذف</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>آیا از حذف این دسته‌بندی اطمینان دارید؟</p>
+                    <p class="text-danger small">توجه: در صورت حذف، تمام زیرمجموعه‌ها نیز حذف خواهند شد.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteCategoryBtn">حذف</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script>
+        let categoriesData = [];
+        let deleteCategoryId = null;
+        let categoriesTable = null;
+        
+        function loadCategories() {
+            categoriesData = [
+                { id: 1, name: "الکترونیک", parentId: null, parentName: "ریشه", productCount: 48, status: "active", description: "محصولات الکترونیکی" },
+                { id: 2, name: "لپ تاپ", parentId: 1, parentName: "الکترونیک", productCount: 15, status: "active", description: "" },
+                { id: 3, name: "گوشی موبایل", parentId: 1, parentName: "الکترونیک", productCount: 12, status: "active", description: "" },
+                { id: 4, name: "هدفون", parentId: 1, parentName: "الکترونیک", productCount: 8, status: "active", description: "" },
+                { id: 5, name: "پوشاک", parentId: null, parentName: "ریشه", productCount: 32, status: "active", description: "" },
+                { id: 6, name: "زنانه", parentId: 5, parentName: "پوشاک", productCount: 18, status: "active", description: "" },
+                { id: 7, name: "مردانه", parentId: 5, parentName: "پوشاک", productCount: 14, status: "inactive", description: "" }
+            ];
+            
+            renderCategoryTree();
+            renderCategoriesTable();
+        }
+        
+        function renderCategoryTree() {
+            const container = document.getElementById('categoryTree');
+            if (!container) return;
+            
+            const rootCategories = categoriesData.filter(c => !c.parentId);
+            
+            container.innerHTML = rootCategories.map(cat => buildTreeHTML(cat)).join('');
+        }
+        
+        function buildTreeHTML(category, level = 0) {
+            const children = categoriesData.filter(c => c.parentId === category.id);
+            const paddingRight = level * 20;
+            
+            let html = `
+                <div class="tree-node" data-id="${category.id}" style="padding-right: ${paddingRight}px;">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-folder-${children.length > 0 ? 'open' : 'closed'} text-warning me-2"></i>
+                            <span>${category.name}</span>
+                            <span class="category-badge me-2">${category.productCount} محصول</span>
+                            ${category.status === 'inactive' ? '<span class="badge bg-secondary">غیرفعال</span>' : ''}
+                        </div>
+                        <div class="tree-actions">
+                            <button class="btn btn-sm btn-info edit-category" data-id="${category.id}"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-danger delete-category" data-id="${category.id}"><i class="fas fa-trash"></i></button>
+                            <button class="btn btn-sm btn-success add-subcategory" data-id="${category.id}" data-name="${category.name}"><i class="fas fa-plus"></i> زیرمجموعه</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            if (children.length > 0) {
+                html += `<div class="tree-node-children">`;
+                children.forEach(child => {
+                    html += buildTreeHTML(child, level + 1);
+                });
+                html += `</div>`;
+            }
+            
+            return html;
+        }
+        
+        function renderCategoriesTable() {
+            const tbody = document.getElementById('categoriesTableBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = categoriesData.map(cat => `
+                <tr>
+                    <td>${cat.id}</td>
+                    <td>${cat.name}</td>
+                    <td>${cat.parentName || '---'}</td>
+                    <td>${cat.productCount}</td>
+                    <td>
+                        <button class="btn btn-sm btn-info edit-category-table" data-id="${cat.id}"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-danger delete-category-table" data-id="${cat.id}"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+            
+            if (categoriesTable) categoriesTable.destroy();
+            categoriesTable = $('#categoriesTable').DataTable({
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" }
+            });
+            
+            attachTableEvents();
+        }
+        
+        function attachTableEvents() {
+            document.querySelectorAll('.edit-category-table').forEach(btn => {
+                btn.addEventListener('click', () => editCategory(parseInt(btn.dataset.id)));
+            });
+            document.querySelectorAll('.delete-category-table').forEach(btn => {
+                btn.addEventListener('click', () => showDeleteModal(parseInt(btn.dataset.id)));
+            });
+        }
+        
+        function editCategory(id) {
+            const category = categoriesData.find(c => c.id === id);
+            if (!category) return;
+            
+            document.getElementById('categoryModalTitle').innerText = 'ویرایش دسته‌بندی';
+            document.getElementById('categoryId').value = category.id;
+            document.getElementById('categoryName').value = category.name;
+            document.getElementById('parentCategory').value = category.parentId || '';
+            document.getElementById('categoryDesc').value = category.description || '';
+            document.getElementById('categoryStatus').value = category.status;
+            
+            new bootstrap.Modal(document.getElementById('categoryModal')).show();
+        }
+        
+        function showDeleteModal(id) {
+            deleteCategoryId = id;
+            new bootstrap.Modal(document.getElementById('deleteModal')).show();
+        }
+        
+        function saveCategory() {
+            const id = document.getElementById('categoryId').value;
+            const parentId = document.getElementById('parentCategory').value;
+            
+            const newCategory = {
+                id: id ? parseInt(id) : Date.now(),
+                name: document.getElementById('categoryName').value,
+                parentId: parentId ? parseInt(parentId) : null,
+                parentName: parentId ? categoriesData.find(c => c.id === parseInt(parentId))?.name : 'ریشه',
+                description: document.getElementById('categoryDesc').value,
+                status: document.getElementById('categoryStatus').value,
+                productCount: 0
+            };
+            
+            if (id) {
+                const index = categoriesData.findIndex(c => c.id === parseInt(id));
+                if (index !== -1) {
+                    categoriesData[index] = { ...categoriesData[index], ...newCategory };
+                }
+                showToast('دسته‌بندی با موفقیت ویرایش شد', 'success');
+            } else {
+                categoriesData.push(newCategory);
+                showToast('دسته‌بندی با موفقیت اضافه شد', 'success');
+            }
+            
+            renderCategoryTree();
+            renderCategoriesTable();
+            bootstrap.Modal.getInstance(document.getElementById('categoryModal')).hide();
+            resetCategoryForm();
+        }
+        
+        function confirmDelete() {
+            if (deleteCategoryId) {
+                categoriesData = categoriesData.filter(c => c.id !== deleteCategoryId);
+                renderCategoryTree();
+                renderCategoriesTable();
+                showToast('دسته‌بندی با موفقیت حذف شد', 'success');
+                bootstrap.Modal.getInstance(document.getElementById('deleteModal')).hide();
+                deleteCategoryId = null;
+            }
+        }
+        
+        function resetCategoryForm() {
+            document.getElementById('categoryId').value = '';
+            document.getElementById('categoryModalTitle').innerText = 'افزودن دسته‌بندی';
+            document.getElementById('categoryForm').reset();
+        }
+        
+        function addSubcategory(parentId, parentName) {
+            document.getElementById('categoryModalTitle').innerText = `افزودن زیرمجموعه برای ${parentName}`;
+            document.getElementById('categoryId').value = '';
+            document.getElementById('categoryName').value = '';
+            document.getElementById('parentCategory').value = parentId;
+            document.getElementById('categoryDesc').value = '';
+            document.getElementById('categoryStatus').value = 'active';
+            
+            new bootstrap.Modal(document.getElementById('categoryModal')).show();
+        }
+        
+        document.getElementById('saveCategoryBtn')?.addEventListener('click', saveCategory);
+        document.getElementById('confirmDeleteCategoryBtn')?.addEventListener('click', confirmDelete);
+        
+        function attachTreeEvents() {
+            setTimeout(() => {
+                document.querySelectorAll('.edit-category').forEach(btn => {
+                    btn.addEventListener('click', () => editCategory(parseInt(btn.dataset.id)));
+                });
+                document.querySelectorAll('.delete-category').forEach(btn => {
+                    btn.addEventListener('click', () => showDeleteModal(parseInt(btn.dataset.id)));
+                });
+                document.querySelectorAll('.add-subcategory').forEach(btn => {
+                    btn.addEventListener('click', () => addSubcategory(parseInt(btn.dataset.id), btn.dataset.name));
+                });
+            }, 100);
+        }
+        
+        function renderAndAttach() {
+            renderCategoryTree();
+            attachTreeEvents();
+        }
+        
+        loadSidebarAndNavbar('categories');
+        loadCategories();
+        
+        const originalRenderCategoryTree = renderCategoryTree;
+        window.renderCategoryTree = function() {
+            originalRenderCategoryTree();
+            attachTreeEvents();
+        };
+        window.renderCategoryTree();
+    </script>
+</body>
+</html>

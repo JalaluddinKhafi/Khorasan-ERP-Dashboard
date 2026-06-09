@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رسیدهای پرداخت مشتری | داشبورد</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .receipt-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: 0.3s;
+            background: white;
+        }
+        .receipt-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        .receipt-header {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.25rem 0;
+            font-size: 0.85rem;
+        }
+        .amount-positive {
+            color: #10b981;
+            font-weight: 700;
+        }
+        .amount-negative {
+            color: #ef4444;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <aside id="sidebar" class="sidebar"></aside>
+        <main class="main-content">
+            <nav class="top-navbar"></nav>
+            <div class="container-fluid p-4">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <h5><i class="fas fa-receipt"></i> رسیدهای پرداخت مشتریان</h5>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#receiptModal">
+                            <i class="fas fa-plus"></i> ثبت رسید جدید
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <!-- فیلترها -->
+                        <div class="row mb-3 g-2">
+                            <div class="col-md-3">
+                                <input type="text" id="searchReceipt" class="form-control" placeholder="جستجوی رسید...">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" id="filterDate" class="form-control" placeholder="تاریخ (مثلاً 1405/03)">
+                            </div>
+                            <div class="col-md-3">
+                                <select id="filterStatus" class="form-select">
+                                    <option value="all">همه وضعیت‌ها</option>
+                                    <option value="paid">پرداخت شده</option>
+                                    <option value="pending">در انتظار</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-secondary w-100" id="resetReceiptFilters">
+                                    <i class="fas fa-undo"></i> حذف فیلتر
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- لیست رسیدها به صورت کارتی -->
+                        <div id="receiptsList" class="row">
+                            <!-- توسط JS پر می‌شود -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal ثبت رسید جدید -->
+    <div class="modal fade" id="receiptModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ثبت رسید پرداخت جدید</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="receiptForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label>شماره رسید</label>
+                                <input type="text" id="receiptNumber" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>تاریخ رسید</label>
+                                <input type="text" id="receiptDate" class="form-control" placeholder="1405/03/12" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>کد مشتری</label>
+                                <input type="text" id="customerCode" class="form-control">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>نام مشتری</label>
+                                <input type="text" id="customerNameReceipt" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>پرداخت کننده</label>
+                                <input type="text" id="payerName" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>آدرس</label>
+                                <input type="text" id="payerAddress" class="form-control">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label>واحد پول</label>
+                                <select id="currency" class="form-select">
+                                    <option value="USD">دلار (USD)</option>
+                                    <option value="EUR">یورو (EUR)</option>
+                                    <option value="IRR">تومان (IRR)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label>نرخ تبدیل</label>
+                                <input type="number" id="exchangeRate" class="form-control" value="166.5">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label>مبلغ</label>
+                                <input type="number" id="totalAmount" class="form-control" required>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label>توضیحات (بابت تخفیف فاکتور...)</label>
+                                <textarea id="descriptionReceipt" class="form-control" rows="2"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                    <button type="button" class="btn btn-primary" id="saveReceiptBtn">ذخیره رسید</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script>
+        // ============================================
+        // داده‌های نمونه رسیدها
+        // ============================================
+        let receiptsData = [
+            {
+                id: 1,
+                receiptNumber: "1319",
+                receiptDate: "1405/03/12",
+                receiptTime: "07:10 PM",
+                customerCode: "42",
+                customerName: "آقای آریا",
+                payerName: "نمایندگی قلعه نو حاجی قاسم",
+                payerAddress: "قلعه نو",
+                currency: "USD",
+                exchangeRate: 166.5,
+                exchangeAmount: 166.5,
+                previousBalance: 0,
+                demandAmount: 16666.462,
+                discountAmount: 0,
+                totalAmount: 166.5,
+                amountInWords: "صد و شصت و هفت دلار",
+                description: "بابت تخفیف فاکتور 450",
+                status: "paid"
+            },
+            {
+                id: 2,
+                receiptNumber: "1320",
+                receiptDate: "1405/03/10",
+                receiptTime: "10:15 AM",
+                customerCode: "42",
+                customerName: "آقای آریا",
+                payerName: "نمایندگی قلعه نو حاجی قاسم",
+                payerAddress: "قلعه نو",
+                currency: "USD",
+                exchangeRate: 165.2,
+                exchangeAmount: 500,
+                previousBalance: 16666.462,
+                demandAmount: 16166.462,
+                discountAmount: 0,
+                totalAmount: 500,
+                amountInWords: "پانصد دلار",
+                description: "پرداخت وجه فاکتورهای قبلی",
+                status: "paid"
+            }
+        ];
+
+        function renderReceipts() {
+            const container = document.getElementById('receiptsList');
+            if (!container) return;
+
+            container.innerHTML = receiptsData.map(r => `
+                <div class="col-md-6 col-lg-4">
+                    <div class="receipt-card">
+                        <div class="receipt-header">
+                            <div class="d-flex justify-content-between">
+                                <span><i class="fas fa-receipt"></i> رسید شماره ${r.receiptNumber}</span>
+                                <span class="badge ${r.status === 'paid' ? 'bg-success' : 'bg-warning'}">${r.status === 'paid' ? 'پرداخت شده' : 'در انتظار'}</span>
+                            </div>
+                            <small>تاریخ: ${r.receiptDate} | ساعت: ${r.receiptTime}</small>
+                        </div>
+                        <div class="detail-row">
+                            <span>مشتری:</span>
+                            <span class="fw-bold">${r.customerName} (کد: ${r.customerCode})</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>پرداخت کننده:</span>
+                            <span>${r.payerName}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>مبلغ:</span>
+                            <span class="amount-positive">${r.totalAmount.toLocaleString()} ${r.currency}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>نرخ تبدیل:</span>
+                            <span>${r.exchangeRate}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>حساب سابقه:</span>
+                            <span>${r.previousBalance.toLocaleString()} ${r.currency}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>طلب جاری:</span>
+                            <span>${r.demandAmount.toLocaleString()} ${r.currency}</span>
+                        </div>
+                        ${r.description ? `
+                        <div class="detail-row mt-2 text-muted small">
+                            <span>توضیحات:</span>
+                            <span>${r.description}</span>
+                        </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function saveReceipt() {
+            const newReceipt = {
+                id: Date.now(),
+                receiptNumber: document.getElementById('receiptNumber').value,
+                receiptDate: document.getElementById('receiptDate').value,
+                receiptTime: new Date().toLocaleTimeString('fa-IR'),
+                customerCode: document.getElementById('customerCode').value,
+                customerName: document.getElementById('customerNameReceipt').value,
+                payerName: document.getElementById('payerName').value,
+                payerAddress: document.getElementById('payerAddress').value,
+                currency: document.getElementById('currency').value,
+                exchangeRate: parseFloat(document.getElementById('exchangeRate').value),
+                exchangeAmount: parseFloat(document.getElementById('totalAmount').value),
+                previousBalance: 0,
+                demandAmount: 0,
+                discountAmount: 0,
+                totalAmount: parseFloat(document.getElementById('totalAmount').value),
+                amountInWords: "",
+                description: document.getElementById('descriptionReceipt').value,
+                status: "paid"
+            };
+
+            receiptsData.unshift(newReceipt);
+            renderReceipts();
+            bootstrap.Modal.getInstance(document.getElementById('receiptModal')).hide();
+            document.getElementById('receiptForm').reset();
+            showToast('رسید با موفقیت ثبت شد', 'success');
+        }
+
+        document.getElementById('saveReceiptBtn')?.addEventListener('click', saveReceipt);
+        document.getElementById('resetReceiptFilters')?.addEventListener('click', () => {
+            document.getElementById('searchReceipt').value = '';
+            document.getElementById('filterDate').value = '';
+            document.getElementById('filterStatus').value = 'all';
+            renderReceipts();
+        });
+
+        loadSidebarAndNavbar('receipts');
+        renderReceipts();
+    </script>
+</body>
+</html>

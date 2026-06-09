@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تماس با ما | مدیریت جامع</title>
+    <meta name="description" content="ارتباط با تیم پشتیبانی و فروش مدیریت جامع">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .contact-info-card {
+            text-align: center;
+            padding: 2rem;
+            background: #f8fafc;
+            border-radius: 1rem;
+            transition: 0.3s;
+            height: 100%;
+        }
+        .contact-info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .contact-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+        .contact-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+        .map-container {
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-chart-line text-primary"></i> مدیریت جامع
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="index.html">صفحه نخست</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">درباره ما</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html">محصولات</a></li>
+                    <li class="nav-item"><a class="nav-link" href="services.html">خدمات</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">وبلاگ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">گالری</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="contact.html">تماس با ما</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="bg-primary text-white py-5">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold">تماس با ما</h1>
+            <p class="lead">ما همواره آماده پاسخگویی به شما هستیم</p>
+        </div>
+    </section>
+
+    <div class="container py-5">
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h5>آدرس</h5>
+                    <p class="text-muted mb-0">تهران، خیابان ولیعصر، پلاک ۱۲۳<br>ساختمان مدیریت جامع</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h5>تلفن تماس</h5>
+                    <p class="text-muted mb-0">۰۲۱-۱۲۳۴۵۶۷۸<br>۰۲۱-۸۷۶۵۴۳۲۱</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h5>ایمیل</h5>
+                    <p class="text-muted mb-0">info@armanmanagement.com<br>support@armanmanagement.com</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h4 class="mb-4">فرم تماس</h4>
+                        <form id="contactForm">
+                            <div class="mb-3">
+                                <label class="form-label">نام و نام خانوادگی</label>
+                                <input type="text" class="form-control" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">ایمیل</label>
+                                <input type="email" class="form-control" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">شماره تماس</label>
+                                <input type="tel" class="form-control" name="phone" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">موضوع</label>
+                                <select class="form-select" name="subject">
+                                    <option>درخواست مشاوره</option>
+                                    <option>پشتیبانی محصولات</option>
+                                    <option>همکاری و فروش</option>
+                                    <option>سایر موارد</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">پیام شما</label>
+                                <textarea class="form-control" rows="5" name="message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg w-100">ارسال پیام</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h4 class="mb-4">موقعیت ما روی نقشه</h4>
+                        <div class="map-container">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3239.917476752874!2d51.389017!3d35.689197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8e0143d4d7c5b9%3A0x4f7c5f5c5e5f5e5f!2sTehran!5e0!3m2!1sen!2sir!4v1645000000000!5m2!1sen!2sir" 
+                                width="100%" 
+                                height="400" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                        <div class="mt-4">
+                            <h5>ساعات کاری</h5>
+                            <p class="text-muted mb-0">شنبه تا چهارشنبه: ۹ صبح تا ۱۷ عصر<br>پنجشنبه: ۹ صبح تا ۱۳<br>جمعه: تعطیل</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white-50 py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; ۱۴۰۲ تمامی حقوق محفوظ است.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('contactForm')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            // نمونه fetch برای ارسال به API
+            try {
+                // const response = await fetch('/api/contact', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify(data)
+                // });
+                // if (response.ok) {
+                //     alert('پیام شما با موفقیت ارسال شد');
+                //     e.target.reset();
+                // }
+                
+                // برای حال حاضر (بدون بک‌اند):
+                alert('پیام شما با موفقیت ارسال شد. کارشناسان ما به زودی با شما تماس می‌گیرند.');
+                e.target.reset();
+                
+            } catch (error) {
+                alert('خطا در ارسال پیام. لطفاً مجدداً تلاش کنید.');
+            }
+        });
+    </script>
+</body>
+</html>

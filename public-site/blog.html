@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وبلاگ | مدیریت جامع</title>
+    <meta name="description" content="جدیدترین مقالات و اخبار حوزه مدیریت کسب و کار، فناوری اطلاعات و سیستم‌های مالی">
+    <meta property="og:title" content="وبلاگ مدیریت جامع">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fa_IR">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .blog-card {
+            border: none;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -12px rgba(0,0,0,0.2);
+        }
+        .blog-img {
+            height: 240px;
+            object-fit: cover;
+            width: 100%;
+        }
+        .blog-meta {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-bottom: 0.5rem;
+        }
+        .blog-meta i {
+            margin-left: 0.25rem;
+        }
+        .sidebar-widget {
+            background: #f8fafc;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .category-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .category-list li:last-child {
+            border-bottom: none;
+        }
+        .category-list a {
+            text-decoration: none;
+            color: #334155;
+            transition: 0.3s;
+        }
+        .category-list a:hover {
+            color: #2563eb;
+        }
+        .tag-cloud .badge {
+            margin: 0.25rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .tag-cloud .badge:hover {
+            background: #2563eb !important;
+        }
+        .pagination .page-link {
+            border-radius: 0.5rem;
+            margin: 0 0.25rem;
+            color: #2563eb;
+        }
+        .pagination .page-item.active .page-link {
+            background: #2563eb;
+            border-color: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-chart-line text-primary"></i> مدیریت جامع
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="index.html">صفحه نخست</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">درباره ما</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html">محصولات</a></li>
+                    <li class="nav-item"><a class="nav-link" href="services.html">خدمات</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="blog.html">وبلاگ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">گالری</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">تماس با ما</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="bg-primary text-white py-5">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold">وبلاگ مدیریت جامع</h1>
+            <p class="lead">جدیدترین مقالات و اخبار حوزه مدیریت کسب و کار</p>
+        </div>
+    </section>
+
+    <div class="container py-5">
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <div id="blogPostsContainer">
+                    <!-- مقالات توسط JS پر می‌شود -->
+                </div>
+                
+                <!-- Pagination -->
+                <nav class="mt-4">
+                    <ul class="pagination justify-content-center" id="pagination">
+                    </ul>
+                </nav>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Search Widget -->
+                <div class="sidebar-widget">
+                    <h5 class="mb-3"><i class="fas fa-search"></i> جستجو</h5>
+                    <div class="input-group">
+                        <input type="text" id="searchBlogInput" class="form-control" placeholder="جستجوی مقالات...">
+                        <button class="btn btn-primary" id="searchBlogBtn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Categories Widget -->
+                <div class="sidebar-widget">
+                    <h5 class="mb-3"><i class="fas fa-folder"></i> دسته‌بندی</h5>
+                    <ul class="list-unstyled category-list" id="categoriesList">
+                        <li><a href="#" data-category="all">همه مقالات</a> <span class="float-left">(12)</span></li>
+                        <li><a href="#" data-category="management">مدیریت کسب و کار</a> <span class="float-left">(5)</span></li>
+                        <li><a href="#" data-category="technology">فناوری اطلاعات</a> <span class="float-left">(4)</span></li>
+                        <li><a href="#" data-category="finance">مالی و حسابداری</a> <span class="float-left">(3)</span></li>
+                    </ul>
+                </div>
+                
+                <!-- Recent Posts Widget -->
+                <div class="sidebar-widget">
+                    <h5 class="mb-3"><i class="fas fa-clock"></i> پست‌های اخیر</h5>
+                    <div id="recentPosts"></div>
+                </div>
+                
+                <!-- Tags Widget -->
+                <div class="sidebar-widget">
+                    <h5 class="mb-3"><i class="fas fa-tags"></i> برچسب‌ها</h5>
+                    <div class="tag-cloud" id="tagsCloud">
+                        <span class="badge bg-secondary">مدیریت فروش</span>
+                        <span class="badge bg-secondary">انبارداری</span>
+                        <span class="badge bg-secondary">حسابداری</span>
+                        <span class="badge bg-secondary">ERP</span>
+                        <span class="badge bg-secondary">هوش تجاری</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white-50 py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; ۱۴۰۲ تمامی حقوق محفوظ است.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // داده‌های مقالات
+        const blogPosts = [
+            { id: 1, title: "۱۰ راهکار برای افزایش فروش در سال ۱۴۰۳", category: "management", date: "۱۴۰۲/۱۲/۱۰", author: "احمد رضایی", image: "https://via.placeholder.com/800x400/2563eb/white?text=Sales+Tips", excerpt: "در این مقاله به بررسی راهکارهای عملی برای افزایش فروش در سال جدید می‌پردازیم...", tags: ["مدیریت فروش", "بازاریابی"] },
+            { id: 2, title: "بهترین نرم‌افزارهای انبارداری در ایران", category: "technology", date: "۱۴۰۲/۱۲/۰۸", author: "سارا کریمی", image: "https://via.placeholder.com/800x400/10b981/white?text=Warehouse", excerpt: "معرفی و مقایسه بهترین سیستم‌های مدیریت انبار متناسب با کسب و کار ایرانی...", tags: ["انبارداری", "نرم افزار"] },
+            { id: 3, title: "اصول حسابداری برای کسب و کارهای کوچک", category: "finance", date: "۱۴۰۲/۱۲/۰۵", author: "محمد حسینی", image: "https://via.placeholder.com/800x400/f59e0b/white?text=Accounting", excerpt: "آشنایی با اصول پایه حسابداری که هر صاحب کسب و کاری باید بداند...", tags: ["حسابداری", "مالی"] },
+            { id: 4, title: "نقش هوش مصنوعی در مدیریت مدرن", category: "technology", date: "۱۴۰۲/۱۲/۰۳", author: "دکتر کریمی", image: "https://via.placeholder.com/800x400/ef4444/white?text=AI", excerpt: "چگونه هوش مصنوعی می‌تواند فرآیندهای مدیریتی را متحول کند؟", tags: ["هوش مصنوعی", "فناوری"] },
+            { id: 5, title: "مدیریت استراتژیک زنجیره تامین", category: "management", date: "۱۴۰۲/۱۲/۰۱", author: "احمد رضایی", image: "https://via.placeholder.com/800x400/8b5cf6/white?text=Supply+Chain", excerpt: "بهبود کارایی زنجیره تامین با رویکردهای نوین مدیریتی...", tags: ["زنجیره تامین", "مدیریت"] },
+            { id: 6, title: "گزارشگیری حرفه‌ای با Power BI", category: "technology", date: "۱۴۰۲/۱۱/۲۸", author: "سارا کریمی", image: "https://via.placeholder.com/800x400/06b6d4/white?text=Power+BI", excerpt: "آموزش ساخت داشبوردهای مدیریتی با Power BI", tags: ["داشبورد", "گزارش"] }
+        ];
+        
+        let currentPage = 1;
+        const postsPerPage = 4;
+        let currentCategory = "all";
+        let currentSearch = "";
+        
+        function getFilteredPosts() {
+            let filtered = [...blogPosts];
+            if (currentCategory !== "all") {
+                filtered = filtered.filter(p => p.category === currentCategory);
+            }
+            if (currentSearch) {
+                filtered = filtered.filter(p => p.title.includes(currentSearch) || p.excerpt.includes(currentSearch));
+            }
+            return filtered;
+        }
+        
+        function renderBlogPosts() {
+            const filtered = getFilteredPosts();
+            const totalPages = Math.ceil(filtered.length / postsPerPage);
+            const start = (currentPage - 1) * postsPerPage;
+            const paginatedPosts = filtered.slice(start, start + postsPerPage);
+            
+            const container = document.getElementById('blogPostsContainer');
+            if (!container) return;
+            
+            container.innerHTML = paginatedPosts.map(post => `
+                <div class="blog-card card">
+                    <img src="${post.image}" class="blog-img" alt="${post.title}">
+                    <div class="card-body">
+                        <div class="blog-meta">
+                            <span><i class="fas fa-calendar"></i> ${post.date}</span>
+                            <span class="mx-2">|</span>
+                            <span><i class="fas fa-user"></i> ${post.author}</span>
+                        </div>
+                        <h3 class="card-title h4">${post.title}</h3>
+                        <p class="card-text">${post.excerpt}</p>
+                        <a href="blog-details.html?id=${post.id}" class="btn btn-outline-primary">ادامه مطلب <i class="fas fa-arrow-left"></i></a>
+                    </div>
+                </div>
+            `).join('');
+            
+            // رندر pagination
+            renderPagination(totalPages);
+        }
+        
+        function renderPagination(totalPages) {
+            const paginationEl = document.getElementById('pagination');
+            if (!paginationEl) return;
+            
+            let html = '';
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<li class="page-item ${i === currentPage ? 'active' : ''}">
+                            <a class="page-link" href="#" data-page="${i}">${i}</a>
+                         </li>`;
+            }
+            paginationEl.innerHTML = html;
+            
+            document.querySelectorAll('.page-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentPage = parseInt(e.target.dataset.page);
+                    renderBlogPosts();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+        }
+        
+        function renderRecentPosts() {
+            const recent = [...blogPosts].slice(0, 3);
+            const container = document.getElementById('recentPosts');
+            if (container) {
+                container.innerHTML = recent.map(post => `
+                    <div class="mb-3">
+                        <a href="blog-details.html?id=${post.id}" class="text-decoration-none">
+                            <small class="text-muted">${post.date}</small>
+                            <h6 class="mb-0">${post.title}</h6>
+                        </a>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        // رویدادها
+        document.getElementById('searchBlogBtn')?.addEventListener('click', () => {
+            currentSearch = document.getElementById('searchBlogInput').value;
+            currentPage = 1;
+            renderBlogPosts();
+        });
+        
+        document.getElementById('searchBlogInput')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                currentSearch = e.target.value;
+                currentPage = 1;
+                renderBlogPosts();
+            }
+        });
+        
+        document.querySelectorAll('.category-list a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                currentCategory = e.target.dataset.category;
+                currentPage = 1;
+                renderBlogPosts();
+            });
+        });
+        
+        renderBlogPosts();
+        renderRecentPosts();
+    </script>
+</body>
+</html>

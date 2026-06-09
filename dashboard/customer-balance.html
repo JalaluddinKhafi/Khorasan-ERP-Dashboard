@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بیلانس مشتری | داشبورد</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- کتابخانه‌های مورد نیاز برای PDF و Excel -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        @media print {
+            .no-print, .sidebar, .top-navbar, .action-buttons {
+                display: none !important;
+            }
+        }
+        .action-buttons {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+        .action-buttons .btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <aside id="sidebar" class="sidebar"></aside>
+        <main class="main-content">
+            <nav class="top-navbar"></nav>
+            <div class="container-fluid p-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5><i class="fas fa-filter"></i> انتخاب مشتری</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-5">
+                                <select id="customerSelect" class="form-select form-select-lg">
+                                    <option value="">-- انتخاب مشتری --</option>
+                                    <option value="42">نمایندگی قلعه نو حاجی قاسم (کد: 42)</option>
+                                    <option value="100">شرکت تدبیر (کد: 100)</option>
+                                    <option value="101">آرمان پوراحمد (کد: 101)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-7">
+                                <button class="btn btn-primary" id="btnShowBalance">
+                                    <i class="fas fa-chart-line"></i> نمایش بیلانس
+                                </button>
+                                <button class="btn btn-success" id="btnExcel">
+                                    <i class="fas fa-file-excel"></i> Excel
+                                </button>
+                                <button class="btn btn-danger" id="btnPdf">
+                                    <i class="fas fa-file-pdf"></i> PDF
+                                </button>
+                                <button class="btn btn-info" id="btnPrint">
+                                    <i class="fas fa-print"></i> چاپ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="balanceContainer" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-file-invoice"></i> صورت حساب / بیلانس مشتری</h5>
+                        </div>
+                        <div class="card-body" id="reportContent">
+                            <!-- اطلاعات مشتری -->
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <table class="table table-bordered">
+                                        <tr><th style="width:40%">ترتیب کننده:</th><td id="custOrderBy">آقای آریا</td></tr>
+                                        <tr><th>کد مشتری:</th><td id="custCode">-</td></tr>
+                                        <tr><th>نام مشتری:</th><td id="custName">-</td></tr>
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <table class="table table-bordered">
+                                        <tr><th style="width:40%">شماره تماس:</th><td id="custPhone">-</td></tr>
+                                        <tr><th>آدرس:</th><td id="custAddress">-</td></tr>
+                                        <tr><th>واحد پول:</th><td>USD</td></tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- خلاصه ارقام -->
+                            <div class="row mb-4 g-3">
+                                <div class="col-md-4">
+                                    <div class="alert alert-danger text-center">
+                                        <strong>مجموع بدهکاری (طلب)</strong>
+                                        <h3 id="totalDebit">0</h3>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="alert alert-success text-center">
+                                        <strong>مجموع بستانکاری (پرداختی)</strong>
+                                        <h3 id="totalCredit">0</h3>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="alert alert-info text-center" id="balanceBox">
+                                        <strong>بیلانس / مانده جاری</strong>
+                                        <h3 id="currentBalance">0</h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- جدول تراکنش‌ها -->
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="transTable">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>ردیف</th>
+                                            <th>تاریخ</th>
+                                            <th>شماره مرجع</th>
+                                            <th>نوع</th>
+                                            <th>شرح</th>
+                                            <th>بدهکار (USD)</th>
+                                            <th>بستانکار (USD)</th>
+                                            <th>مانده</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="transBody"></tbody>
+                                    <tfoot class="table-secondary">
+                                        <tr>
+                                            <th colspan="5" class="text-end">جمع کل:</th>
+                                            <th id="footDebit">0</th>
+                                            <th id="footCredit">0</th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- دکمه‌های ثابت پایین صفحه -->
+    <div class="action-buttons no-print">
+        <button class="btn btn-success" id="fabExcel" title="Excel"><i class="fas fa-file-excel"></i></button>
+        <button class="btn btn-danger" id="fabPdf" title="PDF"><i class="fas fa-file-pdf"></i></button>
+        <button class="btn btn-info" id="fabPrint" title="چاپ"><i class="fas fa-print"></i></button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script>
+        var customers = {
+            42: { name: "نمایندگی قلعه نو حاجی قاسم", code: "42", phone: "0093799306715", address: "قلعه نو", orderBy: "آقای آریا" },
+            100: { name: "شرکت تدبیر", code: "100", phone: "02188776655", address: "تهران، خیابان ولیعصر", orderBy: "مدیر فروش" },
+            101: { name: "آرمان پوراحمد", code: "101", phone: "09121234567", address: "تهران، خیابان انقلاب", orderBy: "-" }
+        };
+
+        var transactions = {
+            42: [
+                { row: 1, date: "1405/01/04", ref: "بیلانس افتتاحیه", type: "debit", desc: "بیلانس افتتاحیه", debit: 14605, credit: 0, balance: 14605 },
+                { row: 2, date: "1405/01/15", ref: "فاکتور 233", type: "debit", desc: "فاکتور فروش", debit: 20, credit: 0, balance: 14625 },
+                { row: 3, date: "1405/01/24", ref: "فاکتور 450", type: "debit", desc: "فاکتور فروش", debit: 2706, credit: 0, balance: 17331 },
+                { row: 4, date: "1405/01/24", ref: "رسید 326", type: "credit", desc: "دریافت وجه", debit: 0, credit: 814, balance: 16267 },
+                { row: 5, date: "1405/01/25", ref: "فاکتور 467", type: "debit", desc: "فاکتور فروش", debit: 1085, credit: 0, balance: 17352 },
+                { row: 6, date: "1405/03/11", ref: "فاکتور 1470", type: "debit", desc: "فاکتور فروش", debit: 899, credit: 0, balance: 16682 }
+            ],
+            100: [
+                { row: 1, date: "1404/12/01", ref: "بیلانس افتتاحیه", type: "debit", desc: "بیلانس افتتاحیه", debit: 50000000, credit: 0, balance: 50000000 },
+                { row: 2, date: "1404/12/15", ref: "فاکتور 101", type: "debit", desc: "فاکتور فروش", debit: 12500000, credit: 0, balance: 62500000 },
+                { row: 3, date: "1405/01/10", ref: "رسید 201", type: "credit", desc: "دریافت وجه", debit: 0, credit: 20000000, balance: 42500000 }
+            ],
+            101: [
+                { row: 1, date: "1405/01/01", ref: "بیلانس افتتاحیه", type: "debit", desc: "بیلانس افتتاحیه", debit: 5000000, credit: 0, balance: 5000000 },
+                { row: 2, date: "1405/01/20", ref: "فاکتور 50", type: "debit", desc: "فاکتور فروش", debit: 3500000, credit: 0, balance: 8500000 },
+                { row: 3, date: "1405/02/05", ref: "رسید 30", type: "credit", desc: "دریافت وجه", debit: 0, credit: 5000000, balance: 3500000 }
+            ]
+        };
+
+        var currentTable = null;
+
+        function showBalance() {
+            var customerId = document.getElementById('customerSelect').value;
+            if (!customerId) {
+                alert('لطفاً مشتری را انتخاب کنید');
+                return;
+            }
+
+            var cust = customers[customerId];
+            var trans = transactions[customerId] || [];
+
+            document.getElementById('custOrderBy').innerHTML = cust.orderBy || '-';
+            document.getElementById('custCode').innerHTML = cust.code;
+            document.getElementById('custName').innerHTML = cust.name;
+            document.getElementById('custPhone').innerHTML = cust.phone;
+            document.getElementById('custAddress').innerHTML = cust.address;
+
+            var totalDebit = 0, totalCredit = 0;
+            for (var i = 0; i < trans.length; i++) {
+                totalDebit += trans[i].debit;
+                totalCredit += trans[i].credit;
+            }
+            var balance = totalDebit - totalCredit;
+
+            document.getElementById('totalDebit').innerHTML = totalDebit.toLocaleString() + ' USD';
+            document.getElementById('totalCredit').innerHTML = totalCredit.toLocaleString() + ' USD';
+            document.getElementById('currentBalance').innerHTML = balance.toLocaleString() + ' USD';
+
+            var balanceBox = document.getElementById('balanceBox');
+            if (balance > 0) balanceBox.className = 'alert alert-danger text-center';
+            else if (balance < 0) balanceBox.className = 'alert alert-success text-center';
+            else balanceBox.className = 'alert alert-secondary text-center';
+
+            var tbody = document.getElementById('transBody');
+            tbody.innerHTML = '';
+            var sumDebit = 0, sumCredit = 0;
+
+            for (var j = 0; j < trans.length; j++) {
+                var t = trans[j];
+                sumDebit += t.debit;
+                sumCredit += t.credit;
+                var typeText = t.type === 'debit' ? 'بدهکار' : 'بستانکار';
+                var typeClass = t.type === 'debit' ? 'bg-danger' : 'bg-success';
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${t.row}</td>
+                        <td>${t.date}</td>
+                        <td>${t.ref}</td>
+                        <td><span class="badge ${typeClass}">${typeText}</span></td>
+                        <td>${t.desc}</td>
+                        <td class="text-danger">${t.debit > 0 ? t.debit.toLocaleString() : '---'}</td>
+                        <td class="text-success">${t.credit > 0 ? t.credit.toLocaleString() : '---'}</td>
+                        <td class="fw-bold">${t.balance.toLocaleString()}</td>
+                    </tr>
+                `;
+            }
+
+            document.getElementById('footDebit').innerHTML = sumDebit.toLocaleString();
+            document.getElementById('footCredit').innerHTML = sumCredit.toLocaleString();
+
+            if (currentTable) currentTable.destroy();
+            currentTable = $('#transTable').DataTable({
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                pageLength: 15,
+                searching: false,
+                order: [[1, 'desc']]
+            });
+
+            document.getElementById('balanceContainer').style.display = 'block';
+        }
+
+        // ========== سه تابع ساده برای چاپ، PDF و Excel ==========
+        
+        function printReport() {
+            window.print();
+        }
+
+        function exportToPDF() {
+            var element = document.getElementById('reportContent');
+            html2pdf().from(element).save('customer_balance_' + new Date().toLocaleDateString('fa-IR') + '.pdf');
+        }
+
+        function exportToExcel() {
+            var customerId = document.getElementById('customerSelect').value;
+            if (!customerId) { alert('لطفاً ابتدا یک مشتری انتخاب کنید'); return; }
+            
+            var cust = customers[customerId];
+            var trans = transactions[customerId] || [];
+            
+            var data = [
+                ['شرکت مدیریت جامع - صورت حساب مشتری'],
+                [''],
+                ['نام مشتری:', cust.name],
+                ['کد مشتری:', cust.code],
+                ['شماره تماس:', cust.phone],
+                ['آدرس:', cust.address],
+                ['تاریخ چاپ:', new Date().toLocaleDateString('fa-IR')],
+                ['']
+            ];
+            
+            var totalDebit = 0, totalCredit = 0;
+            for (var i = 0; i < trans.length; i++) {
+                totalDebit += trans[i].debit;
+                totalCredit += trans[i].credit;
+            }
+            
+            data.push(['خلاصه ارقام']);
+            data.push(['کل بدهکاری:', totalDebit.toLocaleString() + ' USD']);
+            data.push(['کل بستانکاری:', totalCredit.toLocaleString() + ' USD']);
+            data.push(['مانده جاری:', (totalDebit - totalCredit).toLocaleString() + ' USD']);
+            data.push(['']);
+            data.push(['ردیف', 'تاریخ', 'شماره مرجع', 'نوع', 'شرح', 'بدهکار', 'بستانکار', 'مانده']);
+            
+            for (var j = 0; j < trans.length; j++) {
+                var t = trans[j];
+                data.push([
+                    t.row, t.date, t.ref,
+                    t.type === 'debit' ? 'بدهکار' : 'بستانکار',
+                    t.desc, t.debit, t.credit, t.balance
+                ]);
+            }
+            
+            var ws = XLSX.utils.aoa_to_sheet(data);
+            var wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'بیلانس مشتری');
+            XLSX.writeFile(wb, 'customer_balance_' + cust.name + '.xlsx');
+        }
+
+        // رویدادها
+        document.getElementById('btnShowBalance').addEventListener('click', showBalance);
+        document.getElementById('btnPrint').addEventListener('click', printReport);
+        document.getElementById('btnPdf').addEventListener('click', exportToPDF);
+        document.getElementById('btnExcel').addEventListener('click', exportToExcel);
+        document.getElementById('fabPrint').addEventListener('click', printReport);
+        document.getElementById('fabPdf').addEventListener('click', exportToPDF);
+        document.getElementById('fabExcel').addEventListener('click', exportToExcel);
+
+        loadSidebarAndNavbar('balance');
+    </script>
+</body>
+</html>
