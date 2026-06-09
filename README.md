@@ -1,3 +1,15 @@
+| `customers.html` | Customer management with balance |
+| `purchases.html` | Purchase invoice management |
+| `sales.html` | Sales invoice management |
+| `inventory.html` | Stock and inventory tracking |
+| `payments.html` | Payment tracking |
+| `expenses.html` | Expense management |
+| `financial-transactions.html` | Financial reports |
+| `reports.html` | Various business reports |
+| `users.html` | User management |
+| `customer-balance.html` | Detailed customer balance statement |
+| `receipts.html` | Payment receipts |
+| `price-list.html` | Product price list |
 | `website-management.html` | CMS for public site |
 
 ---
