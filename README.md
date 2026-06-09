@@ -1,3 +1,15 @@
+| Page | Description |
+|------|-------------|
+| **Home** | Hero section, featured products/services, testimonials, contact |
+| **About Us** | Company history, vision, mission, team members |
+| **Products** | Product grid with search, category filters, details modal |
+| **Services** | Service list with benefits section |
+| **Blog** | Blog listing with categories, search, and tag cloud |
+| **Blog Details** | Full article view with comments section |
+| **Gallery** | Image gallery with lightbox and category filters |
+| **Contact Us** | Contact form, Google Maps, company info |
+| **FAQ** | Accordion-style frequently asked questions |
+| **Privacy & Terms** | Legal pages |
 
 ### 📊 Admin Dashboard (13+ Pages)
 
