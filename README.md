@@ -1,3 +1,15 @@
+- ✅ Track Inventory with low stock alerts
+- ✅ Monitor Customer Balances (complete transaction history)
+- ✅ Generate Financial Reports (Daily/Monthly/Yearly)
+- ✅ Export Reports to PDF and Excel
+- ✅ Print Professional Invoices with Company Letterhead
+
+---
+
+## ✨ Features
+
+### 🏢 Public Website (10 Pages - SEO Optimized)
+
 | Page | Description |
 |------|-------------|
 | **Home** | Hero section, featured products/services, testimonials, contact |
