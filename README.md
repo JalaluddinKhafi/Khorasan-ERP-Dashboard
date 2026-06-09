@@ -1,3 +1,15 @@
+| **Inventory** | Current stock, transaction history, low stock warnings |
+| **Payments** | Customer/supplier payments, payment history |
+| **Expenses** | Categorized expenses (rent, salary, electricity, transport, etc.) with charts |
+| **Financial** | Cash flow, profit/loss statements, transaction history |
+| **Reports** | 9 different report types with date filters and export options |
+| **Users** | User management with roles (Admin/Employee) |
+| **Website Management** | Pages, blog posts, slider, site settings |
+| **Customer Balance** | Complete transaction history (debit/credit) with print/PDF/Excel export |
+
+### 🎨 Design Features
+
+- ✅ Modern Corporate Design
 - ✅ Dark/Light Mode Toggle (persists via localStorage)
 - ✅ Fully Responsive (Mobile, Tablet, Desktop)
 - ✅ Persian (RTL) Support
