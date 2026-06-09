@@ -1,3 +1,15 @@
+| `website-management.html` | CMS for public site |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Any modern web browser (Chrome, Firefox, Edge, Safari)
+- Local server (recommended: VS Code Live Server)
+
+### Installation
 
 1. **Clone the repository**
    ```bash
