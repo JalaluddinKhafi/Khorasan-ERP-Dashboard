@@ -1,3 +1,15 @@
+
+## 🛠️ Tech Stack
+
+| Technology | Usage |
+|------------|-------|
+| **HTML5** | Semantic structure |
+| **CSS3** | Custom styling with CSS variables |
+| **JavaScript (Vanilla)** | Modular logic, DOM manipulation, fetch API |
+| **Bootstrap 5 (RTL)** | Responsive layout components |
+| **Font Awesome 6** | Professional icons |
+| **DataTables** | Advanced tables with search, sort, pagination |
+| **ApexCharts** | Interactive and responsive charts |
 | **SheetJS (XLSX)** | Excel export functionality |
 | **html2pdf.js** | PDF generation |
 
