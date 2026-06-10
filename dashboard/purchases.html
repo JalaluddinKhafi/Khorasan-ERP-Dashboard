@@ -530,22 +530,10 @@
                 ${purchase.description ? `<div class="mt-3"><strong>توضیحات:</strong> ${purchase.description}</div>` : ''}
             `;
 
-            document.getElementById('printDetailsBtn').onclick = () => window.print();
             new bootstrap.Modal(document.getElementById('detailsModal')).show();
         }
 
         function editPurchase(id) {
-            const purchase = purchasesData.find(p => p.id === id);
-            if (!purchase) return;
-
-            currentPurchaseId = id;
-            document.getElementById('purchaseId').value = purchase.id;
-            document.getElementById('modalTitle').innerHTML = 'ویرایش فاکتور خرید';
-            document.getElementById('invoiceNo').value = purchase.invoiceNo;
-            document.getElementById('supplierSelect').value = purchase.supplier;
-            document.getElementById('invoiceDate').value = purchase.date;
-            document.getElementById('paidAmount').value = purchase.paid;
-            document.getElementById('description').value = purchase.description || '';
             showToast('ویرایش در نسخه بعدی اضافه می‌شود', 'info');
         }
 
