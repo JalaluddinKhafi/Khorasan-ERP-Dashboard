@@ -323,26 +323,24 @@
                     if (dateFilter) dateFilter.value = '';
                     filterPurchases();
                 });
-            }
+            document.getElementById('paidCount').innerHTML = purchasesData.filter(p => p.status === 'پرداخت شده').length;
         }
 
         function filterPurchases() {
-            const searchTerm = document.getElementById('searchPurchase')?.value.toLowerCase() || '';
-            const status = document.getElementById('statusFilter')?.value || 'all';
-            const date = document.getElementById('dateFilter')?.value || '';
-
+            const search = document.getElementById('searchPurchase').value.toLowerCase();
+            const status = document.getElementById('statusFilter').value;
+            const date = document.getElementById('dateFilter').value;
+            
             const filtered = purchasesData.filter(p => {
-                const matchSearch = p.invoiceNo.toLowerCase().includes(searchTerm) || p.supplier.toLowerCase().includes(searchTerm);
+                const matchSearch = p.invoiceNo.toLowerCase().includes(search) || p.supplier.toLowerCase().includes(search);
                 const matchStatus = status === 'all' || p.status === status;
                 const matchDate = !date || p.date.includes(date);
                 return matchSearch && matchStatus && matchDate;
             });
-
-            const tbody = document.getElementById('purchasesTableBody');
-            if (tbody) {
-                tbody.innerHTML = filtered.map(p => `
-                    <tr>
-                        <td>${p.invoiceNo}</td
+            
+            document.getElementById('purchasesTableBody').innerHTML = filtered.map(p => `
+                <tr>
+                    <td>${p.invoiceNo}</td>
                     <td>${p.supplier}</td>
                     <td>${p.date}</td>
                     <td>${p.total.toLocaleString()} تومان</td>
