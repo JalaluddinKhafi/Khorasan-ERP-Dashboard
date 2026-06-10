@@ -369,28 +369,25 @@
         // ============================================
         // عملیات روی فاکتورها
         // ============================================
-
-        // محاسبه جمع کل در مودال
         function calculateItemTotal() {
-            let grandTotal = 0;
+            let total = 0;
             document.querySelectorAll('#itemsBody tr').forEach(row => {
                 const qty = parseFloat(row.querySelector('.quantity')?.value) || 0;
                 const price = parseFloat(row.querySelector('.unit-price')?.value) || 0;
                 const discount = parseFloat(row.querySelector('.discount')?.value) || 0;
-                const total = (qty * price) - discount;
-                const totalCell = row.querySelector('.row-total');
-                if (totalCell) totalCell.innerHTML = total.toLocaleString();
-                grandTotal += total;
+                const sum = (qty * price) - discount;
+                row.querySelector('.row-total').innerHTML = sum.toLocaleString();
+                total += sum;
             });
-            document.getElementById('grandTotal').innerHTML = grandTotal.toLocaleString();
+            document.getElementById('grandTotal').innerHTML = total.toLocaleString();
         }
 
         function addItemRow() {
             const tbody = document.getElementById('itemsBody');
-            const newRow = `
+            tbody.insertAdjacentHTML('beforeend', `
                 <tr>
-                    <td><input type="text" class="form-control product-name" placeholder="نام کالا"></td
-                    <td><input type="number" class="form-control quantity" value="1" min="1"></td
+                    <td><input type="text" class="form-control product-name" placeholder="نام کالا"></td>
+                    <td><input type="number" class="form-control quantity" value="1" min="1"></td>
                     <td><input type="text" class="form-control unit" value="عدد"></td>
                     <td><input type="number" class="form-control unit-price" value="0" min="0"></td>
                     <td><input type="number" class="form-control discount" value="0" min="0"></td>
