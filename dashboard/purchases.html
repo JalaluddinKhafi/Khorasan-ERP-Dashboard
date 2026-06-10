@@ -419,21 +419,10 @@
             });
             document.querySelectorAll('.remove-row').forEach(btn => {
                 btn.removeEventListener('click', removeRow);
-                btn.addEventListener('click', removeRow);
+                };
             });
         }
 
-        function resetModalForm() {
-            document.getElementById('purchaseId').value = '';
-            document.getElementById('modalTitle').innerHTML = 'ایجاد فاکتور خرید جدید';
-            document.getElementById('purchaseForm').reset();
-            document.getElementById('paidAmount').value = '0';
-            document.getElementById('grandTotal').innerHTML = '۰';
-            
-            const tbody = document.getElementById('itemsBody');
-            tbody.innerHTML = `
-                <tr>
-                    <td><input type="text" class="form-control product-name" placeholder="نام کالا"></td
         function savePurchase() {
             const total = parseInt(document.getElementById('grandTotal').innerHTML.replace(/,/g, '')) || 0;
             const paid = parseInt(document.getElementById('paidAmount').value) || 0;
