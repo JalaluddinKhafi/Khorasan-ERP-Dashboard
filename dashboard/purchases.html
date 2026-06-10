@@ -488,22 +488,15 @@
                 purchasesData.push(purchase);
                 showToast('فاکتور با موفقیت اضافه شد', 'success');
             }
-
+            purchasesData.push(newPurchase);
             renderPurchasesTable();
             bootstrap.Modal.getInstance(document.getElementById('purchaseModal')).hide();
-            resetModalForm();
+            document.getElementById('purchaseForm').reset();
+            showToast('فاکتور با موفقیت ثبت شد', 'success');
         }
 
         function viewPurchase(id) {
-            const purchase = purchasesData.find(p => p.id === id);
-            if (!purchase) return;
-
-            const itemsHtml = purchase.items.map(item => `
-                <td>
-                    <td>${item.product}</td
-                    <td>${item.qty}</td
-                    <td>${item.unit}</td
-                    <td>${item.price.toLocaleString()}</td
+            const p = purchasesData.find(x => x.id === id);
             if (!p) return;
             
             document.getElementById('detailsContent').innerHTML = `
