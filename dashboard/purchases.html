@@ -504,19 +504,12 @@
                     <td>${item.qty}</td
                     <td>${item.unit}</td
                     <td>${item.price.toLocaleString()}</td
-                    <td>${item.discount.toLocaleString()}</td
-                    <td>${item.total.toLocaleString()}</td
-                </tr>
-            `).join('');
-
+            if (!p) return;
+            
             document.getElementById('detailsContent').innerHTML = `
-                <div class="row mb-3">
-                    <div class="col-md-4"><strong>شماره فاکتور:</strong> ${purchase.invoiceNo}</div>
-                    <div class="col-md-4"><strong>تاریخ:</strong> ${purchase.date}</div>
-                    <div class="col-md-4"><strong>تامین‌کننده:</strong> ${purchase.supplier}</div>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-bordered">
+                <p><strong>شماره:</strong> ${p.invoiceNo}</p>
+                <p><strong>تامین‌کننده:</strong> ${p.supplier}</p>
+                <p><strong>تاریخ:</strong> ${p.date}</p>
                 <p><strong>مبلغ کل:</strong> ${p.total.toLocaleString()} تومان</p>
                 <p><strong>پرداختی:</strong> ${p.paid.toLocaleString()} تومان</p>
                 <p><strong>باقیمانده:</strong> ${p.remaining.toLocaleString()} تومان</p>
