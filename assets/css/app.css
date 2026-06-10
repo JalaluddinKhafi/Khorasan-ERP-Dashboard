@@ -131,3 +131,23 @@ h1 {
   font-size: 26px;
   line-height: 1.5;
 }
+h2 {
+  font-size: 19px;
+}
+h3 {
+  font-size: 17px;
+}
+.muted {
+  color: var(--muted);
+}
+.eyebrow {
+  color: var(--accent);
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+.sidebar {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: 248px;
+  background: var(--surface);
+  border-left: 1px solid var(--line);
