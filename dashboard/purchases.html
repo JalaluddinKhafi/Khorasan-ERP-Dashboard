@@ -286,31 +286,24 @@
             purchasesTable = $('#purchasesTable').DataTable({
                 language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
                 pageLength: 10,
-                searching: false
-            });
-
+            initDataTable();
             attachEvents();
             calculateStats();
         }
 
-        // اتصال رویدادها
         function attachEvents() {
             document.querySelectorAll('.view-purchase').forEach(btn => {
-                btn.addEventListener('click', () => viewPurchase(parseInt(btn.dataset.id)));
+                btn.onclick = () => viewPurchase(parseInt(btn.dataset.id));
             });
             document.querySelectorAll('.edit-purchase').forEach(btn => {
-                btn.addEventListener('click', () => editPurchase(parseInt(btn.dataset.id)));
+                btn.onclick = () => editPurchase(parseInt(btn.dataset.id));
             });
             document.querySelectorAll('.delete-purchase').forEach(btn => {
-                btn.addEventListener('click', () => deletePurchase(parseInt(btn.dataset.id)));
+                btn.onclick = () => deletePurchase(parseInt(btn.dataset.id));
             });
         }
 
-        // فیلترها
-        function setupFilters() {
-            const searchInput = document.getElementById('searchPurchase');
-            const statusFilter = document.getElementById('statusFilter');
-            const dateFilter = document.getElementById('dateFilter');
+        function calculateStats() {
             document.getElementById('totalPurchases').innerHTML = purchasesData.length;
             document.getElementById('totalAmount').innerHTML = purchasesData.reduce((s, p) => s + p.total, 0).toLocaleString() + ' تومان';
             document.getElementById('pendingCount').innerHTML = purchasesData.filter(p => p.status !== 'پرداخت شده').length;
