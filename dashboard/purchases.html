@@ -517,19 +517,12 @@
                 </div>
                 <div class="table-responsive">
                     <table class="table table-bordered">
-                        <thead class="table-light"><tr><th>کالا</th><th>تعداد</th><th>واحد</th><th>قیمت واحد</th><th>تخفیف</th><th>مجموع</th></tr></thead>
-                        <tbody>${itemsHtml}</tbody>
-                        <tfoot><tr class="table-active"><th colspan="5" class="text-end">جمع کل:</th><th>${purchase.total.toLocaleString()} تومان</th></tr></tfoot>
-                    </table>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-4"><strong>مبلغ پرداختی:</strong> ${purchase.paid.toLocaleString()} تومان</div>
-                    <div class="col-md-4"><strong>باقیمانده:</strong> <span class="text-danger">${purchase.remaining.toLocaleString()} تومان</span></div>
-                    <div class="col-md-4"><strong>وضعیت:</strong> <span class="badge ${purchase.status === 'پرداخت شده' ? 'bg-success' : 'bg-warning'}">${purchase.status}</span></div>
-                </div>
-                ${purchase.description ? `<div class="mt-3"><strong>توضیحات:</strong> ${purchase.description}</div>` : ''}
+                <p><strong>مبلغ کل:</strong> ${p.total.toLocaleString()} تومان</p>
+                <p><strong>پرداختی:</strong> ${p.paid.toLocaleString()} تومان</p>
+                <p><strong>باقیمانده:</strong> ${p.remaining.toLocaleString()} تومان</p>
+                <p><strong>وضعیت:</strong> ${p.status}</p>
+                ${p.description ? `<p><strong>توضیحات:</strong> ${p.description}</p>` : ''}
             `;
-
             new bootstrap.Modal(document.getElementById('detailsModal')).show();
         }
 
