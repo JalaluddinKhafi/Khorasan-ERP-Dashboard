@@ -407,18 +407,16 @@
             if (document.querySelectorAll('#itemsBody tr').length > 1) {
                 row.remove();
                 calculateItemTotal();
-            } else {
-                showToast('حداقل یک قلم کالا باید وجود داشته باشد', 'error');
-            }
-        }
-
         function attachRowEvents() {
             document.querySelectorAll('.quantity, .unit-price, .discount').forEach(el => {
-                el.removeEventListener('input', calculateItemTotal);
-                el.addEventListener('input', calculateItemTotal);
+                el.oninput = () => calculateItemTotal();
             });
             document.querySelectorAll('.remove-row').forEach(btn => {
-                btn.removeEventListener('click', removeRow);
+                btn.onclick = function() {
+                    if (document.querySelectorAll('#itemsBody tr').length > 1) {
+                        this.closest('tr').remove();
+                        calculateItemTotal();
+                    }
                 };
             });
         }
