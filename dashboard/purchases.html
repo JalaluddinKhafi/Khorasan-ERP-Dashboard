@@ -355,20 +355,15 @@
                             <button class="btn btn-sm btn-danger delete-purchase" data-id="${p.id}"><i class="fas fa-trash"></i></button>
                          </td
                     </tr>
-                `).join('');
-                attachEvents();
-            }
-
-            if (purchasesTable) {
-                purchasesTable.clear();
-                purchasesTable.rows.add(filtered);
-                purchasesTable.draw();
-            }
+                        <button class="btn btn-sm btn-danger delete-purchase" data-id="${p.id}"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+            
+            initDataTable();
+            attachEvents();
         }
 
-        // ============================================
-        // عملیات روی فاکتورها
-        // ============================================
         function calculateItemTotal() {
             let total = 0;
             document.querySelectorAll('#itemsBody tr').forEach(row => {
