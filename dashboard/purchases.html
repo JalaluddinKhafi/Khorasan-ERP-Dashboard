@@ -449,24 +449,20 @@
             const id = document.getElementById('purchaseId').value;
             const total = parseInt(document.getElementById('grandTotal').innerHTML.replace(/,/g, '')) || 0;
             const paid = parseInt(document.getElementById('paidAmount').value) || 0;
-            const remaining = total - paid;
-            let status = '';
-            if (paid === 0) status = 'پرداخت نشده';
-            else if (paid >= total) status = 'پرداخت شده';
-            else status = 'پرداخت جزئی';
-
+            const status = paid === 0 ? 'پرداخت نشده' : (paid >= total ? 'پرداخت شده' : 'پرداخت جزئی');
+            
             const items = [];
             document.querySelectorAll('#itemsBody tr').forEach(row => {
                 items.push({
-                    product: row.querySelector('.product-name')?.value || '',
-                    qty: parseFloat(row.querySelector('.quantity')?.value) || 0,
-                    unit: row.querySelector('.unit')?.value || '',
-                    price: parseFloat(row.querySelector('.unit-price')?.value) || 0,
-                    discount: parseFloat(row.querySelector('.discount')?.value) || 0,
+                    product: row.querySelector('.product-name')?.value,
+                    qty: parseFloat(row.querySelector('.quantity')?.value),
+                    unit: row.querySelector('.unit')?.value,
+                    price: parseFloat(row.querySelector('.unit-price')?.value),
+                    discount: parseFloat(row.querySelector('.discount')?.value),
                     total: (parseFloat(row.querySelector('.quantity')?.value) * parseFloat(row.querySelector('.unit-price')?.value)) - parseFloat(row.querySelector('.discount')?.value)
                 });
             });
-
+            
             const newPurchase = {
                 id: Date.now(),
                 invoiceNo: document.getElementById('invoiceNo').value,
