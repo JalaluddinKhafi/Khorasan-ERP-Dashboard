@@ -254,23 +254,21 @@
             const pending = purchasesData.filter(p => p.status === "پرداخت نشده" || p.status === "پرداخت جزئی").length;
             const paid = purchasesData.filter(p => p.status === "پرداخت شده").length;
 
-            document.getElementById('totalPurchases').innerHTML = total;
-            document.getElementById('totalAmount').innerHTML = totalAmount.toLocaleString() + ' تومان';
-            document.getElementById('pendingCount').innerHTML = pending;
-            document.getElementById('paidCount').innerHTML = paid;
+                },
+                pageLength: 10,
+                searching: false,
+                destroy: true
+            });
         }
 
-        // رندر جدول
         function renderPurchasesTable() {
             const tbody = document.getElementById('purchasesTableBody');
-            if (!tbody) return;
-
             tbody.innerHTML = purchasesData.map(p => `
                 <tr>
-                    <td>${p.invoiceNo}</td
-                    <td>${p.supplier}</td
-                    <td>${p.date}</td
-                    <td>${p.total.toLocaleString()} تومان</td
+                    <td>${p.invoiceNo}</td>
+                    <td>${p.supplier}</td>
+                    <td>${p.date}</td>
+                    <td>${p.total.toLocaleString()} تومان</td>
                     <td>${p.paid.toLocaleString()} تومان</td>
                     <td class="${p.remaining > 0 ? 'text-danger' : 'text-success'}">${p.remaining.toLocaleString()} تومان</td>
                     <td><span class="badge ${p.status === 'پرداخت شده' ? 'bg-success' : (p.status === 'پرداخت جزئی' ? 'bg-warning' : 'bg-danger')}">${p.status}</span></td>
