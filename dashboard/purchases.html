@@ -110,12 +110,12 @@
         </main>
     </div>
 
-    <!-- Modal ایجاد/ویرایش فاکتور خرید -->
+    <!-- Modal فاکتور -->
     <div class="modal fade" id="purchaseModal" tabindex="-1">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">ایجاد فاکتور خرید جدید</h5>
+                    <h5 class="modal-title" id="modalTitle">ایجاد فاکتور خرید</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
@@ -123,28 +123,27 @@
                         <input type="hidden" id="purchaseId">
                         <div class="row mb-3">
                             <div class="col-md-4">
-                                <label class="form-label">شماره فاکتور</label>
+                                <label>شماره فاکتور</label>
                                 <input type="text" id="invoiceNo" class="form-control" required>
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label">تاریخ فاکتور</label>
+                                <label>تاریخ</label>
                                 <input type="text" id="invoiceDate" class="form-control" placeholder="1405/03/12" required>
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label">تامین‌کننده</label>
+                                <label>تامین‌کننده</label>
                                 <select id="supplierSelect" class="form-select" required>
-                                    <option value="">انتخاب تامین‌کننده</option>
+                                    <option value="">انتخاب کنید</option>
                                     <option value="توزیع کننده البرز">توزیع کننده البرز</option>
                                     <option value="واردات سامسونگ">واردات سامسونگ</option>
                                     <option value="بازرگانی نوین">بازرگانی نوین</option>
-                                    <option value="شرکت تدبیر">شرکت تدبیر</option>
                                 </select>
                             </div>
                         </div>
 
-                        <h6 class="mt-3 mb-2">اقلام خرید</h6>
+                        <h6>اقلام خرید</h6>
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="itemsTable">
+                            <table class="table table-bordered items-table" id="itemsTable">
                                 <thead class="table-light">
                                     <tr>
                                         <th>کالا</th>
@@ -153,7 +152,7 @@
                                         <th>قیمت واحد</th>
                                         <th>تخفیف</th>
                                         <th>مجموع</th>
-                                        <th style="width:50px">
+                                        <th>
                                             <button type="button" class="btn btn-sm btn-success" id="addItemRow">
                                                 <i class="fas fa-plus"></i>
                                             </button>
@@ -164,10 +163,10 @@
                                     <tr>
                                         <td><input type="text" class="form-control product-name" placeholder="نام کالا"></td
                                         <td><input type="number" class="form-control quantity" value="1" min="1"></td
-                                        <td><input type="text" class="form-control unit" value="عدد" placeholder="واحد"></td
+                                        <td><input type="text" class="form-control unit" value="عدد"></td
                                         <td><input type="number" class="form-control unit-price" value="0" min="0"></td
                                         <td><input type="number" class="form-control discount" value="0" min="0"></td
-                                        <td class="row-total text-primary fw-bold">۰</td
+                                        <td class="row-total">0</td
                                         <td><button type="button" class="btn btn-sm btn-danger remove-row"><i class="fas fa-trash"></i></button></td
                                     </tr>
                                 </tbody>
