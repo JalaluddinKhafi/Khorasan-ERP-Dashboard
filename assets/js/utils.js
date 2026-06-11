@@ -113,3 +113,27 @@ function numberToWords(num) {
     
     return word.trim();
 }
+document.getElementById("shared-navbar").innerHTML = `
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <img src="../assets/images/logo.png" alt="خراسان سیستم" class="img-logo me-2" style="height: 40px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="index.html">صفحه نخست</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">درباره ما</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html">محصولات</a></li>
+                    <li class="nav-item"><a class="nav-link" href="services.html">خدمات</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">وبلاگ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">گالری</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">تماس با ما</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+`;

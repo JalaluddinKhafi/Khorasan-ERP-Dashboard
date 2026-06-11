@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحه نخست | سامانه جامع مدیریت نمایندگی رسمی</title>
+    <title>Home</title>
     <meta name="description" content="سامانه حرفه‌ای مدیریت فروش، انبار، خرید و مالی ویژه دفاتر نمایندگی رسمی">
     <meta name="keywords" content="مدیریت فروش, انبارداری, حسابداری, نرم افزار مالی">
-    <meta property="og:title" content="سامانه جامع مدیریت | نمایندگی رسمی">
+    <meta property="og:title" content="خراسان سیستم">
     <meta property="og:description" content="راهکار نوین مدیریت کسب و کار">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="fa_IR">
@@ -53,33 +53,15 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="#">
-                <i class="fas fa-chart-line text-primary"></i> مدیریت جامع
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link active" href="index.html">صفحه نخست</a></li>
-                    <li class="nav-item"><a class="nav-link" href="about.html">درباره ما</a></li>
-                    <li class="nav-item"><a class="nav-link" href="products.html">محصولات</a></li>
-                    <li class="nav-item"><a class="nav-link" href="services.html">خدمات</a></li>
-                    <li class="nav-item"><a class="nav-link" href="blog.html">وبلاگ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="gallery.html">گالری</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact.html">تماس با ما</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div id="shared-navbar">
+
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <h1>مدیریت هوشمند کسب و کار شما</h1>
-            <p class="lead">سامانه جامع فروش، انبار، خرید و مالی با بیش از ۱۰ سال تجربه</p>
+            <p class="lead">سیستم جامع فروش، انبار، خرید و مالی با بیش از ۱۰ سال تجربه</p>
             <a href="contact.html" class="btn btn-primary btn-lg mt-3">درخواست دموی رایگان</a>
         </div>
     </section>
@@ -313,5 +295,7 @@
             e.target.reset();
         });
     </script>
+    // Load shared navbar
+    <script src="../assets/js/utils.js"></script>
 </body>
 </html>

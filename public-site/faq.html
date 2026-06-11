@@ -28,27 +28,8 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="index.html">
-                <i class="fas fa-chart-line text-primary"></i> مدیریت جامع
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="index.html">صفحه نخست</a></li>
-                    <li class="nav-item"><a class="nav-link" href="about.html">درباره ما</a></li>
-                    <li class="nav-item"><a class="nav-link" href="products.html">محصولات</a></li>
-                    <li class="nav-item"><a class="nav-link" href="services.html">خدمات</a></li>
-                    <li class="nav-item"><a class="nav-link" href="blog.html">وبلاگ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="gallery.html">گالری</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact.html">تماس با ما</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <!-- Navigation -->
+    <div id="shared-navbar"></div>
 
     <section class="bg-primary text-white py-5">
         <div class="container text-center">
@@ -168,5 +149,7 @@
             });
         });
     </script>
+    // Load shared navbar
+    <script src="../assets/js/utils.js"></script>
 </body>
 </html>
