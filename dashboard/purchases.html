@@ -171,23 +171,19 @@
                                         <td><button type="button" class="btn btn-sm btn-danger remove-row"><i class="fas fa-trash"></i></button></td
                                     </tr>
                                 </tbody>
-                                <tfoot class="table-active">
-                                    <tr>
-                                        <th colspan="5" class="text-end">جمع کل:</th>
-                                        <th id="grandTotal">۰</th>
-                                        <th></th>
-                                    </tr>
+                                <tfoot>
+                                    <tr><th colspan="5" class="text-end">جمع کل:</th><th id="grandTotal">0</th><th></th></tr>
                                 </tfoot>
                             </table>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col-md-6">
-                                <label class="form-label">مبلغ پرداختی</label>
-                                <input type="number" id="paidAmount" class="form-control" value="0" min="0">
+                                <label>مبلغ پرداختی</label>
+                                <input type="number" id="paidAmount" class="form-control" value="0">
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">وضعیت پرداخت</label>
+                                <label>وضعیت</label>
                                 <select id="paymentStatus" class="form-select">
                                     <option value="پرداخت نشده">پرداخت نشده</option>
                                     <option value="پرداخت جزئی">پرداخت جزئی</option>
@@ -197,14 +193,14 @@
                         </div>
 
                         <div class="mt-3">
-                            <label class="form-label">توضیحات</label>
-                            <textarea id="description" class="form-control" rows="2" placeholder="توضیحات اضافی..."></textarea>
+                            <label>توضیحات</label>
+                            <textarea id="description" class="form-control" rows="2"></textarea>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
-                    <button type="button" class="btn btn-primary" id="savePurchaseBtn">ذخیره فاکتور</button>
+                    <button type="button" class="btn btn-primary" id="savePurchaseBtn">ذخیره</button>
                 </div>
             </div>
         </div>
