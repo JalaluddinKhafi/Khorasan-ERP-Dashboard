@@ -196,3 +196,25 @@ h3 {
   color: var(--muted);
   margin: 17px 14px 7px;
 }
+.workspace {
+  margin-right: 248px;
+}
+.topbar {
+  min-height: 76px;
+  padding: 16px 32px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.topbar .controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.topbar select {
+  width: 110px;
+  padding: 7px;
+}
