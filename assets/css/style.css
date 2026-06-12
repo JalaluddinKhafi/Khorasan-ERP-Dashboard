@@ -979,6 +979,17 @@ body.dark-mode .navbar-logo {
     .table th, .table td {
         padding: 5px;
     }
+}
+
+
+/* ============================================
+   CUSTOM STYLES - استایل‌های اختصاصی برای صفحات خاص
+   ============================================ 
+*/
+
+/* صفحه اصلی (Home) */
+    .hero {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             color: white;
             padding: 100px 0;
             text-align: center;
