@@ -979,4 +979,13 @@ body.dark-mode .navbar-logo {
     .table th, .table td {
         padding: 5px;
     }
-}
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+        .navbar-custom {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            padding: 1rem 0;
+        }
