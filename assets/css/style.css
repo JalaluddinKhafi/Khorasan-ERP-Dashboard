@@ -979,6 +979,17 @@ body.dark-mode .navbar-logo {
     .table th, .table td {
         padding: 5px;
     }
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        .hero h1 { font-size: 3rem; font-weight: 700; margin-bottom: 1rem; }
+        .product-card, .service-card, .blog-card {
+            border: none;
+            border-radius: 1rem;
+            transition: all 0.3s;
+            margin-bottom: 1.5rem;
+        }
         .product-card:hover, .service-card:hover, .blog-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -12px rgba(0,0,0,0.2);
