@@ -285,3 +285,26 @@ main {
 .fields {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 17px;
+}
+.wide {
+  grid-column: 1/-1;
+}
+.table-scroll {
+  overflow: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  white-space: nowrap;
+}
+td,
+th {
+  text-align: right;
+  padding: 13px 12px;
+  border-bottom: 1px solid var(--line);
+}
+th {
+  background: var(--soft);
+  color: var(--muted);
