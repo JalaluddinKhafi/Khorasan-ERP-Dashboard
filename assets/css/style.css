@@ -714,7 +714,7 @@ body.dark-mode .activity-timeline::-webkit-scrollbar-thumb { background: #475569
 
 body.dark-mode .sidebar-logo,
 body.dark-mode .navbar-logo {
-    filter: none;
+    filter: none !important;
     opacity: 1;
 }
 
