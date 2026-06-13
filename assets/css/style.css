@@ -419,11 +419,21 @@ a {
 /* ============================================
    DARK MODE
    ============================================ */
-body.dark-mode { background: #0f172a; }
+    background: var(--bg);
+    color: var(--text);
+}
+body.dark-mode .main-content,
+body.dark-mode .wrapper {
+    background: var(--bg);
+}
 body.dark-mode .stat-card,
+body.dark-mode .stat-card-dashboard,
 body.dark-mode .card,
 body.dark-mode .top-navbar,
+body.dark-mode .filter-bar,
+body.dark-mode .customer-info-bar,
 body.dark-mode .modal-content,
+body.dark-mode .toast-notification {
     background: var(--surface-alt);
     color: var(--text);
     border-color: var(--border);
