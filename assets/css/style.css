@@ -190,11 +190,21 @@ a {
             padding: 1.25rem;
             margin-bottom: 1rem;
             transition: all 0.3s;
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid rgba(148, 163, 184, 0.18);
             cursor: pointer;
+            box-shadow: 0 10px 18px -12px rgba(15, 23, 42, 0.18);
         }
         .stat-card-dashboard:hover {
             transform: translateY(-3px);
+            box-shadow: 0 18px 28px -16px rgba(15, 23, 42, 0.22);
+        }
+        .stat-card-dashboard .d-flex {
+            display: flex !important;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            width: 100%;
+        }
         .stat-card-dashboard .text-end {
             flex: 1;
             text-align: left;
