@@ -140,14 +140,12 @@ function loadSidebarAndNavbar(activePage) {
 function updateLogoForDarkMode(isDark) {
     const sidebarLogo = document.querySelector('.sidebar-logo');
     const navbarLogo = document.querySelector('.navbar-logo');
-    
-    if (sidebarLogo) {
-        if (isDark) {
-            sidebarLogo.style.filter = 'brightness(0) invert(1)';
-        } else {
-            sidebarLogo.style.filter = 'none';
+
+    const resetLogo = (logo) => {
+        if (logo) {
+            logo.style.filter = 'none';
+            logo.style.opacity = '1';
         }
-    }
     };
 
     resetLogo(sidebarLogo);
