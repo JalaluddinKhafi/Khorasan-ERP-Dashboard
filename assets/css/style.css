@@ -272,6 +272,10 @@ a {
     color: white;
     flex-shrink: 0;
 }
+    color: var(--gray);
+    font-size: 0.7rem;
+    margin-top: 2px;
+}
 .stat-info h3 { font-size: 1.2rem; font-weight: 700; margin: 0; color: var(--dark); }
 .stat-info p { margin: 0; color: var(--gray); font-size: 0.7rem; }
 
@@ -419,6 +423,14 @@ a {
 /* ============================================
    DARK MODE
    ============================================ */
+body.dark-mode {
+    --bg: #0f172a;
+    --surface: #111827;
+    --surface-alt: #1f2937;
+    --surface-muted: #0f172a;
+    --text: #e5eefb;
+    --text-soft: #cbd5e1;
+    --border: rgba(148, 163, 184, 0.18);
     background: var(--bg);
     color: var(--text);
 }
