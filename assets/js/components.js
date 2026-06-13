@@ -148,13 +148,10 @@ function updateLogoForDarkMode(isDark) {
             sidebarLogo.style.filter = 'none';
         }
     }
-    if (navbarLogo) {
-        if (isDark) {
-            navbarLogo.style.filter = 'brightness(0) invert(1)';
-        } else {
-            navbarLogo.style.filter = 'none';
-        }
-    }
+    };
+
+    resetLogo(sidebarLogo);
+    resetLogo(navbarLogo);
 }
 
 function toggleDarkMode() {
