@@ -25,3 +25,13 @@ public class ApiController {
   ApiController(
     JdbcTemplate db,
     LedgerService ledger,
+
+  @GetMapping("/api/csrf")
+  Map<String, String> csrf(CsrfToken token) {
+    return Map.of(
+      "token",
+      token.getToken(),
+      "headerName",
+      token.getHeaderName()
+    );
+  }
