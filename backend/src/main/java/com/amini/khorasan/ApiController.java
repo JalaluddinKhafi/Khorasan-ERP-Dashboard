@@ -98,3 +98,15 @@ public class ApiController {
     "currencies",
     "content"
   );
+  List<Map<String, Object>> list(@PathVariable String entity) {
+    String t = table(entity);
+    return switch (entity) {
+      case "products" -> db.queryForList(
+        "SELECT p.*,c.name AS category_name FROM products p LEFT JOIN categories c ON c.id=p.category_id ORDER BY p.id DESC"
+      );
+      case "categories" -> db.queryForList(
+        "SELECT c.*,p.name AS parent_name,(SELECT COUNT(*) FROM products x WHERE x.category_id=c.id) AS product_count FROM categories c LEFT JOIN categories p ON p.id=c.parent_id ORDER BY c.name,c.id"
+      );
+      case "users" -> db.queryForList(
+        "SELECT id,username,name,role,active FROM app_users ORDER BY id DESC"
+      );
