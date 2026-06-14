@@ -98,6 +98,19 @@ public class ApiController {
     "currencies",
     "content"
   );
+
+  String table(String entity) {
+    if (!ENTITIES.contains(entity)) throw bad("بخش یافت نشد");
+    return switch (entity) {
+      case "customers", "suppliers" -> "parties";
+      case "users" -> "app_users";
+      default -> entity;
+    };
+  }
+
+  @GetMapping(
+    "/api/{entity:products|categories|customers|suppliers|employees|users|currencies|content}"
+  )
   List<Map<String, Object>> list(@PathVariable String entity) {
     String t = table(entity);
     return switch (entity) {
