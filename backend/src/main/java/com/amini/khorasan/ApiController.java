@@ -75,3 +75,14 @@ public class ApiController {
       header,
       logo
     );
+
+  static final Set<String> ENTITIES = Set.of(
+    "products",
+    "categories",
+    "customers",
+    "suppliers",
+    "employees",
+    "users",
+    "currencies",
+    "content"
+  );
