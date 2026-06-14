@@ -46,6 +46,16 @@ public class ApiController {
       token.getHeaderName()
     );
   }
+
+  @GetMapping("/api/me")
+  Map<String, Object> me(Principal p) {
+    return ledger.one(
+      "SELECT id,username,name,role FROM app_users WHERE username=?",
+      p.getName()
+    );
+  }
+
+  @GetMapping("/api/settings")
   Map<String, Object> settings() {
     return ledger.one("SELECT * FROM settings WHERE id=1");
   }
