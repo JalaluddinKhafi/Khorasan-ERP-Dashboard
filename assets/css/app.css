@@ -329,3 +329,26 @@ td button {
   border-radius: 20px;
   background: var(--soft);
   color: var(--primary);
+  font-size: 11px;
+}
+.search {
+  max-width: 310px;
+}
+.notice {
+  border-right: 3px solid var(--accent);
+  background: var(--soft);
+  padding: 14px 18px;
+  margin-bottom: 22px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+.error {
+  color: var(--danger);
+}
+dialog {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 0;
+  background: var(--surface);
+  color: var(--text);
+  width: min(780px, 94vw);
