@@ -46,3 +46,12 @@ public class ApiController {
       token.getHeaderName()
     );
   }
+      "UPDATE settings SET company_name=?,phone=?,address=?,brands=?,terms=?,header_image=?,logo_image=? WHERE id=1",
+      required(m, "company_name", 160),
+      text(m, "phone", 100),
+      text(m, "address", 500),
+      text(m, "brands", 500),
+      text(m, "terms", 1000),
+      header,
+      logo
+    );
