@@ -280,6 +280,17 @@ public class ApiController {
           "نام کاربری حداقل سه حرف لاتین باشد"
         );
         values.put("username", username);
+        values.put("name", required(m, "name", 160));
+        var role = required(m, "role", 20);
+        if (!Set.of("ADMIN", "EMPLOYEE").contains(role)) throw bad(
+          "نقش نامعتبر است"
+        );
+        values.put("role", role);
+        values.put("active", !Boolean.FALSE.equals(m.get("active")));
+        if (identifier != null) {
+          var old = ledger.one(
+            "SELECT * FROM app_users WHERE id=?",
+            identifier
           );
           if (
             old.get("username").equals(ledger.actor()) &&
