@@ -213,6 +213,15 @@ public class ApiController {
         var openingDate = m.containsKey("opening_date")
           ? date(m, "opening_date")
           : LocalDate.of(2000, 1, 1);
+            ((BigDecimal) old.get("opening_balance")).compareTo(opening) != 0 ||
+            !old.get("opening_date").toString().equals(openingDate.toString())
+          ) throw bad("باقی افتتاحیه پس از ثبت قابل تغییر نیست");
+        }
+        values.put("active", !Boolean.FALSE.equals(m.get("active")));
+      }
+      case "products" -> {
+        values.put("code", required(m, "code", 60));
+        values.put("name", required(m, "name", 180));
         values.put("unit", required(m, "unit", 40));
         values.put(
           "category_id",
