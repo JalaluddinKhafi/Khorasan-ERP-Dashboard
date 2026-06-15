@@ -352,3 +352,23 @@ dialog {
   background: var(--surface);
   color: var(--text);
   width: min(780px, 94vw);
+  max-height: 90vh;
+  box-shadow: 0 30px 100px #0004;
+}
+dialog::backdrop {
+  background: #051e1870;
+  backdrop-filter: blur(3px);
+}
+dialog header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+dialog header h2 {
+  margin: 0;
+}
+dialog form {
+  padding: 24px;
+}
