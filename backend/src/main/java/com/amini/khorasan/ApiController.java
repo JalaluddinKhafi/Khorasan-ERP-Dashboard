@@ -239,3 +239,12 @@ public class ApiController {
             ? null
             : id(m, "category_id")
         );
+                .get("category_id"),
+              values.get("category_id")
+            );
+          if (
+            !Boolean.TRUE.equals(category.get("active")) && !unchanged
+          ) throw bad("دسته‌بندی انتخاب‌شده غیرفعال است");
+        }
+        values.put("image", image(m, "image"));
+        values.put("barcode", text(m, "barcode", 100));
