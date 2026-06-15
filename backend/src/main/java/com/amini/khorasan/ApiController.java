@@ -325,3 +325,13 @@ public class ApiController {
           (code.equals("USD") && r.compareTo(BigDecimal.ONE) != 0)
         ) throw bad("نرخ دالر همیشه یک است؛ نرخ فرعی باید مثبت باشد");
         values.put("rate", r);
+            "slider"
+          ).contains(kind)
+        ) throw bad("نوع محتوا نامعتبر است");
+        values.put("kind", kind);
+        values.put("title", required(m, "title", 180));
+        values.put("body", text(m, "body", 20000));
+        values.put("image", image(m, "image"));
+        values.put("published", Boolean.TRUE.equals(m.get("published")));
+      }
+    }
