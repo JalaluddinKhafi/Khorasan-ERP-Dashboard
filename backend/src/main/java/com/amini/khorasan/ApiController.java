@@ -191,6 +191,17 @@ public class ApiController {
             "SELECT parent_id FROM categories WHERE id=?",
             cursor
           );
+          cursor =
+            ancestor.get("parent_id") == null
+              ? null
+              : ((Number) ancestor.get("parent_id")).longValue();
+        }
+        values.put("parent_id", parent);
+        values.put("description", text(m, "description", 1000));
+        values.put("active", !Boolean.FALSE.equals(m.get("active")));
+      }
+      case "customers", "suppliers" -> {
+        values.put(
           "kind",
           entity.equals("customers") ? "CUSTOMER" : "SUPPLIER"
         );
