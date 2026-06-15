@@ -258,3 +258,14 @@ public class ApiController {
         }
         values.put("image", image(m, "image"));
         values.put("barcode", text(m, "barcode", 100));
+        values.put("phone", text(m, "phone", 60));
+        values.put("position", text(m, "position", 100));
+        values.put("salary", nonnegative(m, "salary"));
+        values.put("active", !Boolean.FALSE.equals(m.get("active")));
+      }
+      case "users" -> {
+        String username = required(m, "username", 80);
+        if (!username.matches("[A-Za-z0-9_.-]{3,80}")) throw bad(
+          "نام کاربری حداقل سه حرف لاتین باشد"
+        );
+        values.put("username", username);
