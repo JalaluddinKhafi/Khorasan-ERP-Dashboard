@@ -123,3 +123,13 @@ public class ApiController {
       case "users" -> db.queryForList(
         "SELECT id,username,name,role,active FROM app_users ORDER BY id DESC"
       );
+  @PostMapping(
+    "/api/{entity:products|categories|customers|suppliers|employees|users|currencies|content}"
+  )
+  @Transactional
+  Map<String, Object> create(
+    @PathVariable String entity,
+    @RequestBody Map<String, Object> m
+  ) {
+    return save(entity, null, m);
+  }
