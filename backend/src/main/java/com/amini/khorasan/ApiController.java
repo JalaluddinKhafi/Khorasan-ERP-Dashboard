@@ -168,3 +168,14 @@ public class ApiController {
     if (entity.equals("categories")) db.queryForList(
       "SELECT id FROM categories ORDER BY id FOR UPDATE"
     );
+        Set<Long> visited = new HashSet<>();
+        if (identifier != null) visited.add(Long.parseLong(identifier));
+        Long cursor = parent;
+        while (cursor != null) {
+          if (!visited.add(cursor)) throw bad(
+            "دسته نمی‌تواند والد خودش یا یکی از والدهای بالاتر خود باشد"
+          );
+          var ancestor = ledger.one(
+            "SELECT parent_id FROM categories WHERE id=?",
+            cursor
+          );
