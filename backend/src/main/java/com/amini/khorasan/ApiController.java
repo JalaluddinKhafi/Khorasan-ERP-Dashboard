@@ -145,6 +145,18 @@ public class ApiController {
     return save(entity, null, m);
   }
 
+  @PutMapping(
+    "/api/{entity:products|categories|customers|suppliers|employees|users|currencies|content}/{id}"
+  )
+  @Transactional
+  Map<String, Object> update(
+    @PathVariable String entity,
+    @PathVariable String id,
+    @RequestBody Map<String, Object> m
+  ) {
+    return save(entity, id, m);
+  }
+
   Map<String, Object> save(
     String entity,
     String identifier,
