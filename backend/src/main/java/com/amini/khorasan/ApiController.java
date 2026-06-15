@@ -191,3 +191,14 @@ public class ApiController {
             "SELECT parent_id FROM categories WHERE id=?",
             cursor
           );
+          "kind",
+          entity.equals("customers") ? "CUSTOMER" : "SUPPLIER"
+        );
+        values.put("name", required(m, "name", 160));
+        values.put("phone", text(m, "phone", 60));
+        values.put("address", text(m, "address", 500));
+        var opening = decimal(m, "opening_balance");
+        if (opening.precision() > 19) throw bad("باقی افتتاحیه نامعتبر است");
+        var openingDate = m.containsKey("opening_date")
+          ? date(m, "opening_date")
+          : LocalDate.of(2000, 1, 1);
