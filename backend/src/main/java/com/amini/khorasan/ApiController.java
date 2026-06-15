@@ -213,3 +213,11 @@ public class ApiController {
         var openingDate = m.containsKey("opening_date")
           ? date(m, "opening_date")
           : LocalDate.of(2000, 1, 1);
+        values.put("unit", required(m, "unit", 40));
+        values.put(
+          "category_id",
+          m.get("category_id") == null ||
+            m.get("category_id").toString().isBlank()
+            ? null
+            : id(m, "category_id")
+        );
