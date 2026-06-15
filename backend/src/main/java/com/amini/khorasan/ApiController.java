@@ -144,3 +144,15 @@ public class ApiController {
   ) {
     return save(entity, null, m);
   }
+
+  Map<String, Object> save(
+    String entity,
+    String identifier,
+    Map<String, Object> m
+  ) {
+    String t = table(entity),
+      pk = entity.equals("currencies") ? "code" : "id";
+    Object key = identifier;
+    if (entity.equals("categories")) db.queryForList(
+      "SELECT id FROM categories ORDER BY id FOR UPDATE"
+    );
