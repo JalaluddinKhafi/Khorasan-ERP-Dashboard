@@ -213,6 +213,15 @@ public class ApiController {
         var openingDate = m.containsKey("opening_date")
           ? date(m, "opening_date")
           : LocalDate.of(2000, 1, 1);
+        if (identifier == null) {
+          values.put("opening_balance", opening);
+          values.put("opening_date", openingDate);
+        } else if (m.containsKey("opening_balance")) {
+          var old = ledger.one(
+            "SELECT opening_balance,opening_date FROM parties WHERE id=?",
+            identifier
+          );
+          if (
             ((BigDecimal) old.get("opening_balance")).compareTo(opening) != 0 ||
             !old.get("opening_date").toString().equals(openingDate.toString())
           ) throw bad("باقی افتتاحیه پس از ثبت قابل تغییر نیست");
