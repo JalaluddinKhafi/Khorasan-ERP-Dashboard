@@ -280,3 +280,14 @@ public class ApiController {
           "نام کاربری حداقل سه حرف لاتین باشد"
         );
         values.put("username", username);
+          );
+          if (
+            old.get("username").equals(ledger.actor()) &&
+            ((!role.equals("ADMIN") && old.get("role").equals("ADMIN")) ||
+              Boolean.FALSE.equals(values.get("active")))
+          ) throw bad("نقش و وضعیت حساب جاری را تغییر داده نمی‌توانید");
+        }
+        String pass = text(m, "password", 72);
+        if (identifier == null || !pass.isBlank()) {
+          if (pass.length() < 12) throw bad("رمز عبور حداقل ۱۲ حرف باشد");
+          values.put("password", encoder.encode(pass));
