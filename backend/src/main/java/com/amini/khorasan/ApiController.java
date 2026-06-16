@@ -411,3 +411,13 @@ public class ApiController {
     ledger.audit("DELETE_" + entity, id);
     return Map.of("ok", true);
   }
+  Map<String, Boolean> voidInvoice(@PathVariable long id) {
+    ledger.voidInvoice(id);
+    return Map.of("ok", true);
+  }
+
+  @GetMapping("/api/payments")
+  List<Map<String, Object>> payments() {
+    return db.queryForList(
+      "SELECT x.*,p.name AS party_name,p.kind FROM payments x JOIN parties p ON p.id=x.party_id ORDER BY x.id DESC"
+    );
