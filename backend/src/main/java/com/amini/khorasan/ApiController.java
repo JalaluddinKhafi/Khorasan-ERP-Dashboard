@@ -466,6 +466,15 @@ public class ApiController {
   Map<String, Object> payroll(@RequestBody Map<String, Object> m) {
     return ledger.expense(m, true);
   }
+
+  @GetMapping("/api/inventory/movements")
+  List<Map<String, Object>> movements() {
+    return db.queryForList(
+      "SELECT s.*,p.name FROM stock_movements s JOIN products p ON p.id=s.product_id ORDER BY s.id DESC"
+    );
+  }
+
+  @GetMapping("/api/messages")
   List<Map<String, Object>> messages() {
     return db.queryForList("SELECT * FROM messages ORDER BY id DESC");
   }
