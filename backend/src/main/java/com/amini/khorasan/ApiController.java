@@ -467,6 +467,15 @@ public class ApiController {
     return ledger.expense(m, true);
   }
 
+  @GetMapping("/api/statement/{id}")
+  Map<String, Object> statement(
+    @PathVariable long id,
+    @RequestParam(defaultValue = "2000-01-01") LocalDate from,
+    @RequestParam(defaultValue = "2100-01-01") LocalDate to
+  ) {
+    return ledger.statement(id, from, to);
+  }
+
   @GetMapping("/api/inventory/movements")
   List<Map<String, Object>> movements() {
     return db.queryForList(
