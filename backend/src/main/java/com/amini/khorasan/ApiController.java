@@ -367,6 +367,18 @@ public class ApiController {
     } else {
       var args = new ArrayList<>(values.values());
       args.add(identifier);
+      db.update(
+        "UPDATE " +
+          t +
+          " SET " +
+          String.join(
+            ",",
+            values
+              .keySet()
+              .stream()
+              .map(k -> k + "=?")
+              .toList()
+          ) +
           " WHERE " +
           pk +
           "=?",
