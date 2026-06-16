@@ -391,6 +391,16 @@ public class ApiController {
     );
     var result = ledger.one("SELECT * FROM " + t + " WHERE " + pk + "=?", key);
     result.remove("password");
+    return result;
+  }
+
+  @DeleteMapping(
+    "/api/{entity:products|categories|customers|suppliers|employees|users|content}/{id}"
+  )
+  @Transactional
+  Map<String, Boolean> delete(
+    @PathVariable String entity,
+    @PathVariable long id
   ) {
     String t = table(entity);
     var row = ledger.one("SELECT * FROM " + t + " WHERE id=? FOR UPDATE", id);
