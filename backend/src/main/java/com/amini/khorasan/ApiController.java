@@ -411,6 +411,17 @@ public class ApiController {
     ledger.audit("DELETE_" + entity, id);
     return Map.of("ok", true);
   }
+
+  @GetMapping("/api/invoices")
+  List<Map<String, Object>> invoices(
+    @RequestParam(defaultValue = "SALE") String kind
+  ) {
+    return db.queryForList(
+      "SELECT i.*,p.name AS party_name,COALESCE((SELECT SUM(amount_usd) FROM payments WHERE invoice_id=i.id),0) AS paid_usd FROM invoices i JOIN parties p ON p.id=i.party_id WHERE i.kind=? ORDER BY i.id DESC",
+      kind
+    );
+  }
+
   @GetMapping("/api/invoices/{id}")
   Map<String, Object> invoice(@PathVariable long id) {
     return ledger.invoiceDetails(id);
