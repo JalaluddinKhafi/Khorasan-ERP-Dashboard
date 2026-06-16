@@ -443,3 +443,14 @@ public class ApiController {
     return db.queryForList(
       "SELECT x.*,p.name AS party_name,p.kind FROM payments x JOIN parties p ON p.id=x.party_id ORDER BY x.id DESC"
     );
+  }
+
+  @PostMapping("/api/expenses")
+  Map<String, Object> expense(@RequestBody Map<String, Object> m) {
+    return ledger.expense(m, false);
+  }
+
+  @PostMapping("/api/expenses/payroll")
+  Map<String, Object> payroll(@RequestBody Map<String, Object> m) {
+    return ledger.expense(m, true);
+  }
