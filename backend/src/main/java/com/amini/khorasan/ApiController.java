@@ -466,3 +466,12 @@ public class ApiController {
   Map<String, Object> payroll(@RequestBody Map<String, Object> m) {
     return ledger.expense(m, true);
   }
+  List<Map<String, Object>> messages() {
+    return db.queryForList("SELECT * FROM messages ORDER BY id DESC");
+  }
+
+  @GetMapping("/api/audit")
+  List<Map<String, Object>> audit() {
+    return db.queryForList(
+      "SELECT * FROM audit_log ORDER BY id DESC LIMIT 500"
+    );
