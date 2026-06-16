@@ -445,6 +445,18 @@ public class ApiController {
     );
   }
 
+  @PostMapping("/api/payments")
+  Map<String, Object> payment(@RequestBody Map<String, Object> m) {
+    return ledger.payment(m);
+  }
+
+  @GetMapping("/api/expenses")
+  List<Map<String, Object>> expenses() {
+    return db.queryForList(
+      "SELECT x.*,e.name AS employee_name FROM expenses x LEFT JOIN employees e ON e.id=x.employee_id ORDER BY x.id DESC"
+    );
+  }
+
   @PostMapping("/api/expenses")
   Map<String, Object> expense(@RequestBody Map<String, Object> m) {
     return ledger.expense(m, false);
