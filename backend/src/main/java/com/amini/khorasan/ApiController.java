@@ -411,6 +411,17 @@ public class ApiController {
     ledger.audit("DELETE_" + entity, id);
     return Map.of("ok", true);
   }
+  @GetMapping("/api/invoices/{id}")
+  Map<String, Object> invoice(@PathVariable long id) {
+    return ledger.invoiceDetails(id);
+  }
+
+  @PostMapping("/api/invoices")
+  Map<String, Object> invoice(@RequestBody Map<String, Object> m) {
+    return ledger.invoice(m);
+  }
+
+  @DeleteMapping("/api/invoices/{id}")
   Map<String, Boolean> voidInvoice(@PathVariable long id) {
     ledger.voidInvoice(id);
     return Map.of("ok", true);
