@@ -584,6 +584,16 @@ public class ApiController {
       kind
     );
   }
+
+  @GetMapping("/api/products/{id}")
+  Map<String, Object> productDetails(@PathVariable long id) {
+    return ledger.one(
+      "SELECT p.*,c.name AS category_name FROM products p LEFT JOIN categories c ON c.id=p.category_id WHERE p.id=?",
+      id
+    );
+  }
+
+  @GetMapping("/api/public/settings")
   Map<String, Object> publicSettings() {
     var s = settings();
     s.remove("terms");
