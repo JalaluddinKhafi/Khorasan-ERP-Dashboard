@@ -632,6 +632,16 @@ public class ApiController {
     return Map.of("ok", true);
   }
 }
+
+@RestControllerAdvice
+class Errors {
+
+  @ExceptionHandler(IllegalArgumentException.class)
+  ResponseEntity<?> badRequest(IllegalArgumentException e) {
+    return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
+  }
+
+  @ExceptionHandler(DataIntegrityViolationException.class)
   ResponseEntity<?> conflict(DataIntegrityViolationException e) {
     return ResponseEntity.status(409).body(
       Map.of(
