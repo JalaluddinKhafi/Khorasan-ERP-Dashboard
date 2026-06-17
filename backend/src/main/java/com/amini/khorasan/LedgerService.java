@@ -51,3 +51,11 @@ public class LedgerService {
 
   static BigDecimal positive(Map<String, Object> m, String k) {
     var n = nonnegative(m, k);
+  }
+
+  static IllegalArgumentException bad(String s) {
+    return new IllegalArgumentException(s);
+  }
+
+  Map<String, Object> one(String sql, Object... args) {
+    var rows = db.queryForList(sql, args);
