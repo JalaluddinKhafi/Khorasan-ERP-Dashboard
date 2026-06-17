@@ -513,6 +513,14 @@ public class ApiController {
       from,
       to
     );
+      to
+    );
+    return Map.of(
+      "sales",
+      sales,
+      "cost",
+      cost,
+      "expenses",
       expenses,
       "profit",
       sales.subtract(cost).subtract(expenses),
