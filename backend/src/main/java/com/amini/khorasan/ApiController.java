@@ -632,3 +632,12 @@ public class ApiController {
     return Map.of("ok", true);
   }
 }
+  @ExceptionHandler(
+    org.springframework.http.converter.HttpMessageNotReadableException.class
+  )
+  ResponseEntity<?> malformed() {
+    return ResponseEntity.badRequest().body(
+      Map.of("message", "دادهٔ ارسالی نامعتبر است")
+    );
+  }
+}
