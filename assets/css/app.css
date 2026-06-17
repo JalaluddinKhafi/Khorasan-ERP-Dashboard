@@ -442,3 +442,23 @@ dialog footer {
 .print-sheet .muted {
   color: #63736e;
 }
+.signatures {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 60px;
+  border-top: 1px solid #aaa;
+  padding: 15px;
+}
+.mobile-toggle {
+  display: none;
+}
+.login {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+.login .panel {
+  width: min(440px, 100%);
+  padding: 38px;
+}
