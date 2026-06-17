@@ -51,6 +51,15 @@ public class LedgerService {
 
   static BigDecimal positive(Map<String, Object> m, String k) {
     var n = nonnegative(m, k);
+    if (n.signum() == 0) throw bad("مقدار باید بیشتر از صفر باشد: " + k);
+    return n;
+  }
+
+  static long id(Map<String, Object> m, String k) {
+    try {
+      return Long.parseLong(m.get(k).toString());
+    } catch (Exception e) {
+      throw bad("شناسهٔ نامعتبر: " + k);
     }
   }
 
