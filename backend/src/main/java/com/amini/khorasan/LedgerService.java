@@ -77,3 +77,14 @@ public class LedgerService {
 
   Map<String, Object> one(String sql, Object... args) {
     var rows = db.queryForList(sql, args);
+      UUID.fromString(key);
+    } catch (Exception e) {
+      throw bad("شناسهٔ درخواست نامعتبر است");
+    }
+    return key;
+  }
+
+  String actor() {
+    var auth = SecurityContextHolder.getContext().getAuthentication();
+    return auth == null ? "system" : auth.getName();
+  }
