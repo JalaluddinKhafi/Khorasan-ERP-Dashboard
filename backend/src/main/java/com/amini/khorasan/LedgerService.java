@@ -26,6 +26,15 @@ public class LedgerService {
 
   static String required(Map<String, Object> m, String k, int max) {
     var s = text(m, k, max);
+    if (s.isBlank()) throw bad("خانهٔ الزامی: " + k);
+    return s;
+  }
+
+  static BigDecimal decimal(Map<String, Object> m, String k) {
+    try {
+      return new BigDecimal(Objects.toString(m.getOrDefault(k, 0))).setScale(
+        4,
+        RoundingMode.HALF_UP
       );
     } catch (Exception e) {
       throw bad("عدد نامعتبر: " + k);
