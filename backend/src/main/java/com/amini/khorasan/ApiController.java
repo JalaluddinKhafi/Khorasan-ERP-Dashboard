@@ -493,3 +493,13 @@ public class ApiController {
     return db.queryForList(
       "SELECT * FROM audit_log ORDER BY id DESC LIMIT 500"
     );
+      BigDecimal.class,
+      from,
+      to
+    );
+    var cost = db.queryForObject(
+      "SELECT COALESCE(SUM(cost_usd),0) FROM invoices WHERE kind='SALE' AND voided=FALSE AND invoice_date BETWEEN ? AND ?",
+      BigDecimal.class,
+      from,
+      to
+    );
