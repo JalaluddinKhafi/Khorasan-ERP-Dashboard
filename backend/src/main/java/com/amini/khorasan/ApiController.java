@@ -632,6 +632,15 @@ public class ApiController {
     return Map.of("ok", true);
   }
 }
+  ResponseEntity<?> conflict(DataIntegrityViolationException e) {
+    return ResponseEntity.status(409).body(
+      Map.of(
+        "message",
+        "رکورد تکراری است یا به معاملات دیگر وابسته است؛ آن را غیرفعال کنید."
+      )
+    );
+  }
+
   @ExceptionHandler(
     org.springframework.http.converter.HttpMessageNotReadableException.class
   )
