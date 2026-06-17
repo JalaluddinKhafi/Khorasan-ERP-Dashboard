@@ -562,6 +562,17 @@ public class ApiController {
       db.queryForObject(
         "SELECT COUNT(*) FROM parties WHERE kind='CUSTOMER' AND active=TRUE",
         Integer.class
+      ),
+      "lowStock",
+      db.queryForList(
+        "SELECT * FROM products WHERE active=TRUE AND stock<=min_stock"
+      ),
+      "month",
+      reports(today.withDayOfMonth(1), today),
+      "latestPurchases",
+      latestInvoices("PURCHASE"),
+      "latest",
+      db.queryForList(
         "SELECT i.id,i.invoice_date,i.total_usd,p.name FROM invoices i JOIN parties p ON p.id=i.party_id WHERE i.kind='SALE' AND i.voided=FALSE ORDER BY i.id DESC LIMIT 8"
       )
     );
