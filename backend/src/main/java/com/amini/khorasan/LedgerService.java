@@ -26,3 +26,11 @@ public class LedgerService {
 
   static String required(Map<String, Object> m, String k, int max) {
     var s = text(m, k, max);
+    if (n.signum() < 0 || n.precision() > 19) throw bad(
+      "مبلغ یا تعداد نامعتبر: " + k
+    );
+    return n;
+  }
+
+  static BigDecimal positive(Map<String, Object> m, String k) {
+    var n = nonnegative(m, k);
