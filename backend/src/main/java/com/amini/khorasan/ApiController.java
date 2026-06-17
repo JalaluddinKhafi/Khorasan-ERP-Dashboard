@@ -538,6 +538,18 @@ public class ApiController {
       "from",
       from,
       "to",
+      to,
+      "purchases",
+      db.queryForObject(
+        "SELECT COALESCE(SUM(total_usd),0) FROM invoices WHERE kind='PURCHASE' AND voided=FALSE AND invoice_date BETWEEN ? AND ?",
+        BigDecimal.class,
+        from,
+        to
+      )
+    );
+  }
+
+  @GetMapping("/api/dashboard")
   Map<String, Object> dashboard() {
     var today = LocalDate.now(ZoneId.of("Asia/Kabul"));
     return Map.of(
