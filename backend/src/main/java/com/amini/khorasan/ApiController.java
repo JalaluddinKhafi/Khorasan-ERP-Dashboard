@@ -584,6 +584,15 @@ public class ApiController {
       kind
     );
   }
+  Map<String, Object> publicSettings() {
+    var s = settings();
+    s.remove("terms");
+    return s;
+  }
+
+  @GetMapping("/api/public/products")
+  List<Map<String, Object>> publicProducts() {
+    return db.queryForList(
       "SELECT p.id,p.code,p.name,p.unit,p.sale_price,p.image,c.name AS category FROM products p LEFT JOIN categories c ON c.id=p.category_id WHERE p.active=TRUE ORDER BY p.name"
     );
   }
