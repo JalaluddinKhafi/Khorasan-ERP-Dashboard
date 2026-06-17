@@ -513,3 +513,11 @@ public class ApiController {
       from,
       to
     );
+      expenses,
+      "profit",
+      sales.subtract(cost).subtract(expenses),
+      "cash",
+      cash,
+      "from",
+      from,
+      "to",
