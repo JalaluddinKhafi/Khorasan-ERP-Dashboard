@@ -51,6 +51,15 @@ public class LedgerService {
 
   static BigDecimal positive(Map<String, Object> m, String k) {
     var n = nonnegative(m, k);
+    }
+  }
+
+  static LocalDate date(Map<String, Object> m, String k) {
+    try {
+      return LocalDate.parse(required(m, k, 10));
+    } catch (Exception e) {
+      throw bad("تاریخ نامعتبر است");
+    }
   }
 
   static IllegalArgumentException bad(String s) {
