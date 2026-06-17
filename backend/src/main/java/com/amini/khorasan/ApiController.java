@@ -538,3 +538,15 @@ public class ApiController {
       "from",
       from,
       "to",
+  Map<String, Object> dashboard() {
+    var today = LocalDate.now(ZoneId.of("Asia/Kabul"));
+    return Map.of(
+      "products",
+      db.queryForObject(
+        "SELECT COUNT(*) FROM products WHERE active=TRUE",
+        Integer.class
+      ),
+      "customers",
+      db.queryForObject(
+        "SELECT COUNT(*) FROM parties WHERE kind='CUSTOMER' AND active=TRUE",
+        Integer.class
