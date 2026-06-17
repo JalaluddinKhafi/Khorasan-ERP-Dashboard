@@ -1,3 +1,12 @@
+@Service
+@Transactional
+public class LedgerService {
+
+  final JdbcTemplate db;
+
+  public LedgerService(JdbcTemplate db) {
+    this.db = db;
+  }
 
   static String text(Map<String, Object> m, String k, int max) {
     String s = Objects.toString(m.get(k), "").trim();
