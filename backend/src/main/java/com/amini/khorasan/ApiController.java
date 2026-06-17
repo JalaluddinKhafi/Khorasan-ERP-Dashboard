@@ -584,3 +584,12 @@ public class ApiController {
       kind
     );
   }
+      "SELECT p.id,p.code,p.name,p.unit,p.sale_price,p.image,c.name AS category FROM products p LEFT JOIN categories c ON c.id=p.category_id WHERE p.active=TRUE ORDER BY p.name"
+    );
+  }
+
+  @GetMapping("/api/public/content")
+  List<Map<String, Object>> publicContent() {
+    return db.queryForList(
+      "SELECT id,kind,title,body,image FROM content WHERE published=TRUE ORDER BY id DESC"
+    );
