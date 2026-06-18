@@ -234,3 +234,14 @@ public class LedgerService {
       if (kind.equals("PURCHASE")) {
         var oldStock = (BigDecimal) pdt.get("stock");
         var oldCost = (BigDecimal) pdt.get("purchase_price");
+        db.update(
+          "UPDATE products SET purchase_price=? WHERE id=?",
+          average,
+          productId
+        );
+      }
+      db.update(
+        "UPDATE products SET stock=stock+? WHERE id=?",
+        delta,
+        productId
+      );
