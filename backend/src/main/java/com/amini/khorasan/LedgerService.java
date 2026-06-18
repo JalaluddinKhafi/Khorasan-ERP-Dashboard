@@ -99,6 +99,16 @@ public class LedgerService {
     var auth = SecurityContextHolder.getContext().getAuthentication();
     return auth == null ? "system" : auth.getName();
   }
+
+  void audit(String action, long id) {
+    db.update(
+      "INSERT INTO audit_log(actor,action,entity_id) VALUES(?,?,?)",
+      actor(),
+      action,
+      id
+    );
+  }
+
   BigDecimal rate(Map<String, Object> m) {
     String c = required(m, "currency", 3);
     one("SELECT code FROM currencies WHERE code=?", c);
