@@ -171,3 +171,14 @@ public class LedgerService {
       "هر جنس را تنها یک بار اضافه کنید"
     );
     Map<Long, Map<String, Object>> products = new HashMap<>();
+      var q = positive(i, "quantity");
+      var price = nonnegative(i, "price");
+      if (
+        kind.equals("SALE") &&
+        ((BigDecimal) product.get("stock")).compareTo(q) < 0
+      ) throw bad("موجودی کافی نیست: " + product.get("name"));
+      subtotal = subtotal.add(
+        q.multiply(price).setScale(4, RoundingMode.HALF_UP)
+      );
+      cost = cost.add(q.multiply((BigDecimal) product.get("purchase_price")));
+    }
