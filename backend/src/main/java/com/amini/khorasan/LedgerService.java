@@ -150,3 +150,13 @@ public class LedgerService {
     if (
       !p.get("kind").equals(kind.equals("SALE") ? "CUSTOMER" : "SUPPLIER")
     ) throw bad("مشتری یا تهیه‌کننده با نوع فاکتور سازگار نیست");
+    // Lock in stable order to avoid deadlocks; duplicate lines are rejected.
+    var ids = items
+      .stream()
+      .map(i -> id(i, "product_id"))
+      .sorted()
+      .toList();
+    if (new HashSet<>(ids).size() != ids.size()) throw bad(
+      "هر جنس را تنها یک بار اضافه کنید"
+    );
+    Map<Long, Map<String, Object>> products = new HashMap<>();
