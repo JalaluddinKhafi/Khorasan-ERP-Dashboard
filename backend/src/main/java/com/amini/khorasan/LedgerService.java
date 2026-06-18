@@ -257,3 +257,11 @@ public class LedgerService {
         delta,
         productId
       );
+    );
+    row.put(
+      "items",
+      db.queryForList(
+        "SELECT * FROM invoice_items WHERE invoice_id=? ORDER BY id",
+        id
+      )
+    );
