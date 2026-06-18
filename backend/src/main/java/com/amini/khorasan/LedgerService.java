@@ -257,6 +257,15 @@ public class LedgerService {
         delta,
         productId
       );
+      db.update(
+        "INSERT INTO stock_movements(product_id,invoice_id,movement_date,quantity,notes) VALUES(?,?,?,?,?)",
+        productId,
+        invoiceId,
+        day,
+        delta,
+        kind
+      );
+    }
     audit("CREATE_" + kind, invoiceId);
     return invoiceDetails(invoiceId);
   }
