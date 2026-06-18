@@ -234,6 +234,18 @@ public class LedgerService {
       if (kind.equals("PURCHASE")) {
         var oldStock = (BigDecimal) pdt.get("stock");
         var oldCost = (BigDecimal) pdt.get("purchase_price");
+        var average = oldStock
+          .multiply(oldCost)
+          .add(
+            q
+              .multiply(usd(price, rate))
+              .multiply(
+                subtotal.signum() == 0
+                  ? BigDecimal.ONE
+                  : total.divide(subtotal, 12, RoundingMode.HALF_UP)
+              )
+          )
+          .divide(oldStock.add(q), 4, RoundingMode.HALF_UP);
         db.update(
           "UPDATE products SET purchase_price=? WHERE id=?",
           average,
