@@ -99,3 +99,12 @@ public class LedgerService {
     var auth = SecurityContextHolder.getContext().getAuthentication();
     return auth == null ? "system" : auth.getName();
   }
+      return n;
+    } catch (Exception e) {
+      throw bad("تعداد واحد ارز فرعی در برابر یک دالر را وارد کنید");
+    }
+  }
+
+  BigDecimal usd(BigDecimal amount, BigDecimal rate) {
+    return amount.divide(rate, 4, RoundingMode.HALF_UP);
+  }
