@@ -194,3 +194,14 @@ public class LedgerService {
       );
       cost = cost.add(q.multiply((BigDecimal) product.get("purchase_price")));
     }
+      subtotal,
+      discount,
+      total,
+      usd(total, rate),
+      cost,
+      text(m, "notes", 1000),
+      actor()
+    );
+    long invoiceId = inserted();
+    for (var i : items) {
+      long productId = id(i, "product_id");
