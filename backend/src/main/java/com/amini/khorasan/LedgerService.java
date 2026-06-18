@@ -127,3 +127,14 @@ public class LedgerService {
   BigDecimal usd(BigDecimal amount, BigDecimal rate) {
     return amount.divide(rate, 4, RoundingMode.HALF_UP);
   }
+    if (!Set.of("SALE", "PURCHASE").contains(kind)) throw bad(
+      "نوع فاکتور نامعتبر است"
+    );
+    long party = id(m, "party_id");
+    var p = one(
+      "SELECT * FROM parties WHERE id=? AND active=TRUE FOR UPDATE",
+      party
+    );
+    if (
+      !p.get("kind").equals(kind.equals("SALE") ? "CUSTOMER" : "SUPPLIER")
+    ) throw bad("مشتری یا تهیه‌کننده با نوع فاکتور سازگار نیست");
