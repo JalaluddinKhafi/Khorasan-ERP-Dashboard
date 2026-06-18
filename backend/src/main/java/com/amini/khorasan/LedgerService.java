@@ -171,6 +171,18 @@ public class LedgerService {
       "هر جنس را تنها یک بار اضافه کنید"
     );
     Map<Long, Map<String, Object>> products = new HashMap<>();
+    for (long productId : ids)
+      products.put(
+        productId,
+        one(
+          "SELECT * FROM products WHERE id=? AND active=TRUE FOR UPDATE",
+          productId
+        )
+      );
+    BigDecimal subtotal = BigDecimal.ZERO,
+      cost = BigDecimal.ZERO;
+    for (var i : items) {
+      var product = products.get(id(i, "product_id"));
       var q = positive(i, "quantity");
       var price = nonnegative(i, "price");
       if (
