@@ -326,6 +326,15 @@ public class LedgerService {
         0
       ) throw bad("پرداخت از باقی فاکتور بیشتر است");
     }
+    db.update(
+      "INSERT INTO payments(request_key,party_id,invoice_id,payment_date,currency,rate,amount,amount_usd,notes,created_by) VALUES(?,?,?,?,?,?,?,?,?,?)",
+      requestKey,
+      party,
+      invoice,
+      date(m, "payment_date"),
+      m.get("currency"),
+      rate,
+      amount,
       usd(amount, rate),
       text(m, "notes", 1000),
       actor()
