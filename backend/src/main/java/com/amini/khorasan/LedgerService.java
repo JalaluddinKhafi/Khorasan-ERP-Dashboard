@@ -418,3 +418,14 @@ public class LedgerService {
       from,
       to
     );
+      opening,
+      "closing",
+      balance,
+      "rows",
+      rows,
+      "from",
+      from,
+      "to",
+      to
+    );
+  }
