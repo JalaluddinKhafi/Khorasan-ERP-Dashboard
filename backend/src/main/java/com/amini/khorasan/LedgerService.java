@@ -326,6 +326,14 @@ public class LedgerService {
         0
       ) throw bad("پرداخت از باقی فاکتور بیشتر است");
     }
+      usd(amount, rate),
+      text(m, "notes", 1000),
+      actor()
+    );
+    long pid = inserted();
+    audit("PAYMENT", pid);
+    return one("SELECT * FROM payments WHERE id=?", pid);
+  }
 
   public Map<String, Object> expense(Map<String, Object> m, boolean payroll) {
     String requestKey = requestKey(m);
