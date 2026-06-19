@@ -370,3 +370,11 @@ public class LedgerService {
       }
       category = "معاش";
     }
+
+  public Map<String, Object> statement(
+    long party,
+    LocalDate from,
+    LocalDate to
+  ) {
+    if (from.isAfter(to)) throw bad("بازهٔ تاریخ نادرست است");
+    var p = one("SELECT * FROM parties WHERE id=?", party);
