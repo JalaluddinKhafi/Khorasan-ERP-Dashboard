@@ -282,6 +282,17 @@ public class LedgerService {
         id
       )
     );
+    row.put(
+      "paid_usd",
+      db.queryForObject(
+        "SELECT COALESCE(SUM(amount_usd),0) FROM payments WHERE invoice_id=?",
+        BigDecimal.class,
+        id
+      )
+    );
+    return row;
+  }
+
   public Map<String, Object> payment(Map<String, Object> m) {
     String requestKey = requestKey(m);
     var existing = db.queryForList(
