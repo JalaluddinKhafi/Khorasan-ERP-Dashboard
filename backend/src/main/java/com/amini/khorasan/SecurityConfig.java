@@ -19,3 +19,11 @@ public class SecurityConfig {
   PasswordEncoder encoder() {
     return new BCryptPasswordEncoder();
   }
+  @Bean
+  ApplicationRunner bootstrap(
+    JdbcTemplate db,
+    PasswordEncoder encoder,
+    @Value("${app.admin.username}") String username,
+    @Value("${app.admin.password}") String password
+  ) {
+    return args -> {
