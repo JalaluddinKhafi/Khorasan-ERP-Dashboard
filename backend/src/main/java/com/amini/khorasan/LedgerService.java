@@ -370,6 +370,15 @@ public class LedgerService {
       }
       category = "معاش";
     }
+    db.update(
+      "INSERT INTO expenses(request_key,expense_date,category,currency,rate,amount,amount_usd,notes,employee_id,salary_month,created_by) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
+      requestKey,
+      date(m, "expense_date"),
+      category,
+      m.get("currency"),
+      rate,
+      amount,
+      usd(amount, rate),
       text(m, "notes", 1000),
       employee,
       month,
