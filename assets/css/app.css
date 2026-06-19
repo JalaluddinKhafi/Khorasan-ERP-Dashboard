@@ -552,3 +552,25 @@ dialog footer {
   gap: 20px;
   flex-wrap: wrap;
 }
+.loading {
+  padding: 30px;
+  color: var(--muted);
+}
+.bar-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 90px;
+  gap: 15px;
+  align-items: center;
+  margin: 17px 0;
+}
+.bar {
+  height: 9px;
+  border-radius: 10px;
+  background: var(--soft);
+  overflow: hidden;
+}
+.bar i {
+  height: 100%;
+  display: block;
+  background: var(--primary);
+}
