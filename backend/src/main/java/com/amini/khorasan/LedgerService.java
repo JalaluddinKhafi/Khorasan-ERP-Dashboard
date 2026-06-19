@@ -440,3 +440,14 @@ public class LedgerService {
       to
     );
   }
+      ) > 0
+    ) throw bad("فاکتور دارای پرداخت است؛ ابتدا با مدیر مالی تصفیه کنید");
+    var items = db.queryForList(
+      "SELECT * FROM invoice_items WHERE invoice_id=? ORDER BY product_id",
+      id
+    );
+    for (var item : items) {
+      long pid = ((Number) item.get("product_id")).longValue();
+      var p = one("SELECT * FROM products WHERE id=? FOR UPDATE", pid);
+      var q = (BigDecimal) item.get("quantity");
+      var delta = i.get("kind").equals("SALE") ? q : q.negate();
