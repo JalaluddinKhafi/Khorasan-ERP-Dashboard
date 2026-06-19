@@ -483,3 +483,15 @@ public class LedgerService {
       } else {
         var stock = (BigDecimal) p.get("stock");
         var current = (BigDecimal) p.get("purchase_price");
+        "INSERT INTO stock_movements(product_id,invoice_id,movement_date,quantity,notes) VALUES(?,?,?,?,?)",
+        pid,
+        id,
+        LocalDate.now(ZoneId.of("Asia/Kabul")),
+        delta,
+        "لغو فاکتور"
+      );
+    }
+    db.update("UPDATE invoices SET voided=TRUE WHERE id=?", id);
+    audit("VOID_INVOICE", id);
+  }
+}
