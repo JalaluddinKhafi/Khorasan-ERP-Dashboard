@@ -304,3 +304,14 @@ public class LedgerService {
     one("SELECT id FROM parties WHERE id=? AND active=TRUE FOR UPDATE", party);
     var amount = positive(m, "amount");
     var rate = rate(m);
+      );
+      var paid = db.queryForObject(
+        "SELECT COALESCE(SUM(amount_usd),0) FROM payments WHERE invoice_id=?",
+        BigDecimal.class,
+        invoice
+      );
+      if (
+        paid.add(usd(amount, rate)).compareTo((BigDecimal) i.get("total_usd")) >
+        0
+      ) throw bad("پرداخت از باقی فاکتور بیشتر است");
+    }
