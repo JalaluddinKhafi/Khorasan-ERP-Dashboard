@@ -62,3 +62,15 @@ public class SecurityConfig {
       }
     };
   }
+            "/api/csrf",
+            "/api/public/**",
+            "/error"
+          )
+          .permitAll()
+          .requestMatchers(
+            "/api/users/**",
+            "/api/employees/**",
+            "/api/expenses/payroll",
+            "/api/settings/**",
+            "/api/content/**",
+            "/api/messages/**",
