@@ -396,3 +396,14 @@ public class LedgerService {
   ) {
     if (from.isAfter(to)) throw bad("بازهٔ تاریخ نادرست است");
     var p = one("SELECT * FROM parties WHERE id=?", party);
+    );
+    var rows = db.queryForList(
+      "SELECT * FROM (" +
+        union +
+        ") ledger WHERE entry_date BETWEEN ? AND ? ORDER BY entry_date,CASE kind WHEN 'OPENING' THEN 0 WHEN 'INVOICE' THEN 1 ELSE 2 END,reference",
+      party,
+      party,
+      party,
+      from,
+      to
+    );
