@@ -418,6 +418,17 @@ public class LedgerService {
       from,
       to
     );
+    var balance = opening;
+    for (var r : rows) {
+      balance = balance
+        .add((BigDecimal) r.get("debit"))
+        .subtract((BigDecimal) r.get("credit"));
+      r.put("balance", balance);
+    }
+    return Map.of(
+      "party",
+      p,
+      "opening",
       opening,
       "closing",
       balance,
