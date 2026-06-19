@@ -19,6 +19,14 @@ public class SecurityConfig {
   PasswordEncoder encoder() {
     return new BCryptPasswordEncoder();
   }
+      var u = rows.get(0);
+      return User.withUsername(username)
+        .password((String) u.get("password"))
+        .roles((String) u.get("role"))
+        .build();
+    };
+  }
+
   @Bean
   ApplicationRunner bootstrap(
     JdbcTemplate db,
