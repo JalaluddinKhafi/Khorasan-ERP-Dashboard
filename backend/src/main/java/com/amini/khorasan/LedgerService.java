@@ -462,6 +462,17 @@ public class LedgerService {
       var p = one("SELECT * FROM products WHERE id=? FOR UPDATE", pid);
       var q = (BigDecimal) item.get("quantity");
       var delta = i.get("kind").equals("SALE") ? q : q.negate();
+      if (((BigDecimal) p.get("stock")).add(delta).signum() < 0) throw bad(
+        "لغو خرید باعث موجودی منفی می‌شود"
+      );
+      if (i.get("kind").equals("PURCHASE")) {
+        if (
+          db.queryForObject(
+            "SELECT COUNT(*) FROM stock_movements WHERE product_id=? AND id>(SELECT MAX(id) FROM stock_movements WHERE invoice_id=? AND product_id=?)",
+            Integer.class,
+            pid,
+            id,
+            pid
           ) > 0
         ) throw bad("پس از این خرید حرکت جدید ثبت شده است؛ لغو مجاز نیست");
         db.update(
