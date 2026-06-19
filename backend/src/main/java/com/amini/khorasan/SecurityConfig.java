@@ -44,3 +44,12 @@ public class SecurityConfig {
     @Value("${app.admin.password}") String password
   ) {
     return args -> {
+          "INSERT INTO app_users(username,password,name,role) VALUES(?,?,?,?)",
+          username,
+          encoder.encode(password),
+          "مدیر سیستم",
+          "ADMIN"
+        );
+      }
+    };
+  }
