@@ -440,6 +440,17 @@ public class LedgerService {
       to
     );
   }
+
+  public void voidInvoice(long id) {
+    var i = one("SELECT * FROM invoices WHERE id=? FOR UPDATE", id);
+    if (Boolean.TRUE.equals(i.get("voided"))) throw bad(
+      "این فاکتور قبلاً لغو شده است"
+    );
+    if (
+      db.queryForObject(
+        "SELECT COUNT(*) FROM payments WHERE invoice_id=?",
+        Integer.class,
+        id
       ) > 0
     ) throw bad("فاکتور دارای پرداخت است؛ ابتدا با مدیر مالی تصفیه کنید");
     var items = db.queryForList(
