@@ -530,3 +530,25 @@ dialog footer {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
 }
+.catalog article {
+  min-width: 0;
+}
+.catalog img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.prose {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.public-footer {
+  padding: 35px 5%;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
