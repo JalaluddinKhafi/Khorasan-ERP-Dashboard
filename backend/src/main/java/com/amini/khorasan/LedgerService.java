@@ -483,6 +483,18 @@ public class LedgerService {
       } else {
         var stock = (BigDecimal) p.get("stock");
         var current = (BigDecimal) p.get("purchase_price");
+        var restored = stock
+          .multiply(current)
+          .add(q.multiply((BigDecimal) item.get("cost_price")))
+          .divide(stock.add(q), 4, RoundingMode.HALF_UP);
+        db.update(
+          "UPDATE products SET purchase_price=? WHERE id=?",
+          restored,
+          pid
+        );
+      }
+      db.update("UPDATE products SET stock=stock+? WHERE id=?", delta, pid);
+      db.update(
         "INSERT INTO stock_movements(product_id,invoice_id,movement_date,quantity,notes) VALUES(?,?,?,?,?)",
         pid,
         id,
