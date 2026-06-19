@@ -351,3 +351,12 @@ public class LedgerService {
       requestKey
     );
     if (!existing.isEmpty()) return existing.get(0);
+      );
+      month = required(m, "salary_month", 7);
+      try {
+        YearMonth.parse(month);
+      } catch (Exception e) {
+        throw bad("ماه معاش نامعتبر است");
+      }
+      category = "معاش";
+    }
