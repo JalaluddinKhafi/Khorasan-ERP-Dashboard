@@ -370,6 +370,15 @@ public class LedgerService {
       }
       category = "معاش";
     }
+      text(m, "notes", 1000),
+      employee,
+      month,
+      actor()
+    );
+    long eid = inserted();
+    audit(payroll ? "PAYROLL" : "EXPENSE", eid);
+    return one("SELECT * FROM expenses WHERE id=?", eid);
+  }
 
   public Map<String, Object> statement(
     long party,
