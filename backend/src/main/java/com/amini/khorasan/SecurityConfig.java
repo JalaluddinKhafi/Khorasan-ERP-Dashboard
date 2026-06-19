@@ -19,6 +19,15 @@ public class SecurityConfig {
   PasswordEncoder encoder() {
     return new BCryptPasswordEncoder();
   }
+
+  @Bean
+  UserDetailsService users(JdbcTemplate db) {
+    return username -> {
+      var rows = db.queryForList(
+        "SELECT * FROM app_users WHERE username=? AND active=TRUE",
+        username
+      );
+      if (rows.isEmpty()) throw new UsernameNotFoundException("کاربر یافت نشد");
       var u = rows.get(0);
       return User.withUsername(username)
         .password((String) u.get("password"))
