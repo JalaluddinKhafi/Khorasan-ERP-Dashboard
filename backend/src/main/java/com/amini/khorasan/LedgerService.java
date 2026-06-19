@@ -326,3 +326,11 @@ public class LedgerService {
         0
       ) throw bad("پرداخت از باقی فاکتور بیشتر است");
     }
+
+  public Map<String, Object> expense(Map<String, Object> m, boolean payroll) {
+    String requestKey = requestKey(m);
+    var existing = db.queryForList(
+      "SELECT * FROM expenses WHERE request_key=?",
+      requestKey
+    );
+    if (!existing.isEmpty()) return existing.get(0);
