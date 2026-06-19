@@ -462,3 +462,13 @@ public class LedgerService {
       var p = one("SELECT * FROM products WHERE id=? FOR UPDATE", pid);
       var q = (BigDecimal) item.get("quantity");
       var delta = i.get("kind").equals("SALE") ? q : q.negate();
+          ) > 0
+        ) throw bad("پس از این خرید حرکت جدید ثبت شده است؛ لغو مجاز نیست");
+        db.update(
+          "UPDATE products SET purchase_price=? WHERE id=?",
+          item.get("cost_price"),
+          pid
+        );
+      } else {
+        var stock = (BigDecimal) p.get("stock");
+        var current = (BigDecimal) p.get("purchase_price");
