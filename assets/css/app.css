@@ -596,3 +596,26 @@ dialog footer {
     transform: translateX(100%);
     width: 248px;
     box-shadow: var(--shadow);
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .workspace {
+    margin-right: 0;
+  }
+  .mobile-toggle {
+    display: inline-flex;
+  }
+  .topbar {
+    padding: 14px 17px;
+    flex-wrap: wrap;
+  }
+  .topbar .controls {
+    gap: 5px;
+  }
+  .topbar select {
+    width: 90px;
+  }
+  main {
+    padding: 20px 16px;
+  }
