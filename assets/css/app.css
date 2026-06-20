@@ -574,3 +574,25 @@ dialog footer {
   display: block;
   background: var(--primary);
 }
+@media (max-width: 1050px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .workspace {
+    margin-right: 215px;
+  }
+  .sidebar {
+    width: 215px;
+  }
+  .hero h1 {
+    font-size: 32px;
+  }
+  .catalog {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 760px) {
+  .sidebar {
+    transform: translateX(100%);
+    width: 248px;
+    box-shadow: var(--shadow);
