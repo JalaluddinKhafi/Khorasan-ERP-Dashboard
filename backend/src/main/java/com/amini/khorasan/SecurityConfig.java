@@ -62,6 +62,18 @@ public class SecurityConfig {
       }
     };
   }
+
+  @Bean
+  SecurityFilterChain security(HttpSecurity http, JdbcTemplate db)
+    throws Exception {
+    http
+      .authorizeHttpRequests(a ->
+        a
+          .requestMatchers(
+            "/",
+            "/public-site/**",
+            "/assets/**",
+            "/dashboard/login.html",
             "/api/csrf",
             "/api/public/**",
             "/error"
