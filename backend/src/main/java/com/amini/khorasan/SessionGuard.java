@@ -25,6 +25,17 @@ final class SessionGuard extends OncePerRequestFilter {
     FilterChain chain
   ) throws ServletException, IOException {
     var auth = SecurityContextHolder.getContext().getAuthentication();
+    if (
+      auth != null &&
+      auth.isAuthenticated() &&
+      !(auth instanceof AnonymousAuthenticationToken)
+    ) {
+      var users = db.queryForList(
+        "SELECT active,role,password FROM app_users WHERE username=?",
+        auth.getName()
+      );
+      boolean valid =
+        !users.isEmpty() && Boolean.TRUE.equals(users.get(0).get("active"));
       if (valid) {
         var user = users.get(0);
         valid = auth
