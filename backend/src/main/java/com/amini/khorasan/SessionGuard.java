@@ -46,3 +46,13 @@ final class SessionGuard extends OncePerRequestFilter {
         String stamp = Objects.toString(user.get("password"));
         Object prior = session.getAttribute("credentialStamp");
         if (prior == null) session.setAttribute("credentialStamp", stamp);
+            .write(
+              "{\"message\":\"حساب یا دسترسی شما تغییر کرده است؛ دوباره وارد شوید\"}"
+            );
+        } else response.sendRedirect("/dashboard/login.html");
+        return;
+      }
+    }
+    chain.doFilter(request, response);
+  }
+}
