@@ -1,0 +1,10 @@
+CREATE TABLE expenses (id BIGINT AUTO_INCREMENT PRIMARY KEY, request_key VARCHAR(36) NOT NULL UNIQUE, expense_date DATE NOT NULL, category VARCHAR(100) NOT NULL, currency VARCHAR(3) NOT NULL, rate DECIMAL(20,8) NOT NULL, amount DECIMAL(20,4) NOT NULL, amount_usd DECIMAL(20,4) NOT NULL, notes VARCHAR(1000) NOT NULL DEFAULT '', employee_id BIGINT, salary_month VARCHAR(7), created_by VARCHAR(80) NOT NULL, FOREIGN KEY(currency) REFERENCES currencies(code), FOREIGN KEY(employee_id) REFERENCES employees(id), UNIQUE(employee_id,salary_month));
+CREATE TABLE stock_movements (id BIGINT AUTO_INCREMENT PRIMARY KEY, product_id BIGINT NOT NULL, invoice_id BIGINT, movement_date DATE NOT NULL, quantity DECIMAL(20,4) NOT NULL, notes VARCHAR(500) NOT NULL, FOREIGN KEY(product_id) REFERENCES products(id), FOREIGN KEY(invoice_id) REFERENCES invoices(id));
+CREATE TABLE settings (id INT PRIMARY KEY, company_name VARCHAR(160) NOT NULL, phone VARCHAR(100) NOT NULL, address VARCHAR(500) NOT NULL, brands VARCHAR(500) NOT NULL, terms VARCHAR(1000) NOT NULL, header_image MEDIUMTEXT, logo_image MEDIUMTEXT);
+INSERT INTO settings VALUES (1,'امینی گروپ','','','','اجناس را هنگام تسلیمی بررسی نمایید.','','');
+CREATE TABLE content (id BIGINT AUTO_INCREMENT PRIMARY KEY, kind VARCHAR(30) NOT NULL, title VARCHAR(180) NOT NULL, body TEXT NOT NULL, image MEDIUMTEXT, published BOOLEAN NOT NULL DEFAULT FALSE);
+CREATE TABLE messages (id BIGINT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(160) NOT NULL, email VARCHAR(200) NOT NULL, phone VARCHAR(60) NOT NULL, subject VARCHAR(180) NOT NULL, message TEXT NOT NULL, created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE audit_log (id BIGINT AUTO_INCREMENT PRIMARY KEY, actor VARCHAR(80) NOT NULL, action VARCHAR(100) NOT NULL, entity_id BIGINT, created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);
+CREATE INDEX idx_invoice_party ON invoices(party_id,invoice_date);
+CREATE INDEX idx_payment_party ON payments(party_id,payment_date);
+CREATE INDEX idx_expense_date ON expenses(expense_date);
