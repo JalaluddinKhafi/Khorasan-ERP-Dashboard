@@ -619,3 +619,24 @@ dialog footer {
   main {
     padding: 20px 16px;
   }
+  .page-heading {
+    flex-direction: column;
+  }
+  .panel {
+    padding: 17px;
+  }
+  .panel-head {
+    flex-wrap: wrap;
+  }
+  .grid,
+  .fields,
+  .hero {
+    grid-template-columns: 1fr;
+  }
+  .hero {
+    gap: 25px;
+    padding: 10px 0 35px;
+  }
+  .hero h1 {
+    font-size: 31px;
+  }
