@@ -127,3 +127,13 @@ public class SecurityConfig {
           .authenticationEntryPoint((req, res, ex) -> {
             if (req.getRequestURI().startsWith("/api/")) {
               res.setStatus(401);
+              );
+          })
+      );
+    http.addFilterAfter(
+      new SessionGuard(db),
+      org.springframework.security.web.authentication.AnonymousAuthenticationFilter.class
+    );
+    return http.build();
+  }
+}
