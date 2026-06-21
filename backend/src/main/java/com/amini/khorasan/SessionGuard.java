@@ -25,3 +25,13 @@ final class SessionGuard extends OncePerRequestFilter {
     FilterChain chain
   ) throws ServletException, IOException {
     var auth = SecurityContextHolder.getContext().getAuthentication();
+      if (valid) {
+        var user = users.get(0);
+        valid = auth
+          .getAuthorities()
+          .stream()
+          .anyMatch(a -> a.getAuthority().equals("ROLE_" + user.get("role")));
+        var session = request.getSession();
+        String stamp = Objects.toString(user.get("password"));
+        Object prior = session.getAttribute("credentialStamp");
+        if (prior == null) session.setAttribute("credentialStamp", stamp);
