@@ -86,3 +86,13 @@ public class SecurityConfig {
             "/api/settings/**",
             "/api/content/**",
             "/api/messages/**",
+          .anyRequest()
+          .authenticated()
+      )
+      .formLogin(f ->
+        f
+          .loginPage("/dashboard/login.html")
+          .loginProcessingUrl("/api/login")
+          .successHandler((req, res, auth) -> {
+            res.setContentType("application/json");
+            res.getWriter().write("{\"ok\":true}");
