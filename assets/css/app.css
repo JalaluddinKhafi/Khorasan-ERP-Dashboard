@@ -62,6 +62,15 @@ select,
 textarea {
   font: inherit;
 }
+button,
+a,
+input,
+select,
+textarea {
+  outline-offset: 4px;
+}
+button,
+.button {
   border: 1px solid var(--line);
   background: var(--surface);
   color: var(--text);
