@@ -173,6 +173,18 @@ h3 {
   border-radius: 14px;
   font-size: 23px;
 }
+.sidebar nav {
+  display: grid;
+  gap: 3px;
+}
+.sidebar a {
+  padding: 9px 14px;
+  color: var(--muted);
+  border-radius: 8px;
+  font-size: 14px;
+}
+.sidebar a.active {
+  color: var(--primary);
   background: var(--soft);
   font-weight: bold;
 }
