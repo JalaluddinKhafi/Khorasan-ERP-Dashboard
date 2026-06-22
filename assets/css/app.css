@@ -684,3 +684,27 @@ dialog footer {
     color: #111;
     font-size: 11px;
   }
+  .sidebar,
+  .topbar,
+  .no-print,
+  .page-heading,
+  dialog,
+  .toast,
+  .public-nav,
+  .public-footer {
+    display: none !important;
+  }
+  .workspace {
+    margin: 0;
+  }
+  main {
+    padding: 0;
+    max-width: none;
+  }
+  .panel,
+  .print-sheet {
+    box-shadow: none;
+    border: 0;
+    padding: 0;
+    border-radius: 0;
+  }
