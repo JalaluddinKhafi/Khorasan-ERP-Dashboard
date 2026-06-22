@@ -62,3 +62,11 @@ select,
 textarea {
   font: inherit;
 }
+  justify-content: center;
+  gap: 7px;
+}
+button:hover,
+.button:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
