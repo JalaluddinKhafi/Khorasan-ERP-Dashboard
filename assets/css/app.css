@@ -308,6 +308,17 @@ th {
 th {
   background: var(--soft);
   color: var(--muted);
+  font-size: 12px;
+  font-weight: normal;
+}
+tbody tr:hover {
+  background: var(--soft);
+}
+td button {
+  padding: 4px 10px;
+  font-size: 12px;
+}
+.empty {
   text-align: center;
   padding: 46px 16px;
   color: var(--muted);
