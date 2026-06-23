@@ -196,3 +196,14 @@ h3 {
   color: var(--muted);
   margin: 17px 14px 7px;
 }
+  gap: 16px;
+}
+.topbar .controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.topbar select {
+  width: 110px;
+  padding: 7px;
+}
