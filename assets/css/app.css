@@ -352,3 +352,13 @@ dialog {
   background: var(--surface);
   color: var(--text);
   width: min(780px, 94vw);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+dialog header h2 {
+  margin: 0;
+}
+dialog form {
+  padding: 24px;
+}
