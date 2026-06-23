@@ -218,6 +218,14 @@ h3 {
   width: 110px;
   padding: 7px;
 }
+  align-items: start;
+  margin-bottom: 25px;
+}
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
 }
 .panel {
   background: var(--surface);
