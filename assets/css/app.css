@@ -308,3 +308,13 @@ th {
 th {
   background: var(--soft);
   color: var(--muted);
+  text-align: center;
+  padding: 46px 16px;
+  color: var(--muted);
+}
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: var(--soft);
+  color: var(--primary);
