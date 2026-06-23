@@ -708,3 +708,23 @@ dialog footer {
     padding: 0;
     border-radius: 0;
   }
+  .print-sheet {
+    max-width: none;
+  }
+  table {
+    white-space: normal;
+    font-size: 10px;
+  }
+  thead {
+    display: table-header-group;
+  }
+  tr,
+  img {
+    break-inside: avoid;
+  }
+  .letterhead {
+    break-inside: avoid;
+  }
+  .stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
