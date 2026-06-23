@@ -218,3 +218,11 @@ h3 {
   width: 110px;
   padding: 7px;
 }
+}
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  padding: 24px;
+  margin-bottom: 22px;
+  box-shadow: var(--shadow);
