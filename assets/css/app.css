@@ -218,6 +218,15 @@ h3 {
   width: 110px;
   padding: 7px;
 }
+main {
+  padding: 32px;
+  max-width: 1600px;
+  margin: auto;
+}
+.page-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
   align-items: start;
   margin-bottom: 25px;
 }
