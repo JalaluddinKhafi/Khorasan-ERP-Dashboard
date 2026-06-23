@@ -372,3 +372,14 @@ dialog header h2 {
 dialog form {
   padding: 24px;
 }
+  align-items: end;
+}
+.line-item label {
+  min-width: 0;
+}
+.summary {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+  font-weight: bold;
+}
