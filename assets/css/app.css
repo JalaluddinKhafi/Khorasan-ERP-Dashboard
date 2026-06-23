@@ -728,3 +728,29 @@ dialog footer {
   .stats {
     grid-template-columns: repeat(4, 1fr);
   }
+  .stat {
+    border: 1px solid #ddd;
+  }
+  .table-scroll {
+    overflow: visible;
+  }
+  th {
+    background: #eee !important;
+    color: #111 !important;
+  }
+  button {
+    display: none !important;
+  }
+}
+/* Dashboard refresh: distinct navigation, clear hierarchy and accessible accents. */
+@media screen {
+  :root {
+    --primary: #3467d5;
+    --bg: #f2f5fb;
+    --text: #22324b;
+    --muted: #6b7890;
+    --line: #e3e9f2;
+    --soft: #edf3ff;
+    --accent: #a5732d;
+    --shadow: 0 5px 22px #24375706;
+    --sidebar-bg: linear-gradient(175deg, #182c4c 0%, #101d34 100%);
