@@ -329,3 +329,14 @@ td button {
   border-radius: 20px;
   background: var(--soft);
   color: var(--primary);
+}
+.error {
+  color: var(--danger);
+}
+dialog {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 0;
+  background: var(--surface);
+  color: var(--text);
+  width: min(780px, 94vw);
