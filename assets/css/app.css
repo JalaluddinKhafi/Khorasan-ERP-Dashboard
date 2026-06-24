@@ -394,6 +394,15 @@ dialog footer {
   padding: 16px 0;
   font-weight: bold;
 }
+.toast {
+  position: fixed;
+  bottom: 26px;
+  left: 26px;
+  padding: 14px 22px;
+  background: var(--text);
+  color: var(--surface);
+  z-index: 100;
+  border-radius: 10px;
   max-width: 90vw;
 }
 .print-sheet {
