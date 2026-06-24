@@ -394,6 +394,15 @@ dialog footer {
   padding: 16px 0;
   font-weight: bold;
 }
+  max-width: 90vw;
+}
+.print-sheet {
+  background: #fff;
+  color: #182c28;
+  padding: 30px;
+  max-width: 1000px;
+  margin: auto;
+  border: 1px solid #dce4df;
 }
 .letterhead {
   border-bottom: 3px solid #245c50;
