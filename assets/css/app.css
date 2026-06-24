@@ -442,3 +442,13 @@ dialog footer {
 .print-sheet .muted {
   color: #63736e;
 }
+.login {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+.login .panel {
+  width: min(440px, 100%);
+  padding: 38px;
+}
