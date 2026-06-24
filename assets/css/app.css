@@ -462,3 +462,11 @@ dialog footer {
   width: min(440px, 100%);
   padding: 38px;
 }
+  margin: 0;
+}
+.public-nav nav {
+  display: flex;
+  gap: 19px;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
