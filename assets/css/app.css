@@ -421,3 +421,13 @@ dialog footer {
   gap: 20px;
   align-items: center;
 }
+  background: #edf4ef;
+  color: #40574d;
+}
+.print-sheet td,
+.print-sheet th {
+  border-color: #dce4df;
+}
+.print-sheet .muted {
+  color: #63736e;
+}
