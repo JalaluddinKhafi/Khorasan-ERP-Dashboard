@@ -507,3 +507,14 @@ dialog footer {
   color: var(--muted);
   font-size: 17px;
 }
+  font-size: 38px;
+}
+.hero-art hr {
+  width: 100%;
+  opacity: 0.3;
+}
+.catalog {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
