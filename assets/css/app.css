@@ -462,6 +462,14 @@ dialog footer {
   width: min(440px, 100%);
   padding: 38px;
 }
+  padding: 18px 5%;
+  display: flex;
+  gap: 25px;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.public-nav .brand {
   margin: 0;
 }
 .public-nav nav {
