@@ -462,6 +462,15 @@ dialog footer {
   width: min(440px, 100%);
   padding: 38px;
 }
+.login .fields {
+  grid-template-columns: 1fr;
+}
+.login .brand {
+  justify-content: center;
+}
+.public-nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
   padding: 18px 5%;
   display: flex;
   gap: 25px;
