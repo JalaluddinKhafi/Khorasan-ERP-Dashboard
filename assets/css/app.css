@@ -487,3 +487,13 @@ dialog footer {
   flex-wrap: wrap;
   font-size: 13px;
 }
+  padding: 40px 0 65px;
+}
+.hero h1 {
+  font-size: 43px;
+  line-height: 1.65;
+}
+.hero p {
+  color: var(--muted);
+  font-size: 17px;
+}
