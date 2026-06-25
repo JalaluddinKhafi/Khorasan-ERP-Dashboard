@@ -619,3 +619,13 @@ dialog footer {
   main {
     padding: 20px 16px;
   }
+  .hero {
+    grid-template-columns: 1fr;
+  }
+  .hero {
+    gap: 25px;
+    padding: 10px 0 35px;
+  }
+  .hero h1 {
+    font-size: 31px;
+  }
