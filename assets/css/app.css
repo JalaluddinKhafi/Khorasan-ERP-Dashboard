@@ -640,3 +640,15 @@ dialog footer {
   .hero h1 {
     font-size: 31px;
   }
+  .line-item label:first-child {
+    grid-column: 1/-1;
+  }
+  .catalog {
+    grid-template-columns: 1fr;
+  }
+  .public-nav {
+    gap: 16px;
+  }
+  .public-main {
+    padding: 30px 18px;
+  }
