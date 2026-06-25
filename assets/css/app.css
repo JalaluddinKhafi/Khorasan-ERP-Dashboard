@@ -640,6 +640,18 @@ dialog footer {
   .hero h1 {
     font-size: 31px;
   }
+  .hero-art {
+    min-height: 230px;
+  }
+  .stat {
+    padding: 16px;
+  }
+  .stat strong {
+    font-size: 20px;
+  }
+  .line-item {
+    grid-template-columns: 1fr 1fr;
+  }
   .line-item label:first-child {
     grid-column: 1/-1;
   }
