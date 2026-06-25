@@ -664,6 +664,16 @@ dialog footer {
   .public-main {
     padding: 30px 18px;
   }
+  .print-sheet {
+    padding: 14px;
+  }
+  .topbar .user-name {
+    display: none;
+  }
+}
+@media print {
+  @page {
+    size: A4;
     margin: 12mm;
   }
   :root {
