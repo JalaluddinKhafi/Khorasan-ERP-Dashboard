@@ -596,3 +596,14 @@ dialog footer {
     transform: translateX(100%);
     width: 248px;
     box-shadow: var(--shadow);
+    flex-wrap: wrap;
+  }
+  .topbar .controls {
+    gap: 5px;
+  }
+  .topbar select {
+    width: 90px;
+  }
+  main {
+    padding: 20px 16px;
+  }
