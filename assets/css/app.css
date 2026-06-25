@@ -552,3 +552,14 @@ dialog footer {
   gap: 20px;
   flex-wrap: wrap;
 }
+.bar {
+  height: 9px;
+  border-radius: 10px;
+  background: var(--soft);
+  overflow: hidden;
+}
+.bar i {
+  height: 100%;
+  display: block;
+  background: var(--primary);
+}
