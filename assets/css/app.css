@@ -794,3 +794,26 @@ dialog footer {
     border: 0;
     padding: 27px 16px 20px;
   }
+  .sidebar .brand {
+    color: #f2f6ff;
+    padding: 0 10px 23px;
+    margin: 0 0 23px;
+    border-bottom: 1px solid #ffffff17;
+    font-size: 17px;
+  }
+  .sidebar .brand-mark {
+    background: #ffffff15;
+    color: #fff;
+    border: 1px solid #ffffff25;
+    flex-shrink: 0;
+    border-radius: 12px;
+  }
+  .sidebar .eyebrow {
+    color: #93a8c7;
+    letter-spacing: 1.4px;
+    font-size: 9px;
+    margin-top: 3px;
+  }
+  .sidebar nav {
+    gap: 4px;
+  }
