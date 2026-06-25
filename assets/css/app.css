@@ -664,3 +664,13 @@ dialog footer {
   .public-main {
     padding: 30px 18px;
   }
+    margin: 12mm;
+  }
+  :root {
+    color-scheme: light;
+  }
+  body {
+    background: #fff;
+    color: #111;
+    font-size: 11px;
+  }
