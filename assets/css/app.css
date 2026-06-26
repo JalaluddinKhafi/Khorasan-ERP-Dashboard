@@ -708,3 +708,13 @@ dialog footer {
     padding: 0;
     border-radius: 0;
   }
+  tr,
+  img {
+    break-inside: avoid;
+  }
+  .letterhead {
+    break-inside: avoid;
+  }
+  .stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
