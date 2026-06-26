@@ -769,3 +769,11 @@ dialog footer {
     --sidebar-selected: #453760;
     --sidebar-highlight: #c8b4ff;
   }
+    --primary: #c0a5ff;
+    --soft: #352d50;
+  }
+  .sidebar {
+    background: var(--sidebar-bg);
+    border: 0;
+    padding: 27px 16px 20px;
+  }
