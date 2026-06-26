@@ -926,3 +926,11 @@ dialog footer {
     top: -110px;
     pointer-events: none;
   }
+    position: relative;
+    z-index: 1;
+  }
+  .welcome-calendar > div {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
