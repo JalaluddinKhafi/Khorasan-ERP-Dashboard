@@ -754,3 +754,10 @@ dialog footer {
     --accent: #a5732d;
     --shadow: 0 5px 22px #24375706;
     --sidebar-bg: linear-gradient(175deg, #182c4c 0%, #101d34 100%);
+  }
+  :root[data-accent="purple"] {
+    --primary: #7853bd;
+    --soft: #f1edfc;
+    --sidebar-selected: #453760;
+    --sidebar-highlight: #c8b4ff;
+  }
