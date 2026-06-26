@@ -728,6 +728,15 @@ dialog footer {
   .stats {
     grid-template-columns: repeat(4, 1fr);
   }
+  .stat {
+    border: 1px solid #ddd;
+  }
+  .table-scroll {
+    overflow: visible;
+  }
+  th {
+    background: #eee !important;
+    color: #111 !important;
   }
   button {
     display: none !important;
