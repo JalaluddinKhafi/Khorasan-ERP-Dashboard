@@ -841,3 +841,25 @@ dialog footer {
     border-color: #ffffff0b;
     box-shadow: 0 4px 10px #00000013;
   }
+  .sidebar nav a.active .icon {
+    color: var(--sidebar-highlight);
+  }
+  .sidebar .nav-section {
+    color: #829abb;
+    font-size: 10px;
+    margin: 14px 13px 12px;
+  }
+  .topbar {
+    min-height: 72px;
+  }
+  .page-heading {
+    margin-bottom: 22px;
+  }
+  .page-heading h1 {
+    margin-bottom: 5px;
+    font-size: 25px;
+  }
+  .page-heading p {
+    font-size: 13px;
+    margin-bottom: 0;
+  }
