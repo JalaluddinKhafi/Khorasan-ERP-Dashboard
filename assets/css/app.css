@@ -817,3 +817,15 @@ dialog footer {
   .sidebar nav {
     gap: 4px;
   }
+    flex-shrink: 0;
+  }
+  .sidebar nav a:hover {
+    background: #ffffff09;
+    color: #fff;
+  }
+  .sidebar nav a.active {
+    background: var(--sidebar-selected);
+    color: #fff;
+    border-color: #ffffff0b;
+    box-shadow: 0 4px 10px #00000013;
+  }
