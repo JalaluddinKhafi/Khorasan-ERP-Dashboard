@@ -794,3 +794,14 @@ dialog footer {
     border: 0;
     padding: 27px 16px 20px;
   }
+    border-radius: 12px;
+  }
+  .sidebar .eyebrow {
+    color: #93a8c7;
+    letter-spacing: 1.4px;
+    font-size: 9px;
+    margin-top: 3px;
+  }
+  .sidebar nav {
+    gap: 4px;
+  }
