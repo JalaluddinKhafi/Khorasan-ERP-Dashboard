@@ -926,6 +926,15 @@ dialog footer {
     top: -110px;
     pointer-events: none;
   }
+  .welcome-label {
+    color: #a8caec;
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+  .welcome-banner h2 {
+    font-size: 23px;
+    margin: 0 0 8px;
+  }
   .welcome-banner p {
     margin: 0;
     font-size: 12px;
