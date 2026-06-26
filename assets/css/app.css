@@ -886,6 +886,18 @@ dialog footer {
     margin-bottom: 0;
     font-size: 16px;
   }
+  .panel-head p {
+    margin: 6px 0 0;
+  }
+  th {
+    background: var(--soft);
+    color: var(--muted);
+    font-size: 11px;
+    padding-block: 13px;
+  }
+  td {
+    font-size: 12px;
+    padding-block: 14px;
   }
   tbody tr:last-child td {
     border-bottom: 0;
