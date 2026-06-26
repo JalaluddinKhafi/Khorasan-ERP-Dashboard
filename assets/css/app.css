@@ -817,6 +817,18 @@ dialog footer {
   .sidebar nav {
     gap: 4px;
   }
+  .sidebar nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #b6c6df;
+    padding: 10px 13px;
+    min-height: 43px;
+    border: 1px solid transparent;
+    font-size: 13px;
+  }
+  .sidebar nav a .icon {
+    color: #819cbe;
     flex-shrink: 0;
   }
   .sidebar nav a:hover {
