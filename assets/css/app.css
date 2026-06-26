@@ -769,6 +769,15 @@ dialog footer {
     --sidebar-selected: #453760;
     --sidebar-highlight: #c8b4ff;
   }
+  :root[data-theme="dark"] {
+    --bg: #131d2c;
+    --surface: #1c2a3d;
+    --text: #e5edf8;
+    --muted: #a3b2c8;
+    --line: #2d3d55;
+    --soft: #283b59;
+    --primary: #91b6ff;
+    --accent: #ebbf78;
     --shadow: 0 5px 22px #00000014;
     --sidebar-bg: linear-gradient(175deg, #0d1728, #0c1424);
   }
