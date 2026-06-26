@@ -863,3 +863,26 @@ dialog footer {
     font-size: 13px;
     margin-bottom: 0;
   }
+  .page-heading .eyebrow {
+    font-size: 10px;
+    margin-bottom: 5px;
+  }
+  .icon {
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+  .small {
+    font-size: 12px;
+  }
+  .primary:hover {
+    background: var(--primary);
+    color: var(--surface);
+    filter: brightness(0.94);
+  }
+  .panel-head h2 {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 0;
+    font-size: 16px;
+  }
