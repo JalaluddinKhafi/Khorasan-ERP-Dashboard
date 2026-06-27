@@ -952,3 +952,14 @@ dialog footer {
     align-items: center;
     gap: 9px;
   }
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+    margin-bottom: 23px;
+  }
+  .quick-action {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 17px 16px;
+    background: var(--surface);
