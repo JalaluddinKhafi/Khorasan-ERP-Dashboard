@@ -909,3 +909,20 @@ dialog footer {
     gap: 25px;
     padding: 25px 29px;
     background: linear-gradient(115deg, #17385d, #285d90);
+    border-radius: 16px;
+    color: #fff;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .welcome-banner:after {
+    content: "";
+    width: 260px;
+    height: 260px;
+    border: 40px solid #ffffff06;
+    border-radius: 50%;
+    position: absolute;
+    left: 14%;
+    top: -110px;
+    pointer-events: none;
+  }
