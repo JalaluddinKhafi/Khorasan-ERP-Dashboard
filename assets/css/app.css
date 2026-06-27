@@ -1083,6 +1083,14 @@ dialog footer {
     height: 32px;
     border-radius: 9px;
   }
+    gap: 5px;
+    color: var(--primary);
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .invoice-link {
+    color: var(--primary);
+    font-weight: bold;
     font-variant-numeric: tabular-nums;
   }
   .stock-badge {
