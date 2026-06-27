@@ -1061,3 +1061,14 @@ dialog footer {
   }
   .dashboard-stats .stat strong {
     color: var(--text);
+  .dashboard-tables .panel {
+    min-width: 0;
+    padding: 22px 18px;
+  }
+  .section-icon {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+  }
