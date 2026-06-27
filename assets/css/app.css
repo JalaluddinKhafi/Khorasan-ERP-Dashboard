@@ -1038,6 +1038,18 @@ dialog footer {
     color: #ebbc6a;
     background: #433b2d;
   }
+  :root[data-theme="dark"] .tone-purple {
+    color: #c1a5f6;
+    background: #3c3156;
+  }
+  .dashboard-stats .stat {
+    padding: 19px 20px;
+    border-radius: 13px;
+  }
+  .stat-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 12px;
   }
   .stat-heading .metric-icon {
