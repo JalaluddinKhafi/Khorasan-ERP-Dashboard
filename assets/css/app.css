@@ -1038,3 +1038,14 @@ dialog footer {
     color: #ebbc6a;
     background: #433b2d;
   }
+    gap: 12px;
+  }
+  .stat-heading .metric-icon {
+    width: 35px;
+    height: 35px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+  }
+  .dashboard-stats .stat strong {
+    color: var(--text);
