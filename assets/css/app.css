@@ -1282,6 +1282,14 @@ dialog footer {
     background: var(--soft);
     border-color: var(--primary);
   }
+  .product-upload {
+    display: grid;
+    grid-template-columns: 116px 1fr;
+    gap: 20px;
+    align-items: center;
+    padding: 17px;
+    border: 1px dashed var(--line);
+    border-radius: 11px;
     background: var(--bg);
   }
   .product-upload .detail-image {
