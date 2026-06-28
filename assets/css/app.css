@@ -1217,6 +1217,18 @@ dialog footer {
     display: grid;
     gap: 3px;
   }
+  .product-name b {
+    font-size: 12px;
+  }
+  .product-name span {
+    font-size: 10px;
+  }
+  .stock-figure {
+    font-variant-numeric: tabular-nums;
+    font-weight: bold;
+  }
+  .stock-figure small {
+    font-weight: normal;
     font-size: 10px;
   }
   .status-badge {
