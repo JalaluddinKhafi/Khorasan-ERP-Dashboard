@@ -1169,3 +1169,11 @@ dialog footer {
     gap: 6px;
     min-width: 0;
   }
+    right: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+  }
+  .input-icon > input {
+    padding-right: 37px;
+  }
