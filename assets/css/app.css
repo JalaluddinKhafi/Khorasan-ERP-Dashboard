@@ -1169,6 +1169,14 @@ dialog footer {
     gap: 6px;
     min-width: 0;
   }
+    min-height: 41px;
+    padding: 7px 9px;
+  }
+  .input-icon {
+    position: relative;
+  }
+  .input-icon > .icon {
+    position: absolute;
     right: 11px;
     top: 50%;
     transform: translateY(-50%);
