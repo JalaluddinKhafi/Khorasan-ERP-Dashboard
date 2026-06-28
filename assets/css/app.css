@@ -1194,3 +1194,14 @@ dialog footer {
   .input-icon > input {
     padding-right: 37px;
   }
+  }
+  .image-placeholder {
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+    background: var(--bg);
+  }
+  .product-name {
+    display: grid;
+    gap: 3px;
+  }
