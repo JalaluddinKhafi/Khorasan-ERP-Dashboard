@@ -1262,3 +1262,13 @@ dialog footer {
     color: #b8c3d4;
     background: #334154;
   }
+    color: var(--primary);
+    background: var(--surface);
+  }
+  td button.icon-button.danger {
+    color: var(--danger);
+  }
+  td button.icon-button:hover {
+    background: var(--soft);
+    border-color: var(--primary);
+  }
