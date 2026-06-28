@@ -1282,3 +1282,11 @@ dialog footer {
     background: var(--soft);
     border-color: var(--primary);
   }
+  .product-upload .icon {
+    width: 35px;
+    height: 35px;
+  }
+  .product-upload button {
+    font-size: 11px;
+    padding: 4px 9px;
+  }
