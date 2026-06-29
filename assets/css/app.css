@@ -996,3 +996,25 @@ dialog footer {
   .quick-action small {
     display: block;
     color: var(--muted);
+    font-size: 10px;
+    margin-top: 3px;
+  }
+  .quick-action > .icon {
+    color: var(--muted);
+  }
+  .quick-icon {
+    display: grid;
+    place-items: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    flex-shrink: 0;
+  }
+  .tone-blue {
+    color: #3266cf;
+    background: #ecf2ff;
+  }
+  .tone-green {
+    color: #18886f;
+    background: #eaf7f1;
+  }
