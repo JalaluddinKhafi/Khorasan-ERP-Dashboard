@@ -974,3 +974,25 @@ dialog footer {
     gap: 12px;
     padding: 17px 16px;
     background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    transition:
+      transform 0.16s,
+      border-color 0.16s;
+    min-width: 0;
+  }
+  a.quick-action:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+  }
+  .quick-action > span:nth-child(2) {
+    flex: 1;
+    min-width: 0;
+  }
+  .quick-action b {
+    font-size: 13px;
+    display: block;
+  }
+  .quick-action small {
+    display: block;
+    color: var(--muted);
