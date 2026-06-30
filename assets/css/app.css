@@ -1548,3 +1548,11 @@ dialog footer {
   .catalog-summary > span {
     font-size: 11px;
   }
+    margin: 5px 0 0;
+    font-size: 15px;
+  }
+  .detail-price {
+    padding: 0;
+    margin: 0;
+    border: 0;
+  }
