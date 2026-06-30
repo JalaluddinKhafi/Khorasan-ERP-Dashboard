@@ -1018,3 +1018,23 @@ dialog footer {
     color: #18886f;
     background: #eaf7f1;
   }
+  .tone-amber {
+    color: #aa7423;
+    background: #fff5e4;
+  }
+  .tone-purple {
+    color: #8055bd;
+    background: #f3edfc;
+  }
+  :root[data-theme="dark"] .tone-blue {
+    color: #9abaff;
+    background: #293e62;
+  }
+  :root[data-theme="dark"] .tone-green {
+    color: #77d5af;
+    background: #1e403a;
+  }
+  :root[data-theme="dark"] .tone-amber {
+    color: #ebbc6a;
+    background: #433b2d;
+  }
