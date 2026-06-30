@@ -1461,3 +1461,14 @@ dialog footer {
   .quick-action > .icon {
     display: none;
   }
+  .dashboard-tables {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .welcome-banner {
+    align-items: start;
+    padding: 23px;
+  }
+  .welcome-calendar {
+    min-width: 155px;
+  }
