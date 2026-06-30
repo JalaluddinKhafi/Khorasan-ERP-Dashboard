@@ -1392,3 +1392,14 @@ dialog footer {
   }
   .detail-footer {
     border-top: 1px solid var(--line);
+    font-family: Consolas, monospace;
+  }
+  .category-tree-name {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-inline-start: calc(var(--depth) * 26px);
+  }
+  .category-tree-name small {
+    display: block;
+    color: var(--muted);
