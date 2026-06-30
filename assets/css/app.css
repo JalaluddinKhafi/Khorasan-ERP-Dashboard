@@ -1415,3 +1415,13 @@ dialog footer {
   .category-tree-name small {
     display: block;
     color: var(--muted);
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .count-pill {
+    border-radius: 20px;
+    padding: 4px 11px;
+    color: var(--primary);
+    background: var(--soft);
+    font-size: 11px;
+  }
