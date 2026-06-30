@@ -1483,3 +1483,13 @@ dialog footer {
   .welcome-calendar {
     min-width: 155px;
   }
+    grid-template-columns: 1fr auto;
+    width: 100%;
+    align-items: center;
+  }
+  .welcome-calendar small {
+    grid-column: 1/-1;
+  }
+  .welcome-calendar .welcome-clock time {
+    font-size: 18px;
+  }
