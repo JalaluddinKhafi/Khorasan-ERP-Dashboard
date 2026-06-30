@@ -1504,6 +1504,18 @@ dialog footer {
   .welcome-calendar .welcome-clock time {
     font-size: 18px;
   }
+  .quick-actions {
+    gap: 10px;
+  }
+  .quick-action b {
+    font-size: 12px;
+  }
+  .quick-action small {
+    font-size: 9px;
+  }
+  .quick-icon {
+    width: 36px;
+    height: 36px;
     border-radius: 9px;
   }
   .dashboard-stats .stat {
