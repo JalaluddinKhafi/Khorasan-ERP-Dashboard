@@ -1436,3 +1436,11 @@ dialog footer {
     background: var(--soft);
     font-size: 11px;
   }
+  }
+  .quick-action {
+    padding: 13px 10px;
+    gap: 9px;
+  }
+  .quick-action > .icon {
+    display: none;
+  }
