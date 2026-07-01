@@ -20,3 +20,14 @@ let me,
   saveHandler,
   currentRows = [];
 const routes = [
+  ["price-list", "نرخنامه"],
+  ["expenses", "مصارف"],
+  ["financial-transactions", "امور مالی"],
+  ["reports", "گزارش‌ها"],
+  ["employees", "کارمندان و معاش"],
+  ["users", "حساب‌های کاربری"],
+  ["website-management", "مدیریت وبسایت"],
+  ["messages", "پیام‌ها"],
+  ["settings", "تنظیمات شرکت"],
+  ["audit", "سوابق فعالیت"],
+];
