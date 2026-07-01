@@ -63,3 +63,11 @@ export const today = () =>
     month: "2-digit",
     day: "2-digit",
   }).format(new Date());
+  setTimeout(() => el.remove(), 6000);
+}
+export function downloadCsv(name, rows) {
+  const csv =
+    "\uFEFF" +
+    rows
+      .map((row) =>
+        row
