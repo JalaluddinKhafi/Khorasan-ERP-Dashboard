@@ -18,14 +18,12 @@ export async function fetchData(endpoint, options = {}) {
     location.href = "/dashboard/login.html";
     throw new Error("لطفاً وارد سیستم شوید");
   }
+    );
+  return data;
 }
-
-// دیتابیس محلی با اطلاعات فارسی
-const mockDatabase = {
-    'dashboard/stats': {
-        totalProducts: 248,
-        totalCustomers: 1240,
-        totalSuppliers: 56,
+export const api = fetchData;
+export const send = (path, data, method = "POST") =>
+  api(path, { method, body: JSON.stringify(data) });
 export const esc = (value) =>
   String(value ?? "").replace(
     /[&<>"']/g,
