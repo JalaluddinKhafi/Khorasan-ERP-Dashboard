@@ -2,10 +2,16 @@
 const API_BASE = '/api'; // بعداً http://localhost:8080/api
 
 export async function fetchData(endpoint) {
-    // نمونه fetch واقعی
-    // return fetch(`${API_BASE}/${endpoint}`).then(res => res.json());
-    // در حال حاضر داده‌های نمونه محلی
-    return mockDatabase[endpoint] || [];
+    headers: {
+      "Content-Type": "application/json",
+      ...(csrf ? { [csrf.headerName]: csrf.token } : {}),
+      ...options.headers,
+    },
+  });
+  if (response.status === 401 && !endpoint.startsWith("public/")) {
+    location.href = "/dashboard/login.html";
+    throw new Error("لطفاً وارد سیستم شوید");
+  }
 }
 
 // دیتابیس محلی با اطلاعات فارسی
