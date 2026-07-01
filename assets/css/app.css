@@ -1083,3 +1083,28 @@ dialog footer {
     height: 32px;
     border-radius: 9px;
   }
+  .dashboard-tables .panel-head {
+    gap: 10px;
+  }
+  .dashboard-tables h2 {
+    font-size: 14px;
+  }
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--primary);
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .invoice-link {
+    color: var(--primary);
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+  }
+  .stock-badge {
+    display: inline-block;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 10px;
+  }
