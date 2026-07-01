@@ -79,3 +79,13 @@ export function downloadCsv(name, rows) {
     rows
       .map((row) =>
         row
+      .join("\r\n");
+  const url = URL.createObjectURL(
+    new Blob([csv], { type: "text/csv;charset=utf-8" }),
+  );
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = name + ".csv";
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 500);
+}
