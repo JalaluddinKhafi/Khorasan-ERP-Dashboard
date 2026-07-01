@@ -41,3 +41,14 @@ export const esc = (value) =>
         c
       ],
   );
+        dateStyle: "medium",
+        timeZone: "Asia/Kabul",
+      }).format(new Date(value + "T12:00:00Z"))
+    : "";
+export const today = () =>
+  new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Kabul",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
