@@ -1548,6 +1548,14 @@ dialog footer {
   .catalog-summary > span {
     font-size: 11px;
   }
+    gap: 5px 15px;
+  }
+  .detail-visual .detail-image {
+    width: 110px;
+    height: 110px;
+    grid-row: 1/4;
+  }
+  .detail-visual h3 {
     margin: 5px 0 0;
     font-size: 15px;
   }
