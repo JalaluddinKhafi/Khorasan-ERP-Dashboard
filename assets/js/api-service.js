@@ -18,6 +18,15 @@ export async function fetchData(endpoint, options = {}) {
     location.href = "/dashboard/login.html";
     throw new Error("لطفاً وارد سیستم شوید");
   }
+  let data;
+  try {
+    data = await response.json();
+  } catch {
+    data = {};
+  }
+  if (!response.ok)
+    throw new Error(
+      data.message || "عملیات انجام نشد؛ ارتباط و دسترسی خود را بررسی کنید",
     );
   return data;
 }
