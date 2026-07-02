@@ -286,6 +286,18 @@ async function crud(entity) {
       ...cats.map((c) => [c.id, c.name]),
     ];
   }
+  heading(
+    entity === "products"
+      ? "نرخ‌های اجناس به دالر ثبت می‌شوند. موجودی پس از افتتاحیه از طریق خرید و فروش تغییر می‌کند."
+      : "ثبت، جستجو و مدیریت معلومات",
+    `<button id="add" class="primary">+ ثبت جدید</button>`,
+  );
+  app.insertAdjacentHTML(
+    "beforeend",
+    panel(
+      `<div class="panel-head"><h2>فهرست ${esc(title)}</h2><input id="search" class="search" placeholder="جستجو…" aria-label="جستجو"></div><div id="records"></div>`,
+    ),
+  );
   function draw(q = "") {
     const rows = currentRows.filter((r) =>
       Object.values(r).join(" ").toLowerCase().includes(q.toLowerCase()),
