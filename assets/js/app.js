@@ -197,3 +197,14 @@ const specs = {
       field("name", "نام مشتری"),
       field("phone", "شماره تماس", "tel", { required: false }),
       field("address", "آدرس", "textarea", { required: false }),
+  suppliers: {
+    fields: [
+      field("name", "نام تهیه‌کننده"),
+      field("phone", "شماره تماس", "tel", { required: false }),
+      field("address", "آدرس", "textarea", { required: false }),
+      field("opening_balance", "باقی افتتاحیه (دالر)", "number", {
+        value: 0,
+        min: -999999999999,
+        hint: "مبلغ منفی برای پیش‌پرداخت؛ پس از ثبت قابل تغییر نیست.",
+      }),
+      field("opening_date", "تاریخ افتتاح حساب", "date", { value: today() }),
