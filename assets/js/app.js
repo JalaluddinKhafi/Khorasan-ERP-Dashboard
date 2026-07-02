@@ -264,6 +264,17 @@ const specs = {
   },
   currencies: {
     fields: [
+      field("code", "کد سه حرفی ارز"),
+      field("name", "نام ارز"),
+      field("rate", "تعداد در برابر ۱ دالر", "number", {
+        step: "0.00000001",
+        min: 0.00000001,
+      }),
+    ],
+    headers: ["کد ارز", "نام ارز", "نرخ در برابر دالر"],
+    row: (r) => [esc(r.code), esc(r.name), esc(r.rate)],
+  },
+};
 async function crud(entity) {
   const spec = specs[entity];
   currentRows = await api(entity);
