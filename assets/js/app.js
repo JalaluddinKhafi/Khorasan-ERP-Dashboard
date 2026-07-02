@@ -175,6 +175,17 @@ const specs = {
       field("sale_price", "نرخ فروش (دالر)", "number"),
       field("purchase_price", "نرخ افتتاحیه خرید (دالر)", "number"),
       field("stock", "موجودی افتتاحیه", "number"),
+      field("min_stock", "حداقل موجودی", "number", { value: 5 }),
+      field("active", "فعال", "checkbox", { value: true }),
+    ],
+    headers: ["کد", "نام جنس", "نرخ فروش", "موجودی", "وضعیت"],
+    row: (r) => [
+      esc(r.code),
+      esc(r.name),
+      money(r.sale_price),
+      esc(r.stock) + " " + esc(r.unit),
+      r.active ? "فعال" : "غیرفعال",
+    ],
   },
   categories: {
     fields: [field("name", "نام دسته‌بندی")],
