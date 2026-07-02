@@ -219,3 +219,14 @@ const specs = {
         hint: "مبلغ منفی برای پیش‌پرداخت؛ پس از ثبت قابل تغییر نیست.",
       }),
       field("opening_date", "تاریخ افتتاح حساب", "date", { value: today() }),
+    ],
+    headers: ["کارمند", "وظیفه", "تماس", "معاش ماهانه", "وضعیت"],
+    row: (r) => [
+      esc(r.name),
+      esc(r.position),
+      esc(r.phone),
+      money(r.salary),
+      r.active ? "فعال" : "غیرفعال",
+    ],
+  },
+  users: {
