@@ -65,6 +65,17 @@ const navIcons = {
   settings: "settings",
   audit: "clock",
 };
+const adminPages = new Set([
+  "employees",
+  "users",
+  "website-management",
+  "messages",
+  "settings",
+  "audit",
+  "expenses",
+  "financial-transactions",
+  "reports",
+]);
 const title = routes.find((r) => r[0] === page)?.[1] || "فاکتور";
 function heading(description, buttons = "") {
   app.innerHTML = `<div class="page-heading"><div><div class="eyebrow">امینی گروپ / مدیریت تجارت</div><h1>${esc(title)}</h1><p class="muted">${esc(description)}</p></div><div class="actions no-print">${buttons}</div></div>`;
