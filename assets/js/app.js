@@ -264,3 +264,14 @@ const specs = {
   },
   currencies: {
     fields: [
+async function crud(entity) {
+  const spec = specs[entity];
+  currentRows = await api(entity);
+  let fields = spec.fields.map((f) => ({ ...f }));
+  if (entity === "products") {
+    const cats = await api("categories");
+    fields.find((f) => f.key === "category_id").options = [
+      ["", "بدون دسته‌بندی"],
+      ...cats.map((c) => [c.id, c.name]),
+    ];
+  }
