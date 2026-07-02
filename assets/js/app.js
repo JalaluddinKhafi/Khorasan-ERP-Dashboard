@@ -242,3 +242,14 @@ const specs = {
     ],
   },
   users: {
+    ],
+    headers: ["نام کاربری", "نام کامل", "نقش", "وضعیت"],
+    row: (r) => [
+      esc(r.username),
+      esc(r.name),
+      r.role === "ADMIN" ? "مدیر" : "کارمند",
+      r.active ? "فعال" : "غیرفعال",
+    ],
+  },
+  currencies: {
+    fields: [
