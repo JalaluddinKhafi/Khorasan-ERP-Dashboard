@@ -175,3 +175,14 @@ const specs = {
       field("sale_price", "نرخ فروش (دالر)", "number"),
       field("purchase_price", "نرخ افتتاحیه خرید (دالر)", "number"),
       field("stock", "موجودی افتتاحیه", "number"),
+  },
+  categories: {
+    fields: [field("name", "نام دسته‌بندی")],
+    headers: ["شناسه", "نام"],
+    row: (r) => [r.id, esc(r.name)],
+  },
+  customers: {
+    fields: [
+      field("name", "نام مشتری"),
+      field("phone", "شماره تماس", "tel", { required: false }),
+      field("address", "آدرس", "textarea", { required: false }),
