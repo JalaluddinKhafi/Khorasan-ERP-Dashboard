@@ -154,6 +154,17 @@ const currencyFields = () => [
 function bindRate() {
   const sel = dialog.querySelector("[name=currency]"),
     rate = dialog.querySelector("[name=rate]");
+  if (!sel || !rate) return;
+  const update = () => {
+    rate.value = currencies.find((c) => c.code === sel.value)?.rate || 1;
+    rate.readOnly = sel.value === "USD";
+  };
+  sel.addEventListener("change", update);
+  update();
+}
+const specs = {
+  products: {
+    fields: [
       field("code", "کد جنس"),
       field("name", "نام جنس"),
       field("unit", "واحد", "text", { value: "عدد" }),
