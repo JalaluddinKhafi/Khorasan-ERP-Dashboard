@@ -108,3 +108,14 @@ function edit(title, fields, values, onSave) {
   $("#editor-fields").innerHTML = fields
     .map((f) => renderField(f, values[f.key]))
     .join("");
+  dialog.showModal();
+}
+$("#close-editor").onclick = $("#cancel-editor").onclick = () => dialog.close();
+$("#editor-form").onsubmit = async (e) => {
+  e.preventDefault();
+  const btn = e.target.querySelector("button[type=submit]");
+  btn.disabled = true;
+  $("#editor-error").textContent = "";
+  try {
+    await saveHandler(e.target);
+    await render();
