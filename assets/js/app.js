@@ -42,3 +42,14 @@ const routes = [
   ["settings", "تنظیمات شرکت"],
   ["audit", "سوابق فعالیت"],
 ];
+  "price-list": "sale",
+  expenses: "wallet",
+  "financial-transactions": "chart",
+  reports: "chart",
+  employees: "users",
+  users: "shield",
+  "website-management": "globe",
+  messages: "mail",
+  settings: "settings",
+  audit: "clock",
+};
