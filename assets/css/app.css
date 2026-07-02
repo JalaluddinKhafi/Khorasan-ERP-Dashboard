@@ -1108,3 +1108,26 @@ dialog footer {
     padding: 4px 10px;
     font-size: 10px;
   }
+  .stock-badge.low {
+    background: #fff5df;
+    color: #936313;
+  }
+  .stock-badge.out {
+    background: #fcecf0;
+    color: #b13b51;
+  }
+  :root[data-theme="dark"] .stock-badge.low {
+    background: #443b27;
+    color: #f0c67d;
+  }
+  :root[data-theme="dark"] .stock-badge.out {
+    background: #492c37;
+    color: #ffa7b8;
+  }
+  .catalog-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    margin: 0 0 22px;
+    padding: 15px 20px;
+    background: var(--surface);
