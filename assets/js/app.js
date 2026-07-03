@@ -334,3 +334,11 @@ async function crud(entity) {
           f.readonly ||
           (entity === "currencies" && row.code && f.key === "code"),
       }));
+              : ""),
+          m,
+          row.id || row.code ? "PUT" : "POST",
+        );
+      },
+    );
+  }
+  $("#add").onclick = () => open();
