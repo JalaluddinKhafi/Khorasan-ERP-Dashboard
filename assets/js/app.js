@@ -463,6 +463,17 @@ async function invoices(kind) {
             await render();
           } catch (e) {
             toast(e.message, true);
+          }
+        }
+      }),
+  );
+}
+async function newInvoice(kind) {
+  try {
+    const [parties, products] = await Promise.all([
+      api(kind === "SALE" ? "customers" : "suppliers"),
+      api("products"),
+    ]);
     const active = products.filter((p) => p.active);
     if (!parties.some((p) => p.active) || !active.length) {
       toast("ابتدا حساب و جنس فعال ثبت کنید", true);
