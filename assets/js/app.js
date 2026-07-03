@@ -393,6 +393,15 @@ async function crud(entity) {
     );
   }
 }
+function payroll(employee) {
+  edit(
+    "پرداخت معاش: " + employee.name,
+    [
+      field("employee_id", "کارمند", "select", {
+        options: [[employee.id, employee.name]],
+      }),
+      field("salary_month", "ماه معاش", "month", {
+        value: today().slice(0, 7),
       }),
       field("expense_date", "تاریخ پرداخت", "date", { value: today() }),
       field("amount", "مبلغ معاش", "number", {
