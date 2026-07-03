@@ -373,6 +373,16 @@ async function crud(entity) {
   };
   if (entity === "employees") {
     const expenses = await api("expenses");
+    app.insertAdjacentHTML(
+      "beforeend",
+      panel(
+        "<h2>تاریخچهٔ معاش</h2>" +
+          table(
+            ["کارمند", "ماه معاش", "تاریخ", "مبلغ اصلی", "مبلغ دالر"],
+            expenses
+              .filter((e) => e.employee_id)
+              .map((e) => [
+                esc(e.employee_name),
                 esc(e.salary_month),
                 day(e.expense_date),
                 money(e.amount, e.currency),
