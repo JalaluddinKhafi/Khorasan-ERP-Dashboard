@@ -441,3 +441,14 @@ async function invoices(kind) {
           esc(r.party_name),
           day(r.invoice_date),
           money(r.total, r.currency),
+  );
+  $("#new-invoice").onclick = () => newInvoice(kind);
+  app.querySelectorAll("[data-void]").forEach(
+    (b) =>
+      (b.onclick = async () => {
+        if (confirm("فاکتور لغو و موجودی بازگردانده شود؟")) {
+          try {
+            await api("invoices/" + b.dataset.void, { method: "DELETE" });
+            await render();
+          } catch (e) {
+            toast(e.message, true);
