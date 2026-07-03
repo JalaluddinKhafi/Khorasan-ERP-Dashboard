@@ -373,3 +373,13 @@ async function crud(entity) {
   };
   if (entity === "employees") {
     const expenses = await api("expenses");
+                esc(e.salary_month),
+                day(e.expense_date),
+                money(e.amount, e.currency),
+                money(e.amount_usd),
+              ]),
+          ),
+      ),
+    );
+  }
+}
