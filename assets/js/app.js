@@ -418,3 +418,14 @@ function payroll(employee) {
 }
 async function invoices(kind) {
   const rows = await api("invoices?kind=" + kind);
+          "مبلغ اصلی",
+          "مجموع دالر",
+          "پرداخت مرتبط",
+          "وضعیت",
+          "عملیات",
+        ],
+        rows.map((r) => [
+          r.id,
+          esc(r.party_name),
+          day(r.invoice_date),
+          money(r.total, r.currency),
