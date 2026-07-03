@@ -485,3 +485,12 @@ async function newInvoice(kind) {
         field("party_id", kind === "SALE" ? "مشتری" : "تهیه‌کننده", "select", {
           options: parties.filter((p) => p.active).map((p) => [p.id, p.name]),
         }),
+          price: row.querySelector("[data-price]").value,
+        }));
+        await send("invoices", { ...m, kind, items });
+      },
+    );
+    $("#editor-fields").insertAdjacentHTML(
+      "beforeend",
+      '<div class="wide"><h3>اقلام فاکتور</h3><div id="invoice-items"></div><button type="button" id="add-line">+ افزودن قلم</button><div class="summary"><span>مجموع پس از تخفیف</span><span id="invoice-total"></span></div></div>',
+    );
