@@ -1150,3 +1150,22 @@ dialog footer {
   :root[data-theme="dark"] .warning-text {
     color: #f3c472 !important;
   }
+  .filter-bar {
+    display: grid;
+    grid-template-columns: minmax(180px, 1.6fr) repeat(
+        4,
+        minmax(110px, 1fr)
+      ) auto;
+    gap: 12px;
+    align-items: end;
+    padding: 17px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  .filter-bar label {
+    font-size: 11px;
+    gap: 6px;
+    min-width: 0;
+  }
