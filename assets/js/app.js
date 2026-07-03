@@ -309,6 +309,15 @@ async function crud(entity) {
         `<div class="actions"><button data-edit="${r.id ?? r.code}">ویرایش</button>${entity === "customers" || entity === "suppliers" ? `<a class="button" href="customer-balance.html?id=${r.id}">بیلانس</a>` : ""}${entity === "employees" && r.active ? `<button data-payroll="${r.id}">پرداخت معاش</button>` : ""}${me.role === "ADMIN" && entity !== "currencies" ? `<button class="danger" data-delete="${r.id}">حذف</button>` : ""}</div>`,
       ]),
     );
+  }
+  draw();
+  $("#search").oninput = (e) => draw(e.target.value);
+  function open(row = {}) {
+    if (["customers", "suppliers"].includes(entity))
+      fields.forEach((f) => {
+        if (["opening_balance", "opening_date"].includes(f.key))
+          f.readonly = Boolean(row.id);
+      });
     const fs = fields
       .filter(
         (f) =>
