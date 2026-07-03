@@ -1169,3 +1169,28 @@ dialog footer {
     gap: 6px;
     min-width: 0;
   }
+  .filter-bar input,
+  .filter-bar select {
+    font-size: 11px;
+    min-width: 0;
+    height: 41px;
+    padding: 8px;
+  }
+  .filter-reset {
+    font-size: 10px;
+    min-height: 41px;
+    padding: 7px 9px;
+  }
+  .input-icon {
+    position: relative;
+  }
+  .input-icon > .icon {
+    position: absolute;
+    right: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+  }
+  .input-icon > input {
+    padding-right: 37px;
+  }
