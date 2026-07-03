@@ -309,6 +309,14 @@ async function crud(entity) {
         `<div class="actions"><button data-edit="${r.id ?? r.code}">ویرایش</button>${entity === "customers" || entity === "suppliers" ? `<a class="button" href="customer-balance.html?id=${r.id}">بیلانس</a>` : ""}${entity === "employees" && r.active ? `<button data-payroll="${r.id}">پرداخت معاش</button>` : ""}${me.role === "ADMIN" && entity !== "currencies" ? `<button class="danger" data-delete="${r.id}">حذف</button>` : ""}</div>`,
       ]),
     );
+    const fs = fields
+      .filter(
+        (f) =>
+          !(
+            entity === "products" &&
+            row.id &&
+            ["stock", "purchase_price"].includes(f.key)
+          ),
       )
       .map((f) => ({
         ...f,
