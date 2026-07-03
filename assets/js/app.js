@@ -351,3 +351,14 @@ async function crud(entity) {
     );
   }
   $("#add").onclick = () => open();
+        await render();
+        toast("رکورد حذف شد");
+      } catch (error) {
+        toast(error.message, true);
+      }
+    }
+    if (b.dataset.payroll)
+      payroll(currentRows.find((r) => String(r.id) === b.dataset.payroll));
+  };
+  if (entity === "employees") {
+    const expenses = await api("expenses");
