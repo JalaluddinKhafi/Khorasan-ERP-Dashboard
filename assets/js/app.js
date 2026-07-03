@@ -393,6 +393,14 @@ async function crud(entity) {
     );
   }
 }
+      }),
+      field("expense_date", "تاریخ پرداخت", "date", { value: today() }),
+      field("amount", "مبلغ معاش", "number", {
+        value: employee.salary,
+        min: 0.0001,
+      }),
+      ...currencyFields(),
+      field("notes", "یادداشت", "textarea", { required: false }),
     ],
     {},
     (m) => send("expenses/payroll", { ...m, category: "معاش" }),
