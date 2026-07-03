@@ -393,3 +393,11 @@ async function crud(entity) {
     );
   }
 }
+    ],
+    {},
+    (m) => send("expenses/payroll", { ...m, category: "معاش" }),
+  );
+  bindRate();
+}
+async function invoices(kind) {
+  const rows = await api("invoices?kind=" + kind);
