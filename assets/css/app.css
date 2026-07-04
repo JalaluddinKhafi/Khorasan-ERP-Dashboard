@@ -1194,3 +1194,26 @@ dialog footer {
   .input-icon > input {
     padding-right: 37px;
   }
+  .table-counter {
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .product-thumb {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 9px;
+    border: 1px solid var(--line);
+    display: block;
+    background: var(--bg);
+  }
+  .image-placeholder {
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+    background: var(--bg);
+  }
+  .product-name {
+    display: grid;
+    gap: 3px;
+  }
