@@ -1240,3 +1240,25 @@ dialog footer {
     border-radius: 6px;
     white-space: nowrap;
   }
+  .status-badge i {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .status-badge.is-active {
+    color: #208365;
+    background: #eaf6ef;
+  }
+  .status-badge.is-inactive {
+    color: #7d8392;
+    background: #edf0f4;
+  }
+  :root[data-theme="dark"] .status-badge.is-active {
+    color: #8bdfb9;
+    background: #244438;
+  }
+  :root[data-theme="dark"] .status-badge.is-inactive {
+    color: #b8c3d4;
+    background: #334154;
+  }
