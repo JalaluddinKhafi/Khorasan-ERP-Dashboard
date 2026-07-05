@@ -1262,3 +1262,23 @@ dialog footer {
     color: #b8c3d4;
     background: #334154;
   }
+  .row-actions {
+    display: flex;
+    gap: 6px;
+  }
+  td button.icon-button {
+    width: 31px;
+    height: 31px;
+    padding: 0;
+    border-radius: 7px;
+    border-color: var(--line);
+    color: var(--primary);
+    background: var(--surface);
+  }
+  td button.icon-button.danger {
+    color: var(--danger);
+  }
+  td button.icon-button:hover {
+    background: var(--soft);
+    border-color: var(--primary);
+  }
