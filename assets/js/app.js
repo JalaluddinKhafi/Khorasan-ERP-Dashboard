@@ -621,3 +621,12 @@ async function paymentForm() {
             `<option value="${i.id}">#${i.id} · باقی ${money(Number(i.total_usd) - Number(i.paid_usd))}</option>`,
         )
         .join("");
+  app.insertAdjacentHTML(
+    "beforeend",
+    panel(
+      table(
+        [
+          "رسید",
+          "حساب",
+          "جهت",
+          "تاریخ",
