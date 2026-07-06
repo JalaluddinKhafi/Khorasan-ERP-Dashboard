@@ -1306,3 +1306,22 @@ dialog footer {
     font-size: 11px;
     padding: 4px 9px;
   }
+  .product-upload p {
+    margin: 6px 0 9px;
+  }
+  .product-details-modal {
+    width: min(920px, 94vw);
+  }
+  .product-details-modal header {
+    background: var(--bg);
+  }
+  .product-details-modal .eyebrow {
+    display: block;
+    font-size: 10px;
+  }
+  .product-detail-layout {
+    display: grid;
+    grid-template-columns: 235px minmax(0, 1fr);
+    gap: 28px;
+    padding: 26px;
+  }
