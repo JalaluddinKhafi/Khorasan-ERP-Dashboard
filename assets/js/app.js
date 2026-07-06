@@ -530,6 +530,17 @@ async function newInvoice(kind) {
           Number(kind === "SALE" ? p.sale_price : p.purchase_price) *
           Number(dialog.querySelector("[name=rate]").value)
         ).toFixed(4);
+        calculate();
+      };
+      row.querySelector("select").onchange = updatePrice;
+      row.querySelector("button").onclick = () => {
+        row.remove();
+        calculate();
+      };
+      row.addEventListener("input", calculate);
+      $("#invoice-items").append(row);
+      updatePrice();
+    };
     $("#add-line").onclick = addLine;
     bindRate();
     dialog.querySelector("[name=discount]").oninput = calculate;
