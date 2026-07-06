@@ -530,3 +530,14 @@ async function newInvoice(kind) {
           Number(kind === "SALE" ? p.sale_price : p.purchase_price) *
           Number(dialog.querySelector("[name=rate]").value)
         ).toFixed(4);
+    $("#add-line").onclick = addLine;
+    bindRate();
+    dialog.querySelector("[name=discount]").oninput = calculate;
+    let previousRate = Number(dialog.querySelector("[name=rate]").value);
+    const convert = () => {
+      const rate = Number(dialog.querySelector("[name=rate]").value);
+      if (rate > 0) {
+        dialog
+          .querySelectorAll("[data-price]")
+          .forEach(
+            (input) =>
