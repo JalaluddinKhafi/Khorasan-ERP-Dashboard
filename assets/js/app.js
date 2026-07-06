@@ -504,6 +504,15 @@ async function newInvoice(kind) {
       "beforeend",
       '<div class="wide"><h3>اقلام فاکتور</h3><div id="invoice-items"></div><button type="button" id="add-line">+ افزودن قلم</button><div class="summary"><span>مجموع پس از تخفیف</span><span id="invoice-total"></span></div></div>',
     );
+    const calculate = () => {
+      const total =
+        [...dialog.querySelectorAll(".line-item")].reduce(
+          (s, row) =>
+            s +
+            Number(row.querySelector("[data-quantity]").value) *
+              Number(row.querySelector("[data-price]").value),
+          0,
+        ) - Number(dialog.querySelector("[name=discount]").value);
       $("#invoice-total").textContent = money(
         total,
         dialog.querySelector("[name=currency]").value,
