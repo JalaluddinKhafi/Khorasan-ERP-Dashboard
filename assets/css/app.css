@@ -1282,3 +1282,27 @@ dialog footer {
     background: var(--soft);
     border-color: var(--primary);
   }
+  .product-upload {
+    display: grid;
+    grid-template-columns: 116px 1fr;
+    gap: 20px;
+    align-items: center;
+    padding: 17px;
+    border: 1px dashed var(--line);
+    border-radius: 11px;
+    background: var(--bg);
+  }
+  .product-upload .detail-image {
+    width: 110px;
+    height: 110px;
+    border-radius: 12px;
+    object-fit: contain;
+  }
+  .product-upload .icon {
+    width: 35px;
+    height: 35px;
+  }
+  .product-upload button {
+    font-size: 11px;
+    padding: 4px 9px;
+  }
