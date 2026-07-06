@@ -552,6 +552,14 @@ async function newInvoice(kind) {
           .querySelectorAll("[data-price]")
           .forEach(
             (input) =>
+              (input.value = (
+                (Number(input.value) * rate) /
+                previousRate
+              ).toFixed(4)),
+          );
+        previousRate = rate;
+      }
+      calculate();
     };
     dialog.querySelector("[name=rate]").oninput = convert;
     dialog.querySelector("[name=currency]").addEventListener("change", convert);
