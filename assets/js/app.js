@@ -552,6 +552,14 @@ async function newInvoice(kind) {
           .querySelectorAll("[data-price]")
           .forEach(
             (input) =>
+    };
+    dialog.querySelector("[name=rate]").oninput = convert;
+    dialog.querySelector("[name=currency]").addEventListener("change", convert);
+    addLine();
+  } catch (e) {
+    toast(e.message, true);
+  }
+}
 async function paymentForm() {
   const [customers, suppliers, invoicesSale, invoicesPurchase] =
     await Promise.all([
