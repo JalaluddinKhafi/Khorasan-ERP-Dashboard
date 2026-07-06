@@ -504,3 +504,11 @@ async function newInvoice(kind) {
       "beforeend",
       '<div class="wide"><h3>اقلام فاکتور</h3><div id="invoice-items"></div><button type="button" id="add-line">+ افزودن قلم</button><div class="summary"><span>مجموع پس از تخفیف</span><span id="invoice-total"></span></div></div>',
     );
+      const updatePrice = () => {
+        const p = active.find(
+          (p) => String(p.id) === row.querySelector("select").value,
+        );
+        row.querySelector("[data-price]").value = (
+          Number(kind === "SALE" ? p.sale_price : p.purchase_price) *
+          Number(dialog.querySelector("[name=rate]").value)
+        ).toFixed(4);
