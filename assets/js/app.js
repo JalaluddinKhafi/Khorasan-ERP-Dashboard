@@ -552,3 +552,11 @@ async function newInvoice(kind) {
           .querySelectorAll("[data-price]")
           .forEach(
             (input) =>
+async function paymentForm() {
+  const [customers, suppliers, invoicesSale, invoicesPurchase] =
+    await Promise.all([
+      api("customers"),
+      api("suppliers"),
+      api("invoices?kind=SALE"),
+      api("invoices?kind=PURCHASE"),
+    ]);
