@@ -596,3 +596,11 @@ async function paymentForm() {
               ? "دریافت از مشتری"
               : "پرداخت به تهیه‌کننده"),
         ]),
+      '<option value="">پرداخت عمومی حساب</option>' +
+      inv
+        .filter((i) => String(i.party_id) === sel.value)
+        .map(
+          (i) =>
+            `<option value="${i.id}">#${i.id} · باقی ${money(Number(i.total_usd) - Number(i.paid_usd))}</option>`,
+        )
+        .join("");
