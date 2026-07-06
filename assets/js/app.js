@@ -596,6 +596,14 @@ async function paymentForm() {
               ? "دریافت از مشتری"
               : "پرداخت به تهیه‌کننده"),
         ]),
+    ],
+    {},
+    (m) => send("payments", m),
+  );
+  bindRate();
+  const sel = dialog.querySelector("[name=party_id]");
+  const fill = () => {
+    dialog.querySelector("[name=invoice_id]").innerHTML =
       '<option value="">پرداخت عمومی حساب</option>' +
       inv
         .filter((i) => String(i.party_id) === sel.value)
