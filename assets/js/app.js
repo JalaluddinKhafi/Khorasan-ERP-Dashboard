@@ -596,6 +596,15 @@ async function paymentForm() {
               ? "دریافت از مشتری"
               : "پرداخت به تهیه‌کننده"),
         ]),
+      }),
+      field("invoice_id", "فاکتور مرتبط", "select", {
+        required: false,
+        options: [["", "پرداخت عمومی حساب"]],
+      }),
+      field("payment_date", "تاریخ", "date", { value: today() }),
+      field("amount", "مبلغ پرداخت", "number", { min: 0.0001 }),
+      ...currencyFields(),
+      field("notes", "توضیحات", "textarea", { required: false }),
     ],
     {},
     (m) => send("payments", m),
