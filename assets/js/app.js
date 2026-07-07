@@ -839,3 +839,14 @@ async function inventory(price = false) {
   $("#print").onclick = () => window.print();
   $("#csv").onclick = () =>
     downloadCsv(price ? "price-list" : "inventory", [heads, ...rows]);
+              esc(m.quantity),
+              m.invoice_id ?? "افتتاحیه",
+              esc(m.notes),
+            ]),
+          ),
+      ),
+    );
+  }
+}
+async function expenses() {
+  const rows = await api("expenses");
