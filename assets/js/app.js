@@ -773,6 +773,17 @@ async function balance() {
             "بدهکار",
             "بستانکار",
             "باقی",
+          ],
+          r.rows.map((i) => [
+            day(i.entry_date),
+            i.kind === "OPENING"
+              ? "افتتاحیه"
+              : i.kind === "INVOICE"
+                ? "فاکتور"
+                : "دریافت / پرداخت",
+            i.reference,
+            money(i.original_amount, i.currency),
+            esc(i.rate),
             money(i.debit),
             money(i.credit),
             money(i.balance),
