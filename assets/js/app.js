@@ -727,6 +727,14 @@ async function balance() {
   $("#balance-csv").onclick = () => downloadCsv("statement", csv);
   const load = async () => {
     const form = $("#statement-filter");
+    if (!form.reportValidity()) return;
+    try {
+      const id = form.elements.party_id.value;
+      const r = await api(
+        `statement/${id}?from=${form.elements.from.value}&to=${form.elements.to.value}`,
+      );
+      csv = [
+        [
           "تاریخ",
           "نوع",
           "مرجع",
