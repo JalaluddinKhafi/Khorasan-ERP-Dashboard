@@ -683,6 +683,14 @@ function receipt(r) {
   );
   $("#print").onclick = () => window.print();
 }
+  const r = await api("invoices/" + encodeURIComponent(id));
+  heading("نسخهٔ قابل چاپ فاکتور", printButtons());
+  app.insertAdjacentHTML(
+    "beforeend",
+    `<article class="print-sheet">${letterhead()}<div class="panel-head"><h2>فاکتور ${r.kind === "SALE" ? "فروش" : "خرید"} #${r.id}${r.voided ? " — لغوشده" : ""}</h2><span>${day(r.invoice_date)}</span></div><p><b>${esc(r.party_name)}</b> · ${esc(r.phone)}</p><p>${esc(r.address)}</p><p class="muted">واحد معامله: ${esc(r.currency)} · نرخ تبدیل: ${esc(r.rate)} واحد در برابر ۱ دالر</p>${table(
+      ["شماره", "شرح جنس", "واحد", "تعداد", "نرخ واحد", "مجموع"],
+      r.items.map((i, n) => [
+        n + 1,
         esc(i.name),
         esc(i.unit),
         esc(i.quantity),
