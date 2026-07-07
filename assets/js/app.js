@@ -660,3 +660,14 @@ async function payments(receipts = false) {
       ),
     ),
   );
+function printButtons() {
+  return '<button id="print" class="primary">چاپ / ذخیره PDF</button>';
+}
+function receipt(r) {
+  heading("رسید دریافت و پرداخت", printButtons());
+  app.insertAdjacentHTML(
+    "beforeend",
+    `<article class="print-sheet">${letterhead()}<h2>رسید ${r.kind === "CUSTOMER" ? "دریافت" : "پرداخت"} #${r.id}</h2><p>حساب: ${esc(r.party_name)} · تاریخ: ${day(r.payment_date)}</p>${table(["مبلغ اصلی", "نرخ در برابر دالر", "مبلغ دالر", "فاکتور"], [[money(r.amount, r.currency), esc(r.rate), money(r.amount_usd), r.invoice_id ?? "عمومی"]])}<p class="prose">${esc(r.notes)}</p><div class="signatures"><span>امضای تحویل‌دهنده</span><span>مهر و امضای دریافت‌کننده</span></div></article>`,
+  );
+  $("#print").onclick = () => window.print();
+}
