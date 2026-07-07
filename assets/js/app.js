@@ -683,6 +683,15 @@ function receipt(r) {
   );
   $("#print").onclick = () => window.print();
 }
+async function invoiceView() {
+  const id = new URLSearchParams(location.search).get("id");
+  if (!id) {
+    heading(
+      "برای نمایش فاکتور از فهرست فروش یا خرید انتخاب کنید.",
+      '<a class="button" href="sales.html">فهرست فروش</a>',
+    );
+    return;
+  }
   const r = await api("invoices/" + encodeURIComponent(id));
   heading("نسخهٔ قابل چاپ فاکتور", printButtons());
   app.insertAdjacentHTML(
