@@ -640,3 +640,13 @@ async function payments(receipts = false) {
           "حساب",
           "جهت",
           "تاریخ",
+          day(r.payment_date),
+          money(r.amount, r.currency),
+          esc(r.rate),
+          money(r.amount_usd),
+          r.invoice_id ?? "عمومی",
+          `<button data-receipt="${r.id}">چاپ رسید</button>`,
+        ]),
+      ),
+    ),
+  );
