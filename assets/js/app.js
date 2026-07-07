@@ -727,6 +727,14 @@ async function balance() {
   $("#balance-csv").onclick = () => downloadCsv("statement", csv);
   const load = async () => {
     const form = $("#statement-filter");
+          "تاریخ",
+          "نوع",
+          "مرجع",
+          "واحد اصلی معامله",
+          "مبلغ اصلی",
+          "نرخ",
+          "بدهکار",
+          "بستانکار",
           "باقی",
         ],
         ["", "باقی قبلی", "", "", "", "", "", "", r.opening],
