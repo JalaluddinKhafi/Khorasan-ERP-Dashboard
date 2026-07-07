@@ -727,3 +727,11 @@ async function balance() {
   $("#balance-csv").onclick = () => downloadCsv("statement", csv);
   const load = async () => {
     const form = $("#statement-filter");
+          "باقی",
+        ],
+        ["", "باقی قبلی", "", "", "", "", "", "", r.opening],
+        ...r.rows.map((i) => [
+          i.entry_date,
+          i.kind === "OPENING"
+            ? "افتتاحیه"
+            : i.kind === "INVOICE"
