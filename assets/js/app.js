@@ -795,3 +795,14 @@ async function balance() {
   };
   $("#statement-filter").onsubmit = (e) => {
     e.preventDefault();
+      : "موجودی از ثبت افتتاحیه، خرید، فروش و لغو فاکتور محاسبه می‌شود.",
+    printButtons() + '<button id="csv">CSV / Excel</button>',
+  );
+  const heads = price
+    ? ["کد", "نام جنس", "واحد", "نرخ فروش (دالر)"]
+    : ["کد", "نام جنس", "واحد", "موجودی", "حداقل", "وضعیت"];
+  const rows = products
+    .filter((p) => p.active)
+    .map((p) =>
+      price
+        ? [p.code, p.name, p.unit, p.sale_price]
