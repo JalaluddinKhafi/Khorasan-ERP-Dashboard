@@ -926,6 +926,15 @@ async function reports() {
         outgoing = Number(
           r.cash.find((c) => c.kind === "SUPPLIER")?.total || 0,
         );
+      ];
+      $("#report-result").innerHTML =
+        '<div class="stats">' +
+        csv
+          .slice(1, 5)
+          .map(
+            (r) =>
+              `<div class="stat"><span>${r[0]}</span><strong>${money(r[1])}</strong></div>`,
+          )
           .join("") +
         "</div>" +
         panel(
