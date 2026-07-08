@@ -1017,3 +1017,14 @@ async function dashboard() {
     const now = new Date();
     const dateEl = $("#welcome-date"),
       timeEl = $("#welcome-time");
+    "سربرگ، لوگو و برندها در فاکتور، بیلانس، رسید و نرخنامه استفاده می‌شوند. واحد اصلی همیشه دالر است.",
+  );
+  app.insertAdjacentHTML(
+    "beforeend",
+    panel(
+      `<h2>هویت شرکت و اسناد</h2><form id="settings-form" class="fields">${[
+        field("company_name", "نام شرکت"),
+        field("phone", "شماره‌های تماس", "text", { required: false }),
+        field("address", "آدرس", "textarea", { required: false }),
+        field("brands", "برندها و نمایندگی‌ها", "textarea", {
+          required: false,
