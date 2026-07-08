@@ -1039,3 +1039,11 @@ async function settingsPage() {
         field("address", "آدرس", "textarea", { required: false }),
         field("brands", "برندها و نمایندگی‌ها", "textarea", {
           required: false,
+    $("#" + id + "-upload").onchange = async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      if (
+        file.size > 2 * 1024 * 1024 ||
+        !["image/png", "image/jpeg", "image/webp"].includes(file.type)
+      ) {
+        toast("تصویر PNG، JPEG یا WebP تا ۲ مگابایت انتخاب کنید", true);
