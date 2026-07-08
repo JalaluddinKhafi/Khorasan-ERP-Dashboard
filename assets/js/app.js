@@ -881,3 +881,11 @@ async function expenses() {
       ),
     ),
   );
+    bindRate();
+  };
+}
+async function reports() {
+  heading(
+    "سود از فروش منهای بهای اجناس فروخته‌شده و مصارف محاسبه می‌شود. دریافت و پرداخت جدا گزارش می‌شود.",
+    printButtons(),
+  );
