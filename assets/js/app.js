@@ -1017,6 +1017,17 @@ async function dashboard() {
     const now = new Date();
     const dateEl = $("#welcome-date"),
       timeEl = $("#welcome-time");
+    if (!dateEl || !timeEl) return;
+    dateEl.textContent = dateFormatter.format(now);
+    timeEl.textContent = timeFormatter.format(now);
+    dateEl.dateTime = now.toISOString();
+    timeEl.dateTime = now.toISOString();
+  };
+  updateClock();
+  dashboardClock = setInterval(updateClock, 1000);
+}
+async function settingsPage() {
+  heading(
     "سربرگ، لوگو و برندها در فاکتور، بیلانس، رسید و نرخنامه استفاده می‌شوند. واحد اصلی همیشه دالر است.",
   );
   app.insertAdjacentHTML(
