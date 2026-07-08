@@ -994,3 +994,10 @@ async function dashboard() {
         esc(p.code),
         esc(p.name),
         `<b class="warning-text">${esc(p.stock)} ${esc(p.unit)}</b>`,
+    second: "2-digit",
+    hour12: false,
+  });
+  const updateClock = () => {
+    const now = new Date();
+    const dateEl = $("#welcome-date"),
+      timeEl = $("#welcome-time");
