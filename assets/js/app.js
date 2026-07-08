@@ -926,3 +926,12 @@ async function reports() {
         outgoing = Number(
           r.cash.find((c) => c.kind === "SUPPLIER")?.total || 0,
         );
+          .join("") +
+        "</div>" +
+        panel(
+          "<h2>گزارش مالی به دالر</h2>" +
+            table(
+              ["عنوان", "مبلغ"],
+              csv.slice(1).map((r) => [r[0], money(r[1])]),
+            ),
+        );
