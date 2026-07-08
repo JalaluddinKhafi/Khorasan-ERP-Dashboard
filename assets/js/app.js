@@ -954,6 +954,14 @@ async function reports() {
               csv.slice(1).map((r) => [r[0], money(r[1])]),
             ),
         );
+    } catch (e) {
+      toast(e.message, true);
+    }
+  };
+  $("#report-filter").onsubmit = (e) => {
+    e.preventDefault();
+    load();
+  };
   $("#report-csv").onclick = () => downloadCsv("financial-report", csv);
   $("#print").onclick = () => window.print();
   await load();
