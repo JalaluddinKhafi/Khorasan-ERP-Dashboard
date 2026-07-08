@@ -881,6 +881,15 @@ async function expenses() {
       ),
     ),
   );
+          ]),
+        }),
+        field("amount", "مبلغ", "number", { min: 0.0001 }),
+        ...currencyFields(),
+        field("notes", "شرح", "textarea", { required: false }),
+      ],
+      {},
+      (m) => send("expenses", m),
+    );
     bindRate();
   };
 }
