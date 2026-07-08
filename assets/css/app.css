@@ -1392,3 +1392,26 @@ dialog footer {
   }
   .detail-footer {
     border-top: 1px solid var(--line);
+    padding: 15px 25px;
+    display: flex;
+    justify-content: end;
+  }
+  .profit-value {
+    color: #18856a;
+  }
+  :root[data-theme="dark"] .profit-value {
+    color: #7ad7b6;
+  }
+  .barcode-value {
+    letter-spacing: 1px;
+    font-family: Consolas, monospace;
+  }
+  .category-tree-name {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-inline-start: calc(var(--depth) * 26px);
+  }
+  .category-tree-name small {
+    display: block;
+    color: var(--muted);
