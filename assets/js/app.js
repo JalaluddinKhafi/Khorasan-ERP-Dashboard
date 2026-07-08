@@ -861,3 +861,13 @@ async function inventory(price = false) {
 }
 async function expenses() {
   const rows = await api("expenses");
+          day(r.expense_date),
+          esc(r.category),
+          money(r.amount, r.currency),
+          esc(r.rate),
+          money(r.amount_usd),
+          esc(r.notes),
+        ]),
+      ),
+    ),
+  );
