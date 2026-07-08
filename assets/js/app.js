@@ -972,6 +972,14 @@ async function dashboard() {
   heading("نمای کلی فعالیت‌ها و وضعیت امروز تجارت شما");
         money(r.total_usd),
       ]),
+    )}</section><section class="panel" id="latest-purchases"><div class="panel-head"><h2><span class="section-icon tone-amber">${icon("purchase")}</span>آخرین فاکتورهای خرید</h2><a class="text-link" href="purchases.html">همهٔ خریدها ${icon("arrow", 16)}</a></div>${table(
+      ["شماره", "تهیه‌کننده", "تاریخ", "مبلغ (دالر)"],
+      (d.latestPurchases || []).map((r) => [
+        `<a class="invoice-link" href="sales-invoice.html?id=${r.id}">#${r.id}</a>`,
+        esc(r.name),
+        day(r.invoice_date),
+        money(r.total_usd),
+      ]),
     )}</section></div><section class="panel stock-alert-panel" id="low-stock"><div class="panel-head"><div><h2><span class="section-icon tone-amber">${icon("alert")}</span>هشدار موجودی کالاها</h2><p class="muted small">اجناسی که به حداقل موجودی رسیده‌اند یا ناموجود هستند.</p></div><a class="button" href="purchases.html?new=1">${icon("plus", 17)} ثبت خرید</a></div>${table(
       ["کد کالا", "نام کالا", "موجودی فعلی", "حداقل هشدار", "وضعیت"],
       d.lowStock.map((p) => [
