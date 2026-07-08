@@ -970,3 +970,11 @@ let dashboardClock;
 async function dashboard() {
   const d = await api("dashboard");
   heading("نمای کلی فعالیت‌ها و وضعیت امروز تجارت شما");
+        money(r.total_usd),
+      ]),
+    )}</section></div><section class="panel stock-alert-panel" id="low-stock"><div class="panel-head"><div><h2><span class="section-icon tone-amber">${icon("alert")}</span>هشدار موجودی کالاها</h2><p class="muted small">اجناسی که به حداقل موجودی رسیده‌اند یا ناموجود هستند.</p></div><a class="button" href="purchases.html?new=1">${icon("plus", 17)} ثبت خرید</a></div>${table(
+      ["کد کالا", "نام کالا", "موجودی فعلی", "حداقل هشدار", "وضعیت"],
+      d.lowStock.map((p) => [
+        esc(p.code),
+        esc(p.name),
+        `<b class="warning-text">${esc(p.stock)} ${esc(p.unit)}</b>`,
