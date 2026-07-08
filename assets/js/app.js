@@ -907,3 +907,12 @@ async function reports() {
     "سود از فروش منهای بهای اجناس فروخته‌شده و مصارف محاسبه می‌شود. دریافت و پرداخت جدا گزارش می‌شود.",
     printButtons(),
   );
+      const r = await api(
+        `reports?from=${f.elements.from.value}&to=${f.elements.to.value}`,
+      );
+      const incoming = Number(
+          r.cash.find((c) => c.kind === "CUSTOMER")?.total || 0,
+        ),
+        outgoing = Number(
+          r.cash.find((c) => c.kind === "SUPPLIER")?.total || 0,
+        );
