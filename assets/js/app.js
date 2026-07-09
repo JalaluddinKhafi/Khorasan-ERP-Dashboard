@@ -1215,6 +1215,14 @@ async function contentPage() {
         !["image/png", "image/jpeg", "image/webp"].includes(f.type)
       ) {
         toast("تصویر تا ۲ مگابایت انتخاب کنید", true);
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => (image = reader.result);
+      reader.readAsDataURL(f);
+    };
+  };
+  $("#add-content").onclick = () => open({});
   app
     .querySelectorAll("[data-content]")
     .forEach(
