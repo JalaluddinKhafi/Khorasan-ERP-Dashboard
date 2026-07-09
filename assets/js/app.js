@@ -1172,6 +1172,17 @@ async function contentPage() {
         ["عنوان", "نوع", "وضعیت", "عملیات"],
         rows.map((r) => [
           esc(r.title),
+          kinds[r.kind],
+          r.published ? "منتشرشده" : "پیش‌نویس",
+          `<button data-content="${r.id}">ویرایش</button> <button class="danger" data-remove-content="${r.id}">حذف</button>`,
+        ]),
+      ),
+    ),
+  );
+  const open = (row) => {
+    let image = row.image || "";
+    edit(
+      "محتوای وبسایت",
       [
         field("kind", "نوع محتوا", "select", {
           options: Object.entries(kinds),
