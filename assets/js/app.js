@@ -1083,3 +1083,10 @@ async function settingsPage() {
     try {
       const response = await fetch("../assets/images/amini-letterhead.jpg");
       if (!response.ok) throw new Error("تصویر نمونه دریافت نشد");
+    button.disabled = true;
+    try {
+      settings = await send(
+        "settings",
+        { ...settings, ...Object.fromEntries(new FormData(e.target)) },
+        "PUT",
+      );
