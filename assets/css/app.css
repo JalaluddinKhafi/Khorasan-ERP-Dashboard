@@ -1415,3 +1415,24 @@ dialog footer {
   .category-tree-name small {
     display: block;
     color: var(--muted);
+    font-size: 10px;
+    max-width: 350px;
+    white-space: normal;
+  }
+  .tree-symbol {
+    color: var(--primary);
+    background: var(--soft);
+    border-radius: 7px;
+    width: 29px;
+    height: 29px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .count-pill {
+    border-radius: 20px;
+    padding: 4px 11px;
+    color: var(--primary);
+    background: var(--soft);
+    font-size: 11px;
+  }
