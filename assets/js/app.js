@@ -1172,3 +1172,14 @@ async function contentPage() {
         ["عنوان", "نوع", "وضعیت", "عملیات"],
         rows.map((r) => [
           esc(r.title),
+      [
+        field("kind", "نوع محتوا", "select", {
+          options: Object.entries(kinds),
+        }),
+        field("title", "عنوان"),
+        field("body", "متن", "textarea", { wide: true, max: 20000 }),
+        field("published", "انتشار عمومی", "checkbox"),
+      ],
+      row,
+      async (m) =>
+        send(
