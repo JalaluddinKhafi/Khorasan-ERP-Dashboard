@@ -1194,6 +1194,17 @@ async function contentPage() {
       row,
       async (m) =>
         send(
+          "content" + (row.id ? "/" + row.id : ""),
+          { ...m, image },
+          row.id ? "PUT" : "POST",
+        ),
+    );
+    $("#editor-fields").insertAdjacentHTML(
+      "beforeend",
+      '<label class="wide">تصویر محتوا<input id="content-image" type="file" accept="image/png,image/jpeg,image/webp"><button type="button" id="clear-content-image">حذف تصویر</button></label>',
+    );
+    $("#clear-content-image").onclick = () => {
+      image = "";
       toast("تصویر پس از ذخیره حذف می‌شود");
     };
     $("#content-image").onchange = (e) => {
