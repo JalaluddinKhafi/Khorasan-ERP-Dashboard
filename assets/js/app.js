@@ -1106,3 +1106,13 @@ async function settingsPage() {
         { ...settings, ...Object.fromEntries(new FormData(e.target)) },
         "PUT",
       );
+      '<div class="panel-head"><h2>واحدهای پولی فرعی</h2><button class="primary" id="add-currency">+ افزودن ارز</button></div><p class="muted">نرخ پیشنهادی ارز؛ در هر معامله نرخ مستقل نگهداری می‌شود.</p>' +
+        table(
+          specs.currencies.headers.concat("عملیات"),
+          currencies.map((c) => [
+            ...specs.currencies.row(c),
+            `<button data-currency="${c.code}">ویرایش</button>`,
+          ]),
+        ),
+    ),
+  );
