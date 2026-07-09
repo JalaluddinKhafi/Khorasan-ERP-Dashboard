@@ -1238,3 +1238,14 @@ async function contentPage() {
             await api("content/" + b.dataset.removeContent, {
               method: "DELETE",
             });
+    isAudit
+      ? "آخرین ۵۰۰ فعالیت ثبت‌شده در سیستم"
+      : "پیام‌های واقعی ارسال‌شده از فورم تماس وبسایت",
+  );
+  app.insertAdjacentHTML(
+    "beforeend",
+    panel(
+      table(
+        isAudit
+          ? ["زمان", "کاربر", "عملیات", "مرجع"]
+          : ["نام", "ایمیل", "تماس", "موضوع", "پیام"],
