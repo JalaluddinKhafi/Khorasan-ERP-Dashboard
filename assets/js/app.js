@@ -1063,3 +1063,13 @@ async function settingsPage() {
         !["image/png", "image/jpeg", "image/webp"].includes(file.type)
       ) {
         toast("تصویر PNG، JPEG یا WebP تا ۲ مگابایت انتخاب کنید", true);
+    };
+    $("#remove-" + id).onclick = () => {
+      settings[key] = "";
+      $("#header-preview").innerHTML = letterhead();
+    };
+  }
+  $("#sample-header").onclick = async () => {
+    try {
+      const response = await fetch("../assets/images/amini-letterhead.jpg");
+      if (!response.ok) throw new Error("تصویر نمونه دریافت نشد");
