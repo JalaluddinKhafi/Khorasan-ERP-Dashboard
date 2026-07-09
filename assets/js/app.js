@@ -1303,3 +1303,11 @@ async function render() {
       return payments();
     case "customer-balance":
       return balance();
+    case "audit":
+      return recordsPage();
+    default:
+      heading("صفحه یافت نشد");
+  }
+}
+async function init() {
+  me = await api("me");
