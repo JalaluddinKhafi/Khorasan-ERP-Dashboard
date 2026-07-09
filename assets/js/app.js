@@ -1150,3 +1150,14 @@ async function settingsPage() {
         (b.onclick = () =>
           open(currencies.find((c) => c.code === b.dataset.currency))),
     );
+    service: "خدمت",
+    faq: "پرسش و پاسخ",
+    slider: "بنر",
+  };
+  app.insertAdjacentHTML(
+    "beforeend",
+    panel(
+      table(
+        ["عنوان", "نوع", "وضعیت", "عملیات"],
+        rows.map((r) => [
+          esc(r.title),
