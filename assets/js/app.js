@@ -1215,6 +1215,14 @@ async function contentPage() {
         !["image/png", "image/jpeg", "image/webp"].includes(f.type)
       ) {
         toast("تصویر تا ۲ مگابایت انتخاب کنید", true);
+  app
+    .querySelectorAll("[data-content]")
+    .forEach(
+      (b) =>
+        (b.onclick = () =>
+          open(rows.find((r) => String(r.id) === b.dataset.content))),
+    );
+  app.querySelectorAll("[data-remove-content]").forEach(
     (b) =>
       (b.onclick = async () => {
         if (confirm("محتوا حذف شود؟"))
