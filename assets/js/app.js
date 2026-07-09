@@ -1303,6 +1303,14 @@ async function render() {
       return payments();
     case "customer-balance":
       return balance();
+    case "reports":
+    case "financial-transactions":
+      return reports();
+    case "settings":
+      return settingsPage();
+    case "website-management":
+      return contentPage();
+    case "messages":
     case "audit":
       return recordsPage();
     default:
