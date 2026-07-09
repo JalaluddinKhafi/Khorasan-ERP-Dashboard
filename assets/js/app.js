@@ -1215,3 +1215,10 @@ async function contentPage() {
         !["image/png", "image/jpeg", "image/webp"].includes(f.type)
       ) {
         toast("تصویر تا ۲ مگابایت انتخاب کنید", true);
+    (b) =>
+      (b.onclick = async () => {
+        if (confirm("محتوا حذف شود؟"))
+          try {
+            await api("content/" + b.dataset.removeContent, {
+              method: "DELETE",
+            });
