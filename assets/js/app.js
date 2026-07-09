@@ -1127,3 +1127,10 @@ async function settingsPage() {
         ),
     ),
   );
+  app
+    .querySelectorAll("[data-currency]")
+    .forEach(
+      (b) =>
+        (b.onclick = () =>
+          open(currencies.find((c) => c.code === b.dataset.currency))),
+    );
