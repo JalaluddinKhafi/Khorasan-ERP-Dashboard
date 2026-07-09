@@ -1282,3 +1282,13 @@ async function recordsPage() {
 }
 async function render() {
   clearInterval(dashboardClock);
+      return dashboard();
+    case "sales":
+      return invoices("SALE");
+    case "purchases":
+      return invoices("PURCHASE");
+    case "payments":
+    case "receipts":
+      return payments();
+    case "customer-balance":
+      return balance();
