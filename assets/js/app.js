@@ -1303,6 +1303,14 @@ async function render() {
       return payments();
     case "customer-balance":
       return balance();
+    case "sales-invoice":
+      return invoiceView();
+    case "inventory":
+      return inventory();
+    case "price-list":
+      return inventory(true);
+    case "expenses":
+      return expenses();
     case "reports":
     case "financial-transactions":
       return reports();
