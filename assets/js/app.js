@@ -1083,6 +1083,14 @@ async function settingsPage() {
     try {
       const response = await fetch("../assets/images/amini-letterhead.jpg");
       if (!response.ok) throw new Error("تصویر نمونه دریافت نشد");
+      toast("برای ثبت سربرگ، تنظیمات را ذخیره کنید");
+    } catch (e) {
+      toast(e.message, true);
+    }
+  };
+  $("#settings-form").onsubmit = async (e) => {
+    e.preventDefault();
+    const button = e.target.querySelector("button.primary");
     button.disabled = true;
     try {
       settings = await send(
