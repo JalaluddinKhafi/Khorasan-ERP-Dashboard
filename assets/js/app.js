@@ -1194,3 +1194,13 @@ async function contentPage() {
       row,
       async (m) =>
         send(
+      toast("تصویر پس از ذخیره حذف می‌شود");
+    };
+    $("#content-image").onchange = (e) => {
+      const f = e.target.files[0];
+      if (!f) return;
+      if (
+        f.size > 2 * 1024 * 1024 ||
+        !["image/png", "image/jpeg", "image/webp"].includes(f.type)
+      ) {
+        toast("تصویر تا ۲ مگابایت انتخاب کنید", true);
