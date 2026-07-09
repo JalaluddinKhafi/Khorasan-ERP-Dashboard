@@ -1238,6 +1238,17 @@ async function contentPage() {
             await api("content/" + b.dataset.removeContent, {
               method: "DELETE",
             });
+            await render();
+          } catch (e) {
+            toast(e.message, true);
+          }
+      }),
+  );
+}
+async function recordsPage() {
+  const isAudit = page === "audit",
+    rows = await api(isAudit ? "audit" : "messages");
+  heading(
     isAudit
       ? "آخرین ۵۰۰ فعالیت ثبت‌شده در سیستم"
       : "پیام‌های واقعی ارسال‌شده از فورم تماس وبسایت",
