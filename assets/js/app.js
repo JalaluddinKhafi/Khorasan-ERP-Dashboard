@@ -1127,6 +1127,14 @@ async function settingsPage() {
         ),
     ),
   );
+      async (m) =>
+        send(
+          "currencies" + (c.code ? "/" + c.code : ""),
+          m,
+          c.code ? "PUT" : "POST",
+        ),
+    );
+  $("#add-currency").onclick = () => open({});
   app
     .querySelectorAll("[data-currency]")
     .forEach(
