@@ -1260,3 +1260,14 @@ async function recordsPage() {
         isAudit
           ? ["زمان", "کاربر", "عملیات", "مرجع"]
           : ["نام", "ایمیل", "تماس", "موضوع", "پیام"],
+                esc(r.phone),
+                esc(r.subject),
+                `<div class="prose" style="max-width:400px;white-space:pre-wrap">${esc(r.message)}</div>`,
+              ],
+        ),
+      ),
+    ),
+  );
+}
+async function render() {
+  clearInterval(dashboardClock);
