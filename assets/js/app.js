@@ -1127,6 +1127,14 @@ async function settingsPage() {
         ),
     ),
   );
+  const open = (c) =>
+    edit(
+      "واحد پولی",
+      specs.currencies.fields.map((f) => ({
+        ...f,
+        readonly: Boolean(c.code) && f.key === "code",
+      })),
+      c,
       async (m) =>
         send(
           "currencies" + (c.code ? "/" + c.code : ""),
