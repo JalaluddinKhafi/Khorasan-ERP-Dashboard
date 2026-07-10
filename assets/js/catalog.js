@@ -17,3 +17,10 @@ function hierarchy(categories) {
       .sort((a, b) => a.name.localeCompare(b.name, "fa"));
   const descendants = (id) => {
     const result = new Set([String(id)]);
+      seen = new Set();
+    let node = categories.find((c) => String(c.id) === String(id));
+    while (node && !seen.has(node.id)) {
+      seen.add(node.id);
+      names.unshift(node.name);
+      node = categories.find((c) => String(c.id) === String(node.parent_id));
+    }
