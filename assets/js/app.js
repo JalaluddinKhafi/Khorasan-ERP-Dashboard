@@ -1348,3 +1348,10 @@ async function init() {
       document.documentElement.dataset.theme === "dark" ? "☀ روشن" : "☾ تاریک";
   };
   themeButton();
+      $("#sidebar").classList.remove("open");
+      $("#menu").setAttribute("aria-expanded", "false");
+    }
+  });
+  $("#logout").onclick = async () => {
+    try {
+      await api("logout", { method: "POST" });
