@@ -124,6 +124,14 @@ export async function productsPage(ui) {
             ? Number(a.stock) - Number(b.stock)
             : Number(b.id) - Number(a.id),
     );
+    $("#product-count").textContent =
+      number(rows.length) + " از " + number(products.length) + " جنس";
+    $("#records").innerHTML = table(
+      [
+        "تصویر",
+        "کد کالا / نام کالا",
+        "دسته‌بندی",
+        "قیمت خرید",
         "قیمت فروش",
         "موجودی فعلی",
         "وضعیت",
