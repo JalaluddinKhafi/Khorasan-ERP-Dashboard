@@ -78,6 +78,14 @@ export async function productsPage(ui) {
     "ثبت و مدیریت اجناس، نرخ‌ها و موجودی گدام",
     `<button id="add" class="primary">${icon("plus")} افزودن کالا</button>`,
   );
+  );
+  function draw() {
+    const q = $("#search").value.trim().toLocaleLowerCase("fa"),
+      category = $("#category-filter").value,
+      status = $("#status-filter").value,
+      stock = $("#stock-filter").value,
+      desc =
+        category && category !== "none" ? tree.descendants(category) : null;
     const rows = products.filter(
       (p) =>
         (!q ||
