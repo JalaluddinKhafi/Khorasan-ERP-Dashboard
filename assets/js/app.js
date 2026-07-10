@@ -1371,6 +1371,17 @@ async function init() {
   $("#logout").onclick = async () => {
     try {
       await api("logout", { method: "POST" });
+      location.href = "login.html";
+    } catch (e) {
+      toast(e.message, true);
+    }
+  };
+  await render();
+  const params = new URLSearchParams(location.search);
+  if (params.get("new") === "1") {
+    params.delete("new");
+    history.replaceState(
+      null,
       "",
       location.pathname + (params.size ? "?" + params : "") + location.hash,
     );
