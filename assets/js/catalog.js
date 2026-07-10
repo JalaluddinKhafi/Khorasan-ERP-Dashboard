@@ -17,6 +17,14 @@ function hierarchy(categories) {
       .sort((a, b) => a.name.localeCompare(b.name, "fa"));
   const descendants = (id) => {
     const result = new Set([String(id)]);
+    const visit = (key) =>
+      children(key).forEach((c) => {
+        if (!result.has(String(c.id))) {
+          result.add(String(c.id));
+          visit(c.id);
+        }
+      });
+    visit(id);
     return result;
   };
   const count = (id) =>
