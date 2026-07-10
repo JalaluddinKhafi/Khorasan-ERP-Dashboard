@@ -17,6 +17,14 @@ function hierarchy(categories) {
       .sort((a, b) => a.name.localeCompare(b.name, "fa"));
   const descendants = (id) => {
     const result = new Set([String(id)]);
+    return result;
+  };
+  const count = (id) =>
+    categories
+      .filter((c) => descendants(id).has(String(c.id)))
+      .reduce((sum, c) => sum + Number(c.product_count || 0), 0);
+  const path = (id) => {
+    const names = [],
       seen = new Set();
     let node = categories.find((c) => String(c.id) === String(id));
     while (node && !seen.has(node.id)) {
