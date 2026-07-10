@@ -124,6 +124,14 @@ export async function productsPage(ui) {
             ? Number(a.stock) - Number(b.stock)
             : Number(b.id) - Number(a.id),
     );
+        "قیمت فروش",
+        "موجودی فعلی",
+        "وضعیت",
+        "عملیات",
+      ],
+      rows.map((p) => [
+        thumbnail(p),
+        `<div class="product-name"><b>${esc(p.name)}</b><span class="muted" dir="auto">${esc(p.code)}</span></div>`,
         esc(p.category_id ? tree.path(p.category_id) : "بدون دسته‌بندی"),
         money(p.purchase_price),
         money(p.sale_price),
