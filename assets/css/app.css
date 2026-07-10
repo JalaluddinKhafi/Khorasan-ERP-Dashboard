@@ -1483,3 +1483,24 @@ dialog footer {
   .welcome-calendar {
     min-width: 155px;
   }
+}
+@media screen and (max-width: 760px) {
+  .welcome-banner {
+    flex-direction: column;
+    gap: 19px;
+  }
+  .welcome-banner h2 {
+    font-size: 21px;
+  }
+  .welcome-calendar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    width: 100%;
+    align-items: center;
+  }
+  .welcome-calendar small {
+    grid-column: 1/-1;
+  }
+  .welcome-calendar .welcome-clock time {
+    font-size: 18px;
+  }
