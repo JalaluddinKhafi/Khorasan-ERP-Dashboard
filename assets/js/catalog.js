@@ -40,6 +40,17 @@ function hierarchy(categories) {
       names.unshift(node.name);
       node = categories.find((c) => String(c.id) === String(node.parent_id));
     }
+    return names.join(" / ");
+  };
+  const flattened = [];
+  const walk = (id, depth) =>
+    children(id).forEach((c) => {
+      flattened.push({ ...c, depth });
+      walk(c.id, depth + 1);
+    });
+  walk(null, 0);
+  return { children, descendants, count, path, flattened };
+}
 async function readImage(file) {
   if (
     !["image/png", "image/jpeg", "image/webp"].includes(file.type) ||
