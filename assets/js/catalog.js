@@ -61,6 +61,15 @@ async function readImage(file) {
     );
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () =>
+      reject(new Error("تصویر خوانده نشد؛ دوباره انتخاب کنید."));
+    reader.readAsDataURL(file);
+  });
+}
+export async function productsPage(ui) {
+  const { heading, panel, table, field, edit, me, refresh } = ui;
+  const [products, categories] = await Promise.all([
     api("products"),
     api("categories"),
   ]);
