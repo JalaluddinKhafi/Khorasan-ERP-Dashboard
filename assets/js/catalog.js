@@ -78,3 +78,11 @@ export async function productsPage(ui) {
     "ثبت و مدیریت اجناس، نرخ‌ها و موجودی گدام",
     `<button id="add" class="primary">${icon("plus")} افزودن کالا</button>`,
   );
+    const rows = products.filter(
+      (p) =>
+        (!q ||
+          [p.name, p.code, p.barcode, p.description]
+            .join(" ")
+            .toLocaleLowerCase("fa")
+            .includes(q)) &&
+        (!category ||
