@@ -103,3 +103,13 @@ export async function productsPage(ui) {
             .toLocaleLowerCase("fa")
             .includes(q)) &&
         (!category ||
+    const sort = $("#sort-filter").value;
+    rows.sort((a, b) =>
+      sort === "name"
+        ? a.name.localeCompare(b.name, "fa")
+        : sort === "price"
+          ? Number(a.sale_price) - Number(b.sale_price)
+          : sort === "stock"
+            ? Number(a.stock) - Number(b.stock)
+            : Number(b.id) - Number(a.id),
+    );
