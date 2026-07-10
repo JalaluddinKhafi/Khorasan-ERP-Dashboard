@@ -61,3 +61,11 @@ async function readImage(file) {
     );
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
+    api("products"),
+    api("categories"),
+  ]);
+  const tree = hierarchy(categories);
+  heading(
+    "ثبت و مدیریت اجناس، نرخ‌ها و موجودی گدام",
+    `<button id="add" class="primary">${icon("plus")} افزودن کالا</button>`,
+  );
