@@ -103,6 +103,17 @@ export async function productsPage(ui) {
             .toLocaleLowerCase("fa")
             .includes(q)) &&
         (!category ||
+          (category === "none"
+            ? p.category_id == null
+            : desc.has(String(p.category_id)))) &&
+        (!status || (status === "active" ? p.active : !p.active)) &&
+        (!stock ||
+          (stock === "out"
+            ? Number(p.stock) === 0
+            : stock === "low"
+              ? Number(p.stock) <= Number(p.min_stock)
+              : Number(p.stock) > 0)),
+    );
     const sort = $("#sort-filter").value;
     rows.sort((a, b) =>
       sort === "name"
