@@ -166,6 +166,17 @@ export async function productsPage(ui) {
       field("code", "کد کالا", "text", { max: 60 }),
       field("name", "نام کالا"),
       field("category_id", "دسته‌بندی", "select", {
+        required: false,
+        options: [
+          ["", "بدون دسته‌بندی"],
+          ...tree.flattened
+            .filter((c) => c.active || c.id === row.category_id)
+            .map((c) => [c.id, "— ".repeat(c.depth) + c.name]),
+        ],
+      }),
+      field("unit", "واحد جنس", "text", { value: "عدد", max: 40 }),
+      ...(!row.id
+        ? [
             field("purchase_price", "قیمت خرید افتتاحیه (دالر)", "number", {
               value: 0,
             }),
