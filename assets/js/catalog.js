@@ -293,3 +293,12 @@ function details(p, tree) {
     [
       "بارکد",
       p.barcode
+  modal
+    .querySelectorAll("[data-close]")
+    .forEach((b) => (b.onclick = () => modal.close()));
+  modal.showModal();
+}
+export async function categoriesPage(ui) {
+  const { heading, panel, table, field, edit, me, refresh } = ui;
+  const categories = await api("categories"),
+    tree = hierarchy(categories);
