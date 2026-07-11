@@ -232,6 +232,16 @@ export async function productsPage(ui) {
         { ...row, image },
         true,
       );
+    };
+  }
+  $("#add").onclick = () => open();
+  $("#records").onclick = async (e) => {
+    const button = e.target.closest("button");
+    if (!button) return;
+    const row = products.find(
+      (p) =>
+        String(p.id) ===
+        (button.dataset.edit ||
           button.dataset.details ||
           button.dataset.delete),
     );
