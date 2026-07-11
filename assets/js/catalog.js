@@ -251,6 +251,17 @@ export async function productsPage(ui) {
         details(await api("products/" + row.id), tree);
       } catch (error) {
         toast(error.message, true);
+      }
+    if (
+      button.dataset.delete &&
+      confirm(
+        "جنس «" + row.name + "» حذف شود؟ اجناس دارای معامله حذف نمی‌شوند.",
+      )
+    )
+      try {
+        await api("products/" + row.id, { method: "DELETE" });
+        await refresh();
+        toast("جنس حذف شد");
       } catch (error) {
         toast(error.message, true);
       }
