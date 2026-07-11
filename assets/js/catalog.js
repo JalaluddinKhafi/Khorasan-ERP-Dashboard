@@ -205,6 +205,15 @@ export async function productsPage(ui) {
       "beforeend",
       `<div class="wide product-upload"><div id="product-image-preview">${thumbnail({ ...row, image }, true)}</div><div><label>تصویر جنس<input id="product-image" type="file" accept="image/png,image/jpeg,image/webp"></label><p class="muted small">PNG، JPEG یا WebP؛ حداکثر ۲ مگابایت</p><button type="button" id="remove-product-image" class="danger">حذف تصویر</button></div></div>`,
     );
+              { ...row, image },
+              true,
+            );
+          }
+        })
+        .catch((error) => {
+          toast(error.message, true);
+          e.target.value = "";
+        });
     };
     $("#remove-product-image").onclick = () => {
       imageVersion++;
