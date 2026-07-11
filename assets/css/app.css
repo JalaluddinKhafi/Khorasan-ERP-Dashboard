@@ -1527,3 +1527,24 @@ dialog footer {
   .stat-heading > span:first-child {
     font-size: 11px;
   }
+  .stat-heading .metric-icon {
+    width: 29px;
+    height: 29px;
+  }
+  .filter-bar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 12px;
+  }
+  .filter-search {
+    grid-column: 1/-1;
+  }
+  .filter-reset {
+    align-self: end;
+  }
+  .catalog-summary {
+    gap: 13px;
+    padding: 13px;
+  }
+  .catalog-summary > span {
+    font-size: 11px;
+  }
