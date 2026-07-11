@@ -205,6 +205,15 @@ export async function productsPage(ui) {
       "beforeend",
       `<div class="wide product-upload"><div id="product-image-preview">${thumbnail({ ...row, image }, true)}</div><div><label>تصویر جنس<input id="product-image" type="file" accept="image/png,image/jpeg,image/webp"></label><p class="muted small">PNG، JPEG یا WebP؛ حداکثر ۲ مگابایت</p><button type="button" id="remove-product-image" class="danger">حذف تصویر</button></div></div>`,
     );
+    $("#product-image").onchange = (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const version = ++imageVersion;
+      imageTask = readImage(file)
+        .then((result) => {
+          if (version === imageVersion) {
+            image = result;
+            $("#product-image-preview").innerHTML = thumbnail(
               { ...row, image },
               true,
             );
