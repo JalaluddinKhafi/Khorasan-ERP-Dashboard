@@ -312,3 +312,10 @@ export async function categoriesPage(ui) {
   const { heading, panel, table, field, edit, me, refresh } = ui;
   const categories = await api("categories"),
     tree = hierarchy(categories);
+        ]),
+      )}`,
+    ) +
+      panel(
+        `<div class="panel-head"><div><h2>لیست تمام دسته‌بندی‌ها</h2><p class="muted small">جستجو در نام دسته، والد و توضیحات</p></div><label class="category-search">جستجو<div class="input-icon">${icon("search")}<input id="search" type="search" placeholder="جستجوی دسته‌بندی…" aria-label="جستجوی دسته‌بندی"></div></label></div><div id="category-records"></div>`,
+      ),
+  );
