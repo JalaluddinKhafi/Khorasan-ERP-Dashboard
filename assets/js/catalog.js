@@ -166,3 +166,13 @@ export async function productsPage(ui) {
       field("code", "کد کالا", "text", { max: 60 }),
       field("name", "نام کالا"),
       field("category_id", "دسته‌بندی", "select", {
+            field("purchase_price", "قیمت خرید افتتاحیه (دالر)", "number", {
+              value: 0,
+            }),
+            field("stock", "موجودی افتتاحیه", "number", { value: 0 }),
+          ]
+        : []),
+      field("sale_price", "قیمت فروش (دالر)", "number", { value: 0 }),
+      field("min_stock", "حداقل موجودی هشدار", "number", { value: 5 }),
+      field("barcode", "بارکد", "text", { required: false, max: 100 }),
+      field("active", "وضعیت — فعال", "checkbox", { value: true }),
