@@ -232,3 +232,12 @@ export async function productsPage(ui) {
         { ...row, image },
         true,
       );
+          button.dataset.details ||
+          button.dataset.delete),
+    );
+    if (button.dataset.edit) open(row);
+    if (button.dataset.details)
+      try {
+        details(await api("products/" + row.id), tree);
+      } catch (error) {
+        toast(error.message, true);
