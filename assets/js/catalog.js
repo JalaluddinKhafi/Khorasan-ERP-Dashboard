@@ -251,3 +251,14 @@ export async function productsPage(ui) {
         details(await api("products/" + row.id), tree);
       } catch (error) {
         toast(error.message, true);
+      } catch (error) {
+        toast(error.message, true);
+      }
+  };
+}
+function details(p, tree) {
+  $("#product-details")?.remove();
+  const modal = document.createElement("dialog");
+  modal.id = "product-details";
+  modal.className = "product-details-modal";
+  modal.setAttribute("aria-labelledby", "product-details-title");
