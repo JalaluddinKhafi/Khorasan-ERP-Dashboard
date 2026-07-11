@@ -187,6 +187,15 @@ export async function productsPage(ui) {
       field("min_stock", "حداقل موجودی هشدار", "number", { value: 5 }),
       field("barcode", "بارکد", "text", { required: false, max: 100 }),
       field("active", "وضعیت — فعال", "checkbox", { value: true }),
+      field("description", "توضیحات", "textarea", {
+        required: false,
+        max: 2000,
+        wide: true,
+      }),
+    ];
+    edit(row.id ? "ویرایش جنس" : "افزودن کالا", fields, row, async (m) => {
+      await imageTask;
+      await send(
         "products" + (row.id ? "/" + row.id : ""),
         { ...m, image },
         row.id ? "PUT" : "POST",
