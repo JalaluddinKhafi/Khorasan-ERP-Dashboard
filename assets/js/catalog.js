@@ -273,3 +273,13 @@ function details(p, tree) {
   modal.id = "product-details";
   modal.className = "product-details-modal";
   modal.setAttribute("aria-labelledby", "product-details-title");
+    [
+      "سود هر واحد",
+      `<span class="${profit < 0 ? "error" : "profit-value"}">${money(profit)}</span>`,
+    ],
+    ["موجودی فعلی", number(p.stock) + " " + esc(p.unit)],
+    ["حداقل موجودی هشدار", number(p.min_stock) + " " + esc(p.unit)],
+    ["وضعیت", badge(p.active)],
+    [
+      "بارکد",
+      p.barcode
