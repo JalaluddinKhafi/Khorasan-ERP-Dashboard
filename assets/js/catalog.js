@@ -400,3 +400,12 @@ export async function categoriesPage(ui) {
         String(c.id) ===
         (b.dataset.edit || b.dataset.delete || b.dataset.child),
     );
+      try {
+        await api("categories/" + row.id, { method: "DELETE" });
+        await refresh();
+        toast("دسته‌بندی حذف شد");
+      } catch (error) {
+        toast(error.message, true);
+      }
+  };
+}
