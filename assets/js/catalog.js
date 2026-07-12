@@ -356,6 +356,17 @@ export async function categoriesPage(ui) {
           rowActions(c),
         ]),
     );
+  }
+  draw();
+  $("#search").oninput = draw;
+  function open(row = {}, parent = "") {
+    const excluded = row.id ? tree.descendants(row.id) : new Set();
+    edit(
+      row.id ? "ویرایش دسته‌بندی" : "افزودن دسته‌بندی",
+      [
+        field("name", "نام دسته‌بندی", "text", { max: 160 }),
+        field("parent_id", "دسته والد", "select", {
+          required: false,
           value: parent,
           options: [
             ["", "بدون والد (دسته اصلی)"],
