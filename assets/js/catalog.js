@@ -356,3 +356,13 @@ export async function categoriesPage(ui) {
           rowActions(c),
         ]),
     );
+          value: parent,
+          options: [
+            ["", "بدون والد (دسته اصلی)"],
+            ...tree.flattened
+              .filter((c) => !excluded.has(String(c.id)))
+              .map((c) => [c.id, "— ".repeat(c.depth) + c.name]),
+          ],
+        }),
+        field("description", "توضیحات", "textarea", {
+          required: false,
