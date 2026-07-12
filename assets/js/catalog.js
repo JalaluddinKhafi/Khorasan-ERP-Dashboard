@@ -312,6 +312,14 @@ export async function categoriesPage(ui) {
   const { heading, panel, table, field, edit, me, refresh } = ui;
   const categories = await api("categories"),
     tree = hierarchy(categories);
+  heading(
+    "دسته‌های اصلی و زیرمجموعه‌ها را در یک ساختار منظم مدیریت کنید.",
+    `<button id="add" class="primary">${icon("plus")} افزودن دسته جدید</button>`,
+  );
+  const rowActions = (c, sub = false) =>
+    `<div class="row-actions">${action("edit", "ویرایش", `data-edit="${c.id}"`)}${me.role === "ADMIN" ? action("trash", "حذف", `data-delete="${c.id}"`, true) : ""}${sub ? action("branch", "افزودن زیرمجموعه", `data-child="${c.id}"`) : ""}</div>`;
+  $("#app").insertAdjacentHTML(
+    "beforeend",
     panel(
       `<div class="panel-head"><div><h2>${icon("layers")} دسته‌بندی کالاها</h2><p class="muted small">تعداد اجناس هر شاخه شامل زیرمجموعه‌های آن است.</p></div><span class="table-counter">${number(categories.filter((c) => !c.parent_id).length)} دستهٔ اصلی · ${number(categories.length)} دسته در مجموع</span></div>${table(
         ["نام دسته‌بندی", "تعداد محصولات", "وضعیت", "عملیات"],
