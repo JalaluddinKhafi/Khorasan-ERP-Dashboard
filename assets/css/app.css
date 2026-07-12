@@ -1548,3 +1548,28 @@ dialog footer {
   .catalog-summary > span {
     font-size: 11px;
   }
+  .product-detail-layout {
+    grid-template-columns: 1fr;
+    padding: 17px;
+    gap: 15px;
+  }
+  .detail-visual {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    text-align: right;
+    gap: 5px 15px;
+  }
+  .detail-visual .detail-image {
+    width: 110px;
+    height: 110px;
+    grid-row: 1/4;
+  }
+  .detail-visual h3 {
+    margin: 5px 0 0;
+    font-size: 15px;
+  }
+  .detail-price {
+    padding: 0;
+    margin: 0;
+    border: 0;
+  }
