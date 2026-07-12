@@ -18,6 +18,14 @@ document.querySelector("#login-form").addEventListener("submit", async (e) => {
       throw new Error(
         "نشست ورود منقضی شده است؛ صفحه را تازه کنید و دوباره وارد شوید.",
       );
+    if (
+      r.status === 404 ||
+      !r.headers.get("content-type")?.includes("application/json")
+    ) {
+      throw new Error(
+        "صفحهٔ ورود را از آدرس http://localhost:8082/dashboard/login.html باز کنید و فعال بودن سرور را بررسی کنید.",
+      );
+    }
     if (!r.ok)
       throw new Error(
         "سرویس ورود با مشکل روبه‌رو است؛ کمی بعد دوباره تلاش کنید.",
