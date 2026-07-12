@@ -1573,3 +1573,23 @@ dialog footer {
     margin: 0;
     border: 0;
   }
+  .detail-price strong {
+    font-size: 17px;
+    margin-top: 0;
+  }
+  .detail-price small {
+    font-size: 10px;
+  }
+  .product-upload {
+    grid-template-columns: 80px 1fr;
+    gap: 12px;
+    padding: 12px;
+  }
+  .product-upload .detail-image {
+    width: 75px;
+    height: 75px;
+  }
+  .category-search {
+    width: 100%;
+  }
+}
