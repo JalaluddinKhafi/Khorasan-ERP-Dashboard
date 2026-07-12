@@ -17,8 +17,14 @@ function initProductsPage() {
 
 function loadProducts() {
     // در حالت واقعی: fetch('/api/products')
-    productsData = [...sampleProducts];
-    renderProductsTable();
+        unit: product.unit || product.Unit || 'عدد',
+        status: product.status || product.Status || 'موجود',
+        stock: Number(product.stock ?? product.Stock ?? 0),
+        minStock: Number(product.minStock ?? product.minStock ?? 0),
+        description: product.description || product.Description || '',
+        barcode: product.barcode || product.Barcode || '',
+        image: product.image || product.imageUrl || ''
+    };
 }
 
 function renderProductsTable() {
