@@ -1,3 +1,13 @@
+import { api } from "./api-service.js";
+
+document.querySelector("#login-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const btn = e.target.querySelector("button");
+  btn.disabled = true;
+  document.querySelector("#login-error").textContent = "";
+  try {
+    const csrf = await api("csrf");
+    const r = await fetch("/api/login", {
       method: "POST",
       credentials: "same-origin",
       headers: { [csrf.headerName]: csrf.token },
