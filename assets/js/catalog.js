@@ -377,3 +377,10 @@ export async function categoriesPage(ui) {
         }),
         field("description", "توضیحات", "textarea", {
           required: false,
+    const b = e.target.closest("button");
+    if (!b || b.id === "add") return;
+    const row = categories.find(
+      (c) =>
+        String(c.id) ===
+        (b.dataset.edit || b.dataset.delete || b.dataset.child),
+    );
