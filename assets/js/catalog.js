@@ -377,6 +377,14 @@ export async function categoriesPage(ui) {
         }),
         field("description", "توضیحات", "textarea", {
           required: false,
+          "categories" + (row.id ? "/" + row.id : ""),
+          m,
+          row.id ? "PUT" : "POST",
+        ),
+    );
+  }
+  $("#add").onclick = () => open();
+  $("#app").onclick = async (e) => {
     const b = e.target.closest("button");
     if (!b || b.id === "add") return;
     const row = categories.find(
