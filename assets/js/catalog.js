@@ -377,6 +377,14 @@ export async function categoriesPage(ui) {
         }),
         field("description", "توضیحات", "textarea", {
           required: false,
+          wide: true,
+          max: 1000,
+        }),
+        field("active", "وضعیت — فعال", "checkbox", { value: true }),
+      ],
+      row,
+      (m) =>
+        send(
           "categories" + (row.id ? "/" + row.id : ""),
           m,
           row.id ? "PUT" : "POST",
