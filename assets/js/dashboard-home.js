@@ -128,9 +128,9 @@ function renderLatestTables() {
 // نمونه fetch برای اتصال به API واقعی
 async function fetchDashboardData() {
     try {
-        const response = await fetch('/api/dashboard/stats');
-        const data = await response.json();
-        return data;
+        const response = await fetch('http://localhost:8080/api/dashboard');
+        const payload = await response.json();
+        return payload && payload.data ? payload.data : payload;
     } catch (error) {
         console.log('Using mock data');
         return dashboardData.stats;
