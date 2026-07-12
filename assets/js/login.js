@@ -18,3 +18,11 @@ document.querySelector("#login-form").addEventListener("submit", async (e) => {
       throw new Error(
         "نشست ورود منقضی شده است؛ صفحه را تازه کنید و دوباره وارد شوید.",
       );
+    document.querySelector("#login-error").textContent =
+      error instanceof TypeError
+        ? "ارتباط با سرور برقرار نشد. فعال بودن برنامه و آدرس http://localhost:8082 را بررسی کنید."
+        : error.message;
+  } finally {
+    btn.disabled = false;
+  }
+});
