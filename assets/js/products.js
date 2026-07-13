@@ -34,6 +34,12 @@ function normalizeProduct(product) {
     };
 }
 
+        const payload = await response.json();
+        const result = Array.isArray(payload) ? payload : (payload && payload.data ? payload.data : []);
+        productsData = (result || []).map(normalizeProduct);
+        renderProductsTable();
+}
+
 function renderProductsTable() {
     const tbody = document.getElementById('productsTableBody');
     if (!tbody) return;
