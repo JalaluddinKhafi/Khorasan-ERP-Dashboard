@@ -45,6 +45,12 @@ async function loadProducts() {
         const result = Array.isArray(payload) ? payload : (payload && payload.data ? payload.data : []);
         productsData = (result || []).map(normalizeProduct);
         renderProductsTable();
+        return;
+    } catch (error) {
+        console.warn('Products API unavailable, using sample data', error);
+        productsData = [...sampleProducts];
+        renderProductsTable();
+    }
 }
 
 function renderProductsTable() {
@@ -56,8 +62,8 @@ function renderProductsTable() {
             <td>${p.code}</td>
             <td><img src="${p.image || 'https://via.placeholder.com/50'}" width="50" height="50" style="object-fit: cover; border-radius: 8px;"></td>
             <td>${p.name}</td>
-            <td>${p.category}</td>
-            <td>${p.purchasePrice.toLocaleString()}</td>
+            <td>${p.category?.name || p.category || 'نامشخص'}</td>
+            <td>${Number(p.purchasePrice || 0).toLocaleString()}</td>
             <td>${Number(p.salePrice || 0).toLocaleString()}</td>
             <td>${p.unit}</td>
             <td>${p.stock}</td>
