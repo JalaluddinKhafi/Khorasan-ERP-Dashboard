@@ -180,17 +180,7 @@
                 html += `</div>`;
             }
             
-            return html;
-        }
-        
-        function renderCategoriesTable() {
-            const tbody = document.getElementById('categoriesTableBody');
-            if (!tbody) return;
-            
-            tbody.innerHTML = categoriesData.map(cat => `
-                <tr>
-                    <td>${cat.id}</td>
-                    <td>${cat.name}</td>
+        <p id="editor-error" class="error" role="alert"></p>
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
