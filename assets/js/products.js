@@ -58,7 +58,7 @@ function renderProductsTable() {
             <td>${p.name}</td>
             <td>${p.category}</td>
             <td>${p.purchasePrice.toLocaleString()}</td>
-            <td>${p.salePrice.toLocaleString()}</td>
+            <td>${Number(p.salePrice || 0).toLocaleString()}</td>
             <td>${p.unit}</td>
             <td>${p.stock}</td>
             <td><span class="badge ${p.status === 'موجود' ? 'bg-success' : 'bg-danger'}">${p.status}</span></td>
@@ -100,8 +100,11 @@ function filterProducts() {
     const category = document.getElementById('categoryFilter')?.value || '';
     
     const filtered = productsData.filter(p => {
-        const matchSearch = p.name.toLowerCase().includes(search) || p.code.toLowerCase().includes(search);
-        const matchCategory = !category || p.category === category;
+        const productName = (p.name || '').toLowerCase();
+        const productCode = (p.code || '').toLowerCase();
+        const categoryName = (p.category?.name || p.category || '').toString();
+        const matchSearch = productName.includes(search) || productCode.includes(search);
+        const matchCategory = !category || categoryName === category;
         return matchSearch && matchCategory;
     });
     
@@ -213,7 +216,7 @@ function resetForm() {
 // نمونه fetch برای ذخیره در API
 async function saveProductToAPI(product) {
     try {
-        const response = await fetch('/api/products', {
+        const response = await fetch('http://localhost:8080/api/products', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(product)
