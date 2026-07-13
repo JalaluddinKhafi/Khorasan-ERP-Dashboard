@@ -191,17 +191,7 @@
                 <tr>
                     <td>${cat.id}</td>
                     <td>${cat.name}</td>
-                    <td>${cat.parentName || '---'}</td>
-                    <td>${cat.productCount}</td>
-                    <td>
-                        <button class="btn btn-sm btn-info edit-category-table" data-id="${cat.id}"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-danger delete-category-table" data-id="${cat.id}"><i class="fas fa-trash"></i></button>
-                    </td>
-                </tr>
-            `).join('');
-            
-            if (categoriesTable) categoriesTable.destroy();
-            categoriesTable = $('#categoriesTable').DataTable({
+        <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
