@@ -1,11 +1,23 @@
-// سرویس فرضی برای اتصال به API (آماده جایگزینی با Spring Boot)
-const API_BASE = '/api'; // بعداً http://localhost:8080/api
-
-export async function fetchData(endpoint) {
-    // نمونه fetch واقعی
-    // return fetch(`${API_BASE}/${endpoint}`).then(res => res.json());
-    // در حال حاضر داده‌های نمونه محلی
-    return mockDatabase[endpoint] || [];
+let csrf;
+export async function fetchData(endpoint, options = {}) {
+  if (!csrf || (options.method && options.method !== "GET")) {
+    const r = await fetch("/api/csrf", { credentials: "same-origin" });
+    if (!r.ok) throw new Error("ارتباط با سرور برقرار نشد");
+    csrf = await r.json();
+  }
+  const response = await fetch("/api/" + endpoint.replace(/^\//, ""), {
+    credentials: "same-origin",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...(csrf ? { [csrf.headerName]: csrf.token } : {}),
+      ...options.headers,
+    },
+  });
+  if (response.status === 401 && !endpoint.startsWith("public/")) {
+    location.href = "/dashboard/login.html";
+    throw new Error("لطفاً وارد سیستم شوید");
+  }
 }
 
 // دیتابیس محلی با اطلاعات فارسی
