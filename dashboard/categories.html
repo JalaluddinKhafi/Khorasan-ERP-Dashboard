@@ -159,17 +159,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <i class="fas fa-folder-${children.length > 0 ? 'open' : 'closed'} text-warning me-2"></i>
-                            <span>${category.name}</span>
-                            <span class="category-badge me-2">${category.productCount} محصول</span>
-                            ${category.status === 'inactive' ? '<span class="badge bg-secondary">غیرفعال</span>' : ''}
-                        </div>
-                        <div class="tree-actions">
-                            <button class="btn btn-sm btn-info edit-category" data-id="${category.id}"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-danger delete-category" data-id="${category.id}"><i class="fas fa-trash"></i></button>
-                            <button class="btn btn-sm btn-success add-subcategory" data-id="${category.id}" data-name="${category.name}"><i class="fas fa-plus"></i> زیرمجموعه</button>
-                        </div>
-                    </div>
-                </div>
+        <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
