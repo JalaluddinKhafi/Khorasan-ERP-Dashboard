@@ -138,17 +138,7 @@
             ];
             
             renderCategoryTree();
-            renderCategoriesTable();
-        }
-        
-        function renderCategoryTree() {
-            const container = document.getElementById('categoryTree');
-            if (!container) return;
-            
-            const rootCategories = categoriesData.filter(c => !c.parentId);
-            
-            container.innerHTML = rootCategories.map(cat => buildTreeHTML(cat)).join('');
-        }
+      <form id="editor-form">
         <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
         <footer>
