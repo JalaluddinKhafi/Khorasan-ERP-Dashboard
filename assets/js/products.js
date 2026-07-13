@@ -15,8 +15,15 @@ function initProductsPage() {
     setupEventListeners();
 }
 
-function loadProducts() {
-    // در حالت واقعی: fetch('/api/products')
+function normalizeProduct(product) {
+    return {
+        ...product,
+        id: product.id ?? product.Id ?? Date.now(),
+        code: product.code || product.Code || '',
+        name: product.name || product.Name || '',
+        category: product.category?.name || product.category || product.Category || 'نامشخص',
+        purchasePrice: Number(product.purchasePrice ?? product.purchasePrice ?? 0),
+        salePrice: Number(product.salePrice ?? product.salePrice ?? 0),
         unit: product.unit || product.Unit || 'عدد',
         status: product.status || product.Status || 'موجود',
         stock: Number(product.stock ?? product.Stock ?? 0),
