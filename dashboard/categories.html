@@ -149,16 +149,6 @@
             
             container.innerHTML = rootCategories.map(cat => buildTreeHTML(cat)).join('');
         }
-        
-        function buildTreeHTML(category, level = 0) {
-            const children = categoriesData.filter(c => c.parentId === category.id);
-            const paddingRight = level * 20;
-            
-            let html = `
-                <div class="tree-node" data-id="${category.id}" style="padding-right: ${paddingRight}px;">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <i class="fas fa-folder-${children.length > 0 ? 'open' : 'closed'} text-warning me-2"></i>
         <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
         <footer>
