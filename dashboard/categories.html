@@ -266,16 +266,6 @@
             bootstrap.Modal.getInstance(document.getElementById('categoryModal')).hide();
             resetCategoryForm();
         }
-        
-        function confirmDelete() {
-            if (deleteCategoryId) {
-                categoriesData = categoriesData.filter(c => c.id !== deleteCategoryId);
-                renderCategoryTree();
-                renderCategoriesTable();
-                showToast('دسته‌بندی با موفقیت حذف شد', 'success');
-                bootstrap.Modal.getInstance(document.getElementById('deleteModal')).hide();
-                deleteCategoryId = null;
-            }
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
   </body>
