@@ -276,17 +276,7 @@
                 bootstrap.Modal.getInstance(document.getElementById('deleteModal')).hide();
                 deleteCategoryId = null;
             }
-        }
-        
-        function resetCategoryForm() {
-            document.getElementById('categoryId').value = '';
-            document.getElementById('categoryModalTitle').innerText = 'افزودن دسته‌بندی';
-            document.getElementById('categoryForm').reset();
-        }
-        
-        function addSubcategory(parentId, parentName) {
-            document.getElementById('categoryModalTitle').innerText = `افزودن زیرمجموعه برای ${parentName}`;
-            document.getElementById('categoryId').value = '';
+    </dialog>
     <script type="module" src="../assets/js/app.js"></script>
   </body>
 </html>
