@@ -319,13 +319,4 @@
         
         loadSidebarAndNavbar('categories');
         loadCategories();
-        
-        const originalRenderCategoryTree = renderCategoryTree;
-        window.renderCategoryTree = function() {
-            originalRenderCategoryTree();
-            attachTreeEvents();
-        };
-        window.renderCategoryTree();
-    </script>
-</body>
 </html>
