@@ -287,16 +287,6 @@
         function addSubcategory(parentId, parentName) {
             document.getElementById('categoryModalTitle').innerText = `افزودن زیرمجموعه برای ${parentName}`;
             document.getElementById('categoryId').value = '';
-            document.getElementById('categoryName').value = '';
-            document.getElementById('parentCategory').value = parentId;
-            document.getElementById('categoryDesc').value = '';
-            document.getElementById('categoryStatus').value = 'active';
-            
-            new bootstrap.Modal(document.getElementById('categoryModal')).show();
-        }
-        
-        document.getElementById('saveCategoryBtn')?.addEventListener('click', saveCategory);
-        document.getElementById('confirmDeleteCategoryBtn')?.addEventListener('click', confirmDelete);
-        
+    <script type="module" src="../assets/js/app.js"></script>
   </body>
 </html>
