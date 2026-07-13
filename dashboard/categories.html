@@ -202,16 +202,6 @@
             
             if (categoriesTable) categoriesTable.destroy();
             categoriesTable = $('#categoriesTable').DataTable({
-                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" }
-            });
-            
-            attachTableEvents();
-        }
-        
-        function attachTableEvents() {
-            document.querySelectorAll('.edit-category-table').forEach(btn => {
-                btn.addEventListener('click', () => editCategory(parseInt(btn.dataset.id)));
-            });
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
