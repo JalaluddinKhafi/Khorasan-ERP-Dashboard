@@ -170,16 +170,6 @@
                         </div>
                     </div>
                 </div>
-            `;
-            
-            if (children.length > 0) {
-                html += `<div class="tree-node-children">`;
-                children.forEach(child => {
-                    html += buildTreeHTML(child, level + 1);
-                });
-                html += `</div>`;
-            }
-            
         <p id="editor-error" class="error" role="alert"></p>
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
