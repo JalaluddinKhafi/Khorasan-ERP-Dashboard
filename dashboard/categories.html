@@ -234,16 +234,6 @@
         function showDeleteModal(id) {
             deleteCategoryId = id;
             new bootstrap.Modal(document.getElementById('deleteModal')).show();
-        }
-        
-        function saveCategory() {
-            const id = document.getElementById('categoryId').value;
-            const parentId = document.getElementById('parentCategory').value;
-            
-            const newCategory = {
-                id: id ? parseInt(id) : Date.now(),
-                name: document.getElementById('categoryName').value,
-                parentId: parentId ? parseInt(parentId) : null,
         </footer>
       </form>
     </dialog>
