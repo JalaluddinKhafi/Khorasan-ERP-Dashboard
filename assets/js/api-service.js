@@ -41,3 +41,25 @@ export const esc = (value) =>
         c
       ],
   );
+export const money = (value, currency = "USD") =>
+  "\u2067" +
+  new Intl.NumberFormat("fa-AF", { maximumFractionDigits: 4 }).format(
+    Number(value) || 0,
+  ) +
+  " " +
+  (currency === "USD" ? "دالر" : "\u2066" + esc(currency) + "\u2069") +
+  "\u2069";
+export const day = (value) =>
+  value
+    ? new Intl.DateTimeFormat("fa-AF", {
+        dateStyle: "medium",
+        timeZone: "Asia/Kabul",
+      }).format(new Date(value + "T12:00:00Z"))
+    : "";
+export const today = () =>
+  new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Kabul",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
