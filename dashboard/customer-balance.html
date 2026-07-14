@@ -300,16 +300,6 @@
             data.push(['کل بدهکاری:', totalDebit.toLocaleString() + ' USD']);
             data.push(['کل بستانکاری:', totalCredit.toLocaleString() + ' USD']);
             data.push(['مانده جاری:', (totalDebit - totalCredit).toLocaleString() + ' USD']);
-            data.push(['']);
-            data.push(['ردیف', 'تاریخ', 'شماره مرجع', 'نوع', 'شرح', 'بدهکار', 'بستانکار', 'مانده']);
-            
-            for (var j = 0; j < trans.length; j++) {
-                var t = trans[j];
-                data.push([
-                    t.row, t.date, t.ref,
-                    t.type === 'debit' ? 'بدهکار' : 'بستانکار',
-                    t.desc, t.debit, t.credit, t.balance
-                ]);
-            }
+    <script type="module" src="../assets/js/app.js"></script>
   </body>
 </html>
