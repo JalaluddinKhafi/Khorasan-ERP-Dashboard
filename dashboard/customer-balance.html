@@ -290,16 +290,7 @@
                 ['']
             ];
             
-            var totalDebit = 0, totalCredit = 0;
-            for (var i = 0; i < trans.length; i++) {
-                totalDebit += trans[i].debit;
-                totalCredit += trans[i].credit;
-            }
-            
-            data.push(['خلاصه ارقام']);
-            data.push(['کل بدهکاری:', totalDebit.toLocaleString() + ' USD']);
-            data.push(['کل بستانکاری:', totalCredit.toLocaleString() + ' USD']);
-            data.push(['مانده جاری:', (totalDebit - totalCredit).toLocaleString() + ' USD']);
+    </dialog>
     <script type="module" src="../assets/js/app.js"></script>
   </body>
 </html>
