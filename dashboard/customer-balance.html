@@ -311,14 +311,5 @@
                     t.desc, t.debit, t.credit, t.balance
                 ]);
             }
-            
-            var ws = XLSX.utils.aoa_to_sheet(data);
-            var wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, 'بیلانس مشتری');
-            XLSX.writeFile(wb, 'customer_balance_' + cust.name + '.xlsx');
-        }
-
-        // رویدادها
-        document.getElementById('btnShowBalance').addEventListener('click', showBalance);
-        document.getElementById('btnPrint').addEventListener('click', printReport);
+  </body>
 </html>
