@@ -238,16 +238,7 @@
                         <td>${t.row}</td>
                         <td>${t.date}</td>
                         <td>${t.ref}</td>
-                        <td><span class="badge ${typeClass}">${typeText}</span></td>
-                        <td>${t.desc}</td>
-                        <td class="text-danger">${t.debit > 0 ? t.debit.toLocaleString() : '---'}</td>
-                        <td class="text-success">${t.credit > 0 ? t.credit.toLocaleString() : '---'}</td>
-                        <td class="fw-bold">${t.balance.toLocaleString()}</td>
-                    </tr>
-                `;
-            }
-
-            document.getElementById('footDebit').innerHTML = sumDebit.toLocaleString();
+        <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
