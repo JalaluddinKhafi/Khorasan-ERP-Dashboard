@@ -228,16 +228,7 @@
             var sumDebit = 0, sumCredit = 0;
 
             for (var j = 0; j < trans.length; j++) {
-                var t = trans[j];
-                sumDebit += t.debit;
-                sumCredit += t.credit;
-                var typeText = t.type === 'debit' ? 'بدهکار' : 'بستانکار';
-                var typeClass = t.type === 'debit' ? 'bg-danger' : 'bg-success';
-                tbody.innerHTML += `
-                    <tr>
-                        <td>${t.row}</td>
-                        <td>${t.date}</td>
-                        <td>${t.ref}</td>
+        <p id="editor-error" class="error" role="alert"></p>
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
