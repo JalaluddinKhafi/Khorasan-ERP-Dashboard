@@ -269,17 +269,7 @@
 
         function exportToPDF() {
             var element = document.getElementById('reportContent');
-            html2pdf().from(element).save('customer_balance_' + new Date().toLocaleDateString('fa-IR') + '.pdf');
-        }
-
-        function exportToExcel() {
-            var customerId = document.getElementById('customerSelect').value;
-            if (!customerId) { alert('لطفاً ابتدا یک مشتری انتخاب کنید'); return; }
-            
-            var cust = customers[customerId];
-            var trans = transactions[customerId] || [];
-            
-            var data = [
+        </footer>
       </form>
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
