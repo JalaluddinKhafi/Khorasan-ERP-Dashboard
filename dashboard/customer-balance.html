@@ -248,17 +248,7 @@
             }
 
             document.getElementById('footDebit').innerHTML = sumDebit.toLocaleString();
-            document.getElementById('footCredit').innerHTML = sumCredit.toLocaleString();
-
-            if (currentTable) currentTable.destroy();
-            currentTable = $('#transTable').DataTable({
-                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
-                pageLength: 15,
-                searching: false,
-                order: [[1, 'desc']]
-            });
-
-            document.getElementById('balanceContainer').style.display = 'block';
+          <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
       </form>
