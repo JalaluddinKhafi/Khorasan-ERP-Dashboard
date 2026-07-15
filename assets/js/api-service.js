@@ -63,3 +63,19 @@ export const today = () =>
     month: "2-digit",
     day: "2-digit",
   }).format(new Date());
+export function toast(message, error = false) {
+  document.querySelector(".toast")?.remove();
+  const el = document.createElement("div");
+  el.className = "toast";
+  el.setAttribute("role", "status");
+  el.textContent = message;
+  if (error) el.style.border = "2px solid var(--danger)";
+  document.body.append(el);
+  setTimeout(() => el.remove(), 6000);
+}
+export function downloadCsv(name, rows) {
+  const csv =
+    "\uFEFF" +
+    rows
+      .map((row) =>
+        row
