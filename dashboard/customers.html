@@ -370,13 +370,4 @@
                 customersData = customersData.filter(c => c.id !== id);
                 renderCustomersTable();
                 showToast('مشتری با موفقیت حذف شد', 'success');
-            }
-        }
-        
-        document.getElementById('saveCustomerBtn')?.addEventListener('click', saveCustomer);
-        
-        loadSidebarAndNavbar('customers');
-        loadCustomers();
-    </script>
-</body>
 </html>
