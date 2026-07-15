@@ -338,16 +338,6 @@
                 nationalId: document.getElementById('customerNationalId').value,
                 creditLimit: parseInt(document.getElementById('customerCreditLimit').value) || 0,
                 debt: id ? customersData.find(c => c.id === parseInt(id))?.debt || 0 : 0,
-                totalPurchases: id ? customersData.find(c => c.id === parseInt(id))?.totalPurchases || 0 : 0
-            };
-            
-            if (id) {
-                const index = customersData.findIndex(c => c.id === parseInt(id));
-                if (index !== -1) {
-                    customersData[index] = { ...customersData[index], ...customer };
-                }
-                showToast('مشتری با موفقیت ویرایش شد', 'success');
-            } else {
-                customersData.push(customer);
+    <script type="module" src="../assets/js/app.js"></script>
   </body>
 </html>
