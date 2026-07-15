@@ -197,16 +197,7 @@
                 alert('لطفاً مشتری را انتخاب کنید');
                 return;
             }
-
-            var cust = customers[customerId];
-            var trans = transactions[customerId] || [];
-
-            document.getElementById('custOrderBy').innerHTML = cust.orderBy || '-';
-            document.getElementById('custCode').innerHTML = cust.code;
-            document.getElementById('custName').innerHTML = cust.name;
-            document.getElementById('custPhone').innerHTML = cust.phone;
-            document.getElementById('custAddress').innerHTML = cust.address;
-
+      </header>
       <form id="editor-form">
         <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
