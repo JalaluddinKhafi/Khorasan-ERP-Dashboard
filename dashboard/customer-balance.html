@@ -207,16 +207,7 @@
             document.getElementById('custPhone').innerHTML = cust.phone;
             document.getElementById('custAddress').innerHTML = cust.address;
 
-            var totalDebit = 0, totalCredit = 0;
-            for (var i = 0; i < trans.length; i++) {
-                totalDebit += trans[i].debit;
-                totalCredit += trans[i].credit;
-            }
-            var balance = totalDebit - totalCredit;
-
-            document.getElementById('totalDebit').innerHTML = totalDebit.toLocaleString() + ' USD';
-            document.getElementById('totalCredit').innerHTML = totalCredit.toLocaleString() + ' USD';
-            document.getElementById('currentBalance').innerHTML = balance.toLocaleString() + ' USD';
+      <form id="editor-form">
         <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
         <footer>
