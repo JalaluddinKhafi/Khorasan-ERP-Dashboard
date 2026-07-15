@@ -359,15 +359,5 @@
         
         function resetCustomerForm() {
             document.getElementById('customerId').value = '';
-            document.getElementById('customerForm').reset();
-            document.getElementById('customerCreditLimit').value = '0';
-            currentCustomerId = null;
-        }
-        
-        function deleteCustomer(id) {
-            const customer = customersData.find(c => c.id === id);
-            if (confirm(`آیا از حذف مشتری "${customer?.name}" اطمینان دارید؟`)) {
-                customersData = customersData.filter(c => c.id !== id);
-                renderCustomersTable();
-                showToast('مشتری با موفقیت حذف شد', 'success');
+  </body>
 </html>
