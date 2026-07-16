@@ -328,16 +328,6 @@
             const id = document.getElementById('customerId').value;
             
             const customer = {
-                id: id ? parseInt(id) : Date.now(),
-                code: id ? customersData.find(c => c.id === parseInt(id))?.code : `C-${Date.now()}`,
-                name: document.getElementById('customerName').value,
-                type: document.getElementById('customerType').value,
-                phone: document.getElementById('customerPhone').value,
-                email: document.getElementById('customerEmail').value,
-                address: document.getElementById('customerAddress').value,
-                nationalId: document.getElementById('customerNationalId').value,
-                creditLimit: parseInt(document.getElementById('customerCreditLimit').value) || 0,
-                debt: id ? customersData.find(c => c.id === parseInt(id))?.debt || 0 : 0,
     <script type="module" src="../assets/js/app.js"></script>
   </body>
 </html>
