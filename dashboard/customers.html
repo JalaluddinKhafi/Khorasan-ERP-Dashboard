@@ -222,16 +222,7 @@
             
             const tbody = document.getElementById('customersTableBody');
             if (tbody) {
-                tbody.innerHTML = filtered.map(c => `
-                    <tr>
-                        <td>${c.code}</td>
-                        <td>${c.name}</td>
-                        <td><span class="badge ${c.type === 'حقوقی' ? 'bg-info' : 'bg-success'}">${c.type}</span></td>
-                        <td>${c.phone}</td>
-                        <td>${c.email}</td>
-                        <td class="${c.debt > 0 ? 'text-danger fw-bold' : 'text-success'}">${c.debt.toLocaleString()} تومان</td>
-                        <td>${c.totalPurchases}</td>
-                        <td>
+        <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
