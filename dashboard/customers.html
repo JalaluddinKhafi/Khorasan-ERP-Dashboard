@@ -211,17 +211,6 @@
         }
         
         function filterCustomers() {
-            const searchTerm = document.getElementById('searchCustomer')?.value.toLowerCase() || '';
-            const type = document.getElementById('customerTypeFilter')?.value || 'all';
-            
-            const filtered = customersData.filter(c => {
-                const matchSearch = c.name.toLowerCase().includes(searchTerm) || c.phone.includes(searchTerm);
-                const matchType = type === 'all' || c.type === type;
-                return matchSearch && matchType;
-            });
-            
-            const tbody = document.getElementById('customersTableBody');
-            if (tbody) {
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
