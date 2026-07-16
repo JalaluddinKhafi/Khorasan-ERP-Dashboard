@@ -306,17 +306,6 @@
                         <td>${p.amount.toLocaleString()} تومان</td>
                         <td><span class="badge ${p.status === 'پرداخت شده' ? 'bg-success' : 'bg-warning'}">${p.status}</span></td>
                     </tr>
-                `).join('');
-            }
-            
-            const paymentBody = document.getElementById('paymentHistoryBody');
-            if (paymentBody) {
-                paymentBody.innerHTML = paymentHistory.map(p => `
-                    <tr>
-                        <td>${p.date}</td>
-                        <td>${p.amount.toLocaleString()} تومان</td>
-                        <td>${p.method}</td>
-                        <td>${p.tracking}</td>
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
   </body>
