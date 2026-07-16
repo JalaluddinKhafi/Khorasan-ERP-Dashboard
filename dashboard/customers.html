@@ -285,17 +285,6 @@
                         <p><strong>شماره تماس:</strong> ${customer.phone}</p>
                         <p><strong>ایمیل:</strong> ${customer.email}</p>
                     </div>
-                    <div class="col-md-4">
-                        <p><strong>بدهی جاری:</strong> <span class="text-danger">${customer.debt.toLocaleString()} تومان</span></p>
-                        <p><strong>سقف اعتبار:</strong> ${customer.creditLimit.toLocaleString()} تومان</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <p><strong>آدرس:</strong> ${customer.address || '---'}</p>
-                    </div>
-                </div>
-            `;
       </form>
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
