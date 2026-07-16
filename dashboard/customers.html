@@ -243,16 +243,6 @@
         }
         
         function editCustomer(id) {
-            const customer = customersData.find(c => c.id === id);
-            if (!customer) return;
-            
-            currentCustomerId = id;
-            document.getElementById('customerId').value = customer.id;
-            document.getElementById('customerName').value = customer.name;
-            document.getElementById('customerType').value = customer.type;
-            document.getElementById('customerPhone').value = customer.phone;
-            document.getElementById('customerEmail').value = customer.email;
-            document.getElementById('customerAddress').value = customer.address || '';
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
       </form>
