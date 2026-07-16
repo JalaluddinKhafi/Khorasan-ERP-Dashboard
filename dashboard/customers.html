@@ -253,17 +253,7 @@
             document.getElementById('customerPhone').value = customer.phone;
             document.getElementById('customerEmail').value = customer.email;
             document.getElementById('customerAddress').value = customer.address || '';
-            document.getElementById('customerNationalId').value = customer.nationalId;
-            document.getElementById('customerCreditLimit').value = customer.creditLimit;
-            
-            new bootstrap.Modal(document.getElementById('customerModal')).show();
-        }
-        
-        function viewCustomerDetails(id) {
-            const customer = customersData.find(c => c.id === id);
-            if (!customer) return;
-            
-            // نمونه داده‌های تاریخچه خرید و پرداخت
+          ><button type="submit" class="primary">ذخیره</button>
         </footer>
       </form>
     </dialog>
