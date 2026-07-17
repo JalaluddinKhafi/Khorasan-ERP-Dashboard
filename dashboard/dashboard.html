@@ -428,17 +428,6 @@
                         <td>${p.amount.toLocaleString()} تومان</td>
                         <td>${p.date}</td>
                         <td><span class="badge ${p.status === 'پرداخت شده' ? 'bg-success' : (p.status === 'پرداخت جزئی' ? 'bg-warning' : 'bg-danger')}">${p.status}</span></td>
-                    </tr>
-                `).join('');
-            }
-        }
-
-        // رندر هشدار موجودی کم
-        function renderLowStockAlert() {
-            const container = document.getElementById('lowStockAlert');
-            if (lowStockProducts.length === 0) {
-                container.innerHTML = '<div class="text-center text-muted py-3">همه محصولات دارای موجودی مناسب هستند</div>';
-                return;
     <script type="module" src="../assets/js/app.js"></script>
   </body>
 </html>
