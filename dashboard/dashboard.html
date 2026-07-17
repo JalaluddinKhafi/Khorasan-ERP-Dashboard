@@ -407,17 +407,7 @@
         function renderLatestTables() {
             const salesBody = document.querySelector('#latestSalesTable tbody');
             const purchasesBody = document.querySelector('#latestPurchasesTable tbody');
-            
-            if (salesBody) {
-                salesBody.innerHTML = latestSales.map(s => `
-                    <tr>
-                        <td>${s.id}</td>
-                        <td>${s.customer}</td>
-                        <td>${s.amount.toLocaleString()} تومان</td>
-                        <td>${s.date}</td>
-                        <td><span class="badge ${s.status === 'پرداخت شده' ? 'bg-success' : 'bg-warning'}">${s.status}</span></td>
-                    </tr>
-                `).join('');
+      </form>
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
   </body>
