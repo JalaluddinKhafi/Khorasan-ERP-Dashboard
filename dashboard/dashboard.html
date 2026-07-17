@@ -439,15 +439,6 @@
             if (lowStockProducts.length === 0) {
                 container.innerHTML = '<div class="text-center text-muted py-3">همه محصولات دارای موجودی مناسب هستند</div>';
                 return;
-            }
-            
-            container.innerHTML = `
-                <div class="table-responsive">
-                    <table class="table table-sm">
-                        <thead>
-                            <tr><th>کد کالا</th><th>نام کالا</th><th>دسته‌بندی</th><th>موجودی فعلی</th><th>حداقل مجاز</th><th>وضعیت</th><th>عملیات</th></tr>
-                        </thead>
-                        <tbody>
-                            ${lowStockProducts.map(p => `
+    <script type="module" src="../assets/js/app.js"></script>
   </body>
 </html>
