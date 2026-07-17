@@ -65,3 +65,24 @@ const navIcons = {
   settings: "settings",
   audit: "clock",
 };
+const adminPages = new Set([
+  "employees",
+  "users",
+  "website-management",
+  "messages",
+  "settings",
+  "audit",
+  "expenses",
+  "financial-transactions",
+  "reports",
+]);
+const title = routes.find((r) => r[0] === page)?.[1] || "فاکتور";
+function heading(description, buttons = "") {
+  app.innerHTML = `<div class="page-heading"><div><div class="eyebrow">امینی گروپ / مدیریت تجارت</div><h1>${esc(title)}</h1><p class="muted">${esc(description)}</p></div><div class="actions no-print">${buttons}</div></div>`;
+}
+function table(headers, rows) {
+  return `<div class="table-scroll"><table><thead><tr>${headers.map((h) => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${rows.length ? rows.map((r) => `<tr>${r.map((c) => `<td>${c ?? ""}</td>`).join("")}</tr>`).join("") : `<tr><td colspan="${headers.length}" class="empty">هنوز معلوماتی ثبت نشده است.</td></tr>`}</tbody></table></div>`;
+}
+function panel(content) {
+  return `<section class="panel">${content}</section>`;
+}
