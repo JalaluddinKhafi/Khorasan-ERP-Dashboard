@@ -449,16 +449,5 @@
                         </thead>
                         <tbody>
                             ${lowStockProducts.map(p => `
-                                <tr>
-                                    <td>${p.code}</td>
-                                    <td>${p.name}</td>
-                                    <td>${p.category}</td>
-                                    <td class="text-danger fw-bold">${p.stock}</td>
-                                    <td>${p.minStock}</td>
-                                    <td><span class="badge bg-warning text-dark">نیاز به سفارش</span></td>
-                                    <td><button class="btn btn-sm btn-primary" onclick="alert('سفارش ثبت شد')">ثبت سفارش</button></td>
-                                </tr>
-                            `).join('')}
-                        </tbody>
   </body>
 </html>
