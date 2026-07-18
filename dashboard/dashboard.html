@@ -376,16 +376,6 @@
                             <i class="fas fa-arrow-${p.growth >= 0 ? 'up' : 'down'}"></i> ${Math.abs(p.growth)}%
                         </small>
                     </div>
-                </div>
-                <div class="percentage-bar mb-3">
-                    <div class="percentage-fill" style="width: ${(p.sales / maxSales) * 100}%"></div>
-                </div>
-            `).join('');
-        }
-
-        // رندر فعالیت‌های اخیر
-        function renderRecentActivities() {
-            const container = document.getElementById('activityTimeline');
         </footer>
       </form>
     </dialog>
