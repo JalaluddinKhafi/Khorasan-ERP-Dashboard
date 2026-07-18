@@ -292,17 +292,7 @@
                         </div>
                     </div>
                 </div>
-            `).join('');
-            
-            row2.innerHTML = stats2.map(s => `
-                <div class="col-xl-2 col-md-4 col-sm-6">
-                    <div class="stat-card-dashboard">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="stat-icon ${s.color}"><i class="${s.icon}"></i></div>
-                            <div class="text-end">
-                                <h3 class="mb-0">${s.isPrice ? (s.value / 1000000).toFixed(1) + 'M' : s.value.toLocaleString()}</h3>
-                                <small class="text-muted">${s.label}</small>
-                                <div class="${s.trendUp ? 'trend-up' : 'trend-down'}">
+        <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
