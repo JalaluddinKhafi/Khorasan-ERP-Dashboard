@@ -324,16 +324,6 @@
                 dataLabels: { enabled: true }
             }).render();
             
-            // نمودار فروش ماهانه
-            new ApexCharts(document.querySelector("#monthlySalesChart"), {
-                series: [{ name: 'فروش', data: [185, 202, 230, 245, 268, 290, 310, 335, 360, 385, 410, 445] }],
-                chart: { type: 'area', height: 300, toolbar: { show: false } },
-                xaxis: { categories: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'] },
-                colors: ['#10b981'],
-                fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.7, opacityTo: 0.3 } }
-            }).render();
-            
-            // نمودار خرید ماهانه
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
