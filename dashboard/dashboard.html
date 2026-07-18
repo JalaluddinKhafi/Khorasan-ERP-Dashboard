@@ -313,17 +313,7 @@
         }
 
         // رندر نمودارها
-        function renderCharts() {
-            // نمودار فروش روزانه
-            new ApexCharts(document.querySelector("#dailySalesChart"), {
-                series: [{ name: 'فروش', data: [12, 19, 15, 17, 24, 28, 31], type: 'column' }],
-                chart: { type: 'line', height: 300, toolbar: { show: false } },
-                xaxis: { categories: ['شنبه', 'یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه'] },
-                colors: ['#2563eb'],
-                title: { text: 'فروش روزانه (میلیون تومان)' },
-                dataLabels: { enabled: true }
-            }).render();
-            
+        <p id="editor-error" class="error" role="alert"></p>
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
