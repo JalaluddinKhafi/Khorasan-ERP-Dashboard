@@ -86,3 +86,25 @@ function table(headers, rows) {
 function panel(content) {
   return `<section class="panel">${content}</section>`;
 }
+function field(key, label, type = "text", opts = {}) {
+  return { key, label, type, ...opts };
+}
+function renderField(f, value) {
+  let val = value ?? f.value ?? "";
+  const attrs = `name="${f.key}" ${f.required === false ? "" : "required"} ${f.readonly ? "readonly" : ""}`;
+  let input;
+  if (f.type === "select")
+    input = `<select ${attrs}>${f.options.map((o) => `<option value="${esc(o[0])}" ${String(val) === String(o[0]) ? "selected" : ""}>${esc(o[1])}</option>`).join("")}</select>`;
+  else if (f.type === "checkbox")
+    input = `<input name="${f.key}" type="checkbox" ${val ? "checked" : ""}>`;
+  else if (f.type === "textarea")
+    input = `<textarea ${attrs} rows="4" maxlength="${f.max || 1000}">${esc(val)}</textarea>`;
+  else
+    input = `<input ${attrs} type="${f.type}" value="${esc(val)}" ${f.type === "number" ? `min="${f.min ?? 0}" max="999999999999" step="${f.step || "0.0001"}"` : ""} ${f.type === "password" ? 'autocomplete="new-password" minlength="12" maxlength="72"' : `maxlength="${f.max || 180}"`}>`;
+  return `<label class="${f.wide ? "wide" : ""}">${esc(f.label)}${input}${f.hint ? `<span class="muted">${esc(f.hint)}</span>` : ""}</label>`;
+}
+function edit(title, fields, values, onSave) {
+  $("#editor-title").textContent = title;
+  $("#editor-fields").innerHTML = fields
+    .map((f) => renderField(f, values[f.key]))
+    .join("");
