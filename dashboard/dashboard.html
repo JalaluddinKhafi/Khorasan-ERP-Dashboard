@@ -250,17 +250,6 @@
         // رندر تاریخ امروز
         function renderDate() {
             const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
-            const today = new Date().toLocaleDateString('fa-IR', options);
-            document.getElementById('todayDate').innerHTML = today;
-        }
-
-        // رندر کارت‌های آماری
-        function renderStatsCards() {
-            const row1 = document.getElementById('statsRow1');
-            const row2 = document.getElementById('statsRow2');
-            
-            const stats1 = [
-                { icon: "fas fa-box", color: "bg-primary", value: dashboardStats.totalProducts, label: "کل کالاها", trend: "+۱۲", trendUp: true },
       </header>
       <form id="editor-form">
         <div id="editor-fields" class="fields"></div>
