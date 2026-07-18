@@ -355,16 +355,6 @@
                 stroke: { width: 3 }
             }).render();
         }
-
-        // رندر محصولات پرفروش
-        function renderTopProducts() {
-            const container = document.getElementById('topProductsList');
-            const maxSales = Math.max(...topProducts.map(p => p.sales));
-            
-            container.innerHTML = topProducts.map(p => `
-                <div class="d-flex align-items-center justify-content-between mb-3">
-                    <div class="d-flex align-items-center gap-3">
-                        <img src="${p.image}" class="top-product-img" alt="${p.name}">
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
       </form>
