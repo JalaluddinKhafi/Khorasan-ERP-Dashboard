@@ -303,16 +303,6 @@
                                 <h3 class="mb-0">${s.isPrice ? (s.value / 1000000).toFixed(1) + 'M' : s.value.toLocaleString()}</h3>
                                 <small class="text-muted">${s.label}</small>
                                 <div class="${s.trendUp ? 'trend-up' : 'trend-down'}">
-                                    <i class="fas fa-arrow-${s.trendUp ? 'up' : 'down'}"></i> ${s.trend}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // رندر نمودارها
         <p id="editor-error" class="error" role="alert"></p>
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
