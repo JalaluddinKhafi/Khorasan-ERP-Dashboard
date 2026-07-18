@@ -334,17 +334,7 @@
             }).render();
             
             // نمودار خرید ماهانه
-            new ApexCharts(document.querySelector("#monthlyPurchaseChart"), {
-                series: [{ name: 'خرید', data: [95, 112, 130, 125, 148, 160, 155, 170, 185, 190, 210, 225] }],
-                chart: { type: 'bar', height: 300, toolbar: { show: false } },
-                xaxis: { categories: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'] },
-                colors: ['#f59e0b'],
-                plotOptions: { bar: { borderRadius: 8 } }
-            }).render();
-            
-            // نمودار سود و زیان
-            new ApexCharts(document.querySelector("#profitLossChart"), {
-                series: [
+        <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
