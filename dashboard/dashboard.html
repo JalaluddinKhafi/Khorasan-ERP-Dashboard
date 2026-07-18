@@ -271,17 +271,7 @@
             const stats2 = [
                 { icon: "fas fa-chart-line", color: "bg-dark", value: dashboardStats.monthSales, label: "فروش ماه جاری", isPrice: true, trend: "+۱۲%", trendUp: true },
                 { icon: "fas fa-coins", color: "bg-purple", value: dashboardStats.monthProfit, label: "سود ماه جاری", isPrice: true, trend: "+۵%", trendUp: true },
-                { icon: "fas fa-hand-holding-usd", color: "bg-danger", value: dashboardStats.debtCustomers, label: "بدهی مشتریان", isPrice: true, trend: "+۲%", trendUp: false },
-                { icon: "fas fa-money-bill-wave", color: "bg-orange", value: dashboardStats.debtSuppliers, label: "بدهی به تامین‌کنندگان", isPrice: true, trend: "-۳%", trendUp: true },
-                { icon: "fas fa-clock", color: "bg-warning", value: dashboardStats.pendingOrders, label: "سفارشات در انتظار", trend: "+۵", trendUp: false },
-                { icon: "fas fa-exclamation-triangle", color: "bg-danger", value: dashboardStats.lowStockCount, label: "محصولات کم موجود", trend: "+۲", trendUp: false }
-            ];
-            
-            row1.innerHTML = stats1.map(s => `
-                <div class="col-xl-2 col-md-4 col-sm-6">
-                    <div class="stat-card-dashboard" onclick="window.location.href='${s.link || '#'}'">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="stat-icon ${s.color}"><i class="${s.icon}"></i></div>
+      <form id="editor-form">
         <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
         <footer>
