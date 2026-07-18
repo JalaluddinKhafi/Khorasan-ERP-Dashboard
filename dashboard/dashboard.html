@@ -365,17 +365,7 @@
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <div class="d-flex align-items-center gap-3">
                         <img src="${p.image}" class="top-product-img" alt="${p.name}">
-                        <div>
-                            <h6 class="mb-0">${p.name}</h6>
-                            <small class="text-muted">${p.sales} عدد فروش</small>
-                        </div>
-                    </div>
-                    <div class="text-end">
-                        <div class="fw-bold">${(p.amount / 1000000).toFixed(0)}M تومان</div>
-                        <small class="${p.growth >= 0 ? 'text-success' : 'text-danger'}">
-                            <i class="fas fa-arrow-${p.growth >= 0 ? 'up' : 'down'}"></i> ${Math.abs(p.growth)}%
-                        </small>
-                    </div>
+          ><button type="submit" class="primary">ذخیره</button>
         </footer>
       </form>
     </dialog>
