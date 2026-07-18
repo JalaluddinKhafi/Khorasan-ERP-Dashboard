@@ -108,3 +108,26 @@ function edit(title, fields, values, onSave) {
   $("#editor-fields").innerHTML = fields
     .map((f) => renderField(f, values[f.key]))
     .join("");
+  $("#editor-error").textContent = "";
+  const requestKey = crypto.randomUUID();
+  saveHandler = async (form) => {
+    const m = {
+      ...Object.fromEntries(new FormData(form)),
+      request_key: requestKey,
+    };
+    for (const f of fields) {
+      if (f.type === "checkbox") m[f.key] = form.elements[f.key].checked;
+    }
+    await onSave(m);
+  };
+  dialog.showModal();
+}
+$("#close-editor").onclick = $("#cancel-editor").onclick = () => dialog.close();
+$("#editor-form").onsubmit = async (e) => {
+  e.preventDefault();
+  const btn = e.target.querySelector("button[type=submit]");
+  btn.disabled = true;
+  $("#editor-error").textContent = "";
+  try {
+    await saveHandler(e.target);
+    await render();
