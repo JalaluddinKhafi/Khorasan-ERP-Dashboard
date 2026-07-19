@@ -131,3 +131,26 @@ $("#editor-form").onsubmit = async (e) => {
   try {
     await saveHandler(e.target);
     await render();
+    dialog.close();
+    toast("معلومات با موفقیت ذخیره شد");
+  } catch (error) {
+    $("#editor-error").textContent = error.message;
+  } finally {
+    btn.disabled = false;
+  }
+};
+const currencyFields = () => [
+  field("currency", "واحد پول", "select", {
+    options: currencies.map((c) => [c.code, c.name + " (" + c.code + ")"]),
+    value: "USD",
+  }),
+  field("rate", "تعداد واحد ارز در برابر ۱ دالر", "number", {
+    value: 1,
+    min: 0.00000001,
+    step: "0.00000001",
+    hint: "مثال: ۱ دالر = ۷۰ افغانی؛ نرخ را ۷۰ وارد کنید.",
+  }),
+];
+function bindRate() {
+  const sel = dialog.querySelector("[name=currency]"),
+    rate = dialog.querySelector("[name=rate]");
