@@ -154,3 +154,24 @@ const currencyFields = () => [
 function bindRate() {
   const sel = dialog.querySelector("[name=currency]"),
     rate = dialog.querySelector("[name=rate]");
+  if (!sel || !rate) return;
+  const update = () => {
+    rate.value = currencies.find((c) => c.code === sel.value)?.rate || 1;
+    rate.readOnly = sel.value === "USD";
+  };
+  sel.addEventListener("change", update);
+  update();
+}
+const specs = {
+  products: {
+    fields: [
+      field("code", "کد جنس"),
+      field("name", "نام جنس"),
+      field("unit", "واحد", "text", { value: "عدد" }),
+      field("category_id", "دسته‌بندی", "select", {
+        required: false,
+        options: [],
+      }),
+      field("sale_price", "نرخ فروش (دالر)", "number"),
+      field("purchase_price", "نرخ افتتاحیه خرید (دالر)", "number"),
+      field("stock", "موجودی افتتاحیه", "number"),
