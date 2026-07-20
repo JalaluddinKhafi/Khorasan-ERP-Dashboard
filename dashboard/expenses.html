@@ -291,17 +291,6 @@
                         <td>${e.desc}</td>
                         <td class="text-danger fw-bold">${e.amount.toLocaleString()} تومان</td>
                         <td>${e.method}</td>
-                        <td>
-                            <button class="btn btn-sm btn-info edit-expense" data-id="${e.id}"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-danger delete-expense" data-id="${e.id}"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                `).join('');
-                attachExpenseEvents();
-            }
-        }
-        
-        function renderStats() {
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
