@@ -323,16 +323,7 @@
             const amounts = [25000000, 185000000, 3850000, 5600000, 850000];
             
             if (expenseChart) expenseChart.destroy();
-            expenseChart = new ApexCharts(document.querySelector("#expenseChart"), {
-                series: amounts,
-                chart: { type: 'donut', height: 300 },
-                labels: categories,
-                colors: ['#f59e0b', '#ef4444', '#10b981', '#8b5cf6', '#06b6d4'],
-                legend: { position: 'bottom' },
-                title: { text: 'توزیع مصارف بر اساس دسته' }
-            });
-            expenseChart.render();
-        }
+          ><button type="submit" class="primary">ذخیره</button>
         </footer>
       </form>
     </dialog>
