@@ -271,16 +271,6 @@
                 categoryFilter.addEventListener('change', filterExpenses);
             }
         }
-        
-        function filterExpenses() {
-            const searchTerm = document.getElementById('searchExpense')?.value.toLowerCase() || '';
-            const category = document.getElementById('categoryFilter')?.value || 'all';
-            
-            const filtered = expensesData.filter(e => {
-                const matchSearch = e.desc.toLowerCase().includes(searchTerm);
-                const matchCategory = category === 'all' || e.category === category;
-                return matchSearch && matchCategory;
-            });
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
