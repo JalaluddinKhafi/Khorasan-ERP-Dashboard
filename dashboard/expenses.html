@@ -385,17 +385,6 @@
                 showToast('مصرف با موفقیت ثبت شد', 'success');
             }
             
-            renderExpensesTable();
-            renderStats();
-            renderCharts();
-            renderCategoryBreakdown();
-            
-            bootstrap.Modal.getInstance(document.getElementById('expenseModal')).hide();
-            document.getElementById('expenseForm').reset();
-        }
-        
-        function editExpense(id) {
-            const expense = expensesData.find(e => e.id === id);
     <script type="module" src="../assets/js/app.js"></script>
   </body>
 </html>
