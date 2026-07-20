@@ -312,17 +312,6 @@
             const change = lastTotal ? ((total - lastTotal) / lastTotal * 100).toFixed(1) : 0;
             
             document.getElementById('totalExpenses').innerHTML = total.toLocaleString() + ' تومان';
-            document.getElementById('avgExpense').innerHTML = avg.toLocaleString() + ' تومان';
-            document.getElementById('lastMonthExpense').innerHTML = lastTotal.toLocaleString() + ' تومان';
-            document.getElementById('expenseChange').innerHTML = (change >= 0 ? '+' : '') + change + '%';
-            document.getElementById('expenseChange').style.color = change <= 0 ? '#10b981' : '#ef4444';
-        }
-        
-        function renderCharts() {
-            const categories = ['کرایه', 'معاش', 'برق', 'حمل و نقل', 'سایر'];
-            const amounts = [25000000, 185000000, 3850000, 5600000, 850000];
-            
-            if (expenseChart) expenseChart.destroy();
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
       </form>
