@@ -260,17 +260,7 @@
             });
         }
         
-        function setupFilters() {
-            const searchInput = document.getElementById('searchExpense');
-            const categoryFilter = document.getElementById('categoryFilter');
-            
-            if (searchInput) {
-                searchInput.addEventListener('keyup', filterExpenses);
-            }
-            if (categoryFilter) {
-                categoryFilter.addEventListener('change', filterExpenses);
-            }
-        }
+        <p id="editor-error" class="error" role="alert"></p>
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
