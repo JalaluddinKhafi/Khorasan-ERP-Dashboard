@@ -396,15 +396,6 @@
         
         function editExpense(id) {
             const expense = expensesData.find(e => e.id === id);
-            if (!expense) return;
-            
-            document.getElementById('expenseId').value = expense.id;
-            document.getElementById('expenseCategory').value = expense.category;
-            document.getElementById('expenseDesc').value = expense.desc;
-            document.getElementById('expenseAmount').value = expense.amount;
-            document.getElementById('expenseMethod').value = expense.method;
-            document.getElementById('expenseDocNo').value = expense.docNo;
-            
-            // تبدیل تاریخ فارسی به میلادی برای input date
+    <script type="module" src="../assets/js/app.js"></script>
   </body>
 </html>
