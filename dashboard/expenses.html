@@ -250,16 +250,6 @@
             attachExpenseEvents();
             setupFilters();
         }
-        
-        function attachExpenseEvents() {
-            document.querySelectorAll('.edit-expense').forEach(btn => {
-                btn.addEventListener('click', () => editExpense(parseInt(btn.dataset.id)));
-            });
-            document.querySelectorAll('.delete-expense').forEach(btn => {
-                btn.addEventListener('click', () => showDeleteModal(parseInt(btn.dataset.id)));
-            });
-        }
-        
         <p id="editor-error" class="error" role="alert"></p>
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
