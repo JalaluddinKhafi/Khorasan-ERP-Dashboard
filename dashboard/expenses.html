@@ -302,16 +302,7 @@
         }
         
         function renderStats() {
-            const currentMonth = "۱۴۰۲/۱۲";
-            const currentMonthExpenses = expensesData.filter(e => e.date.startsWith("۱۴۰۲/۱۲"));
-            const lastMonthExpenses = expensesData.filter(e => e.date.startsWith("۱۴۰۲/۱۱"));
-            
-            const total = currentMonthExpenses.reduce((sum, e) => sum + e.amount, 0);
-            const avg = Math.floor(total / 30) || 0;
-            const lastTotal = lastMonthExpenses.reduce((sum, e) => sum + e.amount, 0);
-            const change = lastTotal ? ((total - lastTotal) / lastTotal * 100).toFixed(1) : 0;
-            
-            document.getElementById('totalExpenses').innerHTML = total.toLocaleString() + ' تومان';
+          <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
       </form>
