@@ -375,16 +375,7 @@
             };
             
             if (id) {
-                const index = expensesData.findIndex(e => e.id === parseInt(id));
-                if (index !== -1) {
-                    expensesData[index] = { ...expensesData[index], ...expense };
-                }
-                showToast('مصرف با موفقیت ویرایش شد', 'success');
-            } else {
-                expensesData.push(expense);
-                showToast('مصرف با موفقیت ثبت شد', 'success');
-            }
-            
+    </dialog>
     <script type="module" src="../assets/js/app.js"></script>
   </body>
 </html>
