@@ -333,17 +333,7 @@
             });
             expenseChart.render();
         }
-        
-        function renderCategoryBreakdown() {
-            const categories = {};
-            expensesData.forEach(e => {
-                if (!categories[e.category]) categories[e.category] = 0;
-                categories[e.category] += e.amount;
-            });
-            
-            const container = document.getElementById('categoryBreakdown');
-            if (container) {
-                container.innerHTML = Object.entries(categories).map(([cat, amount]) => `
+        </footer>
       </form>
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
