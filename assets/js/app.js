@@ -242,3 +242,25 @@ const specs = {
     ],
   },
   users: {
+    fields: [
+      field("username", "نام کاربری"),
+      field("name", "نام کامل"),
+      field("role", "نقش", "select", {
+        options: [
+          ["EMPLOYEE", "کارمند"],
+          ["ADMIN", "مدیر"],
+        ],
+      }),
+      field("password", "رمز عبور", "password"),
+      field("active", "فعال", "checkbox", { value: true }),
+    ],
+    headers: ["نام کاربری", "نام کامل", "نقش", "وضعیت"],
+    row: (r) => [
+      esc(r.username),
+      esc(r.name),
+      r.role === "ADMIN" ? "مدیر" : "کارمند",
+      r.active ? "فعال" : "غیرفعال",
+    ],
+  },
+  currencies: {
+    fields: [
