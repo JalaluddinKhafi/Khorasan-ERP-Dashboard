@@ -219,3 +219,26 @@ const specs = {
         hint: "مبلغ منفی برای پیش‌پرداخت؛ پس از ثبت قابل تغییر نیست.",
       }),
       field("opening_date", "تاریخ افتتاح حساب", "date", { value: today() }),
+      field("active", "فعال", "checkbox", { value: true }),
+    ],
+    headers: ["نام تهیه‌کننده", "تماس", "آدرس", "باقی حساب (دالر)"],
+    row: (r) => [esc(r.name), esc(r.phone), esc(r.address), money(r.balance)],
+  },
+  employees: {
+    fields: [
+      field("name", "نام کارمند"),
+      field("phone", "شماره تماس", "tel", { required: false }),
+      field("position", "وظیفه", "text", { required: false }),
+      field("salary", "معاش ماهانه (دالر)", "number"),
+      field("active", "فعال", "checkbox", { value: true }),
+    ],
+    headers: ["کارمند", "وظیفه", "تماس", "معاش ماهانه", "وضعیت"],
+    row: (r) => [
+      esc(r.name),
+      esc(r.position),
+      esc(r.phone),
+      money(r.salary),
+      r.active ? "فعال" : "غیرفعال",
+    ],
+  },
+  users: {
