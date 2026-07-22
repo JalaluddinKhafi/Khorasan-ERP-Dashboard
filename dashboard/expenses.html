@@ -229,16 +229,6 @@
             tbody.innerHTML = expensesData.map(e => `
                 <tr>
                     <td>${e.date}</td>
-                    <td><span class="badge bg-secondary">${e.category}</span></td>
-                    <td>${e.desc}</td>
-                    <td class="text-danger fw-bold">${e.amount.toLocaleString()} تومان</td>
-                    <td>${e.method}</td>
-                    <td>
-                        <button class="btn btn-sm btn-info edit-expense" data-id="${e.id}"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-danger delete-expense" data-id="${e.id}"><i class="fas fa-trash"></i></button>
-                    </td>
-                </tr>
-            `).join('');
         <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
         <footer>
