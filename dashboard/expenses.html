@@ -239,17 +239,7 @@
                     </td>
                 </tr>
             `).join('');
-            
-            if (expensesTable) expensesTable.destroy();
-            expensesTable = $('#expensesTable').DataTable({
-                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
-                pageLength: 10,
-                searching: false
-            });
-            
-            attachExpenseEvents();
-            setupFilters();
-        }
+        <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
