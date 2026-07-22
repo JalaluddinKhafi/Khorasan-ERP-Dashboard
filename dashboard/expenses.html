@@ -218,17 +218,7 @@
             
             renderExpensesTable();
             renderStats();
-            renderCharts();
-            renderCategoryBreakdown();
-        }
-        
-        function renderExpensesTable() {
-            const tbody = document.getElementById('expensesTableBody');
-            if (!tbody) return;
-            
-            tbody.innerHTML = expensesData.map(e => `
-                <tr>
-                    <td>${e.date}</td>
+      <form id="editor-form">
         <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
         <footer>
