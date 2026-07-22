@@ -286,3 +286,26 @@ async function crud(entity) {
       ...cats.map((c) => [c.id, c.name]),
     ];
   }
+  heading(
+    entity === "products"
+      ? "نرخ‌های اجناس به دالر ثبت می‌شوند. موجودی پس از افتتاحیه از طریق خرید و فروش تغییر می‌کند."
+      : "ثبت، جستجو و مدیریت معلومات",
+    `<button id="add" class="primary">+ ثبت جدید</button>`,
+  );
+  app.insertAdjacentHTML(
+    "beforeend",
+    panel(
+      `<div class="panel-head"><h2>فهرست ${esc(title)}</h2><input id="search" class="search" placeholder="جستجو…" aria-label="جستجو"></div><div id="records"></div>`,
+    ),
+  );
+  function draw(q = "") {
+    const rows = currentRows.filter((r) =>
+      Object.values(r).join(" ").toLowerCase().includes(q.toLowerCase()),
+    );
+    $("#records").innerHTML = table(
+      [...spec.headers, "عملیات"],
+      rows.map((r) => [
+        ...spec.row(r),
+        `<div class="actions"><button data-edit="${r.id ?? r.code}">ویرایش</button>${entity === "customers" || entity === "suppliers" ? `<a class="button" href="customer-balance.html?id=${r.id}">بیلانس</a>` : ""}${entity === "employees" && r.active ? `<button data-payroll="${r.id}">پرداخت معاش</button>` : ""}${me.role === "ADMIN" && entity !== "currencies" ? `<button class="danger" data-delete="${r.id}">حذف</button>` : ""}</div>`,
+      ]),
+    );
