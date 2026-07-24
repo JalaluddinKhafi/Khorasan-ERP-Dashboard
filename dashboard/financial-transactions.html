@@ -166,16 +166,7 @@
             }
             if (typeFilter) {
                 typeFilter.addEventListener('change', filterTransactions);
-            }
-        }
-        
-        function filterTransactions() {
-            const searchTerm = document.getElementById('searchTransaction')?.value.toLowerCase() || '';
-            const type = document.getElementById('typeFilter')?.value || 'all';
-            
-            const filtered = transactionsData.filter(t => {
-                const matchSearch = t.title.toLowerCase().includes(searchTerm);
-                const matchType = type === 'all' || 
+        <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
