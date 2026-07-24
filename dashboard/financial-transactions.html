@@ -134,17 +134,8 @@
         
         function renderTransactionsTable() {
             const tbody = document.getElementById('transactionsTableBody');
-            if (!tbody) return;
-            
-            tbody.innerHTML = transactionsData.map(t => `
-                <tr>
-                    <td>${t.date}</td>
-                    <td><span class="badge ${t.type === 'income' ? 'bg-success' : 'bg-danger'}">${t.type === 'income' ? 'ورودی' : 'خروجی'}</span></td>
-                    <td>${t.title}</td>
-                    <td class="${t.type === 'income' ? 'text-success' : 'text-danger'} fw-bold">${t.amount.toLocaleString()} تومان</td>
-                    <td>${t.category}</td>
-                    <td><span class="badge bg-success">${t.status}</span></td>
-                </tr>
+        <h2 id="editor-title"></h2>
+        <button type="button" id="close-editor" aria-label="بستن">×</button>
       </header>
       <form id="editor-form">
         <div id="editor-fields" class="fields"></div>
