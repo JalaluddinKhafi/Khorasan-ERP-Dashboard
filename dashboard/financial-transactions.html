@@ -155,17 +155,7 @@
             });
             
             setupTransactionFilters();
-        }
-        
-        function setupTransactionFilters() {
-            const searchInput = document.getElementById('searchTransaction');
-            const typeFilter = document.getElementById('typeFilter');
-            
-            if (searchInput) {
-                searchInput.addEventListener('keyup', filterTransactions);
-            }
-            if (typeFilter) {
-                typeFilter.addEventListener('change', filterTransactions);
+      <form id="editor-form">
         <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
         <footer>
