@@ -207,17 +207,7 @@
             document.getElementById('netCashflowFinancial').innerHTML = netCashflow.toLocaleString() + ' تومان';
             document.getElementById('netCashflowFinancial').style.color = netCashflow >= 0 ? '#10b981' : '#ef4444';
             document.getElementById('profitMargin').innerHTML = profitMargin + '%';
-            document.getElementById('profitMargin').style.color = profitMargin >= 0 ? '#10b981' : '#ef4444';
-        }
-        
-        function renderCashflowChart() {
-            const monthlyIncome = [185, 202, 230, 245, 268, 290, 310, 335, 360, 385, 410, 445];
-            const monthlyOutcome = [95, 112, 130, 125, 148, 160, 155, 170, 185, 190, 210, 225];
-            
-            new ApexCharts(document.querySelector("#cashflowChart"), {
-                series: [
-                    { name: 'ورودی', data: monthlyIncome },
-                    { name: 'خروجی', data: monthlyOutcome }
+          ><button type="submit" class="primary">ذخیره</button>
         </footer>
       </form>
     </dialog>
