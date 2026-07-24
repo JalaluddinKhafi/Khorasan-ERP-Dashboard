@@ -218,16 +218,7 @@
                 series: [
                     { name: 'ورودی', data: monthlyIncome },
                     { name: 'خروجی', data: monthlyOutcome }
-                ],
-                chart: { type: 'bar', height: 300, stacked: false },
-                xaxis: { categories: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'] },
-                colors: ['#10b981', '#ef4444'],
-                title: { text: 'جریان نقدی ماهانه (میلیون تومان)' }
-            }).render();
-        }
-        
-        function renderProfitLossSummary() {
-            const salesTotal = transactionsData.filter(t => t.category === 'فروش').reduce((sum, t) => sum + t.amount, 0);
+        </footer>
       </form>
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
