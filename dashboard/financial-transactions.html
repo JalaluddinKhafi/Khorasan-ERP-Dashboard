@@ -114,16 +114,7 @@
     <script src="../assets/js/components.js"></script>
     <script>
         let transactionsData = [];
-        let transactionsTable = null;
-        
-        function loadTransactions() {
-            transactionsData = [
-                { id: 1, date: "۱۴۰۲/۱۲/۰۵", type: "income", title: "فروش کالا - فاکتور S-001", amount: 12500000, category: "فروش", status: "تایید شده" },
-                { id: 2, date: "۱۴۰۲/۱۲/۰۵", type: "outcome", title: "خرید کالا - فاکتور P-001", amount: 56000000, category: "خرید", status: "تایید شده" },
-                { id: 3, date: "۱۴۰۲/۱۲/۰۴", type: "income", title: "فروش کالا - فاکتور S-002", amount: 33600000, category: "فروش", status: "تایید شده" },
-                { id: 4, date: "۱۴۰۲/۱۲/۰۴", type: "outcome", title: "پرداخت حقوق", amount: 185000000, category: "مصارف", status: "تایید شده" },
-                { id: 5, date: "۱۴۰۲/۱۲/۰۳", type: "income", title: "فروش کالا - فاکتور S-003", amount: 8900000, category: "فروش", status: "تایید شده" },
-                { id: 6, date: "۱۴۰۲/۱۲/۰۳", type: "outcome", title: "اجاره دفتر", amount: 25000000, category: "مصارف", status: "تایید شده" }
+    <dialog id="editor">
       <header>
         <h2 id="editor-title"></h2>
         <button type="button" id="close-editor" aria-label="بستن">×</button>
