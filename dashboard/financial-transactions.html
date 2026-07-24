@@ -176,16 +176,7 @@
             const filtered = transactionsData.filter(t => {
                 const matchSearch = t.title.toLowerCase().includes(searchTerm);
                 const matchType = type === 'all' || 
-                    (type === 'income' && t.type === 'income') || 
-                    (type === 'outcome' && t.type === 'outcome');
-                return matchSearch && matchType;
-            });
-            
-            const tbody = document.getElementById('transactionsTableBody');
-            if (tbody) {
-                tbody.innerHTML = filtered.map(t => `
-                    <tr>
-                        <td>${t.date}</td>
+        <p id="editor-error" class="error" role="alert"></p>
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
