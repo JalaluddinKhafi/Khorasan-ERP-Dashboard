@@ -145,16 +145,7 @@
                     <td>${t.category}</td>
                     <td><span class="badge bg-success">${t.status}</span></td>
                 </tr>
-            `).join('');
-            
-            if (transactionsTable) transactionsTable.destroy();
-            transactionsTable = $('#transactionsTable').DataTable({
-                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
-                pageLength: 10,
-                searching: false
-            });
-            
-            setupTransactionFilters();
+      </header>
       <form id="editor-form">
         <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
