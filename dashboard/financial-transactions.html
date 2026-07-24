@@ -197,16 +197,7 @@
         }
         
         function calculateFinancialStats() {
-            const totalIncome = transactionsData.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
-            const totalOutcome = transactionsData.filter(t => t.type === 'outcome').reduce((sum, t) => sum + t.amount, 0);
-            const netCashflow = totalIncome - totalOutcome;
-            const profitMargin = totalIncome > 0 ? (netCashflow / totalIncome * 100).toFixed(1) : 0;
-            
-            document.getElementById('totalIncome').innerHTML = totalIncome.toLocaleString() + ' تومان';
-            document.getElementById('totalOutcome').innerHTML = totalOutcome.toLocaleString() + ' تومان';
-            document.getElementById('netCashflowFinancial').innerHTML = netCashflow.toLocaleString() + ' تومان';
-            document.getElementById('netCashflowFinancial').style.color = netCashflow >= 0 ? '#10b981' : '#ef4444';
-            document.getElementById('profitMargin').innerHTML = profitMargin + '%';
+          <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
       </form>
