@@ -186,17 +186,7 @@
                 tbody.innerHTML = filtered.map(t => `
                     <tr>
                         <td>${t.date}</td>
-                        <td><span class="badge ${t.type === 'income' ? 'bg-success' : 'bg-danger'}">${t.type === 'income' ? 'ورودی' : 'خروجی'}</span></td>
-                        <td>${t.title}</td>
-                        <td class="${t.type === 'income' ? 'text-success' : 'text-danger'} fw-bold">${t.amount.toLocaleString()} تومان</td>
-                        <td>${t.category}</td>
-                        <td><span class="badge bg-success">${t.status}</span></td>
-                    </tr>
-                `).join('');
-            }
-        }
-        
-        function calculateFinancialStats() {
+        <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
