@@ -351,3 +351,25 @@ async function crud(entity) {
     );
   }
   $("#add").onclick = () => open();
+  $("#records").onclick = async (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    const key = b.dataset.edit;
+    if (key) open(currentRows.find((r) => String(r.id ?? r.code) === key));
+    if (
+      b.dataset.delete &&
+      confirm("این رکورد حذف شود؟ رکوردهای دارای معامله حذف نمی‌شوند.")
+    ) {
+      try {
+        await api(entity + "/" + b.dataset.delete, { method: "DELETE" });
+        await render();
+        toast("رکورد حذف شد");
+      } catch (error) {
+        toast(error.message, true);
+      }
+    }
+    if (b.dataset.payroll)
+      payroll(currentRows.find((r) => String(r.id) === b.dataset.payroll));
+  };
+  if (entity === "employees") {
+    const expenses = await api("expenses");
