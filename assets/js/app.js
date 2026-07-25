@@ -393,3 +393,28 @@ async function crud(entity) {
     );
   }
 }
+function payroll(employee) {
+  edit(
+    "پرداخت معاش: " + employee.name,
+    [
+      field("employee_id", "کارمند", "select", {
+        options: [[employee.id, employee.name]],
+      }),
+      field("salary_month", "ماه معاش", "month", {
+        value: today().slice(0, 7),
+      }),
+      field("expense_date", "تاریخ پرداخت", "date", { value: today() }),
+      field("amount", "مبلغ معاش", "number", {
+        value: employee.salary,
+        min: 0.0001,
+      }),
+      ...currencyFields(),
+      field("notes", "یادداشت", "textarea", { required: false }),
+    ],
+    {},
+    (m) => send("expenses/payroll", { ...m, category: "معاش" }),
+  );
+  bindRate();
+}
+async function invoices(kind) {
+  const rows = await api("invoices?kind=" + kind);
