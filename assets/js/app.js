@@ -418,3 +418,26 @@ function payroll(employee) {
 }
 async function invoices(kind) {
   const rows = await api("invoices?kind=" + kind);
+  heading(
+    "فاکتورها با موجودی و بیلانس حساب مرتبط هستند. مبلغ دالر با نرخ زمان معامله محاسبه می‌شود.",
+    `<button id="new-invoice" class="primary">+ فاکتور جدید</button>`,
+  );
+  app.insertAdjacentHTML(
+    "beforeend",
+    panel(
+      table(
+        [
+          "شماره",
+          "حساب",
+          "تاریخ",
+          "مبلغ اصلی",
+          "مجموع دالر",
+          "پرداخت مرتبط",
+          "وضعیت",
+          "عملیات",
+        ],
+        rows.map((r) => [
+          r.id,
+          esc(r.party_name),
+          day(r.invoice_date),
+          money(r.total, r.currency),
