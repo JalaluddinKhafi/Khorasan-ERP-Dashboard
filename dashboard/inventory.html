@@ -136,17 +136,7 @@
                 { date: "۱۴۰۲/۱۲/۰۵", type: "ورود", product: "لپ تاپ ایسوس", quantity: 20, ref: "فاکتور P-001", user: "admin" },
                 { date: "۱۴۰۲/۱۲/۰۴", type: "خروج", product: "گوشی سامسونگ", quantity: 5, ref: "فاکتور S-001", user: "admin" },
                 { date: "۱۴۰۲/۱۲/۰۴", type: "ورود", product: "هدفون سونی", quantity: 50, ref: "فاکتور P-002", user: "admin" }
-            ];
-            
-            renderInventoryTable();
-            renderTransactionTable();
-            renderStats();
-            renderLowStockAlert();
-        }
-        
-        function renderInventoryTable() {
-            const tbody = document.getElementById('inventoryTableBody');
-            if (!tbody) return;
+        <button type="button" id="close-editor" aria-label="بستن">×</button>
       </header>
       <form id="editor-form">
         <div id="editor-fields" class="fields"></div>
