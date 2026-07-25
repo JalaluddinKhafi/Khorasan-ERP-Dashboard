@@ -168,16 +168,7 @@
                         <td>${p.name}</td>
                         <td>${p.category}</td>
                         <td>${p.stock}</td>
-                        <td>${p.minStock}</td>
-                        <td><span class="${statusClass}">${status}</span></td>
-                        <td>${p.lastIn}</td>
-                    </tr>
-                `;
-            }).join('');
-            
-            $('#inventoryTable').DataTable({
-                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
-                destroy: true
+        <p id="editor-error" class="error" role="alert"></p>
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
