@@ -157,17 +157,8 @@
                 } else if (p.stock <= p.minStock) {
                     status = 'در آستانه اتمام';
                     statusClass = 'badge bg-warning text-dark';
-                } else {
-                    status = 'موجود';
-                    statusClass = 'badge bg-success';
-                }
-                
-                return `
-                    <tr>
-                        <td>${p.code}</td>
-                        <td>${p.name}</td>
-                        <td>${p.category}</td>
-                        <td>${p.stock}</td>
+      <form id="editor-form">
+        <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
