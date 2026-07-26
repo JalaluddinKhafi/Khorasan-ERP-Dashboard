@@ -408,16 +408,5 @@
         function handlePaymentClick(e) {
             const btn = e.currentTarget;
             const type = btn.dataset.type;
-            const name = btn.dataset.name;
-            const debt = parseInt(btn.dataset.debt);
-            
-            currentPaymentType = type;
-            const modalTitle = document.getElementById('paymentModalTitle');
-            const partySelect = document.getElementById('partySelect');
-            
-            if (type === 'customer') {
-                modalTitle.innerText = `ثبت دریافت از ${name}`;
-                partySelect.innerHTML = `<option value="customer_${btn.dataset.id}" data-name="${name}" data-debt="${debt}" selected>${name} (بدهی: ${debt.toLocaleString()} تومان)</option>`;
-            } else {
   </body>
 </html>
