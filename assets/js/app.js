@@ -441,3 +441,25 @@ async function invoices(kind) {
           esc(r.party_name),
           day(r.invoice_date),
           money(r.total, r.currency),
+          money(r.total_usd),
+          money(r.paid_usd),
+          r.voided
+            ? "لغوشده"
+            : Number(r.paid_usd) >= Number(r.total_usd)
+              ? "تصفیه"
+              : "باقی دارد",
+          `<a class="button" href="sales-invoice.html?id=${r.id}">نمایش / چاپ</a> ${!r.voided && me.role === "ADMIN" ? `<button class="danger" data-void="${r.id}">لغو</button>` : ""}`,
+        ]),
+      ),
+    ),
+  );
+  $("#new-invoice").onclick = () => newInvoice(kind);
+  app.querySelectorAll("[data-void]").forEach(
+    (b) =>
+      (b.onclick = async () => {
+        if (confirm("فاکتور لغو و موجودی بازگردانده شود؟")) {
+          try {
+            await api("invoices/" + b.dataset.void, { method: "DELETE" });
+            await render();
+          } catch (e) {
+            toast(e.message, true);
