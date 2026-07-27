@@ -314,16 +314,6 @@
             document.getElementById('totalPaid').innerHTML = totalPaid.toLocaleString() + ' تومان';
             document.getElementById('pendingPayments').innerHTML = pendingTotal.toLocaleString() + ' تومان';
             document.getElementById('netCashflow').innerHTML = netCashflow.toLocaleString() + ' تومان';
-            document.getElementById('netCashflow').style.color = netCashflow >= 0 ? '#10b981' : '#ef4444';
-        }
-        
-        let currentPaymentType = 'customer';
-        
-        function setPaymentType(type) {
-            currentPaymentType = type;
-            const modalTitle = document.getElementById('paymentModalTitle');
-            const partyLabel = document.getElementById('partyLabel');
-            const partySelect = document.getElementById('partySelect');
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
       </form>
