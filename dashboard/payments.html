@@ -387,17 +387,6 @@
                 amount: amount,
                 method: document.getElementById('paymentMethod').value,
                 tracking: document.getElementById('paymentTracking').value || '---',
-                status: 'تایید شده'
-            });
-            
-            renderAllPayments();
-            calculateStats();
-            
-            showToast('پرداخت با موفقیت ثبت شد', 'success');
-            bootstrap.Modal.getInstance(document.getElementById('registerPaymentModal')).hide();
-            document.getElementById('paymentForm').reset();
-        }
-        
     <script type="module" src="../assets/js/app.js"></script>
   </body>
 </html>
