@@ -398,15 +398,6 @@
             document.getElementById('paymentForm').reset();
         }
         
-        function attachPaymentButtons() {
-            document.querySelectorAll('.register-payment').forEach(btn => {
-                btn.removeEventListener('click', handlePaymentClick);
-                btn.addEventListener('click', handlePaymentClick);
-            });
-        }
-        
-        function handlePaymentClick(e) {
-            const btn = e.currentTarget;
-            const type = btn.dataset.type;
+    <script type="module" src="../assets/js/app.js"></script>
   </body>
 </html>
