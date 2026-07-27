@@ -219,17 +219,7 @@
             renderSupplierDebts();
             renderAllPayments();
             calculateStats();
-        }
-        
-        function renderCustomerDebts() {
-            const tbody = document.getElementById('customerDebtsBody');
-            if (!tbody) return;
-            
-            tbody.innerHTML = customerDebts.map(c => `
-                <tr>
-                    <td>${c.name}</td>
-                    <td>${c.phone}</td>
-                                        <td class="text-danger fw-bold">${c.debt.toLocaleString()} تومان</td>
+      </header>
       <form id="editor-form">
         <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
