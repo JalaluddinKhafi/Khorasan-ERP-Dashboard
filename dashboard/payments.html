@@ -251,16 +251,7 @@
             attachPaymentButtons();
         }
         
-        function renderSupplierDebts() {
-            const tbody = document.getElementById('supplierDebtsBody');
-            if (!tbody) return;
-            
-            tbody.innerHTML = supplierDebts.map(s => `
-                <tr>
-                    <td>${s.name}</td>
-                    <td>${s.phone}</td>
-                    <td class="text-danger fw-bold">${s.debt.toLocaleString()} تومان</td>
-                    <td>${s.lastPurchase}</td>
+        <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
