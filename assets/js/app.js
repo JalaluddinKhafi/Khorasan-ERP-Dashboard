@@ -504,3 +504,29 @@ async function newInvoice(kind) {
       "beforeend",
       '<div class="wide"><h3>اقلام فاکتور</h3><div id="invoice-items"></div><button type="button" id="add-line">+ افزودن قلم</button><div class="summary"><span>مجموع پس از تخفیف</span><span id="invoice-total"></span></div></div>',
     );
+    const calculate = () => {
+      const total =
+        [...dialog.querySelectorAll(".line-item")].reduce(
+          (s, row) =>
+            s +
+            Number(row.querySelector("[data-quantity]").value) *
+              Number(row.querySelector("[data-price]").value),
+          0,
+        ) - Number(dialog.querySelector("[name=discount]").value);
+      $("#invoice-total").textContent = money(
+        total,
+        dialog.querySelector("[name=currency]").value,
+      );
+    };
+    const addLine = () => {
+      const row = document.createElement("div");
+      row.className = "line-item";
+      row.innerHTML = `<label>جنس<select data-product>${active.map((p) => `<option value="${p.id}">${esc(p.name)} · موجودی ${esc(p.stock)}</option>`).join("")}</select></label><label>تعداد<input data-quantity type="number" value="1" min="0.0001" step="0.0001" required></label><label>نرخ واحد<input data-price type="number" min="0" step="0.0001" required></label><button type="button" class="danger" aria-label="حذف قلم">×</button>`;
+      const updatePrice = () => {
+        const p = active.find(
+          (p) => String(p.id) === row.querySelector("select").value,
+        );
+        row.querySelector("[data-price]").value = (
+          Number(kind === "SALE" ? p.sale_price : p.purchase_price) *
+          Number(dialog.querySelector("[name=rate]").value)
+        ).toFixed(4);
