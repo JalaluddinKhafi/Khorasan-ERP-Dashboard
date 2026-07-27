@@ -293,16 +293,7 @@
                     <td>${p.amount.toLocaleString()} تومان</td>
                     <td>${p.method}</td>
                     <td>${p.tracking}</td>
-                    <td><span class="badge bg-success">${p.status}</span></td>
-                </tr>
-            `).join('');
-            
-            $('#allPaymentsTable').DataTable({
-                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
-                destroy: true,
-                order: [[0, 'desc']]
-            });
-        }
+        <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
