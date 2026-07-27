@@ -485,3 +485,22 @@ async function newInvoice(kind) {
         field("party_id", kind === "SALE" ? "مشتری" : "تهیه‌کننده", "select", {
           options: parties.filter((p) => p.active).map((p) => [p.id, p.name]),
         }),
+        field("invoice_date", "تاریخ", "date", { value: today() }),
+        ...currencyFields(),
+        field("discount", "تخفیف در واحد انتخاب‌شده", "number", { value: 0 }),
+        field("notes", "یادداشت", "textarea", { required: false }),
+      ],
+      {},
+      async (m) => {
+        const items = [...dialog.querySelectorAll(".line-item")].map((row) => ({
+          product_id: row.querySelector("[data-product]").value,
+          quantity: row.querySelector("[data-quantity]").value,
+          price: row.querySelector("[data-price]").value,
+        }));
+        await send("invoices", { ...m, kind, items });
+      },
+    );
+    $("#editor-fields").insertAdjacentHTML(
+      "beforeend",
+      '<div class="wide"><h3>اقلام فاکتور</h3><div id="invoice-items"></div><button type="button" id="add-line">+ افزودن قلم</button><div class="summary"><span>مجموع پس از تخفیف</span><span id="invoice-total"></span></div></div>',
+    );
