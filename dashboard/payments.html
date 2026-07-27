@@ -230,16 +230,6 @@
                     <td>${c.name}</td>
                     <td>${c.phone}</td>
                                         <td class="text-danger fw-bold">${c.debt.toLocaleString()} تومان</td>
-                    <td>${c.lastPurchase}</td>
-                    <td>
-                        <button class="btn btn-sm btn-success register-payment" data-type="customer" data-id="${c.id}" data-name="${c.name}" data-debt="${c.debt}">
-                            <i class="fas fa-hand-holding-usd"></i> ثبت پرداخت
-                        </button>
-                        <button class="btn btn-sm btn-info view-payment-history" data-type="customer" data-id="${c.id}">
-                            <i class="fas fa-history"></i> تاریخچه
-                        </button>
-                    </td>
-                </tr>
       <form id="editor-form">
         <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
