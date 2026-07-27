@@ -366,17 +366,7 @@
                     customer.debt = newDebt;
                 }
                 renderCustomerDebts();
-            } else {
-                const supplier = supplierDebts.find(s => s.id === parseInt(id));
-                if (supplier) {
-                    const newDebt = supplier.debt - amount;
-                    if (newDebt < 0) {
-                        showToast('مبلغ پرداختی بیشتر از بدهی است!', 'error');
-                        return;
-                    }
-                    supplier.debt = newDebt;
-                }
-                renderSupplierDebts();
+      </form>
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
   </body>
