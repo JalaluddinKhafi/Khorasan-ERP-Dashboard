@@ -345,17 +345,7 @@
                 return;
             }
             
-            const amount = parseInt(document.getElementById('paymentAmount').value);
-            if (!amount || amount <= 0) {
-                showToast('لطفاً مبلغ معتبر وارد کنید', 'error');
-                return;
-            }
-            
-            const [type, id] = partyValue.split('_');
-            const partyName = document.getElementById('partySelect').selectedOptions[0].dataset.name;
-            
-            // بروزرسانی بدهی
-            if (type === 'customer') {
+        </footer>
       </form>
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
