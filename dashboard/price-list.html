@@ -222,16 +222,8 @@
                         <td>${p.category}</td>
                         <td>${p.purchasePrice.toLocaleString()}</td>
                         <td class="text-primary fw-bold">${p.salePrice.toLocaleString()}</td>
-                        <td>${p.unit}</td>
-                        <td class="${p.stock <= 10 ? 'text-danger fw-bold' : ''}">${p.stock}</td>
-                    </tr>
-                `).join('');
-                document.getElementById('totalProductsCount').innerHTML = filtered.length;
-            }
-
-            if (priceTable) {
-                priceTable.clear();
-                priceTable.rows.add(filtered);
+        </footer>
+      </form>
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
   </body>
