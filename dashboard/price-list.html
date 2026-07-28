@@ -169,16 +169,8 @@
             { id: 6, code: "P1006", name: "کیبورد مکانیکال ریزر", category: "الکترونیک", purchasePrice: 3200000, salePrice: 4500000, unit: "عدد", stock: 34, image: "" },
             { id: 7, code: "P1007", name: "مانیتور سامسونگ 32 اینچ", category: "الکترونیک", purchasePrice: 12500000, salePrice: 15900000, unit: "عدد", stock: 12, image: "" }
         ];
-
-        let priceTable = null;
-
-        function renderPriceList() {
-            const tbody = document.getElementById('priceListBody');
-            if (!tbody) return;
-
-            tbody.innerHTML = productsList.map((p, index) => `
-                <tr class="price-row">
-                    <td>${index + 1}</td>
+        <button type="button" id="close-editor" aria-label="بستن">×</button>
+      </header>
       <form id="editor-form">
         <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
