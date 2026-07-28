@@ -201,16 +201,8 @@
             });
         }
 
-        function filterPriceList() {
-            const searchTerm = document.getElementById('searchProduct')?.value.toLowerCase() || '';
-            const category = document.getElementById('categoryFilter')?.value || '';
-
-            const filtered = productsList.filter(p => {
-                const matchSearch = p.name.toLowerCase().includes(searchTerm) || p.code.toLowerCase().includes(searchTerm);
-                const matchCategory = !category || p.category === category;
-                return matchSearch && matchCategory;
-            });
-
+        <footer>
+          <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
       </form>
