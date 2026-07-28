@@ -211,17 +211,7 @@
                 return matchSearch && matchCategory;
             });
 
-            const tbody = document.getElementById('priceListBody');
-            if (tbody) {
-                tbody.innerHTML = filtered.map((p, index) => `
-                    <tr class="price-row">
-                        <td>${index + 1}</td>
-                        <td>${p.code}</td>
-                        <td><img src="${p.image || 'https://via.placeholder.com/40x40/e2e8f0/64748b?text=No'}" width="40" height="40" style="object-fit: cover; border-radius: 8px;"></td>
-                        <td>${p.name}</td>
-                        <td>${p.category}</td>
-                        <td>${p.purchasePrice.toLocaleString()}</td>
-                        <td class="text-primary fw-bold">${p.salePrice.toLocaleString()}</td>
+          ><button type="submit" class="primary">ذخیره</button>
         </footer>
       </form>
     </dialog>
