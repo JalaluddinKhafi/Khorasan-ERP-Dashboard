@@ -564,16 +564,5 @@
                     preview.innerHTML = `<img src="${ev.target.result}" width="100" class="img-thumbnail">`;
                 };
                 reader.readAsDataURL(file);
-            }
-        });
-
-        // نمونه fetch برای اتصال به API واقعی
-        async function fetchProductsFromAPI() {
-            try {
-                const response = await fetch('/api/products');
-                if (response.ok) {
-                    const data = await response.json();
-                    productsData = data;
-                    renderProductsTable();
   </body>
 </html>
