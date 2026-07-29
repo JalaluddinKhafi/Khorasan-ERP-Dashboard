@@ -575,14 +575,5 @@
                     const data = await response.json();
                     productsData = data;
                     renderProductsTable();
-                }
-            } catch (error) {
-                console.log('Using mock data');
-                loadProducts();
-            }
-        }
-
-        async function saveProductToAPI(product) {
-            try {
-                const formData = new FormData();
+  </body>
 </html>
