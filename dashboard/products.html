@@ -585,15 +585,4 @@
         async function saveProductToAPI(product) {
             try {
                 const formData = new FormData();
-                Object.keys(product).forEach(key => formData.append(key, product[key]));
-                
-                const response = await fetch('/api/products', {
-                    method: product.id ? 'PUT' : 'POST',
-                    body: formData
-                });
-                if (response.ok) {
-                    showToast('کالا با موفقیت ذخیره شد', 'success');
-                    fetchProductsFromAPI();
-                }
-            } catch (error) {
 </html>
