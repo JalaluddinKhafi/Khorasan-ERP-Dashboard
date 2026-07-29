@@ -470,17 +470,6 @@
                 salePrice: parseInt(document.getElementById('salePrice').value) || 0,
                 stock: parseInt(document.getElementById('initialStock').value) || 0,
                 minStock: parseInt(document.getElementById('minStock').value) || 0,
-                description: document.getElementById('productDescription').value,
-                status: document.getElementById('productStatus').value,
-                barcode: document.getElementById('productBarcode').value,
-                image: ''
-            };
-
-            // اعتبارسنجی
-            if (!product.code || !product.name || !product.category || !product.purchasePrice || !product.salePrice) {
-                showToast('لطفاً تمام فیلدهای الزامی را پر کنید', 'error');
-                return;
-            }
       </form>
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
