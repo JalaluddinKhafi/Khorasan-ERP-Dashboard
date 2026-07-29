@@ -491,16 +491,6 @@
             if (!id && productsData.some(p => p.code === product.code)) {
                 showToast('کد محصول تکراری است', 'error');
                 return;
-            }
-
-            // پردازش تصویر
-            const imageFile = document.getElementById('productImage').files[0];
-            if (imageFile) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    product.image = e.target.result;
-                    saveProductToArray(product, id);
-                };
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
   </body>
