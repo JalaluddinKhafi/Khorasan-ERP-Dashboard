@@ -522,17 +522,6 @@
                 productsData.push(product);
                 showToast('کالا با موفقیت اضافه شد', 'success');
             }
-
-            renderProductsTable();
-            bootstrap.Modal.getInstance(document.getElementById('productModal')).hide();
-            resetProductForm();
-        }
-
-        function resetProductForm() {
-            document.getElementById('productId').value = '';
-            document.getElementById('modalTitle').innerText = 'افزودن کالا';
-            document.getElementById('productForm').reset();
-            document.getElementById('imagePreview').innerHTML = '';
     <script type="module" src="../assets/js/app.js"></script>
   </body>
 </html>
