@@ -543,16 +543,6 @@
             document.getElementById('deleteProductName').innerText = name;
             new bootstrap.Modal(document.getElementById('deleteModal')).show();
         }
-
-        function confirmDelete() {
-            if (deleteProductId) {
-                productsData = productsData.filter(p => p.id !== deleteProductId);
-                renderProductsTable();
-                showToast('کالا با موفقیت حذف شد', 'success');
-                bootstrap.Modal.getInstance(document.getElementById('deleteModal')).hide();
-                deleteProductId = null;
-            }
-        }
-
+    <script type="module" src="../assets/js/app.js"></script>
   </body>
 </html>
