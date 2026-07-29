@@ -481,16 +481,7 @@
                 showToast('لطفاً تمام فیلدهای الزامی را پر کنید', 'error');
                 return;
             }
-
-            if (product.salePrice < product.purchasePrice) {
-                showToast('قیمت فروش نمی‌تواند از قیمت خرید کمتر باشد', 'error');
-                return;
-            }
-
-            // بررسی تکراری نبودن کد محصول
-            if (!id && productsData.some(p => p.code === product.code)) {
-                showToast('کد محصول تکراری است', 'error');
-                return;
+      </form>
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
   </body>
