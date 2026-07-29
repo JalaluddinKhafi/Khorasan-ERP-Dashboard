@@ -576,3 +576,23 @@ async function paymentForm() {
       api("invoices?kind=SALE"),
       api("invoices?kind=PURCHASE"),
     ]);
+  const parties = [...customers, ...suppliers].filter((p) => p.active);
+  if (!parties.length) {
+    toast("ابتدا مشتری یا تهیه‌کننده ثبت کنید", true);
+    return;
+  }
+  const inv = [...invoicesSale, ...invoicesPurchase].filter(
+    (i) => !i.voided && Number(i.paid_usd) < Number(i.total_usd),
+  );
+  edit(
+    "ثبت دریافت / پرداخت",
+    [
+      field("party_id", "حساب", "select", {
+        options: parties.map((p) => [
+          p.id,
+          p.name +
+            " · " +
+            (p.kind === "CUSTOMER"
+              ? "دریافت از مشتری"
+              : "پرداخت به تهیه‌کننده"),
+        ]),
