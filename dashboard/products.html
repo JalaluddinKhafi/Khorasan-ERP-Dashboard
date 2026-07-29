@@ -501,17 +501,6 @@
                     product.image = e.target.result;
                     saveProductToArray(product, id);
                 };
-                reader.readAsDataURL(imageFile);
-            } else if (id) {
-                const existingProduct = productsData.find(p => p.id === parseInt(id));
-                product.image = existingProduct?.image || '';
-                saveProductToArray(product, id);
-            } else {
-                saveProductToArray(product, id);
-            }
-        }
-
-        function saveProductToArray(product, id) {
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
   </body>
