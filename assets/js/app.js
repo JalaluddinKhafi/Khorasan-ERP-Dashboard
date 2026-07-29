@@ -596,3 +596,28 @@ async function paymentForm() {
               ? "دریافت از مشتری"
               : "پرداخت به تهیه‌کننده"),
         ]),
+      }),
+      field("invoice_id", "فاکتور مرتبط", "select", {
+        required: false,
+        options: [["", "پرداخت عمومی حساب"]],
+      }),
+      field("payment_date", "تاریخ", "date", { value: today() }),
+      field("amount", "مبلغ پرداخت", "number", { min: 0.0001 }),
+      ...currencyFields(),
+      field("notes", "توضیحات", "textarea", { required: false }),
+    ],
+    {},
+    (m) => send("payments", m),
+  );
+  bindRate();
+  const sel = dialog.querySelector("[name=party_id]");
+  const fill = () => {
+    dialog.querySelector("[name=invoice_id]").innerHTML =
+      '<option value="">پرداخت عمومی حساب</option>' +
+      inv
+        .filter((i) => String(i.party_id) === sel.value)
+        .map(
+          (i) =>
+            `<option value="${i.id}">#${i.id} · باقی ${money(Number(i.total_usd) - Number(i.paid_usd))}</option>`,
+        )
+        .join("");
