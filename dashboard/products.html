@@ -428,17 +428,6 @@
         }
 
         // ویرایش محصول
-        function editProduct(id) {
-            const product = productsData.find(p => p.id === id);
-            if (!product) return;
-
-            currentProductId = id;
-            document.getElementById('modalTitle').innerText = 'ویرایش کالا';
-            document.getElementById('productId').value = product.id;
-            document.getElementById('productCode').value = product.code;
-            document.getElementById('productName').value = product.name;
-            document.getElementById('productCategory').value = product.category;
-            document.getElementById('productUnit').value = product.unit;
         </footer>
       </form>
     </dialog>
