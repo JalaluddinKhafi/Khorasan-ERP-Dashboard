@@ -355,17 +355,7 @@
             const status = document.getElementById('statusFilter')?.value || '';
 
             const filtered = productsData.filter(p => {
-                const matchSearch = p.name.toLowerCase().includes(searchTerm) || p.code.toLowerCase().includes(searchTerm);
-                const matchCategory = !category || p.category === category;
-                const matchStatus = !status || p.status === status;
-                return matchSearch && matchCategory && matchStatus;
-            });
-
-            const tbody = document.getElementById('productsTableBody');
-            if (tbody) {
-                tbody.innerHTML = filtered.map(p => `
-                    <tr>
-                        <td>${p.code}</td>
+        <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
