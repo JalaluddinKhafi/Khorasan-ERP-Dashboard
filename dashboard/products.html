@@ -449,17 +449,7 @@
 
             if (product.image) {
                 document.getElementById('imagePreview').innerHTML = `<img src="${product.image}" width="100" class="img-thumbnail">`;
-            } else {
-                document.getElementById('imagePreview').innerHTML = '';
-            }
-
-            new bootstrap.Modal(document.getElementById('productModal')).show();
-        }
-
-        // ذخیره محصول (افزودن یا ویرایش)
-        function saveProduct() {
-            const id = document.getElementById('productId').value;
-            
+        </footer>
       </form>
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
