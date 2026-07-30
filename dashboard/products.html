@@ -460,16 +460,6 @@
         function saveProduct() {
             const id = document.getElementById('productId').value;
             
-            const product = {
-                id: id ? parseInt(id) : Date.now(),
-                code: document.getElementById('productCode').value,
-                name: document.getElementById('productName').value,
-                category: document.getElementById('productCategory').value,
-                unit: document.getElementById('productUnit').value,
-                purchasePrice: parseInt(document.getElementById('purchasePrice').value) || 0,
-                salePrice: parseInt(document.getElementById('salePrice').value) || 0,
-                stock: parseInt(document.getElementById('initialStock').value) || 0,
-                minStock: parseInt(document.getElementById('minStock').value) || 0,
       </form>
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
