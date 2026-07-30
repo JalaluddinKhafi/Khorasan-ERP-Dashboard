@@ -418,16 +418,7 @@
                             <tr><th>وضعیت</th><td><span class="badge ${product.status === 'موجود' ? 'bg-success' : (product.status === 'در راه' ? 'bg-warning' : 'bg-danger')}">${product.status}</span></td></tr>
                             <tr><th>بارکد</th><td>${product.barcode || '---'}</td></tr>
                             <tr><th>توضیحات</th><td>${product.description || '---'}</td></tr>
-                        </table>
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('detailsContent').innerHTML = detailsHtml;
-            new bootstrap.Modal(document.getElementById('detailsModal')).show();
-        }
-
-        // ویرایش محصول
+          ><button type="submit" class="primary">ذخیره</button>
         </footer>
       </form>
     </dialog>
