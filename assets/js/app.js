@@ -621,3 +621,22 @@ async function paymentForm() {
             `<option value="${i.id}">#${i.id} · باقی ${money(Number(i.total_usd) - Number(i.paid_usd))}</option>`,
         )
         .join("");
+  };
+  sel.onchange = fill;
+  fill();
+}
+async function payments(receipts = false) {
+  const rows = await api("payments");
+  heading(
+    "دریافت از مشتری و پرداخت به تهیه‌کننده؛ مبلغ اصلی، نرخ تبدیل و مبلغ دالر نگهداری می‌شود.",
+    `<button class="primary" id="add-payment">+ دریافت / پرداخت</button>`,
+  );
+  app.insertAdjacentHTML(
+    "beforeend",
+    panel(
+      table(
+        [
+          "رسید",
+          "حساب",
+          "جهت",
+          "تاریخ",
