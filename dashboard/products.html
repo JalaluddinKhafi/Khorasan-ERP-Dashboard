@@ -407,17 +407,6 @@
                     </div>
                     <div class="col-md-8">
                         <table class="table table-bordered">
-                            <tr><th style="width: 40%">کد کالا</th><td>${product.code}</td></tr>
-                            <tr><th>نام کالا</th><td>${product.name}</td></tr>
-                            <tr><th>دسته‌بندی</th><td>${product.category}</td></tr>
-                            <tr><th>قیمت خرید</th><td>${product.purchasePrice.toLocaleString()} تومان</td></tr>
-                            <tr><th>قیمت فروش</th><td class="text-primary fw-bold">${product.salePrice.toLocaleString()} تومان</td></tr>
-                            <tr><th>سود هر واحد</th><td class="text-success">${profit.toLocaleString()} تومان (${profitPercent}%)</td></tr>
-                            <tr><th>موجودی فعلی</th><td class="${product.stock <= product.minStock ? 'text-danger fw-bold' : ''}">${product.stock} ${product.unit}</td></tr>
-                            <tr><th>حداقل موجودی هشدار</th><td>${product.minStock} ${product.unit}</td></tr>
-                            <tr><th>وضعیت</th><td><span class="badge ${product.status === 'موجود' ? 'bg-success' : (product.status === 'در راه' ? 'bg-warning' : 'bg-danger')}">${product.status}</span></td></tr>
-                            <tr><th>بارکد</th><td>${product.barcode || '---'}</td></tr>
-                            <tr><th>توضیحات</th><td>${product.description || '---'}</td></tr>
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
       </form>
