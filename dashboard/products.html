@@ -345,16 +345,6 @@
                     if (categoryFilter) categoryFilter.value = '';
                     if (statusFilter) statusFilter.value = '';
                     filterProducts();
-                });
-            }
-        }
-
-        function filterProducts() {
-            const searchTerm = document.getElementById('searchProductInput')?.value.toLowerCase() || '';
-            const category = document.getElementById('categoryFilter')?.value || '';
-            const status = document.getElementById('statusFilter')?.value || '';
-
-            const filtered = productsData.filter(p => {
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
