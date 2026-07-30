@@ -439,16 +439,6 @@
             document.getElementById('productName').value = product.name;
             document.getElementById('productCategory').value = product.category;
             document.getElementById('productUnit').value = product.unit;
-            document.getElementById('purchasePrice').value = product.purchasePrice;
-            document.getElementById('salePrice').value = product.salePrice;
-            document.getElementById('initialStock').value = product.stock;
-            document.getElementById('minStock').value = product.minStock;
-            document.getElementById('productDescription').value = product.description || '';
-            document.getElementById('productStatus').value = product.status;
-            document.getElementById('productBarcode').value = product.barcode || '';
-
-            if (product.image) {
-                document.getElementById('imagePreview').innerHTML = `<img src="${product.image}" width="100" class="img-thumbnail">`;
         </footer>
       </form>
     </dialog>
