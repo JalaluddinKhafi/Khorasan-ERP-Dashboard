@@ -683,3 +683,28 @@ function receipt(r) {
   );
   $("#print").onclick = () => window.print();
 }
+async function invoiceView() {
+  const id = new URLSearchParams(location.search).get("id");
+  if (!id) {
+    heading(
+      "برای نمایش فاکتور از فهرست فروش یا خرید انتخاب کنید.",
+      '<a class="button" href="sales.html">فهرست فروش</a>',
+    );
+    return;
+  }
+  const r = await api("invoices/" + encodeURIComponent(id));
+  heading("نسخهٔ قابل چاپ فاکتور", printButtons());
+  app.insertAdjacentHTML(
+    "beforeend",
+    `<article class="print-sheet">${letterhead()}<div class="panel-head"><h2>فاکتور ${r.kind === "SALE" ? "فروش" : "خرید"} #${r.id}${r.voided ? " — لغوشده" : ""}</h2><span>${day(r.invoice_date)}</span></div><p><b>${esc(r.party_name)}</b> · ${esc(r.phone)}</p><p>${esc(r.address)}</p><p class="muted">واحد معامله: ${esc(r.currency)} · نرخ تبدیل: ${esc(r.rate)} واحد در برابر ۱ دالر</p>${table(
+      ["شماره", "شرح جنس", "واحد", "تعداد", "نرخ واحد", "مجموع"],
+      r.items.map((i, n) => [
+        n + 1,
+        esc(i.name),
+        esc(i.unit),
+        esc(i.quantity),
+        money(i.price, r.currency),
+        money(i.total, r.currency),
+      ]),
+    )}<div class="summary"><span>مجموع اقلام</span><span>${money(r.subtotal, r.currency)}</span></div><div class="summary"><span>تخفیف</span><span>${money(r.discount, r.currency)}</span></div><div class="summary"><span>مجموع نهایی</span><span>${money(r.total, r.currency)} / ${money(r.total_usd)}</span></div><div class="summary"><span>پرداخت مرتبط / باقی فاکتور</span><span>${money(r.paid_usd)} / ${money(Number(r.total_usd) - Number(r.paid_usd))}</span></div><p class="prose">${esc(r.notes)}</p><p class="prose muted">${esc(settings.terms)}</p><div class="signatures"><span>امضای مشتری / تهیه‌کننده</span><span>مهر و امضای شرکت</span></div></article>`,
+  );
