@@ -660,3 +660,26 @@ async function payments(receipts = false) {
       ),
     ),
   );
+  $("#add-payment").onclick = paymentForm;
+  app
+    .querySelectorAll("[data-receipt]")
+    .forEach(
+      (b) =>
+        (b.onclick = () =>
+          receipt(rows.find((r) => String(r.id) === b.dataset.receipt))),
+    );
+}
+function letterhead() {
+  return `<div class="letterhead">${settings.header_image ? `<img class="header-image" src="${esc(settings.header_image)}" alt="سربرگ شرکت">` : `${settings.logo_image ? `<img class="logo-image" src="${esc(settings.logo_image)}" alt="نشان شرکت">` : ""}<div><h2>${esc(settings.company_name || "امینی گروپ")}</h2><p>${esc(settings.brands)}</p><div>${esc(settings.address)} · ${esc(settings.phone)}</div></div>`}</div>`;
+}
+function printButtons() {
+  return '<button id="print" class="primary">چاپ / ذخیره PDF</button>';
+}
+function receipt(r) {
+  heading("رسید دریافت و پرداخت", printButtons());
+  app.insertAdjacentHTML(
+    "beforeend",
+    `<article class="print-sheet">${letterhead()}<h2>رسید ${r.kind === "CUSTOMER" ? "دریافت" : "پرداخت"} #${r.id}</h2><p>حساب: ${esc(r.party_name)} · تاریخ: ${day(r.payment_date)}</p>${table(["مبلغ اصلی", "نرخ در برابر دالر", "مبلغ دالر", "فاکتور"], [[money(r.amount, r.currency), esc(r.rate), money(r.amount_usd), r.invoice_id ?? "عمومی"]])}<p class="prose">${esc(r.notes)}</p><div class="signatures"><span>امضای تحویل‌دهنده</span><span>مهر و امضای دریافت‌کننده</span></div></article>`,
+  );
+  $("#print").onclick = () => window.print();
+}
