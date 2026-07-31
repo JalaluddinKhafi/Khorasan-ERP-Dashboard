@@ -250,17 +250,6 @@
                     unit: "عدد", stock: 250, minStock: 30, status: "موجود", 
                     description: "طراحی ارگونومیک، شارژ با USB-C",
                     image: "", barcode: "1234567891213"
-                }
-            ];
-            renderProductsTable();
-        }
-
-        // رندر جدول محصولات
-        function renderProductsTable() {
-            const tbody = document.getElementById('productsTableBody');
-            if (!tbody) return;
-
-            tbody.innerHTML = productsData.map(p => `
       <form id="editor-form">
         <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
