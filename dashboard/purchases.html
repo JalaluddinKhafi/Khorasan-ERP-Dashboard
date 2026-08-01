@@ -477,13 +477,4 @@
             const paid = parseInt(this.value) || 0;
             const statusSelect = document.getElementById('paymentStatus');
             if (paid === 0) statusSelect.value = 'پرداخت نشده';
-            else if (paid >= total) statusSelect.value = 'پرداخت شده';
-            else statusSelect.value = 'پرداخت جزئی';
-        });
-
-        loadSidebarAndNavbar('purchases');
-        renderPurchasesTable();
-        attachRowEvents();
-    </script>
-</body>
 </html>
