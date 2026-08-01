@@ -456,14 +456,5 @@
                 purchasesData = purchasesData.filter(p => p.id !== id);
                 renderPurchasesTable();
                 showToast('فاکتور حذف شد', 'success');
-            }
-        }
-
-        // رویدادها
-        document.getElementById('addItemRow')?.addEventListener('click', addItemRow);
-        document.getElementById('savePurchaseBtn')?.addEventListener('click', savePurchase);
-        document.getElementById('printDetailsBtn')?.addEventListener('click', () => window.print());
-        document.getElementById('resetFilters')?.addEventListener('click', () => {
-            document.getElementById('searchPurchase').value = '';
-            document.getElementById('statusFilter').value = 'all';
+  </body>
 </html>
