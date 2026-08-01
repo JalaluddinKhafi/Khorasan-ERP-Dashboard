@@ -708,3 +708,22 @@ async function invoiceView() {
       ]),
     )}<div class="summary"><span>مجموع اقلام</span><span>${money(r.subtotal, r.currency)}</span></div><div class="summary"><span>تخفیف</span><span>${money(r.discount, r.currency)}</span></div><div class="summary"><span>مجموع نهایی</span><span>${money(r.total, r.currency)} / ${money(r.total_usd)}</span></div><div class="summary"><span>پرداخت مرتبط / باقی فاکتور</span><span>${money(r.paid_usd)} / ${money(Number(r.total_usd) - Number(r.paid_usd))}</span></div><p class="prose">${esc(r.notes)}</p><p class="prose muted">${esc(settings.terms)}</p><div class="signatures"><span>امضای مشتری / تهیه‌کننده</span><span>مهر و امضای شرکت</span></div></article>`,
   );
+  $("#print").onclick = () => window.print();
+}
+async function balance() {
+  const parties = [...(await api("customers")), ...(await api("suppliers"))];
+  heading(
+    "بیلانس دالر شامل باقی قبلی، فروش یا خرید و دریافت یا پرداخت در بازهٔ انتخابی.",
+  );
+  app.insertAdjacentHTML(
+    "beforeend",
+    panel(
+      `<form id="statement-filter" class="fields no-print"><label>حساب<select name="party_id" required>${parties.map((p) => `<option value="${p.id}">${esc(p.name)} · ${p.kind === "CUSTOMER" ? "مشتری" : "تهیه‌کننده"}</option>`).join("")}</select></label><label>از تاریخ<input type="date" name="from" value="2000-01-01" required></label><label>تا تاریخ<input type="date" name="to" value="${today()}" required></label><div class="actions"><button class="primary">نمایش بیلانس</button><button type="button" id="balance-print">چاپ / PDF</button><button type="button" id="balance-csv">CSV / Excel</button></div></form>`,
+    ) + '<div id="statement"></div>',
+  );
+  $("#statement-filter").closest(".panel").classList.add("no-print");
+  let csv = [];
+  $("#balance-print").onclick = () => window.print();
+  $("#balance-csv").onclick = () => downloadCsv("statement", csv);
+  const load = async () => {
+    const form = $("#statement-filter");
