@@ -434,16 +434,6 @@
             const p = purchasesData.find(x => x.id === id);
             if (!p) return;
             
-            document.getElementById('detailsContent').innerHTML = `
-                <p><strong>شماره:</strong> ${p.invoiceNo}</p>
-                <p><strong>تامین‌کننده:</strong> ${p.supplier}</p>
-                <p><strong>تاریخ:</strong> ${p.date}</p>
-                <p><strong>مبلغ کل:</strong> ${p.total.toLocaleString()} تومان</p>
-                <p><strong>پرداختی:</strong> ${p.paid.toLocaleString()} تومان</p>
-                <p><strong>باقیمانده:</strong> ${p.remaining.toLocaleString()} تومان</p>
-                <p><strong>وضعیت:</strong> ${p.status}</p>
-                ${p.description ? `<p><strong>توضیحات:</strong> ${p.description}</p>` : ''}
-            `;
-            new bootstrap.Modal(document.getElementById('detailsModal')).show();
+    <script type="module" src="../assets/js/app.js"></script>
   </body>
 </html>
