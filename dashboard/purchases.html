@@ -445,16 +445,5 @@
                 ${p.description ? `<p><strong>توضیحات:</strong> ${p.description}</p>` : ''}
             `;
             new bootstrap.Modal(document.getElementById('detailsModal')).show();
-        }
-
-        function editPurchase(id) {
-            showToast('ویرایش در نسخه بعدی اضافه می‌شود', 'info');
-        }
-
-        function deletePurchase(id) {
-            if (confirm('آیا از حذف اطمینان دارید؟')) {
-                purchasesData = purchasesData.filter(p => p.id !== id);
-                renderPurchasesTable();
-                showToast('فاکتور حذف شد', 'success');
   </body>
 </html>
