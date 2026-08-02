@@ -751,3 +751,25 @@ async function balance() {
           i.kind === "OPENING"
             ? "افتتاحیه"
             : i.kind === "INVOICE"
+              ? "فاکتور"
+              : "پرداخت",
+          i.reference,
+          i.currency,
+          i.original_amount,
+          i.rate,
+          i.debit,
+          i.credit,
+          i.balance,
+        ]),
+      ];
+      $("#statement").innerHTML =
+        `<article class="print-sheet">${letterhead()}<h2>بیلانس حساب: ${esc(r.party.name)}</h2><p>${esc(r.party.phone)} · ${esc(r.party.address)}</p><p>از ${day(r.from)} تا ${day(r.to)} · واحد اصلی: دالر</p><div class="stats"><div class="stat"><span>باقی قبلی</span><strong>${money(r.opening)}</strong></div><div class="stat"><span>بدهکار</span><strong>${money(r.rows.reduce((s, i) => s + Number(i.debit), 0))}</strong></div><div class="stat"><span>بستانکار</span><strong>${money(r.rows.reduce((s, i) => s + Number(i.credit), 0))}</strong></div><div class="stat"><span>باقی نهایی</span><strong>${money(r.closing)}</strong></div></div>${table(
+          [
+            "تاریخ",
+            "شرح",
+            "مرجع",
+            "مبلغ اصلی",
+            "نرخ",
+            "بدهکار",
+            "بستانکار",
+            "باقی",
