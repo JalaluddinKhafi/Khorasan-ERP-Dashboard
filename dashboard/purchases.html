@@ -307,17 +307,7 @@
             });
             document.querySelectorAll('.delete-purchase').forEach(btn => {
                 btn.onclick = () => deletePurchase(parseInt(btn.dataset.id));
-            });
-        }
-
-        function calculateStats() {
-            document.getElementById('totalPurchases').innerHTML = purchasesData.length;
-            document.getElementById('totalAmount').innerHTML = purchasesData.reduce((s, p) => s + p.total, 0).toLocaleString() + ' تومان';
-            document.getElementById('pendingCount').innerHTML = purchasesData.filter(p => p.status !== 'پرداخت شده').length;
-            document.getElementById('paidCount').innerHTML = purchasesData.filter(p => p.status === 'پرداخت شده').length;
-        }
-
-        function filterPurchases() {
+        <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
