@@ -403,16 +403,6 @@
                 items.push({
                     product: row.querySelector('.product-name')?.value,
                     qty: parseFloat(row.querySelector('.quantity')?.value),
-                    unit: row.querySelector('.unit')?.value,
-                    price: parseFloat(row.querySelector('.unit-price')?.value),
-                    discount: parseFloat(row.querySelector('.discount')?.value),
-                    total: (parseFloat(row.querySelector('.quantity')?.value) * parseFloat(row.querySelector('.unit-price')?.value)) - parseFloat(row.querySelector('.discount')?.value)
-                });
-            });
-            
-            const newPurchase = {
-                id: Date.now(),
-                invoiceNo: document.getElementById('invoiceNo').value,
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
   </body>
