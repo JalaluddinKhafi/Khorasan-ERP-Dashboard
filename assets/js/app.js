@@ -773,3 +773,25 @@ async function balance() {
             "بدهکار",
             "بستانکار",
             "باقی",
+          ],
+          r.rows.map((i) => [
+            day(i.entry_date),
+            i.kind === "OPENING"
+              ? "افتتاحیه"
+              : i.kind === "INVOICE"
+                ? "فاکتور"
+                : "دریافت / پرداخت",
+            i.reference,
+            money(i.original_amount, i.currency),
+            esc(i.rate),
+            money(i.debit),
+            money(i.credit),
+            money(i.balance),
+          ]),
+        )}<p class="muted">باقی منفی نشان‌دهندهٔ پیش‌پرداخت است.</p><div class="signatures"><span>تأیید صاحب حساب</span><span>ترتیب‌کننده: ${esc(me.name)}</span></div></article>`;
+    } catch (e) {
+      toast(e.message, true);
+    }
+  };
+  $("#statement-filter").onsubmit = (e) => {
+    e.preventDefault();
