@@ -392,17 +392,7 @@
                 };
             });
         }
-
-        function savePurchase() {
-            const total = parseInt(document.getElementById('grandTotal').innerHTML.replace(/,/g, '')) || 0;
-            const paid = parseInt(document.getElementById('paidAmount').value) || 0;
-            const status = paid === 0 ? 'پرداخت نشده' : (paid >= total ? 'پرداخت شده' : 'پرداخت جزئی');
-            
-            const items = [];
-            document.querySelectorAll('#itemsBody tr').forEach(row => {
-                items.push({
-                    product: row.querySelector('.product-name')?.value,
-                    qty: parseFloat(row.querySelector('.quantity')?.value),
+      </form>
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
   </body>
