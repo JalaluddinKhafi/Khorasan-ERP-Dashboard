@@ -297,16 +297,6 @@
             attachEvents();
             calculateStats();
         }
-
-        function attachEvents() {
-            document.querySelectorAll('.view-purchase').forEach(btn => {
-                btn.onclick = () => viewPurchase(parseInt(btn.dataset.id));
-            });
-            document.querySelectorAll('.edit-purchase').forEach(btn => {
-                btn.onclick = () => editPurchase(parseInt(btn.dataset.id));
-            });
-            document.querySelectorAll('.delete-purchase').forEach(btn => {
-                btn.onclick = () => deletePurchase(parseInt(btn.dataset.id));
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
