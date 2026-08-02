@@ -360,17 +360,6 @@
                 row.querySelector('.row-total').innerHTML = sum.toLocaleString();
                 total += sum;
             });
-            document.getElementById('grandTotal').innerHTML = total.toLocaleString();
-        }
-
-        function addItemRow() {
-            const tbody = document.getElementById('itemsBody');
-            tbody.insertAdjacentHTML('beforeend', `
-                <tr>
-                    <td><input type="text" class="form-control product-name" placeholder="نام کالا"></td>
-                    <td><input type="number" class="form-control quantity" value="1" min="1"></td>
-                    <td><input type="text" class="form-control unit" value="عدد"></td>
-                    <td><input type="number" class="form-control unit-price" value="0" min="0"></td>
         </footer>
       </form>
     </dialog>
