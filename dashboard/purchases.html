@@ -381,17 +381,7 @@
 
         function attachRowEvents() {
             document.querySelectorAll('.quantity, .unit-price, .discount').forEach(el => {
-                el.oninput = () => calculateItemTotal();
-            });
-            document.querySelectorAll('.remove-row').forEach(btn => {
-                btn.onclick = function() {
-                    if (document.querySelectorAll('#itemsBody tr').length > 1) {
-                        this.closest('tr').remove();
-                        calculateItemTotal();
-                    }
-                };
-            });
-        }
+        </footer>
       </form>
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
