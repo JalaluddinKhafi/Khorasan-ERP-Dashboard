@@ -350,16 +350,7 @@
             attachEvents();
         }
 
-        function calculateItemTotal() {
-            let total = 0;
-            document.querySelectorAll('#itemsBody tr').forEach(row => {
-                const qty = parseFloat(row.querySelector('.quantity')?.value) || 0;
-                const price = parseFloat(row.querySelector('.unit-price')?.value) || 0;
-                const discount = parseFloat(row.querySelector('.discount')?.value) || 0;
-                const sum = (qty * price) - discount;
-                row.querySelector('.row-total').innerHTML = sum.toLocaleString();
-                total += sum;
-            });
+          ><button type="submit" class="primary">ذخیره</button>
         </footer>
       </form>
     </dialog>
