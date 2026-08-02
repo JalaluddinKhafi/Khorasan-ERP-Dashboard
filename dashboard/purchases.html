@@ -318,16 +318,6 @@
         }
 
         function filterPurchases() {
-            const search = document.getElementById('searchPurchase').value.toLowerCase();
-            const status = document.getElementById('statusFilter').value;
-            const date = document.getElementById('dateFilter').value;
-            
-            const filtered = purchasesData.filter(p => {
-                const matchSearch = p.invoiceNo.toLowerCase().includes(search) || p.supplier.toLowerCase().includes(search);
-                const matchStatus = status === 'all' || p.status === status;
-                const matchDate = !date || p.date.includes(date);
-                return matchSearch && matchStatus && matchDate;
-            });
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
