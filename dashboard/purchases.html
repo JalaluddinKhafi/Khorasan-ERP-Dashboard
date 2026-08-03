@@ -275,17 +275,7 @@
         }
 
         function renderPurchasesTable() {
-            const tbody = document.getElementById('purchasesTableBody');
-            tbody.innerHTML = purchasesData.map(p => `
-                <tr>
-                    <td>${p.invoiceNo}</td>
-                    <td>${p.supplier}</td>
-                    <td>${p.date}</td>
-                    <td>${p.total.toLocaleString()} تومان</td>
-                    <td>${p.paid.toLocaleString()} تومان</td>
-                    <td class="${p.remaining > 0 ? 'text-danger' : 'text-success'}">${p.remaining.toLocaleString()} تومان</td>
-                    <td><span class="badge ${p.status === 'پرداخت شده' ? 'bg-success' : (p.status === 'پرداخت جزئی' ? 'bg-warning' : 'bg-danger')}">${p.status}</span></td>
-                    <td>
+        <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
