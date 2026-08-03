@@ -817,3 +817,25 @@ async function inventory(price = false) {
     .map((p) =>
       price
         ? [p.code, p.name, p.unit, p.sale_price]
+        : [
+            p.code,
+            p.name,
+            p.unit,
+            p.stock,
+            p.min_stock,
+            Number(p.stock) <= Number(p.min_stock) ? "کم‌موجود" : "موجود",
+          ],
+    );
+  app.insertAdjacentHTML(
+    "beforeend",
+    panel(
+      (price ? letterhead() : "") +
+        table(
+          heads,
+          rows.map((r) => r.map(esc)),
+        ),
+    ),
+  );
+  $("#print").onclick = () => window.print();
+  $("#csv").onclick = () =>
+    downloadCsv(price ? "price-list" : "inventory", [heads, ...rows]);
