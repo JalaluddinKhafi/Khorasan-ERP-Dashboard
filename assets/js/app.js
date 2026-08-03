@@ -795,3 +795,25 @@ async function balance() {
   };
   $("#statement-filter").onsubmit = (e) => {
     e.preventDefault();
+    load();
+  };
+  const id = new URLSearchParams(location.search).get("id");
+  if (id) $("#statement-filter").elements.party_id.value = id;
+  if (parties.length) await load();
+}
+async function inventory(price = false) {
+  const products = await api("products");
+  heading(
+    price
+      ? "نرخنامهٔ اجناس به دالر امریکایی"
+      : "موجودی از ثبت افتتاحیه، خرید، فروش و لغو فاکتور محاسبه می‌شود.",
+    printButtons() + '<button id="csv">CSV / Excel</button>',
+  );
+  const heads = price
+    ? ["کد", "نام جنس", "واحد", "نرخ فروش (دالر)"]
+    : ["کد", "نام جنس", "واحد", "موجودی", "حداقل", "وضعیت"];
+  const rows = products
+    .filter((p) => p.active)
+    .map((p) =>
+      price
+        ? [p.code, p.name, p.unit, p.sale_price]
