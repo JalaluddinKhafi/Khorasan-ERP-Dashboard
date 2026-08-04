@@ -839,3 +839,25 @@ async function inventory(price = false) {
   $("#print").onclick = () => window.print();
   $("#csv").onclick = () =>
     downloadCsv(price ? "price-list" : "inventory", [heads, ...rows]);
+  if (!price) {
+    const movements = await api("inventory/movements");
+    app.insertAdjacentHTML(
+      "beforeend",
+      panel(
+        "<h2>حرکت اجناس</h2>" +
+          table(
+            ["تاریخ", "جنس", "تعداد ورودی / خروجی", "مرجع", "شرح"],
+            movements.map((m) => [
+              day(m.movement_date),
+              esc(m.name),
+              esc(m.quantity),
+              m.invoice_id ?? "افتتاحیه",
+              esc(m.notes),
+            ]),
+          ),
+      ),
+    );
+  }
+}
+async function expenses() {
+  const rows = await api("expenses");
