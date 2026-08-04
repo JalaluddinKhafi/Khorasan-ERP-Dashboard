@@ -861,3 +861,23 @@ async function inventory(price = false) {
 }
 async function expenses() {
   const rows = await api("expenses");
+  heading(
+    "مصارف و معاش در گزارش سود و جریان نقدی محاسبه می‌شود.",
+    '<button id="add-expense" class="primary">+ ثبت مصرف</button>',
+  );
+  app.insertAdjacentHTML(
+    "beforeend",
+    panel(
+      table(
+        ["تاریخ", "دسته", "مبلغ اصلی", "نرخ", "مبلغ دالر", "شرح"],
+        rows.map((r) => [
+          day(r.expense_date),
+          esc(r.category),
+          money(r.amount, r.currency),
+          esc(r.rate),
+          money(r.amount_usd),
+          esc(r.notes),
+        ]),
+      ),
+    ),
+  );
