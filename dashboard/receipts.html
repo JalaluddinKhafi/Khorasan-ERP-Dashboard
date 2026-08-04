@@ -216,16 +216,7 @@
                     <div class="receipt-card">
                         <div class="receipt-header">
                             <div class="d-flex justify-content-between">
-                                <span><i class="fas fa-receipt"></i> رسید شماره ${r.receiptNumber}</span>
-                                <span class="badge ${r.status === 'paid' ? 'bg-success' : 'bg-warning'}">${r.status === 'paid' ? 'پرداخت شده' : 'در انتظار'}</span>
-                            </div>
-                            <small>تاریخ: ${r.receiptDate} | ساعت: ${r.receiptTime}</small>
-                        </div>
-                        <div class="detail-row">
-                            <span>مشتری:</span>
-                            <span class="fw-bold">${r.customerName} (کد: ${r.customerCode})</span>
-                        </div>
-                        <div class="detail-row">
+          ><button type="submit" class="primary">ذخیره</button>
         </footer>
       </form>
     </dialog>
