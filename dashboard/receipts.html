@@ -288,13 +288,4 @@
         document.getElementById('saveReceiptBtn')?.addEventListener('click', saveReceipt);
         document.getElementById('resetReceiptFilters')?.addEventListener('click', () => {
             document.getElementById('searchReceipt').value = '';
-            document.getElementById('filterDate').value = '';
-            document.getElementById('filterStatus').value = 'all';
-            renderReceipts();
-        });
-
-        loadSidebarAndNavbar('receipts');
-        renderReceipts();
-    </script>
-</body>
 </html>
