@@ -881,3 +881,29 @@ async function expenses() {
       ),
     ),
   );
+  $("#add-expense").onclick = () => {
+    edit(
+      "ثبت مصرف",
+      [
+        field("expense_date", "تاریخ", "date", { value: today() }),
+        field("category", "دسته", "select", {
+          options: ["کرایه", "برق", "انتقالات", "خدمات", "سایر"].map((v) => [
+            v,
+            v,
+          ]),
+        }),
+        field("amount", "مبلغ", "number", { min: 0.0001 }),
+        ...currencyFields(),
+        field("notes", "شرح", "textarea", { required: false }),
+      ],
+      {},
+      (m) => send("expenses", m),
+    );
+    bindRate();
+  };
+}
+async function reports() {
+  heading(
+    "سود از فروش منهای بهای اجناس فروخته‌شده و مصارف محاسبه می‌شود. دریافت و پرداخت جدا گزارش می‌شود.",
+    printButtons(),
+  );
