@@ -907,3 +907,22 @@ async function reports() {
     "سود از فروش منهای بهای اجناس فروخته‌شده و مصارف محاسبه می‌شود. دریافت و پرداخت جدا گزارش می‌شود.",
     printButtons(),
   );
+  app.insertAdjacentHTML(
+    "beforeend",
+    panel(
+      `<form id="report-filter" class="fields no-print"><label>از تاریخ<input type="date" name="from" value="${today().slice(0, 7)}-01" required></label><label>تا تاریخ<input type="date" name="to" value="${today()}" required></label><button class="primary">نمایش گزارش</button><button type="button" id="report-csv">CSV / Excel</button></form>`,
+    ) + '<div id="report-result"></div>',
+  );
+  let csv = [];
+  const load = async () => {
+    try {
+      const f = $("#report-filter");
+      const r = await api(
+        `reports?from=${f.elements.from.value}&to=${f.elements.to.value}`,
+      );
+      const incoming = Number(
+          r.cash.find((c) => c.kind === "CUSTOMER")?.total || 0,
+        ),
+        outgoing = Number(
+          r.cash.find((c) => c.kind === "SUPPLIER")?.total || 0,
+        );
