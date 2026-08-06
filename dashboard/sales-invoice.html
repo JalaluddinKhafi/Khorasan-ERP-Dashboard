@@ -431,17 +431,7 @@
                         <td>${item.code}</td>
                         <td>${item.name}</td>
                         <td>${item.quantity}</td>
-                        <td>${item.unit}</td>
-                        <td>${item.price.toLocaleString()}</td>
-                        <td class="text-danger">${item.discount.toLocaleString()}</td>
-                        <td class="fw-bold">${item.total.toLocaleString()}</td>
-                    </tr>
-                `;
-            }).join('');
-            
-            // محاسبات مالی
-            const tax = Math.round((subTotal - discountTotal) * 0.09);
-            const grandTotal = subTotal - discountTotal + tax;
+        </footer>
       </form>
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
