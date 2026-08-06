@@ -219,17 +219,7 @@
                 chart: { type: type.includes('sales') ? 'line' : 'bar', height: 350 },
                 xaxis: { categories: report.categories },
                 colors: ['#2563eb'],
-                title: { text: report.title }
-            });
-            reportChart.render();
-            
-            // Render Table
-            const thead = document.getElementById('reportTableHead');
-            const tbody = document.getElementById('reportTableBody');
-            
-            if (thead) {
-                thead.innerHTML = '<tr>' + report.tableHeaders.map(h => `<th>${h}</th>`).join('') + '</tr>';
-            }
+          ><button type="submit" class="primary">ذخیره</button>
         </footer>
       </form>
     </dialog>
