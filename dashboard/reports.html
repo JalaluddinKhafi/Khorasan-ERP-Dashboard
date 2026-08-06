@@ -240,17 +240,7 @@
                 pageLength: 10
             });
         }
-        
-        document.querySelectorAll('.report-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const reportType = card.dataset.report;
-                loadReport(reportType);
-            });
-        });
-        
-        document.getElementById('applyDateFilter')?.addEventListener('click', () => {
-            showToast('گزارش بر اساس بازه تاریخ انتخاب شده به‌روزرسانی شد', 'success');
-            // در حالت واقعی، درخواست به API با پارامترهای تاریخ ارسال می‌شود
+    </dialog>
     <script type="module" src="../assets/js/app.js"></script>
   </body>
 </html>
