@@ -421,16 +421,8 @@
             const tbody = document.getElementById('invoiceItemsBody');
             let subTotal = 0;
             let discountTotal = 0;
-            
-            tbody.innerHTML = invoiceData.items.map(item => {
-                subTotal += item.total;
-                discountTotal += item.discount;
-                return `
-                    <tr>
-                        <td>${item.row}</td>
-                        <td>${item.code}</td>
-                        <td>${item.name}</td>
-                        <td>${item.quantity}</td>
+          <button type="button" id="cancel-editor">انصراف</button
+          ><button type="submit" class="primary">ذخیره</button>
         </footer>
       </form>
     </dialog>
