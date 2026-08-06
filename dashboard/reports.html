@@ -230,16 +230,8 @@
             if (thead) {
                 thead.innerHTML = '<tr>' + report.tableHeaders.map(h => `<th>${h}</th>`).join('') + '</tr>';
             }
-            if (tbody) {
-                tbody.innerHTML = report.tableData.map(row => '<tr>' + row.map(cell => `<td>${cell}</td>`).join('') + '</tr>').join('');
-            }
-            
-            if (reportTable) reportTable.destroy();
-            reportTable = $('#reportTable').DataTable({
-                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
-                pageLength: 10
-            });
-        }
+        </footer>
+      </form>
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
   </body>
