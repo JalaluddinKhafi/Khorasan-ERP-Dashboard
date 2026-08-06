@@ -442,16 +442,8 @@
             // محاسبات مالی
             const tax = Math.round((subTotal - discountTotal) * 0.09);
             const grandTotal = subTotal - discountTotal + tax;
-            
-            document.getElementById('subTotal').innerHTML = subTotal.toLocaleString() + ' تومان';
-            document.getElementById('discountTotal').innerHTML = discountTotal.toLocaleString() + ' تومان';
-            document.getElementById('taxTotal').innerHTML = tax.toLocaleString() + ' تومان';
-            document.getElementById('grandTotal').innerHTML = grandTotal.toLocaleString() + ' تومان';
-            document.getElementById('amountInWords').innerHTML = numberToWords(grandTotal);
-        }
-
-        function printInvoice() {
-            window.print();
+      </form>
+    </dialog>
     <script type="module" src="../assets/js/app.js"></script>
   </body>
 </html>
