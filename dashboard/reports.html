@@ -209,16 +209,7 @@
             currentReport = type;
             const report = reportData[type];
             if (!report) return;
-            
-            document.getElementById('reportTitle').innerText = report.title;
-            
-            // Render Chart
-            if (reportChart) reportChart.destroy();
-            reportChart = new ApexCharts(document.querySelector("#reportChart"), {
-                series: [{ name: report.title, data: report.chartData }],
-                chart: { type: type.includes('sales') ? 'line' : 'bar', height: 350 },
-                xaxis: { categories: report.categories },
-                colors: ['#2563eb'],
+          <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
       </form>
