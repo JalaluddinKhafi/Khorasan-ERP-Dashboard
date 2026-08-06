@@ -198,17 +198,8 @@
                 categories: ['آرمان پوراحمد', 'شرکت تدبیر', 'فروشگاه دیجیتال', 'توزیع البرز', 'واردات سامسونگ'],
                 tableHeaders: ['نام', 'نوع', 'مبلغ بدهی', 'تاریخ آخرین تراکنش', 'وضعیت'],
                 tableData: [
-                    ['آرمان پوراحمد', 'مشتری', '۱۲,۵۰۰,۰۰۰ تومان', '۱۴۰۲/۱۲/۰۵', 'در حال پیگیری'],
-                    ['شرکت تدبیر', 'مشتری', '۳۳,۶۰۰,۰۰۰ تومان', '۱۴۰۲/۱۲/۰۴', 'در حال پیگیری'],
-                    ['توزیع کننده البرز', 'تامین‌کننده', '۵۶,۰۰۰,۰۰۰ تومان', '۱۴۰۲/۱۲/۰۵', 'سررسید گذشته']
-                ]
-            }
-        };
-        
-        function loadReport(type) {
-            currentReport = type;
-            const report = reportData[type];
-            if (!report) return;
+        <p id="editor-error" class="error" role="alert"></p>
+        <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
