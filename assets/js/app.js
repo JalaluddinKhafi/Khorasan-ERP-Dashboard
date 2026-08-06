@@ -926,3 +926,31 @@ async function reports() {
         outgoing = Number(
           r.cash.find((c) => c.kind === "SUPPLIER")?.total || 0,
         );
+      csv = [
+        ["عنوان", "دالر"],
+        ["فروش", r.sales],
+        ["خرید", r.purchases],
+        ["بهای اجناس فروخته‌شده", r.cost],
+        ["مصارف", r.expenses],
+        ["سود خالص", r.profit],
+        ["دریافت", incoming],
+        ["پرداخت", outgoing],
+        ["جریان خالص نقد", incoming - outgoing - Number(r.expenses)],
+      ];
+      $("#report-result").innerHTML =
+        '<div class="stats">' +
+        csv
+          .slice(1, 5)
+          .map(
+            (r) =>
+              `<div class="stat"><span>${r[0]}</span><strong>${money(r[1])}</strong></div>`,
+          )
+          .join("") +
+        "</div>" +
+        panel(
+          "<h2>گزارش مالی به دالر</h2>" +
+            table(
+              ["عنوان", "مبلغ"],
+              csv.slice(1).map((r) => [r[0], money(r[1])]),
+            ),
+        );
