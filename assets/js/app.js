@@ -994,3 +994,26 @@ async function dashboard() {
         esc(p.code),
         esc(p.name),
         `<b class="warning-text">${esc(p.stock)} ${esc(p.unit)}</b>`,
+        esc(p.min_stock),
+        `<span class="stock-badge ${Number(p.stock) === 0 ? "out" : "low"}">${Number(p.stock) === 0 ? "ناموجود" : "کم‌موجود"}</span>`,
+      ]),
+    )}</section>`,
+  );
+  const dateFormatter = new Intl.DateTimeFormat("fa-AF", {
+    timeZone: "Asia/Kabul",
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  const timeFormatter = new Intl.DateTimeFormat("fa-AF", {
+    timeZone: "Asia/Kabul",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  });
+  const updateClock = () => {
+    const now = new Date();
+    const dateEl = $("#welcome-date"),
+      timeEl = $("#welcome-time");
