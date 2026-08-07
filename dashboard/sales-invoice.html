@@ -358,16 +358,7 @@
         function numberToWords(num) {
             const units = ["", "یک", "دو", "سه", "چهار", "پنج", "شش", "هفت", "هشت", "نه"];
             const tens = ["", "ده", "بیست", "سی", "چهل", "پنجاه", "شصت", "هفتاد", "هشتاد", "نود"];
-            const hundreds = ["", "یکصد", "دویست", "سیصد", "چهارصد", "پانصد", "ششصد", "هفتصد", "هشتصد", "نهصد"];
-            
-            if (num === 0) return "صفر تومان";
-            
-            let word = "";
-            if (num >= 1000000) {
-                word += numberToWords(Math.floor(num / 1000000)) + " میلیون ";
-                num %= 1000000;
-            }
-            if (num >= 1000) {
+      <header>
         <h2 id="editor-title"></h2>
         <button type="button" id="close-editor" aria-label="بستن">×</button>
       </header>
