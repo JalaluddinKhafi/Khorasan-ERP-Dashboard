@@ -970,3 +970,27 @@ let dashboardClock;
 async function dashboard() {
   const d = await api("dashboard");
   heading("نمای کلی فعالیت‌ها و وضعیت امروز تجارت شما");
+  app.insertAdjacentHTML(
+    "beforeend",
+    `<section class="welcome-banner"><div><div class="welcome-label">داشبورد مدیریت</div><h2>خوش آمدید، ${esc(me.name)}!</h2><p>روز خوب و پُربرکتی داشته باشید؛ امور امروز را از همین‌جا آغاز کنید.</p></div><div class="welcome-calendar"><div>${icon("calendar", 20)}<time id="welcome-date"></time></div><div class="welcome-clock">${icon("clock", 20)}<time id="welcome-time" dir="ltr"></time></div><small>به وقت افغانستان · کابل</small></div></section><div class="quick-actions"><a class="quick-action" href="purchases.html?new=1"><span class="quick-icon tone-amber">${icon("purchase", 24)}</span><span><b>فاکتور خرید</b><small>ثبت خرید و تأمین موجودی</small></span>${icon("arrow", 18)}</a><a class="quick-action" href="sales.html?new=1"><span class="quick-icon tone-blue">${icon("sale", 24)}</span><span><b>فاکتور فروش</b><small>ثبت فروش به مشتری</small></span>${icon("arrow", 18)}</a><a class="quick-action" href="products.html?new=1"><span class="quick-icon tone-green">${icon("plus", 24)}</span><span><b>افزودن کالا</b><small>ثبت جنس جدید در گدام</small></span>${icon("arrow", 18)}</a>${me.role === "ADMIN" ? `<a class="quick-action" href="reports.html"><span class="quick-icon tone-purple">${icon("chart", 24)}</span><span><b>گزارشات</b><small>بررسی عملکرد و امور مالی</small></span>${icon("arrow", 18)}</a>` : `<div class="quick-action"><span class="quick-icon tone-purple">${icon("chart", 24)}</span><span><b>گزارشات</b><small>دسترسی ویژهٔ مدیر</small></span></div>`}</div><div class="stats dashboard-stats"><div class="stat"><div class="stat-heading"><span>فروش ماه جاری</span><span class="metric-icon tone-blue">${icon("sale")}</span></div><strong>${money(d.month.sales)}</strong><span class="hint">بر اساس فاکتورهای ثبت‌شده</span></div><div class="stat"><div class="stat-heading"><span>سود ماه جاری</span><span class="metric-icon tone-green">${icon("chart")}</span></div><strong>${money(d.month.profit)}</strong><span class="hint">پس از بهای اجناس و مصارف</span></div><div class="stat"><div class="stat-heading"><span>اجناس فعال</span><span class="metric-icon tone-amber">${icon("box")}</span></div><strong>${new Intl.NumberFormat("fa-AF").format(d.products)}</strong><span class="hint">${new Intl.NumberFormat("fa-AF").format(d.lowStock.length)} جنس نیازمند تأمین</span></div><div class="stat"><div class="stat-heading"><span>مشتریان فعال</span><span class="metric-icon tone-purple">${icon("users")}</span></div><strong>${new Intl.NumberFormat("fa-AF").format(d.customers)}</strong><span class="hint">حساب‌های ثبت‌شدهٔ مشتریان</span></div></div><div class="dashboard-tables"><section class="panel" id="latest-sales"><div class="panel-head"><h2><span class="section-icon tone-blue">${icon("sale")}</span>آخرین فاکتورهای فروش</h2><a class="text-link" href="sales.html">همهٔ فروش‌ها ${icon("arrow", 16)}</a></div>${table(
+      ["شماره", "مشتری", "تاریخ", "مبلغ (دالر)"],
+      d.latest.map((r) => [
+        `<a class="invoice-link" href="sales-invoice.html?id=${r.id}">#${r.id}</a>`,
+        esc(r.name),
+        day(r.invoice_date),
+        money(r.total_usd),
+      ]),
+    )}</section><section class="panel" id="latest-purchases"><div class="panel-head"><h2><span class="section-icon tone-amber">${icon("purchase")}</span>آخرین فاکتورهای خرید</h2><a class="text-link" href="purchases.html">همهٔ خریدها ${icon("arrow", 16)}</a></div>${table(
+      ["شماره", "تهیه‌کننده", "تاریخ", "مبلغ (دالر)"],
+      (d.latestPurchases || []).map((r) => [
+        `<a class="invoice-link" href="sales-invoice.html?id=${r.id}">#${r.id}</a>`,
+        esc(r.name),
+        day(r.invoice_date),
+        money(r.total_usd),
+      ]),
+    )}</section></div><section class="panel stock-alert-panel" id="low-stock"><div class="panel-head"><div><h2><span class="section-icon tone-amber">${icon("alert")}</span>هشدار موجودی کالاها</h2><p class="muted small">اجناسی که به حداقل موجودی رسیده‌اند یا ناموجود هستند.</p></div><a class="button" href="purchases.html?new=1">${icon("plus", 17)} ثبت خرید</a></div>${table(
+      ["کد کالا", "نام کالا", "موجودی فعلی", "حداقل هشدار", "وضعیت"],
+      d.lowStock.map((p) => [
+        esc(p.code),
+        esc(p.name),
+        `<b class="warning-text">${esc(p.stock)} ${esc(p.unit)}</b>`,
