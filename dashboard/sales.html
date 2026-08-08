@@ -104,13 +104,6 @@
             $('#salesTable').DataTable({ language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" } });
         }
         
-        document.getElementById('saveSaleBtn')?.addEventListener('click', () => {
-            showToast('فاکتور فروش با موفقیت ثبت شد', 'success');
-            bootstrap.Modal.getInstance(document.getElementById('salesModal')).hide();
-        });
-        
-        loadSidebarAndNavbar('sales');
-        loadSales();
-    </script>
-</body>
+    <script type="module" src="../assets/js/app.js"></script>
+  </body>
 </html>
