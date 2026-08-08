@@ -1039,3 +1039,27 @@ async function settingsPage() {
         field("address", "آدرس", "textarea", { required: false }),
         field("brands", "برندها و نمایندگی‌ها", "textarea", {
           required: false,
+        }),
+        field("terms", "شرایط فاکتور", "textarea", {
+          required: false,
+          wide: true,
+        }),
+      ]
+        .map((f) => renderField(f, settings[f.key]))
+        .join(
+          "",
+        )}<label>تصویر کامل سربرگ<input type="file" id="header-upload" accept="image/png,image/jpeg,image/webp"><span>حداکثر ۲ مگابایت؛ تصویر افقی توصیه می‌شود.</span></label><label>لوگو<input type="file" id="logo-upload" accept="image/png,image/jpeg,image/webp"></label><div class="wide actions"><button type="button" id="sample-header">استفاده از سربرگ نمونهٔ امینی گروپ</button><button type="button" id="remove-header">حذف تصویر سربرگ</button><button type="button" id="remove-logo">حذف لوگو</button><button class="primary">ذخیرهٔ تنظیمات</button></div></form><h3 style="margin-top:30px">پیش‌نمایش سربرگ</h3><div id="header-preview" class="print-sheet">${letterhead()}</div>`,
+    ),
+  );
+  for (const [id, key] of [
+    ["header", "header_image"],
+    ["logo", "logo_image"],
+  ]) {
+    $("#" + id + "-upload").onchange = async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      if (
+        file.size > 2 * 1024 * 1024 ||
+        !["image/png", "image/jpeg", "image/webp"].includes(file.type)
+      ) {
+        toast("تصویر PNG، JPEG یا WebP تا ۲ مگابایت انتخاب کنید", true);
