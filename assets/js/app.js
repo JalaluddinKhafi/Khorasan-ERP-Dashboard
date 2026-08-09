@@ -1063,3 +1063,23 @@ async function settingsPage() {
         !["image/png", "image/jpeg", "image/webp"].includes(file.type)
       ) {
         toast("تصویر PNG، JPEG یا WebP تا ۲ مگابایت انتخاب کنید", true);
+        e.target.value = "";
+        return;
+      }
+      settings[key] = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+      $("#header-preview").innerHTML = letterhead();
+    };
+    $("#remove-" + id).onclick = () => {
+      settings[key] = "";
+      $("#header-preview").innerHTML = letterhead();
+    };
+  }
+  $("#sample-header").onclick = async () => {
+    try {
+      const response = await fetch("../assets/images/amini-letterhead.jpg");
+      if (!response.ok) throw new Error("تصویر نمونه دریافت نشد");
