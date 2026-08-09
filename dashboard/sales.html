@@ -94,16 +94,8 @@
         let salesData = [];
         function loadSales() {
             salesData = [
-                { id: 1, invoiceNo: "S-001", customer: "آرمان پوراحمد", date: "۱۴۰۲/۱۲/۰۵", total: 12500000, status: "پرداخت شده" },
-                { id: 2, invoiceNo: "S-002", customer: "شرکت تدبیر", date: "۱۴۰۲/۱۲/۰۴", total: 33600000, status: "در انتظار پرداخت" }
-            ];
-            const tbody = document.getElementById('salesTableBody');
-            if(tbody) {
-                tbody.innerHTML = salesData.map(s => `<tr><td>${s.invoiceNo}</td><td>${s.customer}</td><td>${s.date}</td><td>${s.total.toLocaleString()} تومان</td><td><span class="badge ${s.status === 'پرداخت شده' ? 'bg-success' : 'bg-warning'}">${s.status}</span></td><td><button class="btn btn-sm btn-print" onclick="window.print()"><i class="fas fa-print"></i></button></td></tr>`).join('');
-            }
-            $('#salesTable').DataTable({ language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" } });
-        }
-        
+      </form>
+    </dialog>
     <script type="module" src="../assets/js/app.js"></script>
   </body>
 </html>
