@@ -145,16 +145,7 @@
                         <button class="btn btn-sm btn-primary view-details" data-id="${s.id}"><i class="fas fa-eye"></i></button>
                         <button class="btn btn-sm btn-danger delete-supplier" data-id="${s.id}"><i class="fas fa-trash"></i></button>
                     </td>
-                </tr>
-            `).join('');
-            
-            if (suppliersTable) suppliersTable.destroy();
-            suppliersTable = $('#suppliersTable').DataTable({
-                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
-                pageLength: 10
-            });
-            
-            attachSupplierEvents();
+        <p id="editor-error" class="error" role="alert"></p>
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
