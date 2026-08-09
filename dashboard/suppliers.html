@@ -155,16 +155,7 @@
             });
             
             attachSupplierEvents();
-        }
-        
-        function attachSupplierEvents() {
-            document.querySelectorAll('.edit-supplier').forEach(btn => {
-                btn.addEventListener('click', () => editSupplier(parseInt(btn.dataset.id)));
-            });
-            document.querySelectorAll('.view-details').forEach(btn => {
-                btn.addEventListener('click', () => viewSupplierDetails(parseInt(btn.dataset.id)));
-            });
-            document.querySelectorAll('.delete-supplier').forEach(btn => {
+        <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
