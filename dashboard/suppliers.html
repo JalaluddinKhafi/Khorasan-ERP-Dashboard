@@ -165,17 +165,6 @@
                 btn.addEventListener('click', () => viewSupplierDetails(parseInt(btn.dataset.id)));
             });
             document.querySelectorAll('.delete-supplier').forEach(btn => {
-                btn.addEventListener('click', () => showDeleteSupplierModal(parseInt(btn.dataset.id)));
-            });
-        }
-        
-        function editSupplier(id) {
-            const supplier = suppliersData.find(s => s.id === id);
-            if (!supplier) return;
-            
-            currentSupplierId = id;
-            document.getElementById('supplierId').value = supplier.id;
-            document.getElementById('supplierName').value = supplier.name;
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
