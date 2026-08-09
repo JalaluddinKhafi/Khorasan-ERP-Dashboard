@@ -217,17 +217,7 @@
                     <tr>
                         <td>${t.date}</td>
                         <td>${t.invoiceNo}</td>
-                        <td>${t.amount.toLocaleString()} تومان</td>
-                        <td><span class="badge ${t.status === 'پرداخت کامل' ? 'bg-success' : 'bg-warning'}">${t.status}</span></td>
-                    </tr>
-                `).join('');
-            }
-            
-            new bootstrap.Modal(document.getElementById('detailsModal')).show();
-        }
-        
-        function saveSupplier() {
-            const id = document.getElementById('supplierId').value;
+      </form>
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
   </body>
