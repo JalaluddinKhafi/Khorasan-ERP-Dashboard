@@ -1083,3 +1083,26 @@ async function settingsPage() {
     try {
       const response = await fetch("../assets/images/amini-letterhead.jpg");
       if (!response.ok) throw new Error("تصویر نمونه دریافت نشد");
+      const blob = await response.blob();
+      settings.header_image = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+      $("#header-preview").innerHTML = letterhead();
+      toast("برای ثبت سربرگ، تنظیمات را ذخیره کنید");
+    } catch (e) {
+      toast(e.message, true);
+    }
+  };
+  $("#settings-form").onsubmit = async (e) => {
+    e.preventDefault();
+    const button = e.target.querySelector("button.primary");
+    button.disabled = true;
+    try {
+      settings = await send(
+        "settings",
+        { ...settings, ...Object.fromEntries(new FormData(e.target)) },
+        "PUT",
+      );
