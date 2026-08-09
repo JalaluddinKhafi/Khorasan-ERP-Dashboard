@@ -62,17 +62,8 @@
                             <input type="text" class="form-control mb-2" id="productSearch" placeholder="نام محصول را وارد کنید...">
                             <div id="productSearchResults" class="list-group mb-3" style="max-height: 200px; overflow-y: auto;"></div>
                         </div>
-                        <table class="table table-bordered">
-                            <thead><tr><th>محصول</th><th>تعداد</th><th>قیمت واحد</th><th>مجموع</th><th></th></tr></thead>
-                            <tbody id="salesItemsBody">
-                                <tr>
-                                    <td><input type="text" class="form-control" value="لپ تاپ ایسوس"></td>
-                                    <td><input type="number" class="form-control quantity-sale" value="1"></td>
-                                    <td><input type="number" class="form-control price-sale" value="28500000"></td>
-                                    <td class="row-total-sale">۲۸,۵۰۰,۰۰۰</td>
-                                    <td><button class="btn btn-danger btn-sm remove-sale-row"><i class="fas fa-trash"></i></button></td>
-                                </tr>
-                            </tbody>
+        <div id="editor-fields" class="fields"></div>
+        <p id="editor-error" class="error" role="alert"></p>
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
