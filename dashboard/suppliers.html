@@ -134,17 +134,7 @@
             
             tbody.innerHTML = suppliersData.map(s => `
                 <tr>
-                    <td>${s.code}</td>
-                                        <td>${s.name}</td>
-                    <td>${s.phone}</td>
-                    <td>${s.email}</td>
-                    <td class="${s.debt > 0 ? 'text-danger fw-bold' : 'text-success'}">${s.debt.toLocaleString()} تومان</td>
-                    <td><span class="badge ${s.status === 'فعال' ? 'bg-success' : 'bg-secondary'}">${s.status}</span></td>
-                    <td>
-                        <button class="btn btn-sm btn-info edit-supplier" data-id="${s.id}"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-primary view-details" data-id="${s.id}"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-sm btn-danger delete-supplier" data-id="${s.id}"><i class="fas fa-trash"></i></button>
-                    </td>
+        <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
