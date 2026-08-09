@@ -269,13 +269,4 @@
                 suppliersData = suppliersData.filter(s => s.id !== id);
                 renderSuppliersTable();
                 showToast('تامین‌کننده با موفقیت حذف شد', 'success');
-            }
-        }
-        
-        document.getElementById('saveSupplierBtn')?.addEventListener('click', saveSupplier);
-        
-        loadSidebarAndNavbar('suppliers');
-        loadSuppliers();
-    </script>
-</body>
 </html>
