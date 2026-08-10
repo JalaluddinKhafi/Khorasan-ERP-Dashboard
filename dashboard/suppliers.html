@@ -114,16 +114,7 @@
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="../assets/js/utils.js"></script>
     <script src="../assets/js/components.js"></script>
-    <script>
-        let suppliersData = [];
-        let suppliersTable = null;
-        let currentSupplierId = null;
-        
-        function loadSuppliers() {
-            suppliersData = [
-                { id: 1, code: "SUP-001", name: "توزیع کننده البرز", phone: "۰۲۱-۵۵۵۵۱۲۳۴", email: "info@alborz.com", address: "تهران، خیابان آزادی", account: "IR1234567890", status: "فعال", debt: 56000000 },
-                { id: 2, code: "SUP-002", name: "واردات سامسونگ", phone: "۰۲۱-۵۵۵۵۶۷۸۹", email: "sales@samsung.ir", address: "تهران، خیابان ولیعصر", account: "IR0987654321", status: "فعال", debt: 234000000 },
-                { id: 3, code: "SUP-003", name: "بازرگانی نوین", phone: "۰۲۱-۵۵۵۵۹۰۱۲", email: "info@novin.com", address: "کرج، میدان آزادگان", account: "", status: "غیرفعال", debt: 0 }
+      <form id="editor-form">
         <div id="editor-fields" class="fields"></div>
         <p id="editor-error" class="error" role="alert"></p>
         <footer>
