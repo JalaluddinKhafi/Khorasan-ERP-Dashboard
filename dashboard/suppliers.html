@@ -19,17 +19,11 @@
                     <div class="card-header d-flex justify-content-between">
                         <h5>لیست تامین‌کنندگان</h5>
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#supplierModal">
-                            <i class="fas fa-plus"></i> افزودن تامین‌کننده
-                        </button>
-                    </div>
-                    <div class="card-body">
-                        <table id="suppliersTable" class="table table-striped">
-                            <thead>
-                                <tr><th>کد</th><th>نام تامین‌کننده</th><th>شماره تماس</th><th>ایمیل</th><th>بدهی جاری</th><th>وضعیت</th><th>عملیات</th></tr>
-                            </thead>
-                            <tbody id="suppliersTableBody"></tbody>
-                        </table>
-                    </div>
+  <body data-page="suppliers">
+    <aside id="sidebar" class="sidebar" aria-label="فهرست مدیریت"></aside>
+    <div class="workspace">
+      <header id="topbar" class="topbar"></header>
+      <main id="app" aria-live="polite">
         <p class="loading">در حال دریافت اطلاعات…</p>
       </main>
     </div>
