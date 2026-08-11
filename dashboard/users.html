@@ -141,16 +141,7 @@
                     <td>${u.username}</td>
                     <td>${u.fullname}</td>
                     <td><span class="badge ${u.role === 'مدیر سیستم' ? 'bg-danger' : (u.role === 'ناظر' ? 'bg-warning' : 'bg-info')}">${u.role}</span></td>
-                    <td>${u.email}</td>
-                    <td><span class="badge ${u.status === 'فعال' ? 'bg-success' : 'bg-secondary'}">${u.status}</span></td>
-                    <td>${u.lastLogin}</td>
-                    <td>
-                        <button class="btn btn-sm btn-info edit-user" data-id="${u.id}"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-danger delete-user" data-id="${u.id}"><i class="fas fa-trash"></i></button>
-                     </td>
-                </tr>
-            `).join('');
-            
+        <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
