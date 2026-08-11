@@ -151,16 +151,7 @@
                 </tr>
             `).join('');
             
-            if (usersTable) usersTable.destroy();
-            usersTable = $('#usersTable').DataTable({
-                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
-                pageLength: 10
-            });
-            
-            attachUserEvents();
-        }
-        
-        function attachUserEvents() {
+          <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
         </footer>
       </form>
