@@ -1150,3 +1150,25 @@ async function settingsPage() {
         (b.onclick = () =>
           open(currencies.find((c) => c.code === b.dataset.currency))),
     );
+}
+async function contentPage() {
+  const rows = await api("content");
+  heading(
+    "صفحات و محتوای منتشرشده در وبسایت عمومی نمایش داده می‌شوند.",
+    '<button id="add-content" class="primary">+ محتوای جدید</button><a class="button" href="../public-site/index.html" target="_blank" rel="noopener">مشاهدهٔ وبسایت</a>',
+  );
+  const kinds = {
+    page: "صفحه",
+    blog: "مقاله",
+    gallery: "گالری",
+    service: "خدمت",
+    faq: "پرسش و پاسخ",
+    slider: "بنر",
+  };
+  app.insertAdjacentHTML(
+    "beforeend",
+    panel(
+      table(
+        ["عنوان", "نوع", "وضعیت", "عملیات"],
+        rows.map((r) => [
+          esc(r.title),
