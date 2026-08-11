@@ -182,16 +182,6 @@
             document.getElementById('status').value = user.status;
             document.getElementById('password').value = '';
             
-            new bootstrap.Modal(document.getElementById('userModal')).show();
-        }
-        
-        function saveUser() {
-            const id = document.getElementById('userId').value;
-            const password = document.getElementById('password').value;
-            
-            const user = {
-                id: id ? parseInt(id) : Date.now(),
-                username: document.getElementById('username').value,
       </form>
     </dialog>
     <script type="module" src="../assets/js/app.js"></script>
