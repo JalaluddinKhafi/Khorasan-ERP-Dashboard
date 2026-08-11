@@ -202,16 +202,7 @@
             
             if (id) {
                 const index = usersData.findIndex(u => u.id === parseInt(id));
-                if (index !== -1) {
-                    usersData[index] = { ...usersData[index], ...user };
-                    if (password) {
-                        showToast('رمز عبور تغییر کرد', 'info');
-                    }
-                }
-                showToast('کاربر با موفقیت ویرایش شد', 'success');
-            } else {
-                usersData.push(user);
-                showToast('کاربر با موفقیت اضافه شد', 'success');
+    </dialog>
     <script type="module" src="../assets/js/app.js"></script>
   </body>
 </html>
