@@ -131,16 +131,7 @@
             renderUsersTable();
         }
         
-        function renderUsersTable() {
-            const tbody = document.getElementById('usersTableBody');
-            if (!tbody) return;
-            
-            tbody.innerHTML = usersData.map(u => `
-                <tr>
-                    <td>${u.id}</td>
-                    <td>${u.username}</td>
-                    <td>${u.fullname}</td>
-                    <td><span class="badge ${u.role === 'مدیر سیستم' ? 'bg-danger' : (u.role === 'ناظر' ? 'bg-warning' : 'bg-info')}">${u.role}</span></td>
+        <p id="editor-error" class="error" role="alert"></p>
         <footer>
           <button type="button" id="cancel-editor">انصراف</button
           ><button type="submit" class="primary">ذخیره</button>
