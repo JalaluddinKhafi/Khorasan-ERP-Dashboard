@@ -1215,3 +1215,26 @@ async function contentPage() {
         !["image/png", "image/jpeg", "image/webp"].includes(f.type)
       ) {
         toast("تصویر تا ۲ مگابایت انتخاب کنید", true);
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => (image = reader.result);
+      reader.readAsDataURL(f);
+    };
+  };
+  $("#add-content").onclick = () => open({});
+  app
+    .querySelectorAll("[data-content]")
+    .forEach(
+      (b) =>
+        (b.onclick = () =>
+          open(rows.find((r) => String(r.id) === b.dataset.content))),
+    );
+  app.querySelectorAll("[data-remove-content]").forEach(
+    (b) =>
+      (b.onclick = async () => {
+        if (confirm("محتوا حذف شود؟"))
+          try {
+            await api("content/" + b.dataset.removeContent, {
+              method: "DELETE",
+            });
