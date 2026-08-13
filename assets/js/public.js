@@ -39,3 +39,13 @@ async function init() {
     $("#featured-products").innerHTML = productCards(products.slice(0, 3));
   } else if (page === "products") {
     const products = await api("public/products");
+            (p.name + " " + p.code)
+              .toLowerCase()
+              .includes($("#product-search").value.toLowerCase()) &&
+            (!$("#category-filter").value ||
+              p.category === $("#category-filter").value),
+        ),
+      );
+    };
+    $("#product-search").oninput = $("#category-filter").onchange = draw;
+    draw();
