@@ -60,3 +60,11 @@ async function init() {
     };
     $("#product-search").oninput = $("#category-filter").onchange = draw;
     draw();
+        b.disabled = false;
+      }
+    };
+  } else if (page === "blog-details") {
+    const id = new URLSearchParams(location.search).get("id");
+    const article = content.find(
+      (c) => String(c.id) === id && c.kind === "blog",
+    );
