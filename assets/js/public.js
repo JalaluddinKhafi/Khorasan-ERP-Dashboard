@@ -84,3 +84,13 @@ async function init() {
     const article = content.find(
       (c) => String(c.id) === id && c.kind === "blog",
     );
+              (c) =>
+                `<details class="panel"><summary>${esc(c.title)}</summary><p class="prose">${esc(c.body)}</p></details>`,
+            )
+            .join("")
+        : '<p>برای دریافت معلومات با شرکت تماس بگیرید.</p><a class="button primary" href="contact.html">تماس با ما</a>');
+  } else if (["blog", "gallery", "services"].includes(page)) {
+    const kind = { blog: "blog", gallery: "gallery", services: "service" }[
+        page
+      ],
+      rows = selected(kind);
