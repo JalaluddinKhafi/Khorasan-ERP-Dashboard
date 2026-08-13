@@ -19,6 +19,16 @@ async function init() {
     api("public/settings"),
     api("public/content"),
   ]);
+  const name = company.company_name || "امینی گروپ";
+  $("#public-header").innerHTML =
+    `<a class="brand" href="index.html">${company.logo_image ? `<img src="${esc(company.logo_image)}" alt="لوگو" width="46" height="46">` : '<span class="brand-mark">ا</span>'}${esc(name)}</a><nav aria-label="صفحات وبسایت">${links.map(([r, t]) => `<a href="${r}.html" ${r === page ? 'aria-current="page" style="color:var(--primary);font-weight:bold"' : ""}>${t}</a>`).join("")}</nav><div class="actions"><button id="public-theme" aria-label="تغییر تم">☾ / ☀</button><a class="button" href="../dashboard/login.html">ورود کارکنان</a></div>`;
+  $("#public-theme").onclick = () =>
+    setTheme(
+      document.documentElement.dataset.theme === "dark" ? "light" : "dark",
+    );
+  $("#public-footer").innerHTML =
+    `<div><b>${esc(name)}</b><br>${esc(company.address)}<br>${esc(company.phone)}</div><div class="actions"><a href="faq.html">پرسش‌ها</a><a href="privacy.html">حریم خصوصی</a><a href="terms.html">شرایط همکاری</a></div><span>© ${new Intl.DateTimeFormat("fa-AF", { year: "numeric" }).format(new Date())} ${esc(name)}</span>`;
+  const intro = content.find(
     (c) => c.kind === "page" && c.title === "دربارهٔ ما",
   );
   const selected = (kind) => content.filter((c) => c.kind === kind);
