@@ -84,6 +84,16 @@ async function init() {
     const article = content.find(
       (c) => String(c.id) === id && c.kind === "blog",
     );
+    root.innerHTML = article
+      ? `<a href="blog.html">← همهٔ مقاله‌ها</a><article class="panel" style="margin-top:25px"><h1>${esc(article.title)}</h1>${article.image ? `<img src="${esc(article.image)}" alt="${esc(article.title)}" style="max-width:100%;max-height:420px">` : ""}<div class="prose">${esc(article.body)}</div></article>`
+      : '<h1>مقاله یافت نشد</h1><a class="button" href="blog.html">بازگشت به مقاله‌ها</a>';
+  } else if (page === "faq") {
+    const rows = selected("faq");
+    root.innerHTML =
+      "<h1>پرسش‌های متداول</h1>" +
+      (rows.length
+        ? rows
+            .map(
               (c) =>
                 `<details class="panel"><summary>${esc(c.title)}</summary><p class="prose">${esc(c.body)}</p></details>`,
             )
