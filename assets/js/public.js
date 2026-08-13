@@ -104,6 +104,14 @@ async function init() {
         page
       ],
       rows = selected(kind);
+    root.innerHTML = `<h1>${esc({ blog: "خبرها و مقاله‌ها", gallery: "گالری", services: "خدمات شرکت" }[page])}</h1>${rows.length ? cards(rows) : '<section class="panel empty">هنوز محتوایی در این بخش منتشر نشده است.</section>'}`;
+  } else {
+    const names = {
+      about: "دربارهٔ ما",
+      privacy: "حریم خصوصی",
+      terms: "شرایط همکاری",
+    };
+    const item = content.find(
       (c) => c.kind === "page" && c.title === names[page],
     );
     root.innerHTML = `<article class="panel"><h1>${esc(names[page] || "صفحه")}</h1><div class="prose">${esc(item?.body || (page === "about" ? company.brands || "معلومات شرکت از بخش مدیریت وبسایت تکمیل می‌شود." : "محتوای این صفحه هنوز توسط مدیریت شرکت منتشر نشده است."))}</div></article>`;
