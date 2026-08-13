@@ -60,6 +60,14 @@ async function init() {
     };
     $("#product-search").oninput = $("#category-filter").onchange = draw;
     draw();
+          "public/contact",
+          Object.fromEntries(new FormData(e.target)),
+        );
+        $("#contact-status").textContent = "پیام شما ثبت شد. سپاس از تماس شما.";
+        e.target.reset();
+      } catch (error) {
+        $("#contact-status").textContent = error.message;
+      } finally {
         b.disabled = false;
       }
     };
