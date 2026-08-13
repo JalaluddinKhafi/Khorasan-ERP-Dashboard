@@ -104,3 +104,10 @@ async function init() {
         page
       ],
       rows = selected(kind);
+    ? `<div class="catalog">${products.map((p) => `<article class="panel">${p.image ? `<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy">` : ""}<span class="badge">${esc(p.category || "اجناس")}</span><h2 style="margin-top:18px">${esc(p.name)}</h2><p class="muted">کد: ${esc(p.code)} · واحد: ${esc(p.unit)}</p><h3>${money(p.sale_price)}</h3><a href="contact.html" class="button">درخواست معلومات ←</a></article>`).join("")}</div>`
+    : '<section class="panel empty">هنوز جنسی در نرخنامه منتشر نشده است.</section>';
+}
+init().catch((e) => {
+  root.innerHTML = `<section class="panel"><h1>ارتباط با سرور برقرار نشد</h1><p>${esc(e.message)}</p><button id="retry">تلاش دوباره</button></section>`;
+  $("#retry").onclick = () => location.reload();
+});
