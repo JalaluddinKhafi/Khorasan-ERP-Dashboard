@@ -1,3 +1,14 @@
+import { api, send, esc, money, toast } from "./api-service.js";
+const $ = (s) => document.querySelector(s),
+  page = document.body.dataset.page,
+  root = $("#public-app");
+const links = [
+  ["index", "صفحهٔ نخست"],
+  ["about", "دربارهٔ ما"],
+  ["products", "اجناس"],
+  ["services", "خدمات"],
+  ["blog", "مقاله‌ها"],
+  ["gallery", "گالری"],
   ["contact", "تماس با ما"],
 ];
 function cards(rows) {
