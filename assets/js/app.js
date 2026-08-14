@@ -1282,3 +1282,24 @@ async function recordsPage() {
 }
 async function render() {
   clearInterval(dashboardClock);
+  currencies = await api("currencies");
+  if (adminPages.has(page) && me.role !== "ADMIN") {
+    heading("این بخش فقط برای مدیر سیستم قابل دسترسی است.");
+    return;
+  }
+  const catalogUi = { heading, panel, table, field, edit, me, refresh: render };
+  if (page === "products") return productsPage(catalogUi);
+  if (page === "categories") return categoriesPage(catalogUi);
+  if (specs[page]) return crud(page);
+  switch (page) {
+    case "dashboard":
+      return dashboard();
+    case "sales":
+      return invoices("SALE");
+    case "purchases":
+      return invoices("PURCHASE");
+    case "payments":
+    case "receipts":
+      return payments();
+    case "customer-balance":
+      return balance();
