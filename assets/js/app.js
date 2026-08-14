@@ -1303,3 +1303,27 @@ async function render() {
       return payments();
     case "customer-balance":
       return balance();
+    case "sales-invoice":
+      return invoiceView();
+    case "inventory":
+      return inventory();
+    case "price-list":
+      return inventory(true);
+    case "expenses":
+      return expenses();
+    case "reports":
+    case "financial-transactions":
+      return reports();
+    case "settings":
+      return settingsPage();
+    case "website-management":
+      return contentPage();
+    case "messages":
+    case "audit":
+      return recordsPage();
+    default:
+      heading("صفحه یافت نشد");
+  }
+}
+async function init() {
+  me = await api("me");
