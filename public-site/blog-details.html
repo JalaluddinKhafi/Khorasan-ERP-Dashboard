@@ -107,15 +107,7 @@
         
         if (post) {
             document.getElementById('articleContent').innerHTML = `
-                <h1 class="display-5 fw-bold mb-3">${post.title}</h1>
-                <div class="text-muted mb-4">
-                    <i class="fas fa-calendar"></i> ${post.date} | 
-                    <i class="fas fa-user"></i> ${post.author}
-                </div>
-                <img src="https://via.placeholder.com/800x400/2563eb/white?text=${encodeURIComponent(post.title)}" class="img-fluid rounded-4 mb-4">
-                <div class="article-content">${post.content}</div>
-            `;
-        }
-        
+    <footer id="public-footer" class="public-footer"></footer>
+    <script type="module" src="../assets/js/public.js"></script>
   </body>
 </html>
