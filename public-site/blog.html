@@ -229,16 +229,6 @@
                     e.preventDefault();
                     currentPage = parseInt(e.target.dataset.page);
                     renderBlogPosts();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-            });
-        }
-        
-        function renderRecentPosts() {
-            const recent = [...blogPosts].slice(0, 3);
-            const container = document.getElementById('recentPosts');
-            if (container) {
-                container.innerHTML = recent.map(post => `
     <footer id="public-footer" class="public-footer"></footer>
     <script type="module" src="../assets/js/public.js"></script>
   </body>
