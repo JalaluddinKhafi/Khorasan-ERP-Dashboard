@@ -249,15 +249,6 @@
             }
         }
         
-        // رویدادها
-        document.getElementById('searchBlogBtn')?.addEventListener('click', () => {
-            currentSearch = document.getElementById('searchBlogInput').value;
-            currentPage = 1;
-            renderBlogPosts();
-        });
-        
-        document.getElementById('searchBlogInput')?.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                currentSearch = e.target.value;
+    <script type="module" src="../assets/js/public.js"></script>
   </body>
 </html>
