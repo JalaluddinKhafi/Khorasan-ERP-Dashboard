@@ -209,16 +209,7 @@
             `).join('');
             
             // رندر pagination
-            renderPagination(totalPages);
-        }
-        
-        function renderPagination(totalPages) {
-            const paginationEl = document.getElementById('pagination');
-            if (!paginationEl) return;
-            
-            let html = '';
-            for (let i = 1; i <= totalPages; i++) {
-                html += `<li class="page-item ${i === currentPage ? 'active' : ''}">
+      <p>در حال دریافت معلومات…</p>
     </main>
     <footer id="public-footer" class="public-footer"></footer>
     <script type="module" src="../assets/js/public.js"></script>
