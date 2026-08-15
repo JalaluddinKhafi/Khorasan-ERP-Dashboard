@@ -1327,3 +1327,24 @@ async function render() {
 }
 async function init() {
   me = await api("me");
+  if (me.role === "ADMIN") settings = await api("settings");
+  else settings = await api("public/settings");
+  $("#sidebar").innerHTML =
+    `<a class="brand" href="dashboard.html"><span class="brand-mark">خ</span><div>خراسان سیستم<div class="eyebrow">KHORASAN SYSTEM</div></div></a><div class="nav-section">مدیریت امور تجارتی</div><nav>${routes
+      .filter((r) => me.role === "ADMIN" || !adminPages.has(r[0]))
+      .map(
+        ([r, t]) =>
+          `<a class="${page === r ? "active" : ""}" href="${r}.html" ${page === r ? 'aria-current="page"' : ""}>${icon(navIcons[r] || "box", 19)}<span>${t}</span></a>`,
+      )
+      .join(
+        "",
+      )}</nav><div class="nav-section">واحد اصلی: دالر امریکایی · USD</div>`;
+  $("#topbar").innerHTML =
+    `<div class="actions"><button class="mobile-toggle" id="menu" aria-label="فهرست" aria-expanded="false">☰</button><span>${esc(title)}</span><span class="badge">USD · دالر</span></div><div class="controls"><span class="user-name">${esc(me.name)}</span><select id="accent" aria-label="رنگ تم"><option value="green">سبز</option><option value="blue">آبی</option><option value="purple">بنفش</option></select><button id="theme" aria-label="تغییر تم"></button><button id="logout">خروج</button></div>`;
+  $("#accent").value = document.documentElement.dataset.accent;
+  $("#accent").onchange = (e) => setAccent(e.target.value);
+  const themeButton = () => {
+    $("#theme").textContent =
+      document.documentElement.dataset.theme === "dark" ? "☀ روشن" : "☾ تاریک";
+  };
+  themeButton();
