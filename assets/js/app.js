@@ -1348,3 +1348,26 @@ async function init() {
       document.documentElement.dataset.theme === "dark" ? "☀ روشن" : "☾ تاریک";
   };
   themeButton();
+  $("#theme").onclick = () => {
+    setTheme(
+      document.documentElement.dataset.theme === "dark" ? "light" : "dark",
+    );
+    themeButton();
+  };
+  $("#menu").onclick = () => {
+    const open = $("#sidebar").classList.toggle("open");
+    $("#menu").setAttribute("aria-expanded", String(open));
+  };
+  document.addEventListener("click", (e) => {
+    if (
+      innerWidth <= 760 &&
+      !e.target.closest(".sidebar") &&
+      !e.target.closest("#menu")
+    ) {
+      $("#sidebar").classList.remove("open");
+      $("#menu").setAttribute("aria-expanded", "false");
+    }
+  });
+  $("#logout").onclick = async () => {
+    try {
+      await api("logout", { method: "POST" });
