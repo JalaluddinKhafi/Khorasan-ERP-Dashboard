@@ -239,16 +239,7 @@
             const container = document.getElementById('recentPosts');
             if (container) {
                 container.innerHTML = recent.map(post => `
-                    <div class="mb-3">
-                        <a href="blog-details.html?id=${post.id}" class="text-decoration-none">
-                            <small class="text-muted">${post.date}</small>
-                            <h6 class="mb-0">${post.title}</h6>
-                        </a>
-                    </div>
-                `).join('');
-            }
-        }
-        
+    <footer id="public-footer" class="public-footer"></footer>
     <script type="module" src="../assets/js/public.js"></script>
   </body>
 </html>
