@@ -1371,3 +1371,25 @@ async function init() {
   $("#logout").onclick = async () => {
     try {
       await api("logout", { method: "POST" });
+      location.href = "login.html";
+    } catch (e) {
+      toast(e.message, true);
+    }
+  };
+  await render();
+  const params = new URLSearchParams(location.search);
+  if (params.get("new") === "1") {
+    params.delete("new");
+    history.replaceState(
+      null,
+      "",
+      location.pathname + (params.size ? "?" + params : "") + location.hash,
+    );
+    if (page === "products") $("#add")?.click();
+    if (page === "purchases" || page === "sales") $("#new-invoice")?.click();
+  }
+}
+init().catch((e) => {
+  app.innerHTML = `<section class="panel"><h1>دریافت معلومات انجام نشد</h1><p class="error">${esc(e.message)}</p><button id="retry">تلاش دوباره</button></section>`;
+  $("#retry").onclick = () => location.reload();
+});
