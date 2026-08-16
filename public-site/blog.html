@@ -179,16 +179,6 @@
             }
             if (currentSearch) {
                 filtered = filtered.filter(p => p.title.includes(currentSearch) || p.excerpt.includes(currentSearch));
-            }
-            return filtered;
-        }
-        
-        function renderBlogPosts() {
-            const filtered = getFilteredPosts();
-            const totalPages = Math.ceil(filtered.length / postsPerPage);
-            const start = (currentPage - 1) * postsPerPage;
-            const paginatedPosts = filtered.slice(start, start + postsPerPage);
-            
     <header id="public-header" class="public-nav"></header>
     <main class="public-main" id="public-app">
       <p>در حال دریافت معلومات…</p>
