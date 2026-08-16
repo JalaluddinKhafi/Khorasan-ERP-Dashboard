@@ -169,16 +169,7 @@
         
         let currentPage = 1;
         const postsPerPage = 4;
-        let currentCategory = "all";
-        let currentSearch = "";
-        
-        function getFilteredPosts() {
-            let filtered = [...blogPosts];
-            if (currentCategory !== "all") {
-                filtered = filtered.filter(p => p.category === currentCategory);
-            }
-            if (currentSearch) {
-                filtered = filtered.filter(p => p.title.includes(currentSearch) || p.excerpt.includes(currentSearch));
+  <body data-page="blog">
     <header id="public-header" class="public-nav"></header>
     <main class="public-main" id="public-app">
       <p>در حال دریافت معلومات…</p>
