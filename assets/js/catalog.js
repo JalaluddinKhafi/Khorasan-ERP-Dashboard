@@ -40,3 +40,24 @@ function hierarchy(categories) {
       names.unshift(node.name);
       node = categories.find((c) => String(c.id) === String(node.parent_id));
     }
+    return names.join(" / ");
+  };
+  const flattened = [];
+  const walk = (id, depth) =>
+    children(id).forEach((c) => {
+      flattened.push({ ...c, depth });
+      walk(c.id, depth + 1);
+    });
+  walk(null, 0);
+  return { children, descendants, count, path, flattened };
+}
+async function readImage(file) {
+  if (
+    !["image/png", "image/jpeg", "image/webp"].includes(file.type) ||
+    file.size > 2 * 1024 * 1024
+  )
+    throw new Error(
+      "تصویر PNG، JPEG یا WebP با حجم حداکثر ۲ مگابایت انتخاب کنید.",
+    );
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
