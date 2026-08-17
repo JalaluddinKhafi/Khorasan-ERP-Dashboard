@@ -17,3 +17,26 @@ function hierarchy(categories) {
       .sort((a, b) => a.name.localeCompare(b.name, "fa"));
   const descendants = (id) => {
     const result = new Set([String(id)]);
+    const visit = (key) =>
+      children(key).forEach((c) => {
+        if (!result.has(String(c.id))) {
+          result.add(String(c.id));
+          visit(c.id);
+        }
+      });
+    visit(id);
+    return result;
+  };
+  const count = (id) =>
+    categories
+      .filter((c) => descendants(id).has(String(c.id)))
+      .reduce((sum, c) => sum + Number(c.product_count || 0), 0);
+  const path = (id) => {
+    const names = [],
+      seen = new Set();
+    let node = categories.find((c) => String(c.id) === String(id));
+    while (node && !seen.has(node.id)) {
+      seen.add(node.id);
+      names.unshift(node.name);
+      node = categories.find((c) => String(c.id) === String(node.parent_id));
+    }
