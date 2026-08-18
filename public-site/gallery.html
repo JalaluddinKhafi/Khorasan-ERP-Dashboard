@@ -169,15 +169,6 @@
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 currentFilter = btn.dataset.filter;
-                renderGallery();
-            });
-        });
-        
-        // لایت‌باکس بستن
-        document.querySelector('.lightbox-close')?.addEventListener('click', () => {
-            document.getElementById('lightbox').classList.remove('active');
-        });
-        document.getElementById('lightbox')?.addEventListener('click', (e) => {
-            if (e.target === document.getElementById('lightbox')) {
+    <script type="module" src="../assets/js/public.js"></script>
   </body>
 </html>
