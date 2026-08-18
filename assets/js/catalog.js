@@ -78,3 +78,28 @@ export async function productsPage(ui) {
     "ثبت و مدیریت اجناس، نرخ‌ها و موجودی گدام",
     `<button id="add" class="primary">${icon("plus")} افزودن کالا</button>`,
   );
+  const low = products.filter(
+    (p) => p.active && Number(p.stock) <= Number(p.min_stock),
+  ).length;
+  $("#app").insertAdjacentHTML(
+    "beforeend",
+    `<div class="catalog-summary"><span>${icon("box")} <b>${number(products.length)}</b> جنس ثبت‌شده</span><span>${badge(true)} <b>${number(products.filter((p) => p.active).length)}</b> جنس فعال</span><span class="warning-text">${icon("alert")} <b>${number(low)}</b> هشدار موجودی</span></div>` +
+      panel(
+        `<div class="panel-head"><div><h2>لیست اجناس</h2><p class="muted small">برای مشاهدهٔ مشخصات کامل، روی آیکن جزئیات کلیک کنید.</p></div><span class="table-counter" id="product-count"></span></div><form id="product-filters" class="filter-bar" role="search"><label class="filter-search">جستجوی جنس<div class="input-icon">${icon("search")}<input id="search" type="search" placeholder="نام، کد یا بارکد…" aria-label="جستجوی جنس"></div></label><label>دسته‌بندی<select id="category-filter"><option value="">همهٔ دسته‌ها</option><option value="none">بدون دسته‌بندی</option>${tree.flattened.map((c) => `<option value="${c.id}">${esc("— ".repeat(c.depth) + c.name)}</option>`).join("")}</select></label><label>وضعیت<select id="status-filter"><option value="">همهٔ وضعیت‌ها</option><option value="active">فعال</option><option value="inactive">غیرفعال</option></select></label><label>موجودی<select id="stock-filter"><option value="">همهٔ موجودی‌ها</option><option value="available">موجود</option><option value="low">کم‌موجود</option><option value="out">ناموجود</option></select></label><label>ترتیب نمایش<select id="sort-filter"><option value="newest">جدیدترین</option><option value="name">نام جنس</option><option value="price">نرخ فروش</option><option value="stock">موجودی کمتر</option></select></label><button type="reset" class="filter-reset">پاک‌کردن فیلترها</button></form><div id="records"></div>`,
+      ),
+  );
+  function draw() {
+    const q = $("#search").value.trim().toLocaleLowerCase("fa"),
+      category = $("#category-filter").value,
+      status = $("#status-filter").value,
+      stock = $("#stock-filter").value,
+      desc =
+        category && category !== "none" ? tree.descendants(category) : null;
+    const rows = products.filter(
+      (p) =>
+        (!q ||
+          [p.name, p.code, p.barcode, p.description]
+            .join(" ")
+            .toLocaleLowerCase("fa")
+            .includes(q)) &&
+        (!category ||
