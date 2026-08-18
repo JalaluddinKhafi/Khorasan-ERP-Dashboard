@@ -159,16 +159,7 @@
                     const img = item.querySelector('img').src;
                     document.getElementById('lightboxImg').src = img;
                     document.getElementById('lightbox').classList.add('active');
-                });
-            });
-        }
-        
-        // فیلترها
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentFilter = btn.dataset.filter;
+    <footer id="public-footer" class="public-footer"></footer>
     <script type="module" src="../assets/js/public.js"></script>
   </body>
 </html>
