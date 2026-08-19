@@ -124,3 +124,27 @@ export async function productsPage(ui) {
             ? Number(a.stock) - Number(b.stock)
             : Number(b.id) - Number(a.id),
     );
+    $("#product-count").textContent =
+      number(rows.length) + " از " + number(products.length) + " جنس";
+    $("#records").innerHTML = table(
+      [
+        "تصویر",
+        "کد کالا / نام کالا",
+        "دسته‌بندی",
+        "قیمت خرید",
+        "قیمت فروش",
+        "موجودی فعلی",
+        "وضعیت",
+        "عملیات",
+      ],
+      rows.map((p) => [
+        thumbnail(p),
+        `<div class="product-name"><b>${esc(p.name)}</b><span class="muted" dir="auto">${esc(p.code)}</span></div>`,
+        esc(p.category_id ? tree.path(p.category_id) : "بدون دسته‌بندی"),
+        money(p.purchase_price),
+        money(p.sale_price),
+        `<span class="stock-figure ${Number(p.stock) <= Number(p.min_stock) ? "warning-text" : ""}">${number(p.stock)} <small>${esc(p.unit)}</small></span>`,
+        badge(p.active),
+        `<div class="row-actions">${action("eye", "جزئیات", `data-details="${p.id}"`)}${action("edit", "ویرایش", `data-edit="${p.id}"`)}${me.role === "ADMIN" ? action("trash", "حذف", `data-delete="${p.id}"`, true) : ""}</div>`,
+      ]),
+    );
