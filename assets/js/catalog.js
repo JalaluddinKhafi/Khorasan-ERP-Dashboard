@@ -148,3 +148,21 @@ export async function productsPage(ui) {
         `<div class="row-actions">${action("eye", "جزئیات", `data-details="${p.id}"`)}${action("edit", "ویرایش", `data-edit="${p.id}"`)}${me.role === "ADMIN" ? action("trash", "حذف", `data-delete="${p.id}"`, true) : ""}</div>`,
       ]),
     );
+  }
+  $("#product-filters").onsubmit = (e) => e.preventDefault();
+  $("#product-filters").addEventListener("input", (event) => {
+    if (event.target.tagName === "INPUT") draw();
+  });
+  $("#product-filters").addEventListener("change", (event) => {
+    if (event.target.tagName === "SELECT") draw();
+  });
+  $("#product-filters").onreset = () => setTimeout(draw, 0);
+  draw();
+  function open(row = {}) {
+    let image = row.image || "",
+      imageTask = Promise.resolve(),
+      imageVersion = 0;
+    const fields = [
+      field("code", "کد کالا", "text", { max: 60 }),
+      field("name", "نام کالا"),
+      field("category_id", "دسته‌بندی", "select", {
