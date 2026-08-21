@@ -187,3 +187,21 @@ export async function productsPage(ui) {
       field("min_stock", "حداقل موجودی هشدار", "number", { value: 5 }),
       field("barcode", "بارکد", "text", { required: false, max: 100 }),
       field("active", "وضعیت — فعال", "checkbox", { value: true }),
+      field("description", "توضیحات", "textarea", {
+        required: false,
+        max: 2000,
+        wide: true,
+      }),
+    ];
+    edit(row.id ? "ویرایش جنس" : "افزودن کالا", fields, row, async (m) => {
+      await imageTask;
+      await send(
+        "products" + (row.id ? "/" + row.id : ""),
+        { ...m, image },
+        row.id ? "PUT" : "POST",
+      );
+    });
+    $("#editor-fields").insertAdjacentHTML(
+      "beforeend",
+      `<div class="wide product-upload"><div id="product-image-preview">${thumbnail({ ...row, image }, true)}</div><div><label>تصویر جنس<input id="product-image" type="file" accept="image/png,image/jpeg,image/webp"></label><p class="muted small">PNG، JPEG یا WebP؛ حداکثر ۲ مگابایت</p><button type="button" id="remove-product-image" class="danger">حذف تصویر</button></div></div>`,
+    );
