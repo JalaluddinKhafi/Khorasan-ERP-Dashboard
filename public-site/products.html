@@ -201,16 +201,7 @@
         function getCategoryName(cat) {
             const categories = { laptop: 'لپ تاپ', phone: 'گوشی موبایل', audio: 'هدفون' };
             return categories[cat] || cat;
-        }
-        
-        function filterProducts() {
-            const searchTerm = document.getElementById('searchProduct').value.toLowerCase();
-            const selectedCategory = document.querySelector('input[name="category"]:checked').value;
-            const priceLimit = parseInt(document.getElementById('priceRange').value);
-            
-            currentProducts = products.filter(p => {
-                const matchSearch = p.name.toLowerCase().includes(searchTerm);
-                const matchCategory = selectedCategory === 'all' || p.category === selectedCategory;
+    <footer id="public-footer" class="public-footer"></footer>
     <script type="module" src="../assets/js/public.js"></script>
   </body>
 </html>
