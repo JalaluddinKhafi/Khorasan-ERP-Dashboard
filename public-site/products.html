@@ -181,16 +181,7 @@
             
             // رویداد مشاهده جزئیات
             document.querySelectorAll('.view-product').forEach(btn => {
-                btn.addEventListener('click', () => showProductDetails(parseInt(btn.dataset.id)));
-            });
-        }
-        
-        function showProductDetails(id) {
-            const product = products.find(p => p.id === id);
-            if (!product) return;
-            
-            document.getElementById('modalProductName').innerText = product.name;
-            document.getElementById('modalProductImage').src = product.image;
+      <p>در حال دریافت معلومات…</p>
     </main>
     <footer id="public-footer" class="public-footer"></footer>
     <script type="module" src="../assets/js/public.js"></script>
