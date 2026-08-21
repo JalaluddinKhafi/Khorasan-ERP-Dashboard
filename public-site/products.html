@@ -211,15 +211,6 @@
             currentProducts = products.filter(p => {
                 const matchSearch = p.name.toLowerCase().includes(searchTerm);
                 const matchCategory = selectedCategory === 'all' || p.category === selectedCategory;
-                const matchPrice = p.price <= priceLimit;
-                return matchSearch && matchCategory && matchPrice;
-            });
-            
-            renderProducts();
-        }
-        
-        document.getElementById('searchProduct')?.addEventListener('input', filterProducts);
-        document.querySelectorAll('.category-filter').forEach(radio => {
-            radio.addEventListener('change', filterProducts);
+    <script type="module" src="../assets/js/public.js"></script>
   </body>
 </html>
