@@ -221,14 +221,5 @@
         document.getElementById('searchProduct')?.addEventListener('input', filterProducts);
         document.querySelectorAll('.category-filter').forEach(radio => {
             radio.addEventListener('change', filterProducts);
-        });
-        document.getElementById('priceRange')?.addEventListener('input', (e) => {
-            document.getElementById('priceValue').innerText = `${parseInt(e.target.value).toLocaleString()} تومان`;
-            filterProducts();
-        });
-        document.getElementById('resetFilters')?.addEventListener('click', () => {
-            document.getElementById('searchProduct').value = '';
-            document.getElementById('allCat').checked = true;
-            document.getElementById('priceRange').value = 50000000;
-            document.getElementById('priceValue').innerText = '۵۰ میلیون تومان';
+  </body>
 </html>
