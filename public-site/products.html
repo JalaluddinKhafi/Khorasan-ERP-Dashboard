@@ -191,16 +191,7 @@
             
             document.getElementById('modalProductName').innerText = product.name;
             document.getElementById('modalProductImage').src = product.image;
-            document.getElementById('modalProductPrice').innerHTML = `${product.price.toLocaleString()} تومان`;
-            document.getElementById('modalProductDesc').innerText = product.desc;
-            document.getElementById('modalProductCat').innerText = getCategoryName(product.category);
-            
-            new bootstrap.Modal(document.getElementById('productModal')).show();
-        }
-        
-        function getCategoryName(cat) {
-            const categories = { laptop: 'لپ تاپ', phone: 'گوشی موبایل', audio: 'هدفون' };
-            return categories[cat] || cat;
+    </main>
     <footer id="public-footer" class="public-footer"></footer>
     <script type="module" src="../assets/js/public.js"></script>
   </body>
