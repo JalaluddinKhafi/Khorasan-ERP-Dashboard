@@ -251,3 +251,25 @@ export async function productsPage(ui) {
         details(await api("products/" + row.id), tree);
       } catch (error) {
         toast(error.message, true);
+      }
+    if (
+      button.dataset.delete &&
+      confirm(
+        "جنس «" + row.name + "» حذف شود؟ اجناس دارای معامله حذف نمی‌شوند.",
+      )
+    )
+      try {
+        await api("products/" + row.id, { method: "DELETE" });
+        await refresh();
+        toast("جنس حذف شد");
+      } catch (error) {
+        toast(error.message, true);
+      }
+  };
+}
+function details(p, tree) {
+  $("#product-details")?.remove();
+  const modal = document.createElement("dialog");
+  modal.id = "product-details";
+  modal.className = "product-details-modal";
+  modal.setAttribute("aria-labelledby", "product-details-title");
