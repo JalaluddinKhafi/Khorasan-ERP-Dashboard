@@ -293,3 +293,22 @@ function details(p, tree) {
     [
       "بارکد",
       p.barcode
+        ? `<bdi class="barcode-value">${esc(p.barcode)}</bdi>`
+        : "ثبت نشده",
+    ],
+    [
+      "توضیحات",
+      `<span class="prose">${esc(p.description || "توضیحی ثبت نشده است.")}</span>`,
+    ],
+  ];
+  modal.innerHTML = `<header><div><span class="eyebrow">مشخصات کامل جنس</span><h2 id="product-details-title">جزئیات کالا</h2></div><button type="button" data-close aria-label="بستن جزئیات">×</button></header><div class="product-detail-layout"><div class="detail-visual">${thumbnail(p, true)}<h3>${esc(p.name)}</h3><span class="muted">${esc(p.code)}</span><div class="detail-price"><small>قیمت فروش هر ${esc(p.unit)}</small><strong>${money(p.sale_price)}</strong></div></div><dl class="detail-specs">${data.map(([label, value], i) => `<div class="${i === 10 ? "wide" : ""}"><dt>${label}</dt><dd>${value}</dd></div>`).join("")}</dl></div><footer class="detail-footer"><button type="button" data-close>بستن جزئیات</button></footer>`;
+  document.body.append(modal);
+  modal
+    .querySelectorAll("[data-close]")
+    .forEach((b) => (b.onclick = () => modal.close()));
+  modal.showModal();
+}
+export async function categoriesPage(ui) {
+  const { heading, panel, table, field, edit, me, refresh } = ui;
+  const categories = await api("categories"),
+    tree = hierarchy(categories);
