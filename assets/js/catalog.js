@@ -273,3 +273,23 @@ function details(p, tree) {
   modal.id = "product-details";
   modal.className = "product-details-modal";
   modal.setAttribute("aria-labelledby", "product-details-title");
+  const profit = Number(p.sale_price) - Number(p.purchase_price);
+  const data = [
+    ["کد کالا", esc(p.code)],
+    ["نام کالا", esc(p.name)],
+    [
+      "دسته‌بندی",
+      esc(p.category_id ? tree.path(p.category_id) : "بدون دسته‌بندی"),
+    ],
+    ["قیمت خرید", money(p.purchase_price)],
+    ["قیمت فروش", money(p.sale_price)],
+    [
+      "سود هر واحد",
+      `<span class="${profit < 0 ? "error" : "profit-value"}">${money(profit)}</span>`,
+    ],
+    ["موجودی فعلی", number(p.stock) + " " + esc(p.unit)],
+    ["حداقل موجودی هشدار", number(p.min_stock) + " " + esc(p.unit)],
+    ["وضعیت", badge(p.active)],
+    [
+      "بارکد",
+      p.barcode
