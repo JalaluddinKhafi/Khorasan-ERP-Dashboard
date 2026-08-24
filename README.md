@@ -21,13 +21,16 @@
 - [Pages](#-pages)
 - [Getting Started](#-getting-started)
 - [Backend Integration](#-backend-integration)
-- [Screenshots](#-screenshots)
-- [Author](#-author)
-- [License](#-license)
+برای اجرای دوباره در ویندوز به Java 17، Maven و Docker Desktop نیاز است:
 
----
+```powershell
+# فقط برای نصب جدید؛ فایل .env موجود را بازنویسی نکنید.
+Copy-Item .env.example .env
+# رمزهای نمونه را در .env به رمزهای اختصاصی تبدیل کنید.
+.\scripts\start-local.ps1
+```
 
-## 🎯 Overview
+اگر فایل اجرایی ساخته شده است، `-SkipBuild` را اضافه کنید. این اسکریپت فایل اجرایی را در کانتینر مستقل Docker اجرا می‌کند؛ بستن ترمینال یا پایان اجرای دستیار، برنامه را خاموش نمی‌کند. برنامه و دیتابیس دارای سیاست `restart: unless-stopped` هستند. MySQL روی `127.0.0.1:3307` و برنامه روی `127.0.0.1:8082` است. داده‌ها در volume به نام `mysql_data` نگهداری می‌شوند. برای توقف برنامه `docker compose stop app` و برای راه‌اندازی دوباره `docker compose start app` را اجرا کنید. اجرای `docker compose down` بدون `-v` داده‌ها را حذف نمی‌کند. برای بازگشت پس از روشن‌شدن کمپیوتر، Docker Desktop نیز باید فعال باشد.
 
 اجرای همهٔ اجزا با Docker:
 
