@@ -144,12 +144,4 @@ Right-click on dashboard/dashboard.html → "Open with Live Server"
 Or use any HTTP server (Python, http-server, etc.)
 
 3. **No build step required** - Pure HTML/CSS/JS!
-
-### File Paths
-Dashboard entry: dashboard/dashboard.html
-
-Public site entry: public-site/index.html
-
-CSS: assets/css/style.css
-
-JavaScript modules: assets/js/
+آزمایش اختصاصی مرورگر: `node scripts/test-catalog.cjs` روی نمونهٔ مجزای QA در پورت 8081؛ این آزمایش دادهٔ آزمایشی ایجاد می‌کند.
