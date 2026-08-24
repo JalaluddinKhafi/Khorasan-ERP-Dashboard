@@ -115,13 +115,4 @@ docker compose up --build -d
 | `financial-transactions.html` | Financial reports |
 | `reports.html` | Various business reports |
 | `users.html` | User management |
-| `customer-balance.html` | Detailed customer balance statement |
-| `receipts.html` | Payment receipts |
-| `price-list.html` | Product price list |
-| `website-management.html` | CMS for public site |
-
----
-
-## 🚀 Getting Started
-
 آزمایش اختصاصی مرورگر: `node scripts/test-catalog.cjs` روی نمونهٔ مجزای QA در پورت 8081؛ این آزمایش دادهٔ آزمایشی ایجاد می‌کند.
