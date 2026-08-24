@@ -58,18 +58,13 @@ docker compose up --build -d
 | **Customers** | Full profiles, purchase history, payment history, balance tracking |
 | **Purchases** | Create/edit invoices, dynamic product rows, auto-calculation, payment status |
 | **Sales** | Product search, dynamic rows, stock validation, invoice printing |
-| **Inventory** | Current stock, transaction history, low stock warnings |
-| **Payments** | Customer/supplier payments, payment history |
-| **Expenses** | Categorized expenses (rent, salary, electricity, transport, etc.) with charts |
-| **Financial** | Cash flow, profit/loss statements, transaction history |
-| **Reports** | 9 different report types with date filters and export options |
-| **Users** | User management with roles (Admin/Employee) |
-| **Website Management** | Pages, blog posts, slider, site settings |
-| **Customer Balance** | Complete transaction history (debit/credit) with print/PDF/Excel export |
+- فاکتور دارای پرداخت مرتبط قابل لغو نیست. لغو خرید پس از حرکت بعدی همان جنس نیز مسدود می‌شود تا بهای موجودی ناسازگار نشود. فاکتورهای ثبت‌شده مستقیم بازنویسی نمی‌شوند؛ اصلاح فاکتور بدون پرداخت با لغو و ثبت مجدد انجام می‌شود.
+- شناسهٔ یکتای درخواست از ثبت دوبارهٔ عملیات مالی هنگام تلاش مجدد جلوگیری می‌کند.
+- مدیر به تنظیمات، کاربران، معاش، مصارف، گزارش‌ها و نشر محتوا دسترسی دارد. کارمند به عملیات اجناس، حساب‌ها، خرید، فروش، پرداخت، گدام، بیلانس و اسناد دسترسی دارد. خلاصهٔ داشبورد شامل فروش و سود ماه نیز برای کارمند قابل مشاهده است.
+- رمزها با BCrypt نگهداری می‌شوند. نشست HttpOnly، محافظت CSRF، بررسی نقش در سرور و سوابق عملیات فعال است. تغییر نقش، رمز، نام کاربری یا غیرفعال کردن کاربر نشست قبلی او را باطل می‌کند.
 
-### 🎨 Design Features
+## اسناد و تم
 
-- ✅ Modern Corporate Design
 فاکتور، بیلانس، رسید و نرخنامه از هویت مشترک شرکت استفاده می‌کنند. تصویر سربرگ PNG/JPEG/WebP تا ۲ مگابایت قابل بارگذاری است. دکمهٔ «چاپ / ذخیره PDF» پنجرهٔ چاپ مرورگر را باز می‌کند؛ برای فایل PDF گزینهٔ Save as PDF و اندازهٔ A4 را انتخاب کنید. خروجی CSV با UTF-8 برای Excel قابل دریافت است؛ خروجی بومی XLSX ارائه نشده است.
 
 تم روشن/تاریک و رنگ سبز/آبی/بنفش در مرورگر ذخیره می‌شود و بین صفحات مشترک است. حالت چاپ مستقل از تم و سفید است.
