@@ -1,17 +1,12 @@
-# 🚀 خراسان سیستم | Khorasan System - Enterprise Management Platform
+# خراسان سیستم — امینی گروپ
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?logo=bootstrap&logoColor=white)
-![RTL](https://img.shields.io/badge/RTL-Supported-green)
-![Responsive](https://img.shields.io/badge/Responsive-Yes-brightgreen)
+سیستم مدیریت تجارت با نمایش دری و راست‌به‌چپ، وبسایت عمومی و داشبورد مدیر/کارمند. بک‌اند Java 17 و Spring Boot 3.5، دیتابیس MySQL 8.4 و مهاجرت‌های Flyway است. فرانت بدون نیاز به کتابخانهٔ CDN اجرا می‌شود و همراه فایل اجرایی بک‌اند بسته‌بندی شده است.
 
-> **A complete, production-ready Frontend system for managing Sales, Inventory, Purchases, Customer Balances, and Financial transactions.** Built specifically for Persian (RTL) businesses with a modern corporate design.
+## اجرای محلی
 
----
+نسخهٔ آماده در همین محیط روی http://localhost:8082 اجرا شده است.
 
+- داشبورد: http://localhost:8082/dashboard/login.html
 - وبسایت: http://localhost:8082/public-site/index.html
 - نام کاربری اولیه: `admin`
 - رمز اولیه: مقدار `ADMIN_PASSWORD` در فایل محلی `.env`؛ این فایل در Git قرار نمی‌گیرد.
