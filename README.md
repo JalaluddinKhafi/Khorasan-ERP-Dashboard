@@ -70,17 +70,9 @@ docker compose up --build -d
 ### 🎨 Design Features
 
 - ✅ Modern Corporate Design
-- ✅ Dark/Light Mode Toggle (persists via localStorage)
-- ✅ Fully Responsive (Mobile, Tablet, Desktop)
-- ✅ Persian (RTL) Support
-- ✅ Professional Typography (Inter Font)
-- ✅ Beautiful Cards and Tables
-- ✅ Toast Notifications
-- ✅ Confirmation Dialogs
-- ✅ Loading and Empty States
-- ✅ Form Validation
+فاکتور، بیلانس، رسید و نرخنامه از هویت مشترک شرکت استفاده می‌کنند. تصویر سربرگ PNG/JPEG/WebP تا ۲ مگابایت قابل بارگذاری است. دکمهٔ «چاپ / ذخیره PDF» پنجرهٔ چاپ مرورگر را باز می‌کند؛ برای فایل PDF گزینهٔ Save as PDF و اندازهٔ A4 را انتخاب کنید. خروجی CSV با UTF-8 برای Excel قابل دریافت است؛ خروجی بومی XLSX ارائه نشده است.
 
----
+تم روشن/تاریک و رنگ سبز/آبی/بنفش در مرورگر ذخیره می‌شود و بین صفحات مشترک است. حالت چاپ مستقل از تم و سفید است.
 
 ## 🛠️ Tech Stack
 
