@@ -85,15 +85,10 @@ docker compose up --build -d
 ### Public Website (accessible to customers)
 
 | File | Purpose |
-|------|---------|
-| `index.html` | Homepage with hero, products, services, testimonials |
-| `about.html` | Company information and team |
-| `products.html` | Product catalog with filters |
-| `services.html` | Services offered |
-| `blog.html` | Articles and news |
-| `blog-details.html` | Single article view |
-| `gallery.html` | Image gallery |
-| `contact.html` | Contact form and map |
+- سایدبار سرمه‌ای با آیکن‌های مستقل، پس‌زمینهٔ روشن‌تر صفحه و سازگاری با تم تاریک و رنگ انتخابی.
+- خوش‌آمدید با نام کاربر، تاریخ و ساعت زندهٔ کابل؛ میانبر ثبت خرید، فروش، افزودن کالا و گزارشات؛ جدول‌های مستقل آخرین فروش‌ها، آخرین خریدها و هشدار موجودی.
+- مدیریت اجناس با جستجوی نام/کد/بارکد، فیلتر دسته و زیرمجموعه‌ها، وضعیت، موجودی و ترتیب نمایش. تصویر PNG/JPEG/WebP تا ۲ مگابایت، بارکد و توضیحات ذخیره می‌شود. برای اجناس قدیمی بدون تصویر، جای‌نگهدار نمایش داده می‌شود.
+- پنجرهٔ جزئیات جنس، تصویر و قیمت خرید/فروش، سود هر واحد، موجودی، حداقل هشدار و سایر مشخصات را از سرور دریافت می‌کند.
 - دسته‌بندی دارای والد، زیرمجموعه، توضیحات و وضعیت است. نمای درختی و جدول قابل‌جستجو هر دو در یک صفحه هستند. شمارش هر شاخه شامل اجناس تمام زیرمجموعه‌هاست. انتخاب دستهٔ والد به‌صورت حلقه‌ای و حذف دستهٔ دارای جنس یا زیرمجموعه مسدود می‌شود.
 - مهاجرت `V3__product_details_and_category_tree.sql` اطلاعات موجود را حفظ می‌کند و ستون‌های جدید را اضافه می‌کند.
 
