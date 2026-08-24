@@ -70,21 +70,21 @@ docker compose up --build -d
 | **Font Awesome 6** | Professional icons |
 | **DataTables** | Advanced tables with search, sort, pagination |
 | **ApexCharts** | Interactive and responsive charts |
-| **SheetJS (XLSX)** | Excel export functionality |
-| **html2pdf.js** | PDF generation |
+npm run format
+```
 
----
+آزمایش‌های Java دیتابیس مستقل H2 با حالت MySQL دارند؛ آزمایش مرورگر روی **MySQL واقعی و دیتابیس مجزای QA** انجام شده است. برای اجرای مجدد آزمایش مرورگر، یک نمونهٔ جداگانه از برنامه روی پورت 8081 با `DB_URL` دیتابیس آزمایشی و همان متغیرهای رمز اجرا کنید. سپس:
 
-## 📁 Project Structure
-<img width="1672" height="941" alt="NoteGPT_Image_20260609170023" src="https://github.com/user-attachments/assets/81f2d55c-2c85-4414-9ec3-d8ecf0285f2c" />
+```powershell
+npm run test:ui
+```
 
----
+در ویندوز از Edge نصب‌شده استفاده می‌شود. در سیستم‌های دیگر `npx playwright install chromium` را اجرا کنید. `E2E_BASE`، `E2E_PASSWORD` و `BROWSER_CHANNEL` قابل تنظیم‌اند. آزمایش مرورگر اطلاعات آزمایشی اضافه می‌کند و نباید به دیتابیس عملیاتی وصل شود.
 
-## 📄 Pages
+جزئیات API و نتیجهٔ بررسی در `docs/implementation.md` است. تغییرات موجود پیش از شروع کار در `.codex-review/pre-existing-changes.patch` حفظ شده‌اند. فایل‌های قدیمی `components.js`، `utils.js`، `dashboard-home.js` و `products.js` در صفحات جدید بارگذاری نمی‌شوند؛ ورودی فعلی فرانت `app.js` و `public.js` است.
 
-### Public Website (accessible to customers)
+## به‌روزرسانی داشبورد، اجناس و دسته‌بندی
 
-| File | Purpose |
 - سایدبار سرمه‌ای با آیکن‌های مستقل، پس‌زمینهٔ روشن‌تر صفحه و سازگاری با تم تاریک و رنگ انتخابی.
 - خوش‌آمدید با نام کاربر، تاریخ و ساعت زندهٔ کابل؛ میانبر ثبت خرید، فروش، افزودن کالا و گزارشات؛ جدول‌های مستقل آخرین فروش‌ها، آخرین خریدها و هشدار موجودی.
 - مدیریت اجناس با جستجوی نام/کد/بارکد، فیلتر دسته و زیرمجموعه‌ها، وضعیت، موجودی و ترتیب نمایش. تصویر PNG/JPEG/WebP تا ۲ مگابایت، بارکد و توضیحات ذخیره می‌شود. برای اجناس قدیمی بدون تصویر، جای‌نگهدار نمایش داده می‌شود.
