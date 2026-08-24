@@ -335,3 +335,24 @@ export async function categoriesPage(ui) {
         `<div class="panel-head"><div><h2>لیست تمام دسته‌بندی‌ها</h2><p class="muted small">جستجو در نام دسته، والد و توضیحات</p></div><label class="category-search">جستجو<div class="input-icon">${icon("search")}<input id="search" type="search" placeholder="جستجوی دسته‌بندی…" aria-label="جستجوی دسته‌بندی"></div></label></div><div id="category-records"></div>`,
       ),
   );
+  function draw() {
+    const q = $("#search").value.trim().toLocaleLowerCase("fa");
+    $("#category-records").innerHTML = table(
+      ["شناسه", "نام دسته", "دسته والد", "تعداد محصولات", "عملیات"],
+      categories
+        .filter((c) =>
+          [c.name, c.parent_name, c.description, c.id]
+            .join(" ")
+            .toLocaleLowerCase("fa")
+            .includes(q),
+        )
+        .map((c) => [
+          `<span class="record-id">#${c.id}</span>`,
+          `<b>${esc(c.name)}</b>${!c.active ? '<span class="muted small"> · غیرفعال</span>' : ""}`,
+          c.parent_name
+            ? esc(c.parent_name)
+            : '<span class="muted">بدون والد (دسته اصلی)</span>',
+          number(tree.count(c.id)),
+          rowActions(c),
+        ]),
+    );
