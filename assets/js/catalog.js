@@ -312,3 +312,26 @@ export async function categoriesPage(ui) {
   const { heading, panel, table, field, edit, me, refresh } = ui;
   const categories = await api("categories"),
     tree = hierarchy(categories);
+  heading(
+    "دسته‌های اصلی و زیرمجموعه‌ها را در یک ساختار منظم مدیریت کنید.",
+    `<button id="add" class="primary">${icon("plus")} افزودن دسته جدید</button>`,
+  );
+  const rowActions = (c, sub = false) =>
+    `<div class="row-actions">${action("edit", "ویرایش", `data-edit="${c.id}"`)}${me.role === "ADMIN" ? action("trash", "حذف", `data-delete="${c.id}"`, true) : ""}${sub ? action("branch", "افزودن زیرمجموعه", `data-child="${c.id}"`) : ""}</div>`;
+  $("#app").insertAdjacentHTML(
+    "beforeend",
+    panel(
+      `<div class="panel-head"><div><h2>${icon("layers")} دسته‌بندی کالاها</h2><p class="muted small">تعداد اجناس هر شاخه شامل زیرمجموعه‌های آن است.</p></div><span class="table-counter">${number(categories.filter((c) => !c.parent_id).length)} دستهٔ اصلی · ${number(categories.length)} دسته در مجموع</span></div>${table(
+        ["نام دسته‌بندی", "تعداد محصولات", "وضعیت", "عملیات"],
+        tree.flattened.map((c) => [
+          `<div class="category-tree-name" style="--depth:${c.depth}"><span class="tree-symbol">${icon(c.depth ? "branch" : "layers", 18)}</span><span>${esc(c.name)}${c.description ? `<small>${esc(c.description)}</small>` : ""}</span></div>`,
+          `<span class="count-pill">${number(tree.count(c.id))} محصول</span>`,
+          badge(c.active),
+          rowActions(c, true),
+        ]),
+      )}`,
+    ) +
+      panel(
+        `<div class="panel-head"><div><h2>لیست تمام دسته‌بندی‌ها</h2><p class="muted small">جستجو در نام دسته، والد و توضیحات</p></div><label class="category-search">جستجو<div class="input-icon">${icon("search")}<input id="search" type="search" placeholder="جستجوی دسته‌بندی…" aria-label="جستجوی دسته‌بندی"></div></label></div><div id="category-records"></div>`,
+      ),
+  );
