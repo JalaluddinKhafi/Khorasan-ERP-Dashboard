@@ -47,17 +47,12 @@ docker compose up --build -d
 | **FAQ** | Accordion-style frequently asked questions |
 | **Privacy & Terms** | Legal pages |
 
-### 📊 Admin Dashboard (13+ Pages)
+## حسابداری و دسترسی
 
-| Module | Features |
-|--------|----------|
-| **Dashboard** | Statistics cards (12 metrics), 4 interactive charts (ApexCharts), top products, recent invoices, low stock alerts, activity timeline |
-| **Products** | CRUD operations, image upload, search/filter, stock management |
-| **Categories** | Tree structure with parent-child relationships |
-| **Suppliers** | Complete profiles with transaction history |
-| **Customers** | Full profiles, purchase history, payment history, balance tracking |
-| **Purchases** | Create/edit invoices, dynamic product rows, auto-calculation, payment status |
-| **Sales** | Product search, dynamic rows, stock validation, invoice printing |
+- محاسبات مالی در سرور با `BigDecimal` و چهار رقم اعشار انجام می‌شود؛ نرخ ارز تا هشت رقم اعشار نگهداری می‌شود.
+- نرخ هر فاکتور، پرداخت و مصرف مستقل ذخیره می‌شود. تغییر نرخ پیشنهادی ارز، معاملات قبلی را تغییر نمی‌دهد. تبدیل مبلغ به دالر برابر مبلغ تقسیم بر نرخ است.
+- خرید، فروش و تغییر موجودی در یک تراکنش دیتابیس ثبت می‌شوند. قفل سطری از فروش هم‌زمان بیش از موجودی جلوگیری می‌کند. مبلغ کل فاکتور از اقلام در سرور محاسبه می‌شود.
+- بهای موجودی از میانگین موزون خرید با احتساب تخفیف خرید محاسبه می‌شود. سود = فروش خالص − بهای اجناس فروخته‌شده − مصارف و معاش. این گزارش، دفتر کل دوطرفه یا محاسبهٔ سود و زیان تحقق‌یافتهٔ تبدیل ارز نیست.
 - فاکتور دارای پرداخت مرتبط قابل لغو نیست. لغو خرید پس از حرکت بعدی همان جنس نیز مسدود می‌شود تا بهای موجودی ناسازگار نشود. فاکتورهای ثبت‌شده مستقیم بازنویسی نمی‌شوند؛ اصلاح فاکتور بدون پرداخت با لغو و ثبت مجدد انجام می‌شود.
 - شناسهٔ یکتای درخواست از ثبت دوبارهٔ عملیات مالی هنگام تلاش مجدد جلوگیری می‌کند.
 - مدیر به تنظیمات، کاربران، معاش، مصارف، گزارش‌ها و نشر محتوا دسترسی دارد. کارمند به عملیات اجناس، حساب‌ها، خرید، فروش، پرداخت، گدام، بیلانس و اسناد دسترسی دارد. خلاصهٔ داشبورد شامل فروش و سود ماه نیز برای کارمند قابل مشاهده است.
