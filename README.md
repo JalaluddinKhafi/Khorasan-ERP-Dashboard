@@ -29,18 +29,13 @@
 
 ## 🎯 Overview
 
-**Khorasan System** is a comprehensive enterprise management platform designed for official company representative offices. It includes a **customer-facing website** (SEO optimized) and a **full-featured admin dashboard** for internal management.
+اجرای همهٔ اجزا با Docker:
 
-### Key Capabilities:
-- ✅ Manage Products, Categories, Suppliers, Customers
-- ✅ Create Purchase and Sales Invoices with dynamic rows
-- ✅ Track Inventory with low stock alerts
-- ✅ Monitor Customer Balances (complete transaction history)
-- ✅ Generate Financial Reports (Daily/Monthly/Yearly)
-- ✅ Export Reports to PDF and Excel
-- ✅ Print Professional Invoices with Company Letterhead
+```powershell
+docker compose up --build -d
+```
 
----
+اجرای Java محلی و اجرای Docker برنامه را هم‌زمان روی پورت 8080 راه‌اندازی نکنید. رمزهای دیتابیس پس از ایجاد volume با تغییر `.env` خودکار عوض نمی‌شوند؛ تغییر رمز دیتابیس باید داخل MySQL نیز انجام شود. رمز اولیهٔ مدیر فقط هنگام ساخت نخستین حساب استفاده می‌شود؛ پس از آن رمز حساب از صفحهٔ حساب‌های کاربری تغییر می‌کند.
 
 ## ✨ Features
 
