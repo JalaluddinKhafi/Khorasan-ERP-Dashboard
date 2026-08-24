@@ -94,15 +94,7 @@ docker compose up --build -d
 | `blog-details.html` | Single article view |
 | `gallery.html` | Image gallery |
 | `contact.html` | Contact form and map |
-| `faq.html` | Frequently asked questions |
-| `privacy.html` | Privacy policy |
-| `terms.html` | Terms and conditions |
+- دسته‌بندی دارای والد، زیرمجموعه، توضیحات و وضعیت است. نمای درختی و جدول قابل‌جستجو هر دو در یک صفحه هستند. شمارش هر شاخه شامل اجناس تمام زیرمجموعه‌هاست. انتخاب دستهٔ والد به‌صورت حلقه‌ای و حذف دستهٔ دارای جنس یا زیرمجموعه مسدود می‌شود.
+- مهاجرت `V3__product_details_and_category_tree.sql` اطلاعات موجود را حفظ می‌کند و ستون‌های جدید را اضافه می‌کند.
 
-### Admin Dashboard (restricted access)
-
-| File | Purpose |
-|------|---------|
-| `dashboard.html` | Main dashboard with stats and charts |
-| `products.html` | Product management |
-| `categories.html` | Category tree management |
 آزمایش اختصاصی مرورگر: `node scripts/test-catalog.cjs` روی نمونهٔ مجزای QA در پورت 8081؛ این آزمایش دادهٔ آزمایشی ایجاد می‌کند.
