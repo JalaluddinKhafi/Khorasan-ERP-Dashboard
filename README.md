@@ -105,14 +105,4 @@ docker compose up --build -d
 | `dashboard.html` | Main dashboard with stats and charts |
 | `products.html` | Product management |
 | `categories.html` | Category tree management |
-| `suppliers.html` | Supplier management |
-| `customers.html` | Customer management with balance |
-| `purchases.html` | Purchase invoice management |
-| `sales.html` | Sales invoice management |
-| `inventory.html` | Stock and inventory tracking |
-| `payments.html` | Payment tracking |
-| `expenses.html` | Expense management |
-| `financial-transactions.html` | Financial reports |
-| `reports.html` | Various business reports |
-| `users.html` | User management |
 آزمایش اختصاصی مرورگر: `node scripts/test-catalog.cjs` روی نمونهٔ مجزای QA در پورت 8081؛ این آزمایش دادهٔ آزمایشی ایجاد می‌کند.
