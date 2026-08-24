@@ -134,14 +134,4 @@ docker compose up --build -d
 1. **Clone the repository**
    ```bash
    git clone https://github.com/JalaluddinKhafi/Khorasan-ERP-Dashboard
-
-2. **Open with Live Server**
-
-Using VS Code: Install "Live Server" extension
-
-Right-click on dashboard/dashboard.html → "Open with Live Server"
-
-Or use any HTTP server (Python, http-server, etc.)
-
-3. **No build step required** - Pure HTML/CSS/JS!
 آزمایش اختصاصی مرورگر: `node scripts/test-catalog.cjs` روی نمونهٔ مجزای QA در پورت 8081؛ این آزمایش دادهٔ آزمایشی ایجاد می‌کند.
