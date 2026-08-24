@@ -124,14 +124,4 @@ docker compose up --build -d
 
 ## 🚀 Getting Started
 
-### Prerequisites
-
-- Any modern web browser (Chrome, Firefox, Edge, Safari)
-- Local server (recommended: VS Code Live Server)
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/JalaluddinKhafi/Khorasan-ERP-Dashboard
 آزمایش اختصاصی مرورگر: `node scripts/test-catalog.cjs` روی نمونهٔ مجزای QA در پورت 8081؛ این آزمایش دادهٔ آزمایشی ایجاد می‌کند.
