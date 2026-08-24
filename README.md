@@ -59,17 +59,12 @@ docker compose up --build -d
 
 تم روشن/تاریک و رنگ سبز/آبی/بنفش در مرورگر ذخیره می‌شود و بین صفحات مشترک است. حالت چاپ مستقل از تم و سفید است.
 
-## 🛠️ Tech Stack
+## ساخت و آزمایش
 
-| Technology | Usage |
-|------------|-------|
-| **HTML5** | Semantic structure |
-| **CSS3** | Custom styling with CSS variables |
-| **JavaScript (Vanilla)** | Modular logic, DOM manipulation, fetch API |
-| **Bootstrap 5 (RTL)** | Responsive layout components |
-| **Font Awesome 6** | Professional icons |
-| **DataTables** | Advanced tables with search, sort, pagination |
-| **ApexCharts** | Interactive and responsive charts |
+```powershell
+mvn -f backend/pom.xml test
+mvn -f backend/pom.xml package
+npm ci
 npm run format
 ```
 
