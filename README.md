@@ -36,16 +36,7 @@ docker compose up --build -d
 
 | Page | Description |
 |------|-------------|
-| **Home** | Hero section, featured products/services, testimonials, contact |
-| **About Us** | Company history, vision, mission, team members |
-| **Products** | Product grid with search, category filters, details modal |
-| **Services** | Service list with benefits section |
-| **Blog** | Blog listing with categories, search, and tag cloud |
-| **Blog Details** | Full article view with comments section |
-| **Gallery** | Image gallery with lightbox and category filters |
-| **Contact Us** | Contact form, Google Maps, company info |
-| **FAQ** | Accordion-style frequently asked questions |
-| **Privacy & Terms** | Legal pages |
+فایل‌های PDF فقط نمونهٔ ساختار و هویت تجارتی هستند؛ مبالغ، مشتریان و معاملات تاریخی آن‌ها وارد دیتابیس عملیاتی نشده‌اند. دیتابیس جداگانهٔ `khorasan_qa` مخصوص آزمایش است و حاوی اطلاعات آزمایشی می‌باشد.
 
 ## حسابداری و دسترسی
 
