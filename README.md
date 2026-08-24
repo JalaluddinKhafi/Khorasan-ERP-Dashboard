@@ -12,15 +12,10 @@
 
 ---
 
-## 📌 Table of Contents
+- وبسایت: http://localhost:8082/public-site/index.html
+- نام کاربری اولیه: `admin`
+- رمز اولیه: مقدار `ADMIN_PASSWORD` در فایل محلی `.env`؛ این فایل در Git قرار نمی‌گیرد.
 
-- [Overview](#-overview)
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Project Structure](#-project-structure)
-- [Pages](#-pages)
-- [Getting Started](#-getting-started)
-- [Backend Integration](#-backend-integration)
 برای اجرای دوباره در ویندوز به Java 17، Maven و Docker Desktop نیاز است:
 
 ```powershell
