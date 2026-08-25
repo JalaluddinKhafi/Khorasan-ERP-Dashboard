@@ -89,3 +89,10 @@ class CatalogTests {
   @Test
   void rejectsCycleAcrossThreeLevels() {
     var root = category("اصلی", null);
+    var listed = controller
+      .list("categories")
+      .stream()
+      .filter(c -> id(c) == id(child))
+      .findFirst()
+      .orElseThrow();
+    assertEquals(1, ((Number) listed.get("product_count")).intValue());
