@@ -377,3 +377,26 @@ export async function categoriesPage(ui) {
         }),
         field("description", "توضیحات", "textarea", {
           required: false,
+          wide: true,
+          max: 1000,
+        }),
+        field("active", "وضعیت — فعال", "checkbox", { value: true }),
+      ],
+      row,
+      (m) =>
+        send(
+          "categories" + (row.id ? "/" + row.id : ""),
+          m,
+          row.id ? "PUT" : "POST",
+        ),
+    );
+  }
+  $("#add").onclick = () => open();
+  $("#app").onclick = async (e) => {
+    const b = e.target.closest("button");
+    if (!b || b.id === "add") return;
+    const row = categories.find(
+      (c) =>
+        String(c.id) ===
+        (b.dataset.edit || b.dataset.delete || b.dataset.child),
+    );
