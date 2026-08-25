@@ -23,6 +23,16 @@ class CatalogTests {
   ApiController controller;
 
   @Autowired
+  LedgerService ledger;
+
+  @Autowired
+  JdbcTemplate db;
+
+  @Autowired
+  MockMvc mvc;
+
+  Map<String, Object> category(String name, Long parent) {
+    var m = new HashMap<String, Object>();
     m.put("name", name + UUID.randomUUID());
     m.put("parent_id", parent);
     m.put("description", "توضیحات دسته");
