@@ -66,6 +66,14 @@ class CatalogTests {
       )
     );
   }
+  }
+
+  @Test
+  void rejectsSelfParent() {
+    var root = category("اصلی", null);
+    var update = new HashMap<>(root);
+    update.put("parent_id", id(root));
+    assertThrows(IllegalArgumentException.class, () ->
       controller.update("categories", "" + id(root), update)
     );
   }
