@@ -128,6 +128,13 @@ class CatalogTests {
     assertEquals("1234567890123", details.get("barcode"));
     assertEquals("توضیحات کامل جنس", details.get("description"));
     assertEquals(root.get("name"), details.get("category_name"));
+    var root = category("اصلی", null);
+    var update = new HashMap<>(root);
+    update.put("active", false);
+    controller.update("categories", "" + id(root), update);
+    assertThrows(IllegalArgumentException.class, () ->
+      controller.create("products", product(id(root)))
+    );
   }
 
   @Test
