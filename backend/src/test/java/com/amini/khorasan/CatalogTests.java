@@ -150,6 +150,14 @@ class CatalogTests {
     var root = category("اصلی", null);
     var p = product(id(root));
     p.put("image", "data:image/svg+xml;base64,PHN2Zy8+");
+    assertThrows(IllegalArgumentException.class, () ->
+      controller.create("products", p)
+    );
+  }
+
+  @Test
+  void preventsDeletingParentWithChildren() {
+    var root = category("اصلی", null);
     category("فرعی", id(root));
     assertThrows(
       org.springframework.dao.DataIntegrityViolationException.class,
