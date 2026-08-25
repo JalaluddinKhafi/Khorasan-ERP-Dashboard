@@ -23,3 +23,13 @@ class CatalogTests {
   ApiController controller;
 
   @Autowired
+    m.put("name", name + UUID.randomUUID());
+    m.put("parent_id", parent);
+    m.put("description", "توضیحات دسته");
+    m.put("active", true);
+    return controller.create("categories", m);
+  }
+
+  long id(Map<String, Object> row) {
+    return ((Number) row.get("id")).longValue();
+  }
