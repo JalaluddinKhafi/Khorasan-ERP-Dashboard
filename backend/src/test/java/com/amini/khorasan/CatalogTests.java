@@ -89,6 +89,13 @@ class CatalogTests {
   @Test
   void rejectsCycleAcrossThreeLevels() {
     var root = category("اصلی", null);
+  }
+
+  @Test
+  void countsProductsAndExposesParentName() {
+    var root = category("اصلی", null);
+    var child = category("فرعی", id(root));
+    controller.create("products", product(id(child)));
     var listed = controller
       .list("categories")
       .stream()
