@@ -89,6 +89,13 @@ class CatalogTests {
   @Test
   void rejectsCycleAcrossThreeLevels() {
     var root = category("اصلی", null);
+    var child = category("فرعی", id(root));
+    var leaf = category("نهایی", id(child));
+    var update = new HashMap<>(root);
+    update.put("parent_id", id(leaf));
+    assertThrows(IllegalArgumentException.class, () ->
+      controller.update("categories", "" + id(root), update)
+    );
   }
 
   @Test
