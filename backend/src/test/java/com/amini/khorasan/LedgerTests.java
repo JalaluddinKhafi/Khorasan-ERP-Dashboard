@@ -26,6 +26,14 @@ class LedgerTests {
   JdbcTemplate db;
 
   @Autowired
+      "INSERT INTO app_users(username,password,name,role) VALUES('worker','test-hash','Worker','EMPLOYEE')"
+    );
+    for (String table : List.of(
+      "stock_movements",
+      "payments",
+      "invoice_items",
+      "invoices",
+      "expenses",
       "employees",
       "products",
       "parties",
