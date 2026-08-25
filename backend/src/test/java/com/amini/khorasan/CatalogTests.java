@@ -110,6 +110,15 @@ class CatalogTests {
       .findFirst()
       .orElseThrow();
     assertEquals(1, ((Number) listed.get("product_count")).intValue());
+    assertEquals(root.get("name"), listed.get("parent_name"));
+  }
+
+  @Test
+  void persistsProductImageBarcodeDescriptionAndCategory() throws Exception {
+    var root = category("اصلی", null);
+    var m = product(id(root));
+    String img =
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLbtAAAAABJRU5ErkJggg==";
     m.put("image", img);
     m.put("barcode", "1234567890123");
     m.put("description", "توضیحات کامل جنس");
