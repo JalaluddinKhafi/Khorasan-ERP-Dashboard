@@ -66,3 +66,10 @@ class CatalogTests {
       )
     );
   }
+      controller.update("categories", "" + id(root), update)
+    );
+  }
+
+  @Test
+  void rejectsCycleAcrossThreeLevels() {
+    var root = category("اصلی", null);
