@@ -128,6 +128,14 @@ class CatalogTests {
     assertEquals("1234567890123", details.get("barcode"));
     assertEquals("توضیحات کامل جنس", details.get("description"));
     assertEquals(root.get("name"), details.get("category_name"));
+    mvc
+      .perform(get("/api/products/" + id(p)).with(user("admin").roles("ADMIN")))
+      .andExpect(status().isOk())
+      .andExpect(jsonPath("barcode").value("1234567890123"));
+  }
+
+  @Test
+  void rejectsNewProductInInactiveCategory() {
     var root = category("اصلی", null);
     var update = new HashMap<>(root);
     update.put("active", false);
