@@ -43,6 +43,14 @@ class CatalogTests {
   long id(Map<String, Object> row) {
     return ((Number) row.get("id")).longValue();
   }
+
+  Map<String, Object> product(long category) {
+    return new HashMap<>(
+      Map.of(
+        "code",
+        "CAT-" + UUID.randomUUID(),
+        "name",
+        "جنس آزمایشی",
         "unit",
         "عدد",
         "category_id",
