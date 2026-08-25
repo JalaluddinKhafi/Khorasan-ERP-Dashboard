@@ -66,6 +66,14 @@ class CatalogTests {
       )
     );
   }
+
+  @Test
+  void storesParentDescriptionAndStatus() {
+    var root = category("اصلی", null);
+    var child = category("فرعی", id(root));
+    assertEquals(id(root), ((Number) child.get("parent_id")).longValue());
+    assertEquals("توضیحات دسته", child.get("description"));
+    assertEquals(true, child.get("active"));
   }
 
   @Test
