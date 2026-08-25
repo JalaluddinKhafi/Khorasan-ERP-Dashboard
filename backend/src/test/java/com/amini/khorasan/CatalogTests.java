@@ -43,3 +43,10 @@ class CatalogTests {
   long id(Map<String, Object> row) {
     return ((Number) row.get("id")).longValue();
   }
+        "stock",
+        4,
+        "min_stock",
+        2
+      )
+    );
+  }
