@@ -128,3 +128,10 @@ class CatalogTests {
     assertEquals("1234567890123", details.get("barcode"));
     assertEquals("توضیحات کامل جنس", details.get("description"));
     assertEquals(root.get("name"), details.get("category_name"));
+  }
+
+  @Test
+  void rejectsNonRasterProductImages() {
+    var root = category("اصلی", null);
+    var p = product(id(root));
+    p.put("image", "data:image/svg+xml;base64,PHN2Zy8+");
