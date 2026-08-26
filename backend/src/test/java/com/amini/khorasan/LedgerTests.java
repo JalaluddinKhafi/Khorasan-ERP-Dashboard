@@ -94,3 +94,11 @@ class LedgerTests {
       )
     );
   }
+  }
+
+  BigDecimal stock() {
+    return db.queryForObject(
+      "SELECT stock FROM products WHERE id=?",
+      BigDecimal.class,
+      product
+    );
