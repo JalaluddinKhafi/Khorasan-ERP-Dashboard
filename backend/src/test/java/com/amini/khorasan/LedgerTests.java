@@ -120,3 +120,12 @@ class LedgerTests {
       BigDecimal.class,
       product
     );
+    var p = payment(customer, "700");
+    p.put("invoice_id", i.get("id"));
+    ledger.payment(p);
+    db.update("UPDATE currencies SET rate=80 WHERE code='AFN'");
+    var s = ledger.statement(
+      customer,
+      java.time.LocalDate.of(2026, 1, 1),
+      java.time.LocalDate.of(2026, 12, 31)
+    );
