@@ -167,6 +167,13 @@ class LedgerTests {
         Map.of("product_id", product, "quantity", 1, "price", 10)
       )
     );
+      0,
+      new BigDecimal("7.5").compareTo(
+        db.queryForObject(
+          "SELECT purchase_price FROM products WHERE id=?",
+          BigDecimal.class,
+          product
+        )
       )
     );
   }
