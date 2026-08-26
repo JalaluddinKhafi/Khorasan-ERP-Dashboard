@@ -73,6 +73,13 @@ class LedgerTests {
     String rate,
     String price
   ) {
+    return new HashMap<>(
+      Map.of(
+        "request_key",
+        UUID.randomUUID().toString(),
+        "kind",
+        kind,
+        "party_id",
         kind.equals("SALE") ? customer : supplier,
         "invoice_date",
         "2026-10-26",
