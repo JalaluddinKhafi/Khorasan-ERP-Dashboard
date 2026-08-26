@@ -73,6 +73,13 @@ class LedgerTests {
     String rate,
     String price
   ) {
+        kind.equals("SALE") ? customer : supplier,
+        "invoice_date",
+        "2026-10-26",
+        "currency",
+        currency,
+        "rate",
+        rate,
         "discount",
         0,
         "items",
