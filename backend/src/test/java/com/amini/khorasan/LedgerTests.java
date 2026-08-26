@@ -50,3 +50,10 @@ class LedgerTests {
       db.update("DELETE FROM " + table);
     db.update("DELETE FROM currencies WHERE code<>'USD'");
     db.update("INSERT INTO currencies VALUES('AFN','افغانی',70)");
+  Map<String, Object> invoice(
+    String kind,
+    int qty,
+    String currency,
+    String rate,
+    String price
+  ) {
