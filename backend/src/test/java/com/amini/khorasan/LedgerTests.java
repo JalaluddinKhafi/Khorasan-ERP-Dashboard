@@ -139,3 +139,12 @@ class LedgerTests {
       java.time.LocalDate.of(2026, 1, 1),
       java.time.LocalDate.of(2026, 12, 31)
     );
+  void duplicateItemsAreRejected() {
+    var m = invoice("SALE", 1, "USD", "1", "10");
+    m.put(
+      "items",
+      Collections.nCopies(
+        2,
+        Map.of("product_id", product, "quantity", 1, "price", 10)
+      )
+    );
