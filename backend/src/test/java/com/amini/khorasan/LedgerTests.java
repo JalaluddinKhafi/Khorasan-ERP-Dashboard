@@ -73,3 +73,10 @@ class LedgerTests {
     String rate,
     String price
   ) {
+        "discount",
+        0,
+        "items",
+        List.of(Map.of("product_id", product, "quantity", qty, "price", price))
+      )
+    );
+  }
