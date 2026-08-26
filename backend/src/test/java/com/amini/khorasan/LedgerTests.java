@@ -167,6 +167,14 @@ class LedgerTests {
         Map.of("product_id", product, "quantity", 1, "price", 10)
       )
     );
+    assertThrows(IllegalArgumentException.class, () -> ledger.invoice(m));
+  }
+
+  @Test
+  void purchaseRecalculatesWeightedCost() {
+    ledger.invoice(invoice("PURCHASE", 10, "AFN", "70", "700"));
+    assertEquals(0, new BigDecimal("20").compareTo(stock()));
+    assertEquals(
       0,
       new BigDecimal("7.5").compareTo(
         db.queryForObject(
