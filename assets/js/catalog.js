@@ -400,3 +400,22 @@ export async function categoriesPage(ui) {
         String(c.id) ===
         (b.dataset.edit || b.dataset.delete || b.dataset.child),
     );
+    if (b.dataset.edit) open(row);
+    if (b.dataset.child) open({}, row.id);
+    if (
+      b.dataset.delete &&
+      confirm(
+        "دستهٔ «" +
+          row.name +
+          "» حذف شود؟ دسته‌های دارای زیرمجموعه یا جنس حذف نمی‌شوند.",
+      )
+    )
+      try {
+        await api("categories/" + row.id, { method: "DELETE" });
+        await refresh();
+        toast("دسته‌بندی حذف شد");
+      } catch (error) {
+        toast(error.message, true);
+      }
+  };
+}
