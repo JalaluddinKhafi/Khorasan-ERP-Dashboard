@@ -189,3 +189,11 @@ class LedgerTests {
   @Test
   void invoiceOverpaymentIsRejected() {
     var i = ledger.invoice(invoice("SALE", 1, "USD", "1", "10"));
+    assertEquals(0, BigDecimal.ONE.compareTo((BigDecimal) i.get("rate")));
+  }
+
+  @Test
+  void invalidDiscountAndNegativeQuantityAreRejected() {
+    var i = invoice("SALE", 1, "USD", "1", "10");
+    i.put("discount", 11);
+    assertThrows(IllegalArgumentException.class, () -> ledger.invoice(i));
