@@ -94,6 +94,15 @@ class LedgerTests {
       )
     );
   }
+        "2026-10-26",
+        "currency",
+        "AFN",
+        "rate",
+        70,
+        "amount",
+        amount
+      )
+    );
   }
 
   BigDecimal stock() {
