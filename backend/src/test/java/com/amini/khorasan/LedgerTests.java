@@ -94,6 +94,15 @@ class LedgerTests {
       )
     );
   }
+
+  Map<String, Object> payment(long party, String amount) {
+    return new HashMap<>(
+      Map.of(
+        "request_key",
+        UUID.randomUUID().toString(),
+        "party_id",
+        party,
+        "payment_date",
         "2026-10-26",
         "currency",
         "AFN",
