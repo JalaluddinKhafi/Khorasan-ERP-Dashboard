@@ -189,6 +189,14 @@ class LedgerTests {
   @Test
   void invoiceOverpaymentIsRejected() {
     var i = ledger.invoice(invoice("SALE", 1, "USD", "1", "10"));
+    var p = payment(customer, "701");
+    p.put("invoice_id", i.get("id"));
+    assertThrows(IllegalArgumentException.class, () -> ledger.payment(p));
+  }
+
+  @Test
+  void cannotPayAnotherPartyInvoice() {
+    var i = ledger.invoice(invoice("SALE", 1, "USD", "1", "10"));
     var p = payment(supplier, "700");
     p.put("invoice_id", i.get("id"));
     assertThrows(IllegalArgumentException.class, () -> ledger.payment(p));
