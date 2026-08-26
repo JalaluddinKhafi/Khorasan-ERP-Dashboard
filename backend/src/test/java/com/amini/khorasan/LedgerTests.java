@@ -167,3 +167,10 @@ class LedgerTests {
         Map.of("product_id", product, "quantity", 1, "price", 10)
       )
     );
+      )
+    );
+  }
+
+  @Test
+  void invoiceOverpaymentIsRejected() {
+    var i = ledger.invoice(invoice("SALE", 1, "USD", "1", "10"));
