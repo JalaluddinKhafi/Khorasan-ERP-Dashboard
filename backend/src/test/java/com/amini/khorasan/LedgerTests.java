@@ -401,6 +401,13 @@ class LedgerTests {
           } catch (IllegalArgumentException e) {
             return false;
           }
+            try {
+              return f.get();
+            } catch (Exception e) {
+              throw new RuntimeException(e);
+            }
+          })
+          .count()
       );
       assertEquals(0, new BigDecimal("2").compareTo(stock()));
     } finally {
