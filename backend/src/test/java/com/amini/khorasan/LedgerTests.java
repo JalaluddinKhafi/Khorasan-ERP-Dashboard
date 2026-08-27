@@ -238,3 +238,11 @@ class LedgerTests {
   @Test
   void paidInvoiceCannotBeVoided() {
     var i = ledger.invoice(invoice("SALE", 1, "USD", "1", "10"));
+
+  @Test
+  void payrollDuplicateIsRejected() {
+    var p = new HashMap<String, Object>(
+      Map.of(
+        "request_key",
+        UUID.randomUUID().toString(),
+        "employee_id",
