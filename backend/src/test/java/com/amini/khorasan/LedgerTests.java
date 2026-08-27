@@ -262,6 +262,14 @@ class LedgerTests {
         "request_key",
         UUID.randomUUID().toString(),
         "employee_id",
+        100,
+        "category",
+        "معاش"
+      )
+    );
+    ledger.expense(p, true);
+    p.put("request_key", UUID.randomUUID().toString());
+    assertThrows(
       org.springframework.dao.DataIntegrityViolationException.class,
       () -> ledger.expense(p, true)
     );
