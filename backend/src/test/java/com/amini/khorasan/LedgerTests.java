@@ -379,6 +379,13 @@ class LedgerTests {
           .content("{}")
       )
       .andExpect(status().isForbidden());
+          try {
+            ledger.invoice(invoice("SALE", 8, "USD", "1", "10"));
+            return true;
+          } catch (IllegalArgumentException e) {
+            return false;
+          }
+        },
         () -> {
           try {
             ledger.invoice(invoice("SALE", 8, "USD", "1", "10"));
