@@ -285,6 +285,13 @@ class LedgerTests {
       1,
       db.queryForObject("SELECT COUNT(*) FROM expenses", Integer.class)
     );
+  }
+
+  @Test
+  void statementOpeningAndPrepayment() {
+    ledger.payment(payment(customer, "700"));
+    var s = ledger.statement(
+      customer,
       java.time.LocalDate.of(2026, 11, 1),
       java.time.LocalDate.of(2026, 12, 31)
     );
