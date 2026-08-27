@@ -18,3 +18,22 @@ const paths = {
   branch:
     '<path d="M5 3v12a4 4 0 0 0 4 4h10M5 8h10a4 4 0 0 1 4 4v7M16 16l3 3 3-3"/>',
   image:
+    '<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 16 5-5 5 5 3-3 5 5"/>',
+  search: '<circle cx="10" cy="10" r="7"/><path d="m15 15 6 6"/>',
+  filter: '<path d="M3 4h18l-7 8v7l-4 2v-9L3 4Z"/>',
+  alert: '<path d="m12 3 10 18H2L12 3Z"/><path d="M12 9v5M12 17v1"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  calendar:
+    '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 2v6M17 2v6M3 11h18M7 15h3M14 15h3"/>',
+  arrow: '<path d="M20 12H4m6-6-6 6 6 6"/>',
+  settings:
+    '<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>',
+  globe:
+    '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a18 18 0 0 1 0 18 18 18 0 0 1 0-18Z"/>',
+  mail: '<rect x="2" y="4" width="20" height="16" rx="3"/><path d="m2 6 10 7L22 6"/>',
+  shield:
+    '<path d="m12 2 9 4v6c0 6-9 10-9 10S3 18 3 12V6l9-4Z"/><path d="m8 12 3 3 5-6"/>',
+};
+export function icon(name, size = 20) {
+  return `<svg class="icon" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${paths[name] || paths.box}</svg>`;
+}
