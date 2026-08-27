@@ -306,6 +306,15 @@ class LedgerTests {
     mvc.perform(get("/api/products")).andExpect(status().isUnauthorized());
     mvc.perform(get("/api/public/products")).andExpect(status().isOk());
   }
+
+  @Test
+  void employeeCannotManageUsersOrPayroll() throws Exception {
+    mvc
+      .perform(get("/api/users").with(user("worker").roles("EMPLOYEE")))
+      .andExpect(status().isForbidden());
+    mvc
+      .perform(
+        post("/api/expenses/payroll")
           .with(user("worker").roles("EMPLOYEE"))
           .with(csrf())
           .contentType("application/json")
