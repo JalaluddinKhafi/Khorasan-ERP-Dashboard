@@ -359,6 +359,13 @@ class LedgerTests {
           .with(user("worker").roles("EMPLOYEE"))
       )
       .andExpect(status().isOk());
+    db.update("UPDATE app_users SET active=FALSE WHERE username='worker'");
+    mvc
+      .perform(
+        get("/api/products")
+          .session(session)
+          .with(user("worker").roles("EMPLOYEE"))
+      )
       .andExpect(status().isUnauthorized());
   }
 
