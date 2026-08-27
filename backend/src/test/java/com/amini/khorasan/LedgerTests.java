@@ -401,6 +401,14 @@ class LedgerTests {
           } catch (IllegalArgumentException e) {
             return false;
           }
+        }
+      );
+      var results = pool.invokeAll(tasks);
+      assertEquals(
+        1,
+        results
+          .stream()
+          .filter(f -> {
             try {
               return f.get();
             } catch (Exception e) {
