@@ -213,3 +213,11 @@ class LedgerTests {
     var i = invoice("SALE", 1, "USD", "1", "10");
     i.put("discount", 11);
     assertThrows(IllegalArgumentException.class, () -> ledger.invoice(i));
+    assertThrows(IllegalArgumentException.class, () ->
+      ledger.voidInvoice(((Number) i.get("id")).longValue())
+    );
+  }
+
+  @Test
+  void paidInvoiceCannotBeVoided() {
+    var i = ledger.invoice(invoice("SALE", 1, "USD", "1", "10"));
