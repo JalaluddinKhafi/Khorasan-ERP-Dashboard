@@ -401,3 +401,10 @@ class LedgerTests {
           } catch (IllegalArgumentException e) {
             return false;
           }
+      );
+      assertEquals(0, new BigDecimal("2").compareTo(stock()));
+    } finally {
+      pool.shutdownNow();
+    }
+  }
+}
