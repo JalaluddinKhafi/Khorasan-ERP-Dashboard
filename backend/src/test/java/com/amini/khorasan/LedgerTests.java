@@ -285,3 +285,10 @@ class LedgerTests {
       1,
       db.queryForObject("SELECT COUNT(*) FROM expenses", Integer.class)
     );
+  }
+
+  @Test
+  void anonymousCannotAccessPrivateData() throws Exception {
+    mvc.perform(get("/api/products")).andExpect(status().isUnauthorized());
+    mvc.perform(get("/api/public/products")).andExpect(status().isOk());
+  }
