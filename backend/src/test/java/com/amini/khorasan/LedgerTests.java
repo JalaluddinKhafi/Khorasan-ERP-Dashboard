@@ -359,6 +359,13 @@ class LedgerTests {
           .with(user("worker").roles("EMPLOYEE"))
       )
       .andExpect(status().isOk());
+      .andExpect(status().isUnauthorized());
+  }
+
+  @Test
+  void writesRequireCsrf() throws Exception {
+    mvc
+      .perform(
         post("/api/products")
           .with(user("admin").roles("ADMIN"))
           .contentType("application/json")
