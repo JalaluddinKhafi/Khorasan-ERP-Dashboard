@@ -331,6 +331,15 @@ class LedgerTests {
     assertEquals(a.get("id"), b.get("id"));
     assertEquals(0, new BigDecimal("8").compareTo(stock()));
   }
+      java.time.LocalDate.of(2026, 12, 31)
+    );
+    assertEquals(
+      0,
+      new BigDecimal("123").compareTo((BigDecimal) s.get("opening"))
+    );
+  }
+
+  @Test
   void disabledUserSessionIsRevoked() throws Exception {
     var session = new org.springframework.mock.web.MockHttpSession();
     mvc
