@@ -213,6 +213,15 @@ class LedgerTests {
     var i = invoice("SALE", 1, "USD", "1", "10");
     i.put("discount", 11);
     assertThrows(IllegalArgumentException.class, () -> ledger.invoice(i));
+    assertThrows(IllegalArgumentException.class, () ->
+      ledger.invoice(invoice("SALE", -1, "USD", "1", "10"))
+    );
+  }
+
+  @Test
+  void zeroRateIsRejected() {
+    assertThrows(IllegalArgumentException.class, () ->
+      ledger.invoice(invoice("SALE", 1, "AFN", "0", "700"))
     );
   }
 
