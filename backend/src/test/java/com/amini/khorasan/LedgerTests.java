@@ -331,3 +331,12 @@ class LedgerTests {
     assertEquals(a.get("id"), b.get("id"));
     assertEquals(0, new BigDecimal("8").compareTo(stock()));
   }
+  void disabledUserSessionIsRevoked() throws Exception {
+    var session = new org.springframework.mock.web.MockHttpSession();
+    mvc
+      .perform(
+        get("/api/products")
+          .session(session)
+          .with(user("worker").roles("EMPLOYEE"))
+      )
+      .andExpect(status().isOk());
