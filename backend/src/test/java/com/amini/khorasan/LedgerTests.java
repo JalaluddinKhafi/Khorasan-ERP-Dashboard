@@ -359,3 +359,9 @@ class LedgerTests {
           .with(user("worker").roles("EMPLOYEE"))
       )
       .andExpect(status().isOk());
+        post("/api/products")
+          .with(user("admin").roles("ADMIN"))
+          .contentType("application/json")
+          .content("{}")
+      )
+      .andExpect(status().isForbidden());
