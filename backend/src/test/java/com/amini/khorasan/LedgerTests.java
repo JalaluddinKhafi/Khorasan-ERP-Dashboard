@@ -238,6 +238,14 @@ class LedgerTests {
   @Test
   void paidInvoiceCannotBeVoided() {
     var i = ledger.invoice(invoice("SALE", 1, "USD", "1", "10"));
+  @Test
+  void cannotVoidPurchaseAfterLaterMovement() {
+    var i = ledger.invoice(invoice("PURCHASE", 2, "USD", "1", "10"));
+    ledger.invoice(invoice("SALE", 1, "USD", "1", "10"));
+    assertThrows(IllegalArgumentException.class, () ->
+      ledger.voidInvoice(((Number) i.get("id")).longValue())
+    );
+  }
 
   @Test
   void payrollDuplicateIsRejected() {
