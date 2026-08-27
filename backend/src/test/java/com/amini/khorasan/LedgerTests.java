@@ -285,6 +285,13 @@ class LedgerTests {
       1,
       db.queryForObject("SELECT COUNT(*) FROM expenses", Integer.class)
     );
+      java.time.LocalDate.of(2026, 11, 1),
+      java.time.LocalDate.of(2026, 12, 31)
+    );
+    assertEquals(
+      0,
+      new BigDecimal("-10").compareTo((BigDecimal) s.get("opening"))
+    );
   }
 
   @Test
