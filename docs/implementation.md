@@ -25,6 +25,15 @@ All request/response JSON uses database-style snake_case. Protected endpoints re
 | `/api/invoices` | POST: `request_key` UUID, `kind`, `party_id`, `invoice_date` ISO, `currency`, `rate`, `discount`, `notes`, `items:[{product_id,quantity,price}]` |
 | `/api/payments` | GET list; POST UUID `request_key`, `party_id`, optional `invoice_id`, `payment_date`, `currency`, `rate`, `amount`, `notes` |
 | `/api/expenses` | Admin GET list; POST UUID `request_key`, `expense_date`, `category`, `currency`, `rate`, `amount`, `notes` |
+| `/api/expenses/payroll` | Admin POST expense fields plus `employee_id` and `salary_month` (`YYYY-MM`); duplicate employee/month rejected |
+| `/api/statement/{partyId}?from=YYYY-MM-DD&to=YYYY-MM-DD` | Party, opening/closing USD balances, original currency/rate/amount and running balance rows |
+| `/api/inventory/movements` | Auditable opening/purchase/sale/reversal movements |
+| `/api/reports?from=...&to=...` | Admin sales, purchases, COGS, expenses, profit and received/paid cash |
+| `/api/settings` | Admin GET/PUT company, contact, brands, terms, header/logo images as data URLs |
+| `/api/messages`, `/api/audit` | Admin contact inbox and latest 500 audited operations |
+| `/api/public/settings`, `/products`, `/content` | Public company details, active selling prices and published content only |
+| `/api/public/contact` | Public POST contact form; still requires CSRF |
+
 Customer/supplier create fields include `name`, `phone`, `address`, `active`, `opening_balance` (signed USD) and `opening_date`. Opening values cannot be changed after creation. Products store prices in USD and accept opening stock/cost only at creation. Inactive products/parties are excluded from new transactions.
 
 ## Verification performed
