@@ -25,6 +25,14 @@ All request/response JSON uses database-style snake_case. Protected endpoints re
 | `/api/invoices` | POST: `request_key` UUID, `kind`, `party_id`, `invoice_date` ISO, `currency`, `rate`, `discount`, `notes`, `items:[{product_id,quantity,price}]` |
 | `/api/payments` | GET list; POST UUID `request_key`, `party_id`, optional `invoice_id`, `payment_date`, `currency`, `rate`, `amount`, `notes` |
 | `/api/expenses` | Admin GET list; POST UUID `request_key`, `expense_date`, `category`, `currency`, `rate`, `amount`, `notes` |
+Customer/supplier create fields include `name`, `phone`, `address`, `active`, `opening_balance` (signed USD) and `opening_date`. Opening values cannot be changed after creation. Products store prices in USD and accept opening stock/cost only at creation. Inactive products/parties are excluded from new transactions.
+
+## Verification performed
+
+- 21 Spring integration tests: USD and AFN conversion, fixed historical rate, invoice/payment/statement, insufficient stock and rollback, concurrent overselling, duplicate invoice items, invoice retry idempotency, weighted purchase cost, invalid discount/quantity/rate, overpayment and party mismatch, invoice reversal safeguards, duplicate monthly payroll, prepayment and opening balances, anonymous access, employee restrictions, CSRF and disabled-user session revocation.
+- Real MySQL 8.4 + Edge: create categories/products/parties/employees/users, purchase, AFN sale, linked AFN payment, payroll and expense, verify stock/cost/profit/statement, reject overpayment/overselling, upload header, invoice/print/statement layout, publish CMS article, submit contact and verify worker access restrictions.
+- Every dashboard navigation route and all public routes loaded without JavaScript page errors; light/dark theme and mobile navigation inspected.
+- Print media and uploaded company header inspected visually. CSV exports use a UTF-8 BOM and escape formula-leading cells.
 
 QA data is isolated in `khorasan_qa`; operational `khorasan` remains free of test transactions. Original reference PDFs are unchanged. No production deployment or automatic import of historical balances was performed.
 
