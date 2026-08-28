@@ -1,3 +1,12 @@
+- `backend/src/main/resources/db/migration`: versioned MySQL schema; no production sample transactions.
+- `scripts/e2e.cjs`: repeatable browser/integration workflow against a separate running QA instance.
+
+## API
+
+All request/response JSON uses database-style snake_case. Protected endpoints return 401 without authentication and 403 for insufficient permissions. Get `/api/csrf` before writes and include its returned `headerName`/`token` as a request header. Login is form-encoded `username`/`password` to `POST /api/login`; logout is `POST /api/logout`. Successful logout has no JSON body. Session cookies remain same-origin; no wildcard CORS is configured.
+
+| Endpoint | Operations |
+| --- | --- |
 | `/api/me` | Current user, role and display name |
 | `/api/dashboard` | Live counts, current-month sales/profit, low-stock and latest sales |
 | `/api/products`, `/categories`, `/customers`, `/suppliers`, `/employees`, `/users`, `/content` | GET list, POST create, PUT `/{id}`, DELETE `/{id}` (admin; referenced records cannot be deleted) |
