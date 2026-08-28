@@ -1,3 +1,12 @@
+# Implementation and verification
+
+## Structure
+
+- `dashboard/*.html`: dashboard routes and login, rendered by shared `assets/js/app.js`.
+- `public-site/*.html`: public routes, rendered by `assets/js/public.js`.
+- `assets/css/app.css`, `assets/js/theme.js`: design tokens, responsive layout, print styles and persisted theme.
+- `assets/js/api-service.js`: same-origin API, CSRF, errors, formatting and CSV export. Failed requests never become fake success/data.
+- `backend/src/main/java/com/amini/khorasan`: Spring Boot, Spring Security, JDBC, transactional ledger and validated API.
 - `backend/src/main/resources/db/migration`: versioned MySQL schema; no production sample transactions.
 - `scripts/e2e.cjs`: repeatable browser/integration workflow against a separate running QA instance.
 
