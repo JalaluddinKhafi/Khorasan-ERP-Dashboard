@@ -26,6 +26,14 @@ All request/response JSON uses database-style snake_case. Protected endpoints re
 | `/api/payments` | GET list; POST UUID `request_key`, `party_id`, optional `invoice_id`, `payment_date`, `currency`, `rate`, `amount`, `notes` |
 | `/api/expenses` | Admin GET list; POST UUID `request_key`, `expense_date`, `category`, `currency`, `rate`, `amount`, `notes` |
 
+QA data is isolated in `khorasan_qa`; operational `khorasan` remains free of test transactions. Original reference PDFs are unchanged. No production deployment or automatic import of historical balances was performed.
+
+## Operational notes
+
+Keep a backup of MySQL and `.env`. Do not use `docker compose down -v` on a database you need. The initial admin password must have at least 12 characters. When exposing the application through a server, configure HTTPS at the reverse proxy, enable secure session cookies and set `SERVER_ADDRESS` for that deployment. The Docker application listens within its container and publishes only to localhost by default.
+
+## Dashboard and catalog update
+
 Migration V3 adds product image/barcode/description and hierarchical category parent/description/status without replacing existing records. `/api/products/{id}` returns current details and category name; product lists include category names and category lists include parent names and direct product counts. The interface calculates branch totals including descendants. Cyclic parent relationships are rejected while holding category locks. Referenced categories cannot be deleted.
 
 Dashboard now returns `latestPurchases` alongside the existing latest sales, and shows a welcome banner with a clock explicitly formatted for Asia/Kabul. Four quick actions open the corresponding forms or report page. Product filtering includes descendant categories, status, stock, text/barcode and ordering. Product details use a separate accessible dialog. Raster uploads are stored in MySQL and preserved by product editing.
