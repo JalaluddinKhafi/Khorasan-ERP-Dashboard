@@ -22,3 +22,10 @@ const env = Object.fromEntries(
       process.env.BROWSER_CHANNEL ||
       (process.platform === "win32" ? "msedge" : undefined),
   });
+    await page.locator("#app h1").waitFor();
+    assert(
+      !(await page.locator("#app").innerText()).includes(
+        "دریافت معلومات انجام نشد",
+      ),
+    );
+  };
