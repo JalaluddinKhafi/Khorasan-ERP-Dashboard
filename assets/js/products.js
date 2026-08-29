@@ -34,6 +34,19 @@ function normalizeProduct(product) {
     };
 }
 
+async function loadProducts() {
+    try {
+        const response = await fetch('http://localhost:8080/api/products');
+        if (!response.ok) {
+            throw new Error('Failed to fetch products');
+        }
+
+        const payload = await response.json();
+        const result = Array.isArray(payload) ? payload : (payload && payload.data ? payload.data : []);
+        productsData = (result || []).map(normalizeProduct);
+        renderProductsTable();
+}
+
 function renderProductsTable() {
     const tbody = document.getElementById('productsTableBody');
     if (!tbody) return;
