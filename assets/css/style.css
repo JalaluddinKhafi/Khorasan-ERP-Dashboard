@@ -27,6 +27,13 @@
     --gray-light: #9ca3af;
     --gray-soft: #f3f4f6;
     --white: #ffffff;
+    --bg: #f3f4f6;
+    --surface: #ffffff;
+    --surface-alt: #f8fafc;
+    --surface-muted: #eef2f7;
+    --text: #1f2937;
+    --text-soft: #6b7280;
+    --border: rgba(148, 163, 184, 0.2);
     
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
@@ -51,10 +58,10 @@
 
 body {
     font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
-    background: var(--gray-soft);
+    background: var(--bg);
     direction: rtl;
     overflow-x: hidden;
-    color: var(--dark);
+    color: var(--text);
     line-height: 1.5;
     font-size: 14px;
 }
@@ -185,25 +192,43 @@ a {
             transform: translateY(-2px);
         }
         .stat-card-dashboard {
-            background: white;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
             border-radius: 1rem;
-            padding: 1.25rem;
+            padding: 1rem 0.9rem;
             margin-bottom: 1rem;
-            transition: all 0.3s;
-            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(148, 163, 184, 0.18);
             cursor: pointer;
+            box-shadow: 0 10px 18px -12px rgba(15, 23, 42, 0.18);
         }
         .stat-card-dashboard:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            box-shadow: 0 18px 28px -16px rgba(15, 23, 42, 0.22);
+        }
+        .stat-card-dashboard .d-flex {
+            display: flex !important;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            width: 100%;
+        }
+        .stat-card-dashboard .text-end {
+            flex: 1;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
         }
         .trend-up {
             color: #10b981;
             font-size: 0.75rem;
+            font-weight: 600;
         }
         .trend-down {
             color: #ef4444;
             font-size: 0.75rem;
+            font-weight: 600;
         }
         .activity-timeline {
             max-height: 400px;
@@ -262,15 +287,29 @@ a {
     box-shadow: var(--shadow-hover);
 }
 .stat-icon {
-    width: 45px;
-    height: 45px;
+    width: 42px;
+    height: 42px;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.3rem;
+    font-size: 1rem;
     color: white;
     flex-shrink: 0;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 8px 16px rgba(15, 23, 42, 0.12);
+}
+.stat-card-dashboard h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--dark);
+    line-height: 1.2;
+}
+.stat-card-dashboard small {
+    display: block;
+    color: var(--gray);
+    font-size: 0.7rem;
+    margin-top: 2px;
 }
 .stat-info h3 { font-size: 1.2rem; font-weight: 700; margin: 0; color: var(--dark); }
 .stat-info p { margin: 0; color: var(--gray); font-size: 0.7rem; }
@@ -419,22 +458,56 @@ a {
 /* ============================================
    DARK MODE
    ============================================ */
-body.dark-mode { background: #0f172a; }
+body.dark-mode {
+    --bg: #0f172a;
+    --surface: #111827;
+    --surface-alt: #1f2937;
+    --surface-muted: #0f172a;
+    --text: #e5eefb;
+    --text-soft: #cbd5e1;
+    --border: rgba(148, 163, 184, 0.18);
+    background: var(--bg);
+    color: var(--text);
+}
+body.dark-mode .main-content,
+body.dark-mode .wrapper {
+    background: var(--bg);
+}
 body.dark-mode .stat-card,
+body.dark-mode .stat-card-dashboard,
 body.dark-mode .card,
 body.dark-mode .top-navbar,
+body.dark-mode .filter-bar,
+body.dark-mode .customer-info-bar,
 body.dark-mode .modal-content,
-body.dark-mode .toast-notification { background: #1e293b; color: #e2e8f0; }
+body.dark-mode .toast-notification {
+    background: var(--surface-alt);
+    color: var(--text);
+    border-color: var(--border);
+}
 body.dark-mode .stat-info h3,
-body.dark-mode .card-header { color: #f1f5f9; }
-body.dark-mode .table { color: #cbd5e1; }
+body.dark-mode .stat-card-dashboard h3,
+body.dark-mode .card-header,
+body.dark-mode .breadcrumb-custom,
+body.dark-mode .card-title,
+body.dark-mode .text-muted {
+    color: var(--text) !important;
+}
+body.dark-mode .table { color: var(--text-soft); }
 body.dark-mode .table th { color: #94a3b8; }
+body.dark-mode .table-striped > tbody > tr:nth-of-type(odd) { background-color: rgba(148, 163, 184, 0.04); }
 body.dark-mode .form-control,
-body.dark-mode .form-select { background: #334155; border-color: #475569; color: #f1f5f9; }
+body.dark-mode .form-select {
+    background: #1e293b;
+    border-color: #475569;
+    color: #f1f5f9;
+}
 body.dark-mode .btn-light { background: #334155; color: #e2e8f0; border-color: #475569; }
 body.dark-mode .dropdown-menu { background: #1e293b; border-color: #334155; }
 body.dark-mode .dropdown-item { color: #e2e8f0; }
 body.dark-mode .dropdown-item:hover { background: #334155; }
+body.dark-mode .timeline-item { border-color: var(--border); }
+body.dark-mode .activity-timeline::-webkit-scrollbar-thumb { background: #475569; }
 
 /* ============================================
    WELCOME CARD
@@ -634,24 +707,20 @@ body.dark-mode .dropdown-item:hover { background: #334155; }
    ============================================ */
 .sidebar-logo,
 .navbar-logo {
-    filter: brightness(0) invert(1); /* سفید برای پس‌زمینه تیره سایدبار */
-    transition: filter 0.2s ease;
+    filter: none;
+    opacity: 1;
+    transition: filter 0.2s ease, opacity 0.2s ease;
 }
 
-/* در لایت‌مود، لوگوی هدر به حالت عادی برمی‌گردد */
-body:not(.dark-mode) .navbar-logo {
-    filter: brightness(1) invert(0);
-}
-
-/* در دارک‌مود، لوگوی هدر سفید می‌شود */
+body.dark-mode .sidebar-logo,
 body.dark-mode .navbar-logo {
-    filter: brightness(0) invert(1);
+    filter: none;
+    opacity: 1;
 }
 
-/* حالت hover برای لوگو (اختیاری) */
 .sidebar-logo:hover,
 .navbar-logo:hover {
-    opacity: 0.85;
+    opacity: 0.9;
 }
 }
 
