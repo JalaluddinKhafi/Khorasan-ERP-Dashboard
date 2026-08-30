@@ -180,3 +180,11 @@ const env = Object.fromEntries(
     currency: "USD",
   });
   assert.equal(over.status, 400);
+    .filter({ hasText: "تنظیمات ذخیره شد" })
+    .waitFor();
+  await page.goto(base + "/dashboard/sales-invoice.html?id=" + sale.id);
+  await page.locator(".print-sheet .header-image").waitFor();
+  await page.screenshot({ path: "tmp/invoice-screen.png", fullPage: true });
+  await page.emulateMedia({ media: "print" });
+  await page.screenshot({ path: "tmp/invoice-print.png", fullPage: true });
+  await page.emulateMedia({ media: "screen" });
