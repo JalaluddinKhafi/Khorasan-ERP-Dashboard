@@ -143,6 +143,13 @@ const env = Object.fromEntries(
   assert.equal(Number(sale.total_usd), 20);
   await goto("payments");
   await page.locator("#add-payment").click();
+  await page.locator("#editor").waitFor({ state: "hidden" });
+  await goto("employees");
+  await page.locator('[data-payroll="' + employee.id + '"]').click();
+  await page.locator("#editor button[type=submit]").click();
+  await page.locator("#editor").waitFor({ state: "hidden" });
+  await goto("expenses");
+  await page.locator("#add-expense").click();
   await page.locator("#editor [name=amount]").fill("5");
   await page.locator("#editor button[type=submit]").click();
   await page.locator("#editor").waitFor({ state: "hidden" });
