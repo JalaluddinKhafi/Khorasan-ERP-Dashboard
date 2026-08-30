@@ -121,3 +121,10 @@ const env = Object.fromEntries(
     rate: 70,
   });
   assert([200, 409].includes(currency.status));
+  await invoice("sales", customer.id, 2, "AFN", 700);
+  const sale = (await api("invoices?kind=SALE")).data.find(
+    (i) => i.party_id === customer.id,
+  );
+  assert.equal(Number(sale.total_usd), 20);
+  await goto("payments");
+  await page.locator("#add-payment").click();
