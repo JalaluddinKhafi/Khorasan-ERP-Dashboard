@@ -163,3 +163,11 @@ const env = Object.fromEntries(
   const stock = (await api("products")).data.find((p) => p.id === product.id);
   assert.equal(Number(stock.stock), 13);
   assert.equal(Number(stock.purchase_price), 6);
+    request_key: crypto.randomUUID(),
+    party_id: customer.id,
+    invoice_id: sale.id,
+    payment_date: "2026-10-26",
+    amount: 11,
+    currency: "USD",
+  });
+  assert.equal(over.status, 400);
