@@ -121,6 +121,13 @@ const env = Object.fromEntries(
     rate: 70,
   });
   assert([200, 409].includes(currency.status));
+    await page.locator("#editor [data-quantity]").fill(String(qty));
+    if (price !== undefined)
+      await page.locator("#editor [data-price]").fill(String(price));
+    await page.locator("#editor button[type=submit]").click();
+    await page.locator("#editor").waitFor({ state: "hidden" });
+  }
+  await invoice("purchases", supplier.id, 5, "USD", 8);
   await invoice("sales", customer.id, 2, "AFN", 700);
   const sale = (await api("invoices?kind=SALE")).data.find(
     (i) => i.party_id === customer.id,
