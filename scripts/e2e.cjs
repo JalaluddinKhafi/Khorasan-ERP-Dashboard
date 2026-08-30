@@ -103,6 +103,15 @@ const env = Object.fromEntries(
     position: "فروشنده",
     salary: 100,
   });
+  const customer = (await api("customers")).data.find((p) =>
+    p.name.includes(tag),
+  );
+  const supplier = (await api("suppliers")).data.find((p) =>
+    p.name.includes(tag),
+  );
+  const product = (await api("products")).data.find(
+    (p) => p.code === "QA-" + tag,
+  );
   const employee = (await api("employees")).data.find((p) =>
     p.name.includes(tag),
   );
