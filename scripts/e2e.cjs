@@ -143,3 +143,9 @@ const env = Object.fromEntries(
   assert.equal(Number(sale.total_usd), 20);
   await goto("payments");
   await page.locator("#add-payment").click();
+  await page.locator("#editor [name=amount]").fill("5");
+  await page.locator("#editor button[type=submit]").click();
+  await page.locator("#editor").waitFor({ state: "hidden" });
+  const stock = (await api("products")).data.find((p) => p.id === product.id);
+  assert.equal(Number(stock.stock), 13);
+  assert.equal(Number(stock.purchase_price), 6);
