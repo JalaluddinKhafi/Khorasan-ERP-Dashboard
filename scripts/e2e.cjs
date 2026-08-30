@@ -77,6 +77,15 @@ const env = Object.fromEntries(
   await create("categories", { name: "آزمایشی " + tag });
   const cats = (await api("categories")).data;
   const cat = cats.find((c) => c.name.includes(tag));
+  });
+  await create("customers", {
+    name: "مشتری آزمایشی " + tag,
+    phone: "0700000000",
+    address: "هرات",
+  });
+  await create("suppliers", {
+    name: "تهیه‌کننده آزمایشی " + tag,
+    phone: "0700000001",
     address: "هرات",
   });
   await create("employees", {
