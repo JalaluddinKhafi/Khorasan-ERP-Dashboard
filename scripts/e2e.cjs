@@ -103,3 +103,12 @@ const env = Object.fromEntries(
     position: "فروشنده",
     salary: 100,
   });
+  const employee = (await api("employees")).data.find((p) =>
+    p.name.includes(tag),
+  );
+  let currency = await api("currencies", {
+    code: "AFN",
+    name: "افغانی",
+    rate: 70,
+  });
+  assert([200, 409].includes(currency.status));
