@@ -40,6 +40,14 @@ const env = Object.fromEntries(
       ),
     );
   };
+            [c.headerName]: c.token,
+          },
+          ...(data ? { body: JSON.stringify(data) } : {}),
+        });
+        return { status: r.status, data: await r.json() };
+      },
+      { path, data, method },
+    );
   await page.goto(base + "/dashboard/login.html");
   await page.locator("[name=username]").fill("admin");
   await page
