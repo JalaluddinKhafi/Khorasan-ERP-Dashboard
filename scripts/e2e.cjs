@@ -249,6 +249,12 @@ const env = Object.fromEntries(
   ];
   for (const route of publics) {
     await page.goto(base + "/public-site/" + route + ".html");
+  }
+  await create("users", {
+    username: "qa-worker-" + tag,
+    name: "کاربر آزمایشی",
+    password: "Test-Worker-Password-123",
+    role: "EMPLOYEE",
   });
   const worker = await browser.newContext();
   const wp = await worker.newPage();
