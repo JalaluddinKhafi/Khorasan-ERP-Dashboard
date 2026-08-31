@@ -226,3 +226,10 @@ const env = Object.fromEntries(
     .getByRole("link")
     .click();
   await page.getByRole("heading", { name: "مقاله آزمایشی " + tag }).waitFor();
+    "contact",
+    "faq",
+    "privacy",
+    "terms",
+  ];
+  for (const route of publics) {
+    await page.goto(base + "/public-site/" + route + ".html");
