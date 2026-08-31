@@ -40,6 +40,14 @@ const env = Object.fromEntries(
       ),
     );
   };
+  const api = (path, data, method) =>
+    page.evaluate(
+      async ({ path, data, method }) => {
+        const c = await (await fetch("/api/csrf")).json();
+        const r = await fetch("/api/" + path, {
+          method: method || (data ? "POST" : "GET"),
+          headers: {
+            "Content-Type": "application/json",
             [c.headerName]: c.token,
           },
           ...(data ? { body: JSON.stringify(data) } : {}),
