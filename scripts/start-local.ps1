@@ -14,3 +14,11 @@ for ($attempt=0; $attempt -lt 45; $attempt++) {
     Start-Sleep -Seconds 2
 }
 if (!$ready) { throw 'MySQL did not become healthy. Check docker compose logs db.' }
+        if ($response.StatusCode -eq 200) { $appReady=$true; break }
+    } catch { }
+    Start-Sleep -Seconds 2
+}
+if (!$appReady) { throw 'The application did not become ready. Check docker compose logs app.' }
+Write-Host 'Application running: http://localhost:8082/dashboard/login.html'
+Write-Host 'Closing this terminal does not stop the application.'
+Write-Host 'Stop when needed: docker compose stop app'
