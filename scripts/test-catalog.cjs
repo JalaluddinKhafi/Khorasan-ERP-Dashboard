@@ -40,3 +40,10 @@ const env = Object.fromEntries(
       ),
     );
   };
+  await page.goto(base + "/dashboard/login.html");
+  await page.locator("[name=username]").fill("admin");
+  await page
+    .locator("[name=password]")
+    .fill(process.env.E2E_PASSWORD || env.ADMIN_PASSWORD);
+  await page.getByRole("button", { name: "ورود به داشبورد" }).click();
+  await page.waitForURL("**/dashboard.html");
