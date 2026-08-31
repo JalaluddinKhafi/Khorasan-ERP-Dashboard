@@ -21,6 +21,13 @@ const env = Object.fromEntries(
       process.env.BROWSER_CHANNEL ||
       (process.platform === "win32" ? "msedge" : undefined),
   });
+  const page = await browser.newPage({
+    viewport: { width: 1600, height: 1100 },
+  });
+  const errors = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  const tag = Date.now().toString();
+  const rootName = "الکترونیک " + tag,
     childName = "لپ تاپ " + tag,
     leafName = "لپ تاپ گیمینگ " + tag,
     otherName = "پوشاک " + tag;
