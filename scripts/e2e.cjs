@@ -267,6 +267,13 @@ const env = Object.fromEntries(
   await wp.goto(base + "/dashboard/login.html");
   await wp.locator("[name=username]").fill("qa-worker-" + tag);
   await wp.locator("[name=password]").fill("Test-Worker-Password-123");
+  assert.equal(
+    (await worker.request.get(base + "/api/products")).status(),
+    200,
+  );
+  await worker.close();
+  assert.deepEqual(errors, []);
+  console.log(
     "PASS: MySQL CRUD, purchase/sale, AFN payment, payroll, expenses, weighted cost/profit, stock/statement, overpayment/oversell rejection, header upload, invoice/print/balance, CMS, contact, 10 public pages, employee permissions.",
   );
   await browser.close();
