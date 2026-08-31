@@ -180,6 +180,15 @@ const env = Object.fromEntries(
     currency: "USD",
   });
   assert.equal(over.status, 400);
+  const oversell = await api("invoices", {
+    request_key: crypto.randomUUID(),
+    kind: "SALE",
+    party_id: customer.id,
+    invoice_date: "2026-10-26",
+    currency: "USD",
+    discount: 0,
+    items: [{ product_id: product.id, quantity: 100, price: 10 }],
+  });
   assert.equal(oversell.status, 400);
   await goto("settings");
   await page
