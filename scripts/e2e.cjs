@@ -180,6 +180,14 @@ const env = Object.fromEntries(
     currency: "USD",
   });
   assert.equal(over.status, 400);
+  assert.equal(oversell.status, 400);
+  await goto("settings");
+  await page
+    .locator("#header-upload")
+    .setInputFiles("assets/images/amini-letterhead.jpg");
+  await page.locator("#settings-form button.primary").click();
+  await page
+    .getByRole("status")
     .filter({ hasText: "تنظیمات ذخیره شد" })
     .waitFor();
   await page.goto(base + "/dashboard/sales-invoice.html?id=" + sale.id);
