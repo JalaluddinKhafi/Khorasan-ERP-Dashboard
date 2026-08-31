@@ -205,3 +205,10 @@ const env = Object.fromEntries(
   await page.emulateMedia({ media: "print" });
   await page.screenshot({ path: "tmp/invoice-print.png", fullPage: true });
   await page.emulateMedia({ media: "screen" });
+  await page.getByRole("heading", { name: "مقاله آزمایشی " + tag }).waitFor();
+  await page
+    .locator("article")
+    .filter({ hasText: "مقاله آزمایشی " + tag })
+    .getByRole("link")
+    .click();
+  await page.getByRole("heading", { name: "مقاله آزمایشی " + tag }).waitFor();
