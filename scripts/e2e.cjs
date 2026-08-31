@@ -205,6 +205,13 @@ const env = Object.fromEntries(
   await page.emulateMedia({ media: "print" });
   await page.screenshot({ path: "tmp/invoice-print.png", fullPage: true });
   await page.emulateMedia({ media: "screen" });
+  await page
+    .locator("#editor [name=body]")
+    .fill("متن منتشرشدهٔ آزمایشی برای بررسی اتصال وبسایت به مدیریت.");
+  await page.locator("#editor [name=published]").check();
+  await page.locator("#editor button[type=submit]").click();
+  await page.locator("#editor").waitFor({ state: "hidden" });
+  await page.goto(base + "/public-site/blog.html");
   await page.getByRole("heading", { name: "مقاله آزمایشی " + tag }).waitFor();
   await page
     .locator("article")
