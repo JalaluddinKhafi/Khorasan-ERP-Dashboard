@@ -249,3 +249,9 @@ const env = Object.fromEntries(
   ];
   for (const route of publics) {
     await page.goto(base + "/public-site/" + route + ".html");
+  });
+  const worker = await browser.newContext();
+  const wp = await worker.newPage();
+  await wp.goto(base + "/dashboard/login.html");
+  await wp.locator("[name=username]").fill("qa-worker-" + tag);
+  await wp.locator("[name=password]").fill("Test-Worker-Password-123");
