@@ -63,3 +63,10 @@ const env = Object.fromEntries(
     .fill(process.env.E2E_PASSWORD || env.ADMIN_PASSWORD);
   await page.getByRole("button", { name: "ورود به داشبورد" }).click();
   await page.waitForURL("**/dashboard.html");
+  assert.equal(
+    await page.locator("#editor [name=parent_id]").inputValue(),
+    String(root.id),
+  );
+  await page.locator("#editor [name=name]").fill(childName);
+  await page.locator("#editor [name=description]").fill("انواع لپ تاپ");
+  await page.locator("#editor button[type=submit]").click();
