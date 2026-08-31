@@ -205,6 +205,13 @@ const env = Object.fromEntries(
   await page.emulateMedia({ media: "print" });
   await page.screenshot({ path: "tmp/invoice-print.png", fullPage: true });
   await page.emulateMedia({ media: "screen" });
+  await page.goto(base + "/dashboard/customer-balance.html?id=" + customer.id);
+  await page.locator("#statement .print-sheet").waitFor();
+  await page.screenshot({ path: "tmp/balance-screen.png", fullPage: true });
+  await goto("website-management");
+  await page.locator("#add-content").click();
+  await page.locator("#editor [name=kind]").selectOption("blog");
+  await page.locator("#editor [name=title]").fill("مقاله آزمایشی " + tag);
   await page
     .locator("#editor [name=body]")
     .fill("متن منتشرشدهٔ آزمایشی برای بررسی اتصال وبسایت به مدیریت.");
