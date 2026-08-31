@@ -249,6 +249,12 @@ const env = Object.fromEntries(
   ];
   for (const route of publics) {
     await page.goto(base + "/public-site/" + route + ".html");
+    await page.locator("#public-app h1").waitFor();
+    assert(
+      !(await page.locator("#public-app").innerText()).includes(
+        "ارتباط با سرور برقرار نشد",
+      ),
+    );
   }
   await create("users", {
     username: "qa-worker-" + tag,
