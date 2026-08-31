@@ -226,6 +226,14 @@ const env = Object.fromEntries(
     .getByRole("link")
     .click();
   await page.getByRole("heading", { name: "مقاله آزمایشی " + tag }).waitFor();
+    .waitFor();
+  const publics = [
+    "index",
+    "about",
+    "products",
+    "services",
+    "blog",
+    "gallery",
     "contact",
     "faq",
     "privacy",
