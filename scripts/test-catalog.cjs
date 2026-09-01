@@ -214,3 +214,9 @@ const env = Object.fromEntries(
   );
   await page.locator("#product-filters button[type=reset]").click();
   await page.locator("#category-filter").selectOption(String(root.id));
+  await page.locator("#cancel-editor").click();
+  const cyclic = await api(
+    "categories/" + root.id,
+    { name: rootName, parent_id: leaf.id, active: true },
+    "PUT",
+  );
