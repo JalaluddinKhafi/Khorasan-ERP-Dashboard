@@ -106,6 +106,14 @@ const env = Object.fromEntries(
   ).data;
   await goto("products");
   await page.locator("#add").click();
+    barcode: "BAR-" + tag,
+    description: "توضیحات محصول آزمایشی؛ ضمانت و مشخصات کامل.",
+  })) {
+    await page.locator("#editor [name=" + name + "]").fill(String(val));
+  }
+  await page
+    .locator("#editor [name=category_id]")
+    .selectOption(String(child.id));
   await page.locator("#product-image").setInputFiles("assets/images/logo.png");
   await page.locator("#product-image-preview img").waitFor();
   await page.locator("#editor button[type=submit]").click();
