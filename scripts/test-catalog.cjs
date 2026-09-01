@@ -170,6 +170,12 @@ const env = Object.fromEntries(
   assert.equal(await page.locator("#records tbody tr").count(), 1);
   await page.locator('[data-details="' + product.id + '"]').click();
   await page.locator("#product-details").waitFor();
+    "سود هر واحد",
+    "موجودی فعلی",
+    "حداقل موجودی هشدار",
+    "وضعیت",
+    "بارکد",
+    "توضیحات",
   ])
     assert(
       (await page.locator("#product-details").innerText()).includes(label),
