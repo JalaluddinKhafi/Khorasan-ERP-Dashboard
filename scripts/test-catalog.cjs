@@ -106,6 +106,14 @@ const env = Object.fromEntries(
   ).data;
   await goto("products");
   await page.locator("#add").click();
+  for (const [name, val] of Object.entries({
+    code: "P-" + tag,
+    name: "لپ تاپ ایسوس " + tag,
+    unit: "عدد",
+    purchase_price: 600,
+    sale_price: 750,
+    stock: 10,
+    min_stock: 2,
     barcode: "BAR-" + tag,
     description: "توضیحات محصول آزمایشی؛ ضمانت و مشخصات کامل.",
   })) {
