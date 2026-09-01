@@ -194,6 +194,13 @@ const env = Object.fromEntries(
     path: "tmp/catalog-details-light.png",
     fullPage: true,
   });
+  await page.locator("#product-details [data-close]").first().click();
+  await page.locator('[data-edit="' + product.id + '"]').click();
+  assert.equal(
+    await page.locator("#editor [name=barcode]").inputValue(),
+    "BAR-" + tag,
+  );
+  await page
     .locator("#editor [name=description]")
     .fill("توضیحات ویرایش‌شده و ذخیره‌شده");
   await page.locator("#editor button[type=submit]").click();
