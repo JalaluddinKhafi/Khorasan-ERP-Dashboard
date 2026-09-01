@@ -214,6 +214,12 @@ const env = Object.fromEntries(
   );
   await page.locator("#product-filters button[type=reset]").click();
   await page.locator("#category-filter").selectOption(String(root.id));
+  const optionValues = await page
+    .locator("#editor [name=parent_id] option")
+    .evaluateAll((els) => els.map((e) => e.value));
+  assert(!optionValues.includes(String(root.id)));
+  assert(!optionValues.includes(String(child.id)));
+  assert(!optionValues.includes(String(leaf.id)));
   await page.locator("#cancel-editor").click();
   const cyclic = await api(
     "categories/" + root.id,
