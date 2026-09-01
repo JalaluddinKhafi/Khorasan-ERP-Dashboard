@@ -63,6 +63,14 @@ const env = Object.fromEntries(
     .fill(process.env.E2E_PASSWORD || env.ADMIN_PASSWORD);
   await page.getByRole("button", { name: "ورود به داشبورد" }).click();
   await page.waitForURL("**/dashboard.html");
+  await page.evaluate(() => {
+    setTheme("light");
+    setAccent("blue");
+  });
+  await goto("categories");
+  await page.locator("#add").click();
+  await page.locator("#editor [name=name]").fill(rootName);
+  await page
     .locator("#editor [name=description]")
     .fill("دستهٔ اصلی اجناس برقی");
   await page.locator("#editor button[type=submit]").click();
