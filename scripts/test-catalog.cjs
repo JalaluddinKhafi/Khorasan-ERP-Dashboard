@@ -85,6 +85,13 @@ const env = Object.fromEntries(
   await page.locator("#editor [name=name]").fill(childName);
   await page.locator("#editor [name=description]").fill("انواع لپ تاپ");
   await page.locator("#editor button[type=submit]").click();
+  await page.locator("#editor").waitFor({ state: "hidden" });
+  cats = (await api("categories")).data;
+  const child = cats.find((c) => c.name === childName);
+  const leaf = (
+    await api("categories", {
+      name: leafName,
+      parent_id: child.id,
       description: "لپ تاپ‌های گیمینگ",
       active: true,
     })
