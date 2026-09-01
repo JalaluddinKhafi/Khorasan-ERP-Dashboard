@@ -150,3 +150,9 @@ const env = Object.fromEntries(
   ).data;
   await api("products", {
     code: "OFF-" + tag,
+  assert((await page.locator("#records").innerText()).includes(low.name));
+  await page.locator("#product-filters button[type=reset]").click();
+  await page.locator("#search").fill("BAR-" + tag);
+  assert.equal(await page.locator("#records tbody tr").count(), 1);
+  await page.locator('[data-details="' + product.id + '"]').click();
+  await page.locator("#product-details").waitFor();
