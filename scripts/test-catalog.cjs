@@ -129,3 +129,10 @@ const env = Object.fromEntries(
   const product = (await api("products")).data.find(
     (p) => p.code === "P-" + tag,
   );
+      description: "موجودی محدود",
+      active: true,
+      image: product.image,
+    })
+  ).data;
+  await api("products", {
+    code: "OFF-" + tag,
