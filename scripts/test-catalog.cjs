@@ -85,3 +85,10 @@ const env = Object.fromEntries(
   await page.locator("#editor [name=name]").fill(childName);
   await page.locator("#editor [name=description]").fill("انواع لپ تاپ");
   await page.locator("#editor button[type=submit]").click();
+      parent_id: null,
+      description: "پوشاک",
+      active: true,
+    })
+  ).data;
+  await goto("products");
+  await page.locator("#add").click();
