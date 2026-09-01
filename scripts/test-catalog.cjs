@@ -85,6 +85,13 @@ const env = Object.fromEntries(
   await page.locator("#editor [name=name]").fill(childName);
   await page.locator("#editor [name=description]").fill("انواع لپ تاپ");
   await page.locator("#editor button[type=submit]").click();
+      description: "لپ تاپ‌های گیمینگ",
+      active: true,
+    })
+  ).data;
+  const other = (
+    await api("categories", {
+      name: otherName,
       parent_id: null,
       description: "پوشاک",
       active: true,
