@@ -150,6 +150,13 @@ const env = Object.fromEntries(
   ).data;
   await api("products", {
     code: "OFF-" + tag,
+    active: false,
+  });
+  await goto("products");
+  await page.locator("#category-filter").selectOption(String(root.id));
+  assert.equal(await page.locator("#records tbody tr").count(), 2);
+  await page.locator("#stock-filter").selectOption("low");
+  assert.equal(await page.locator("#records tbody tr").count(), 1);
   assert((await page.locator("#records").innerText()).includes(low.name));
   await page.locator("#product-filters button[type=reset]").click();
   await page.locator("#search").fill("BAR-" + tag);
