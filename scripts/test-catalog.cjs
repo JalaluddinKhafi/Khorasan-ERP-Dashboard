@@ -238,6 +238,13 @@ const env = Object.fromEntries(
     { name: rootName, parent_id: leaf.id, active: true },
     "PUT",
   );
+    fullPage: true,
+  });
+  await goto("dashboard");
+  await page.locator("#welcome-time").waitFor();
+  const oldTime = await page.locator("#welcome-time").innerText();
+  await page.waitForFunction(
+    (previous) =>
       document.querySelector("#welcome-time")?.textContent !== previous,
     oldTime,
   );
