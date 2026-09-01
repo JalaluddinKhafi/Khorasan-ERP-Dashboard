@@ -238,6 +238,13 @@ const env = Object.fromEntries(
     { name: rootName, parent_id: leaf.id, active: true },
     "PUT",
   );
+  assert.equal(cyclic.status, 400);
+  await page.locator("#search").fill(childName);
+  // Search also includes the parent name, so the child's own subcategory matches.
+  assert.equal(await page.locator("#category-records tbody tr").count(), 2);
+  await page.locator("#search").fill("");
+  await page.screenshot({
+    path: "tmp/catalog-categories-light.png",
     fullPage: true,
   });
   await goto("dashboard");
