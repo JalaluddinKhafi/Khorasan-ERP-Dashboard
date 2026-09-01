@@ -170,6 +170,12 @@ const env = Object.fromEntries(
   assert.equal(await page.locator("#records tbody tr").count(), 1);
   await page.locator('[data-details="' + product.id + '"]').click();
   await page.locator("#product-details").waitFor();
+  for (const label of [
+    "کد کالا",
+    "نام کالا",
+    "دسته‌بندی",
+    "قیمت خرید",
+    "قیمت فروش",
     "سود هر واحد",
     "موجودی فعلی",
     "حداقل موجودی هشدار",
