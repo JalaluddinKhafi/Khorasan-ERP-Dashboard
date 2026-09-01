@@ -194,6 +194,13 @@ const env = Object.fromEntries(
     path: "tmp/catalog-details-light.png",
     fullPage: true,
   });
+    .locator("#editor [name=description]")
+    .fill("توضیحات ویرایش‌شده و ذخیره‌شده");
+  await page.locator("#editor button[type=submit]").click();
+  await page.locator("#editor").waitFor({ state: "hidden" });
+  const updated = (await api("products/" + product.id)).data;
+  assert.equal(updated.description, "توضیحات ویرایش‌شده و ذخیره‌شده");
+  assert.equal(updated.image, product.image);
   await page.locator("#status-filter").selectOption("inactive");
   assert(
     (await page.locator("#records").innerText()).includes("جنس غیرفعال " + tag),
