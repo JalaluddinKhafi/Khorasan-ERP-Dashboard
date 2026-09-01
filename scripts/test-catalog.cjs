@@ -214,6 +214,12 @@ const env = Object.fromEntries(
   );
   await page.locator("#product-filters button[type=reset]").click();
   await page.locator("#category-filter").selectOption(String(root.id));
+  await page.screenshot({
+    path: "tmp/catalog-products-light.png",
+    fullPage: true,
+  });
+  await goto("categories");
+  const treeRow = page
     .locator(".panel")
     .first()
     .locator("tr")
