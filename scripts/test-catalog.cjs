@@ -106,3 +106,10 @@ const env = Object.fromEntries(
   ).data;
   await goto("products");
   await page.locator("#add").click();
+  await page.locator("#product-image").setInputFiles("assets/images/logo.png");
+  await page.locator("#product-image-preview img").waitFor();
+  await page.locator("#editor button[type=submit]").click();
+  await page.locator("#editor").waitFor({ state: "hidden" });
+  const product = (await api("products")).data.find(
+    (p) => p.code === "P-" + tag,
+  );
