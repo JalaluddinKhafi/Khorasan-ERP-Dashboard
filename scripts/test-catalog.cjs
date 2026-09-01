@@ -129,6 +129,13 @@ const env = Object.fromEntries(
   const product = (await api("products")).data.find(
     (p) => p.code === "P-" + tag,
   );
+      category_id: leaf.id,
+      unit: "عدد",
+      purchase_price: 400,
+      sale_price: 500,
+      stock: 1,
+      min_stock: 4,
+      barcode: "LOW-" + tag,
       description: "موجودی محدود",
       active: true,
       image: product.image,
