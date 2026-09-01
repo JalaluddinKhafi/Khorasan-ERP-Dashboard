@@ -194,3 +194,9 @@ const env = Object.fromEntries(
     path: "tmp/catalog-details-light.png",
     fullPage: true,
   });
+  await page.locator("#status-filter").selectOption("inactive");
+  assert(
+    (await page.locator("#records").innerText()).includes("جنس غیرفعال " + tag),
+  );
+  await page.locator("#product-filters button[type=reset]").click();
+  await page.locator("#category-filter").selectOption(String(root.id));
