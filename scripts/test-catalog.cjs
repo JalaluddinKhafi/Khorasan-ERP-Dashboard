@@ -150,6 +150,13 @@ const env = Object.fromEntries(
   ).data;
   await api("products", {
     code: "OFF-" + tag,
+    name: "جنس غیرفعال " + tag,
+    category_id: other.id,
+    unit: "عدد",
+    purchase_price: 20,
+    sale_price: 30,
+    stock: 3,
+    min_stock: 1,
     active: false,
   });
   await goto("products");
