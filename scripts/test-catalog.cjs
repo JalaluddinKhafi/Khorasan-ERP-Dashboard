@@ -238,3 +238,9 @@ const env = Object.fromEntries(
     { name: rootName, parent_id: leaf.id, active: true },
     "PUT",
   );
+      document.querySelector("#welcome-time")?.textContent !== previous,
+    oldTime,
+  );
+  assert.equal(await page.locator("#latest-sales table").count(), 1);
+  assert.equal(await page.locator("#latest-purchases table").count(), 1);
+  assert.equal(await page.locator("#low-stock table").count(), 1);
