@@ -170,3 +170,9 @@ const env = Object.fromEntries(
   assert.equal(await page.locator("#records tbody tr").count(), 1);
   await page.locator('[data-details="' + product.id + '"]').click();
   await page.locator("#product-details").waitFor();
+    (await page.locator("#product-details").innerText()).includes("BAR-" + tag),
+  );
+  await page.screenshot({
+    path: "tmp/catalog-details-light.png",
+    fullPage: true,
+  });
