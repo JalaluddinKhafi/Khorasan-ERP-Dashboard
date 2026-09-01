@@ -214,6 +214,12 @@ const env = Object.fromEntries(
   );
   await page.locator("#product-filters button[type=reset]").click();
   await page.locator("#category-filter").selectOption(String(root.id));
+    .locator(".panel")
+    .first()
+    .locator("tr")
+    .filter({ has: page.locator('[data-child="' + root.id + '"]') });
+  assert((await treeRow.innerText()).includes("۲ محصول"));
+  await page.locator('#category-records [data-edit="' + root.id + '"]').click();
   const optionValues = await page
     .locator("#editor [name=parent_id] option")
     .evaluateAll((els) => els.map((e) => e.value));
