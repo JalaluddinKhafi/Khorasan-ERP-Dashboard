@@ -280,3 +280,9 @@ const env = Object.fromEntries(
     fullPage: true,
   });
   await goto("products");
+  assert.equal(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth > innerWidth,
+    ),
+    false,
+  );
