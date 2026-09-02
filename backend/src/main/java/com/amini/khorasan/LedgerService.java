@@ -158,6 +158,8 @@ public class LedgerService {
       raw.isEmpty() ||
       raw.size() > 200
     ) throw bad("حداقل یک قلم و حداکثر ۲۰۰ قلم انتخاب کنید");
+    if (raw.stream().anyMatch(item -> !(item instanceof Map<?, ?>)))
+      throw bad("اقلام فاکتور نامعتبر است");
     List<Map<String, Object>> items = (List<Map<String, Object>>) m.get(
       "items"
     );
