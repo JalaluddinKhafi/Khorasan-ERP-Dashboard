@@ -1,3 +1,10 @@
+      .trim()
+      .split(/\r?\n/)
+      .map((line) => {
+        const i = line.indexOf("=");
+        return [line.slice(0, i), line.slice(i + 1)];
+      }),
+  );
   const browser = await chromium.launch({
     headless: true,
     channel:
