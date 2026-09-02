@@ -1,3 +1,10 @@
+const fs = require("node:fs");
+const assert = require("node:assert/strict");
+const { chromium } = require("playwright");
+(async () => {
+  const env = Object.fromEntries(
+    fs
+      .readFileSync(".env", "utf8")
       .trim()
       .split(/\r?\n/)
       .map((line) => {
