@@ -18,3 +18,9 @@ const { chromium } = require("playwright");
       process.env.BROWSER_CHANNEL ||
       (process.platform === "win32" ? "msedge" : undefined),
   });
+    [404, "صفحهٔ ورود را از آدرس"],
+    [503, "سرویس ورود با مشکل"],
+  ]) {
+    await page.route("**/api/login", (route) =>
+      route.fulfill({ status, contentType: "application/json", body: "{}" }),
+    );
