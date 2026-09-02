@@ -323,6 +323,13 @@ const env = Object.fromEntries(
     path: "tmp/catalog-categories-mobile.png",
     fullPage: true,
   });
+  await page.waitForFunction(
+    (id) =>
+      !document.querySelector('#category-records [data-delete="' + id + '"]'),
+    empty.id,
+  );
+  assert.deepEqual(errors, []);
+  console.log(
     "PASS: category parent/child and tree counts, cycle protection, product image/barcode/details/edit, combined filters, dashboard clock/quick actions/three tables, light/dark/mobile, category delete.",
   );
   await browser.close();
