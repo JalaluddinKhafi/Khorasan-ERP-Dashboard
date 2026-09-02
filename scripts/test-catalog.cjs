@@ -304,6 +304,12 @@ const env = Object.fromEntries(
     ),
     false,
   );
+  await page.locator("#product-details [data-close]").first().click();
+  await goto("categories");
+  assert.equal(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth > innerWidth,
+    ),
     false,
   );
   await page.screenshot({
