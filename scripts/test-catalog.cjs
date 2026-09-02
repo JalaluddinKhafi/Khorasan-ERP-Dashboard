@@ -304,3 +304,9 @@ const env = Object.fromEntries(
     ),
     false,
   );
+    false,
+  );
+  await page.screenshot({
+    path: "tmp/catalog-categories-mobile.png",
+    fullPage: true,
+  });
