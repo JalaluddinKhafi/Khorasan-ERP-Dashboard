@@ -18,15 +18,16 @@ export async function fetchData(endpoint, options = {}) {
     location.href = "/dashboard/login.html";
     throw new Error("لطفاً وارد سیستم شوید");
   }
+  if (response.status === 204) return {};
   let data;
   try {
     data = await response.json();
   } catch {
-    data = {};
+    throw new Error("پاسخ سرور نامعتبر است؛ دوباره تلاش کنید");
   }
   if (!response.ok)
     throw new Error(
-      data.message || "عملیات انجام نشد؛ ارتباط و دسترسی خود را بررسی کنید",
+      data?.message || "عملیات انجام نشد؛ ارتباط و دسترسی خود را بررسی کنید",
     );
   return data;
 }
@@ -83,7 +84,7 @@ export function downloadCsv(name, rows) {
             (v) =>
               '"' +
               String(v ?? "")
-                .replace(/^[=+@-]/, "'$&")
+                .replace(/^(?=[\s\uFEFF]*[=+@-]|[\t\r\n])/, "'")
                 .replaceAll('"', '""') +
               '"',
           )
