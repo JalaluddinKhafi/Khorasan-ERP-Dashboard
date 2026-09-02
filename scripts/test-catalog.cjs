@@ -258,6 +258,13 @@ const env = Object.fromEntries(
   assert.equal(await page.locator("#latest-sales table").count(), 1);
   assert.equal(await page.locator("#latest-purchases table").count(), 1);
   assert.equal(await page.locator("#low-stock table").count(), 1);
+    path: "tmp/catalog-dashboard-light.png",
+    fullPage: true,
+  });
+  await page.locator('.quick-actions a[href="products.html?new=1"]').click();
+  await page.locator("#editor").waitFor();
+  assert(!new URL(page.url()).searchParams.has("new"));
+  await page.locator("#cancel-editor").click();
   await goto("dashboard");
   await page.locator("#theme").click();
   await page.screenshot({
