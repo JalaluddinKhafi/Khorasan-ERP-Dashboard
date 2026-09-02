@@ -258,3 +258,10 @@ const env = Object.fromEntries(
   assert.equal(await page.locator("#latest-sales table").count(), 1);
   assert.equal(await page.locator("#latest-purchases table").count(), 1);
   assert.equal(await page.locator("#low-stock table").count(), 1);
+  await goto("dashboard");
+  await page.locator("#theme").click();
+  await page.screenshot({
+    path: "tmp/catalog-dashboard-dark.png",
+    fullPage: true,
+  });
+  await goto("products");
