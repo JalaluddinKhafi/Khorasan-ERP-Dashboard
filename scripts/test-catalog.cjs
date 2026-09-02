@@ -280,6 +280,12 @@ const env = Object.fromEntries(
     fullPage: true,
   });
   await goto("products");
+  );
+  await page.screenshot({
+    path: "tmp/catalog-dashboard-mobile.png",
+    fullPage: true,
+  });
+  await goto("products");
   assert.equal(
     await page.evaluate(
       () => document.documentElement.scrollWidth > innerWidth,
