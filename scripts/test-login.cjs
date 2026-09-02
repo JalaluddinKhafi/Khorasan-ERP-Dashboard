@@ -18,6 +18,12 @@ const { chromium } = require("playwright");
       process.env.BROWSER_CHANNEL ||
       (process.platform === "win32" ? "msedge" : undefined),
   });
+  await page
+    .locator("#login-error")
+    .filter({ hasText: "نام کاربری یا رمز عبور نادرست است" })
+    .waitFor();
+  for (const [status, expected] of [
+    [403, "نشست ورود منقضی"],
     [404, "صفحهٔ ورود را از آدرس"],
     [503, "سرویس ورود با مشکل"],
   ]) {
