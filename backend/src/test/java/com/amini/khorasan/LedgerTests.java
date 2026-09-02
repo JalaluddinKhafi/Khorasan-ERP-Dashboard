@@ -422,4 +422,9 @@ class LedgerTests {
       pool.shutdownNow();
     }
   }
+      payload.put("items", Arrays.asList(item));
+      assertThrows(IllegalArgumentException.class, () -> ledger.invoice(payload));
+      assertEquals(0, new BigDecimal("10").compareTo(stock()));
+    }
+  }
 }
