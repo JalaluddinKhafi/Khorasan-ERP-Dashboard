@@ -323,3 +323,10 @@ const env = Object.fromEntries(
     path: "tmp/catalog-categories-mobile.png",
     fullPage: true,
   });
+    "PASS: category parent/child and tree counts, cycle protection, product image/barcode/details/edit, combined filters, dashboard clock/quick actions/three tables, light/dark/mobile, category delete.",
+  );
+  await browser.close();
+})().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
