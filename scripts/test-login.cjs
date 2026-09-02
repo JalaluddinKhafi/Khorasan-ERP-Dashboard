@@ -36,3 +36,9 @@ const { chromium } = require("playwright");
     await page.route("**/api/login", (route) =>
       route.fulfill({ status, contentType: "application/json", body: "{}" }),
     );
+  );
+  await browser.close();
+})().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
