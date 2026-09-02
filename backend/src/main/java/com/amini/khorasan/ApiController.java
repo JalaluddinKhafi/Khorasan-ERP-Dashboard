@@ -298,9 +298,9 @@ public class ApiController {
               Boolean.FALSE.equals(values.get("active")))
           ) throw bad("نقش و وضعیت حساب جاری را تغییر داده نمی‌توانید");
         }
-        String pass = text(m, "password", 72);
+        String pass = Objects.toString(m.get("password"), "");
         if (identifier == null || !pass.isBlank()) {
-          if (pass.length() < 12) throw bad("رمز عبور حداقل ۱۲ حرف باشد");
+          PasswordRules.validate(pass);
           values.put("password", encoder.encode(pass));
         }
       }
