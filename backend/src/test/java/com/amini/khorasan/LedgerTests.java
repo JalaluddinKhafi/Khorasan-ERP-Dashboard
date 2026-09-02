@@ -422,6 +422,11 @@ class LedgerTests {
       pool.shutdownNow();
     }
   }
+
+  @Test
+  void rejectsMalformedInvoiceLinesWithoutChangingStock() {
+    for (Object item : Arrays.asList(null, "invalid", 12, List.of("invalid"))) {
+      var payload = invoice("SALE", 1, "USD", "1", "10");
       payload.put("items", Arrays.asList(item));
       assertThrows(IllegalArgumentException.class, () -> ledger.invoice(payload));
       assertEquals(0, new BigDecimal("10").compareTo(stock()));
