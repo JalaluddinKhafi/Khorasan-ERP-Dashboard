@@ -304,6 +304,13 @@ const env = Object.fromEntries(
     ),
     false,
   );
+  await page.locator("#search").fill(product.code);
+  await page.locator('[data-details="' + product.id + '"]').click();
+  await page.locator("#product-details").waitFor();
+  await page.screenshot({
+    path: "tmp/catalog-details-mobile.png",
+    fullPage: true,
+  });
   await page.locator("#product-details [data-close]").first().click();
   await goto("categories");
   assert.equal(
