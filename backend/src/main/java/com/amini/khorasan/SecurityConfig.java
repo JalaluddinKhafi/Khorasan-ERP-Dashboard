@@ -47,11 +47,7 @@ public class SecurityConfig {
       if (
         db.queryForObject("SELECT COUNT(*) FROM app_users", Integer.class) == 0
       ) {
-        if (
-          password == null || password.length() < 12
-        ) throw new IllegalStateException(
-          "ADMIN_PASSWORD باید حداقل ۱۲ حرف باشد"
-        );
+        PasswordRules.validate(password);
         db.update(
           "INSERT INTO app_users(username,password,name,role) VALUES(?,?,?,?)",
           username,
