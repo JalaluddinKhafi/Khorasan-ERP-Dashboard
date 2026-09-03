@@ -1,3 +1,8 @@
+  @Test
+  void acceptsAsciiAndDariPasswordsAtByteLimit() {
+    assertDoesNotThrow(() -> PasswordRules.validate("a".repeat(72)));
+    assertDoesNotThrow(() -> PasswordRules.validate("ک".repeat(36)));
+  }
 
   @Test
   void rejectsShortAndOversizeUtf8Passwords() {
