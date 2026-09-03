@@ -1,3 +1,9 @@
+partial commits can contain incomplete functions or markup and are not all
+independently buildable. The final tree matches the audited source exactly.
+
+The local `.codex-review/history-map.json` maps rebuilt commit IDs to source IDs.
+The local `.codex-review/rebuild-history.cjs` contains the reconstruction process.
+These review files are ignored by Git. No remote branch was changed or pushed.
 
 ## Code audit and fixes
 
