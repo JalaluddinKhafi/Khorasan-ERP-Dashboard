@@ -1,3 +1,9 @@
+
+## Code audit and fixes
+
+This was a targeted review of login, authorization, invoice input, and shared
+frontend request/export helpers, not a complete security certification.
+
 | Finding | Change |
 | --- | --- |
 | Password character limits did not enforce BCrypt's 72-byte UTF-8 limit. | Share password validation between initial admin creation and user changes; reject oversized Dari passwords before encoding. Preserve entered password whitespace when setting a password. |
