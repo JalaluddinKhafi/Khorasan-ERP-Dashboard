@@ -1,3 +1,9 @@
+package com.amini.khorasan;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+class PasswordRulesTests {
   @Test
   void acceptsAsciiAndDariPasswordsAtByteLimit() {
     assertDoesNotThrow(() -> PasswordRules.validate("a".repeat(72)));
