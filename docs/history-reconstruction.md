@@ -1,3 +1,9 @@
+
+- Original main tip: `60660db` (369 reachable commits).
+- Original history remains on `main`; audited source remains on `codex/audit-20261108`.
+- Rebuilt branch: `codex/rebuilt-2026-apr-sep`.
+- Schedule: 2,597 commits, 121 active days, 12–30 commits per active day, 8 idle days.
+- Time zone: Asia/Kabul (`+04:30`), randomized times between 08:00 and 21:00.
 - Random seed: `3907557154`; daily counts are in `history-schedule.csv`.
 
 Changes follow the first-parent sequence of original file snapshots. Merged
