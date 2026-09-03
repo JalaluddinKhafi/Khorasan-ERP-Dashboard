@@ -1,3 +1,9 @@
+- Random seed: `3907557154`; daily counts are in `history-schedule.csv`.
+
+Changes follow the first-parent sequence of original file snapshots. Merged
+changes are included when they enter that sequence; the merge graph is flattened.
+Text changes are divided into smaller pieces; binary files and deletions stay
+whole. No empty commits or filler changes are added to meet the count. Individual
 partial commits can contain incomplete functions or markup and are not all
 independently buildable. The final tree matches the audited source exactly.
 
