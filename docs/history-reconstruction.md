@@ -1,3 +1,9 @@
+# Reconstructed project history
+
+This branch was reconstructed on **2026-11-08** at the repository owner's request.
+The author and committer dates from 2026-04-30 through 2026-09-05 are an assigned
+schedule, **not evidence that the work happened on those dates**. Every generated
+commit records its original source commit in a `Source-Commit` trailer.
 
 - Original main tip: `60660db` (369 reachable commits).
 - Original history remains on `main`; audited source remains on `codex/audit-20261108`.
