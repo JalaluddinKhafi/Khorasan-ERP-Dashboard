@@ -1,3 +1,9 @@
+| Finding | Change |
+| --- | --- |
+| Password character limits did not enforce BCrypt's 72-byte UTF-8 limit. | Share password validation between initial admin creation and user changes; reject oversized Dari passwords before encoding. Preserve entered password whitespace when setting a password. |
+| Null or non-object invoice lines could throw an internal Java exception. | Reject malformed lines as invalid input before processing products or stock. |
+| The API helper treated malformed successful JSON as an empty success. | Report an invalid response, keep 204 success handling, and handle null error bodies safely. |
+| CSV formula protection missed formulas after leading whitespace. | Prefix dangerous cells before CSV quoting, including leading tab/newline cases. |
 
 Validation on the audited source:
 
