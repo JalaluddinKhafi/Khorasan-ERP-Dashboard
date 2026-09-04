@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="fa-AF" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>ورود | خراسان سیستم</title>
+    <script src="../assets/js/theme.js"></script>
+    <link rel="stylesheet" href="../assets/css/app.css" />
+  </head>
+  <body>
+    <main class="login">
+      <section class="panel">
+        <div class="brand"><span class="brand-mark">خ</span>خراسان سیستم</div>
+        <h1>خوش آمدید</h1>
+        <p class="muted">برای مدیریت امور تجارتی وارد حساب خود شوید.</p>
+        <form id="login-form">
+          <div class="fields">
+            <label
+              >نام کاربری<input
+                name="username"
+                autocomplete="username"
+                required
+                autofocus
+                dir="ltr" /></label
+            ><label
+              >رمز عبور<input
+                type="password"
+                name="password"
+                autocomplete="current-password"
+                required
+                dir="ltr"
+            /></label>
+            <p id="login-error" class="error" role="alert"></p>
+            <button class="primary">ورود به داشبورد</button
+            ><a class="muted" href="../public-site/index.html"
+              >بازگشت به وبسایت</a
+            >
+          </div>
+        </form>
+      </section>
+    </main>
+    <script type="module" src="../assets/js/login.js"></script>
+  </body>
+</html>
