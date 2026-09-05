@@ -1,3 +1,9 @@
+const { test } = require("node:test");
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
+
+async function service() {
   const source = fs.readFileSync(path.join(__dirname, "../assets/js/api-service.js"));
   return import("data:text/javascript;base64," + source.toString("base64"));
 }
