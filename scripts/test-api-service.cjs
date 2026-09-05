@@ -1,3 +1,9 @@
+  try {
+    const { api } = await service();
+    let reply;
+    global.fetch = async (url) => url === "/api/csrf"
+      ? new Response(JSON.stringify({ headerName: "X-CSRF-TOKEN", token: "test" }))
+      : reply;
     reply = new Response("<html>proxy error</html>");
     await assert.rejects(api("products"), /پاسخ سرور نامعتبر/);
     reply = new Response(null, { status: 204 });
