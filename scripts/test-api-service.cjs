@@ -1,3 +1,9 @@
+    reply = new Response("<html>proxy error</html>");
+    await assert.rejects(api("products"), /پاسخ سرور نامعتبر/);
+    reply = new Response(null, { status: 204 });
+    assert.deepEqual(await api("products"), {});
+    reply = new Response("null", { status: 500 });
+    await assert.rejects(api("products"), /عملیات انجام نشد/);
     reply = new Response(JSON.stringify({ message: "validation failed" }), { status: 400 });
     await assert.rejects(api("products"), /validation failed/);
     reply = new Response(JSON.stringify([{ id: 1 }]));
