@@ -1,3 +1,9 @@
+  const source = fs.readFileSync(path.join(__dirname, "../assets/js/api-service.js"));
+  return import("data:text/javascript;base64," + source.toString("base64"));
+}
+
+test("API rejects malformed JSON and preserves empty success responses", async () => {
+  const originalFetch = global.fetch;
   try {
     const { api } = await service();
     let reply;
