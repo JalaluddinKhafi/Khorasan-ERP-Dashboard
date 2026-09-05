@@ -1,3 +1,9 @@
+  }
+});
+
+test("CSV escapes formulas after whitespace and keeps normal text", async () => {
+  const originalDocument = global.document;
+  const originalCreate = URL.createObjectURL;
   let exported;
   try {
     global.document = { createElement: () => ({ click() {} }) };
