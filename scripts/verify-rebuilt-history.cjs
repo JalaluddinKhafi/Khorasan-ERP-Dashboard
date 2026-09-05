@@ -1,3 +1,7 @@
+const actual = new Map();
+let previousTime = -Infinity;
+let previousTree;
+let total = 0;
 for (const row of git("log", "--reverse", "--format=%H%x09%T%x09%at%x09%ct%x09%ai%x09%ci").split("\n")) {
   const [hash, tree, authorTime, commitTime, authorDate, commitDate] = row.split("\t");
   assert.equal(authorTime, commitTime, hash + ": timestamps differ");
