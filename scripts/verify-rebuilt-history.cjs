@@ -1,3 +1,8 @@
+const fs = require("node:fs");
+const path = require("node:path");
+const cp = require("node:child_process");
+const assert = require("node:assert/strict");
+const root = path.resolve(__dirname, "..");
 const git = (...args) => cp.execFileSync("git", args, { cwd: root, encoding: "utf8", maxBuffer: 8 * 1024 * 1024 }).trim();
 const schedule = fs.readFileSync(path.join(root, "docs/history-schedule.csv"), "utf8")
   .trim().split(/\r?\n/).slice(1).map((line) => {
