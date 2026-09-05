@@ -1,3 +1,8 @@
+const git = (...args) => cp.execFileSync("git", args, { cwd: root, encoding: "utf8", maxBuffer: 8 * 1024 * 1024 }).trim();
+const schedule = fs.readFileSync(path.join(root, "docs/history-schedule.csv"), "utf8")
+  .trim().split(/\r?\n/).slice(1).map((line) => {
+    const [date, count] = line.split(",");
+    return { date, count: Number(count) };
   });
 assert.equal(schedule.length, 129);
 assert.equal(schedule[0].date, "2026-04-30");
