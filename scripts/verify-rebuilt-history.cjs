@@ -1,3 +1,8 @@
+  });
+assert.equal(schedule.length, 129);
+assert.equal(schedule[0].date, "2026-04-30");
+assert.equal(schedule.at(-1).date, "2026-09-05");
+assert.equal(schedule.filter((day) => day.count === 0).length, 8);
 const actual = new Map();
 let previousTime = -Infinity;
 let previousTree;
