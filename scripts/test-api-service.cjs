@@ -1,3 +1,9 @@
+    reply = new Response(JSON.stringify({ message: "validation failed" }), { status: 400 });
+    await assert.rejects(api("products"), /validation failed/);
+    reply = new Response(JSON.stringify([{ id: 1 }]));
+    assert.deepEqual(await api("products"), [{ id: 1 }]);
+  } finally {
+    global.fetch = originalFetch;
   }
 });
 
