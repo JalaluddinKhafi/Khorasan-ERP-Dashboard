@@ -1,3 +1,8 @@
+for (const row of git("log", "--reverse", "--format=%H%x09%T%x09%at%x09%ct%x09%ai%x09%ci").split("\n")) {
+  const [hash, tree, authorTime, commitTime, authorDate, commitDate] = row.split("\t");
+  assert.equal(authorTime, commitTime, hash + ": timestamps differ");
+  assert.ok(Number(commitTime) > previousTime, hash + ": dates must increase");
+  assert.notEqual(tree, previousTree, hash + ": empty commit");
   assert.ok(authorDate.endsWith("+0430") && commitDate.endsWith("+0430"));
   const date = new Date(Number(commitTime) * 1000 + 270 * 60000).toISOString().slice(0, 10);
   actual.set(date, (actual.get(date) || 0) + 1);
