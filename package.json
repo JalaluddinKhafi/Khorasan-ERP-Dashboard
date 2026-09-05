@@ -6,6 +6,7 @@
   },
   "name": "khorasan-system",
   "scripts": {
+    "test:api": "node --test scripts/test-api-service.cjs",
     "format": "prettier --write \"assets/js/{app,public,login,theme,api-service,catalog,icons}.js\" assets/css/app.css \"dashboard/*.html\" \"public-site/*.html\" scripts/e2e.cjs",
     "test:ui": "node scripts/e2e.cjs",
     "format:java": "prettier --plugin=prettier-plugin-java --write \"backend/src/**/*.java\"",
