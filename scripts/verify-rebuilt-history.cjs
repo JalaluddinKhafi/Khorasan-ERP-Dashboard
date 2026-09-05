@@ -1,3 +1,8 @@
+  assert.ok(authorDate.endsWith("+0430") && commitDate.endsWith("+0430"));
+  const date = new Date(Number(commitTime) * 1000 + 270 * 60000).toISOString().slice(0, 10);
+  actual.set(date, (actual.get(date) || 0) + 1);
+  previousTime = Number(commitTime);
+  previousTree = tree;
   total++;
 }
 for (const day of schedule) {
