@@ -60,3 +60,27 @@ async function init() {
     };
     $("#product-search").oninput = $("#category-filter").onchange = draw;
     draw();
+  } else if (page === "contact") {
+    root.innerHTML = `<h1>تماس با ما</h1><p class="muted">پیام شما برای بررسی به بخش مدیریت شرکت فرستاده می‌شود.</p><div class="grid"><section class="panel"><h2>پیام بفرستید</h2><form id="contact-form" class="fields"><label>نام کامل<input name="name" maxlength="160" required autocomplete="name"></label><label>ایمیل<input name="email" type="email" maxlength="200" required autocomplete="email"></label><label>شماره تماس<input name="phone" type="tel" maxlength="60" autocomplete="tel"></label><label>موضوع<input name="subject" maxlength="180"></label><label class="wide">پیام<textarea name="message" maxlength="4000" rows="6" required></textarea></label><p id="contact-status" class="wide" role="status"></p><button class="primary">ارسال پیام</button></form></section><section class="panel"><h2>${esc(name)}</h2><p class="prose">${esc(company.address || "آدرس شرکت هنوز درج نشده است.")}</p><p dir="ltr">${esc(company.phone)}</p><p class="prose muted">${esc(company.brands)}</p></section></div>`;
+    $("#contact-form").onsubmit = async (e) => {
+      e.preventDefault();
+      const b = e.target.querySelector("button");
+      b.disabled = true;
+      try {
+        await send(
+          "public/contact",
+          Object.fromEntries(new FormData(e.target)),
+        );
+        $("#contact-status").textContent = "پیام شما ثبت شد. سپاس از تماس شما.";
+        e.target.reset();
+      } catch (error) {
+        $("#contact-status").textContent = error.message;
+      } finally {
+        b.disabled = false;
+      }
+    };
+  } else if (page === "blog-details") {
+    const id = new URLSearchParams(location.search).get("id");
+    const article = content.find(
+      (c) => String(c.id) === id && c.kind === "blog",
+    );
