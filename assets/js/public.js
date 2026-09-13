@@ -39,3 +39,24 @@ async function init() {
     $("#featured-products").innerHTML = productCards(products.slice(0, 3));
   } else if (page === "products") {
     const products = await api("public/products");
+    const categories = [
+      ...new Set(products.map((p) => p.category).filter(Boolean)),
+    ];
+    root.innerHTML =
+      '<div class="eyebrow">فهرست اجناس</div><h1>اجناس و نرخ‌های فروش</h1><p class="muted">واحد اصلی نرخنامه دالر امریکایی است. برای موجودی و شرایط فروش با شرکت تماس بگیرید.</p><div class="actions" style="margin-bottom:25px"><input class="search" id="product-search" aria-label="جستجوی جنس" placeholder="جستجوی نام یا کد جنس…"><select id="category-filter" style="max-width:220px" aria-label="دسته‌بندی"><option value="">همهٔ دسته‌ها</option>' +
+      categories.map((c) => `<option>${esc(c)}</option>`).join("") +
+      '</select></div><div id="product-list"></div>';
+    const draw = () => {
+      $("#product-list").innerHTML = productCards(
+        products.filter(
+          (p) =>
+            (p.name + " " + p.code)
+              .toLowerCase()
+              .includes($("#product-search").value.toLowerCase()) &&
+            (!$("#category-filter").value ||
+              p.category === $("#category-filter").value),
+        ),
+      );
+    };
+    $("#product-search").oninput = $("#category-filter").onchange = draw;
+    draw();
