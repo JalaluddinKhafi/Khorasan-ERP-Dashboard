@@ -104,3 +104,25 @@ async function init() {
         page
       ],
       rows = selected(kind);
+    root.innerHTML = `<h1>${esc({ blog: "خبرها و مقاله‌ها", gallery: "گالری", services: "خدمات شرکت" }[page])}</h1>${rows.length ? cards(rows) : '<section class="panel empty">هنوز محتوایی در این بخش منتشر نشده است.</section>'}`;
+  } else {
+    const names = {
+      about: "دربارهٔ ما",
+      privacy: "حریم خصوصی",
+      terms: "شرایط همکاری",
+    };
+    const item = content.find(
+      (c) => c.kind === "page" && c.title === names[page],
+    );
+    root.innerHTML = `<article class="panel"><h1>${esc(names[page] || "صفحه")}</h1><div class="prose">${esc(item?.body || (page === "about" ? company.brands || "معلومات شرکت از بخش مدیریت وبسایت تکمیل می‌شود." : "محتوای این صفحه هنوز توسط مدیریت شرکت منتشر نشده است."))}</div></article>`;
+  }
+}
+function productCards(products) {
+  return products.length
+    ? `<div class="catalog">${products.map((p) => `<article class="panel">${p.image ? `<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy">` : ""}<span class="badge">${esc(p.category || "اجناس")}</span><h2 style="margin-top:18px">${esc(p.name)}</h2><p class="muted">کد: ${esc(p.code)} · واحد: ${esc(p.unit)}</p><h3>${money(p.sale_price)}</h3><a href="contact.html" class="button">درخواست معلومات ←</a></article>`).join("")}</div>`
+    : '<section class="panel empty">هنوز جنسی در نرخنامه منتشر نشده است.</section>';
+}
+init().catch((e) => {
+  root.innerHTML = `<section class="panel"><h1>ارتباط با سرور برقرار نشد</h1><p>${esc(e.message)}</p><button id="retry">تلاش دوباره</button></section>`;
+  $("#retry").onclick = () => location.reload();
+});
