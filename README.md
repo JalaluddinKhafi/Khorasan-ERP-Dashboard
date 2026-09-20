@@ -1,46 +1,34 @@
-# 🚀 خراسان سیستم | Khorasan System - Enterprise Management Platform
+# خراسان سیستم — امینی گروپ
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?logo=bootstrap&logoColor=white)
-![RTL](https://img.shields.io/badge/RTL-Supported-green)
-![Responsive](https://img.shields.io/badge/Responsive-Yes-brightgreen)
+سیستم مدیریت تجارت با نمایش دری و راست‌به‌چپ، وبسایت عمومی و داشبورد مدیر/کارمند. بک‌اند Java 17 و Spring Boot 3.5، دیتابیس MySQL 8.4 و مهاجرت‌های Flyway است. فرانت بدون نیاز به کتابخانهٔ CDN اجرا می‌شود و همراه فایل اجرایی بک‌اند بسته‌بندی شده است.
 
-> **A complete, production-ready Frontend system for managing Sales, Inventory, Purchases, Customer Balances, and Financial transactions.** Built specifically for Persian (RTL) businesses with a modern corporate design.
+## اجرای محلی
 
----
+نسخهٔ آماده در همین محیط روی http://localhost:8082 اجرا شده است.
 
-## 📌 Table of Contents
+- داشبورد: http://localhost:8082/dashboard/login.html
+- وبسایت: http://localhost:8082/public-site/index.html
+- نام کاربری اولیه: `admin`
+- رمز اولیه: مقدار `ADMIN_PASSWORD` در فایل محلی `.env`؛ این فایل در Git قرار نمی‌گیرد.
 
-- [Overview](#-overview)
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Project Structure](#-project-structure)
-- [Pages](#-pages)
-- [Getting Started](#-getting-started)
-- [Backend Integration](#-backend-integration)
-- [Screenshots](#-screenshots)
-- [Author](#-author)
-- [License](#-license)
+برای اجرای دوباره در ویندوز به Java 17، Maven و Docker Desktop نیاز است:
 
----
+```powershell
+# فقط برای نصب جدید؛ فایل .env موجود را بازنویسی نکنید.
+Copy-Item .env.example .env
+# رمزهای نمونه را در .env به رمزهای اختصاصی تبدیل کنید.
+.\scripts\start-local.ps1
+```
 
-## 🎯 Overview
+اگر فایل اجرایی ساخته شده است، `-SkipBuild` را اضافه کنید. این اسکریپت فایل اجرایی را در کانتینر مستقل Docker اجرا می‌کند؛ بستن ترمینال یا پایان اجرای دستیار، برنامه را خاموش نمی‌کند. برنامه و دیتابیس دارای سیاست `restart: unless-stopped` هستند. MySQL روی `127.0.0.1:3307` و برنامه روی `127.0.0.1:8082` است. داده‌ها در volume به نام `mysql_data` نگهداری می‌شوند. برای توقف برنامه `docker compose stop app` و برای راه‌اندازی دوباره `docker compose start app` را اجرا کنید. اجرای `docker compose down` بدون `-v` داده‌ها را حذف نمی‌کند. برای بازگشت پس از روشن‌شدن کمپیوتر، Docker Desktop نیز باید فعال باشد.
 
-**Khorasan System** is a comprehensive enterprise management platform designed for official company representative offices. It includes a **customer-facing website** (SEO optimized) and a **full-featured admin dashboard** for internal management.
+اجرای همهٔ اجزا با Docker:
 
-### Key Capabilities:
-- ✅ Manage Products, Categories, Suppliers, Customers
-- ✅ Create Purchase and Sales Invoices with dynamic rows
-- ✅ Track Inventory with low stock alerts
-- ✅ Monitor Customer Balances (complete transaction history)
-- ✅ Generate Financial Reports (Daily/Monthly/Yearly)
-- ✅ Export Reports to PDF and Excel
-- ✅ Print Professional Invoices with Company Letterhead
+```powershell
+docker compose up --build -d
+```
 
----
+اجرای Java محلی و اجرای Docker برنامه را هم‌زمان روی پورت 8080 راه‌اندازی نکنید. رمزهای دیتابیس پس از ایجاد volume با تغییر `.env` خودکار عوض نمی‌شوند؛ تغییر رمز دیتابیس باید داخل MySQL نیز انجام شود. رمز اولیهٔ مدیر فقط هنگام ساخت نخستین حساب استفاده می‌شود؛ پس از آن رمز حساب از صفحهٔ حساب‌های کاربری تغییر می‌کند.
 
 ## ✨ Features
 
