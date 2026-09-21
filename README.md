@@ -59,97 +59,32 @@ docker compose up --build -d
 
 تم روشن/تاریک و رنگ سبز/آبی/بنفش در مرورگر ذخیره می‌شود و بین صفحات مشترک است. حالت چاپ مستقل از تم و سفید است.
 
-## 🛠️ Tech Stack
+## ساخت و آزمایش
 
-| Technology | Usage |
-|------------|-------|
-| **HTML5** | Semantic structure |
-| **CSS3** | Custom styling with CSS variables |
-| **JavaScript (Vanilla)** | Modular logic, DOM manipulation, fetch API |
-| **Bootstrap 5 (RTL)** | Responsive layout components |
-| **Font Awesome 6** | Professional icons |
-| **DataTables** | Advanced tables with search, sort, pagination |
-| **ApexCharts** | Interactive and responsive charts |
-| **SheetJS (XLSX)** | Excel export functionality |
-| **html2pdf.js** | PDF generation |
+```powershell
+mvn -f backend/pom.xml test
+mvn -f backend/pom.xml package
+npm ci
+npm run format
+```
 
----
+آزمایش‌های Java دیتابیس مستقل H2 با حالت MySQL دارند؛ آزمایش مرورگر روی **MySQL واقعی و دیتابیس مجزای QA** انجام شده است. برای اجرای مجدد آزمایش مرورگر، یک نمونهٔ جداگانه از برنامه روی پورت 8081 با `DB_URL` دیتابیس آزمایشی و همان متغیرهای رمز اجرا کنید. سپس:
 
-## 📁 Project Structure
-<img width="1672" height="941" alt="NoteGPT_Image_20260609170023" src="https://github.com/user-attachments/assets/81f2d55c-2c85-4414-9ec3-d8ecf0285f2c" />
+```powershell
+npm run test:ui
+```
 
----
+در ویندوز از Edge نصب‌شده استفاده می‌شود. در سیستم‌های دیگر `npx playwright install chromium` را اجرا کنید. `E2E_BASE`، `E2E_PASSWORD` و `BROWSER_CHANNEL` قابل تنظیم‌اند. آزمایش مرورگر اطلاعات آزمایشی اضافه می‌کند و نباید به دیتابیس عملیاتی وصل شود.
 
-## 📄 Pages
+جزئیات API و نتیجهٔ بررسی در `docs/implementation.md` است. تغییرات موجود پیش از شروع کار در `.codex-review/pre-existing-changes.patch` حفظ شده‌اند. فایل‌های قدیمی `components.js`، `utils.js`، `dashboard-home.js` و `products.js` در صفحات جدید بارگذاری نمی‌شوند؛ ورودی فعلی فرانت `app.js` و `public.js` است.
 
-### Public Website (accessible to customers)
+## به‌روزرسانی داشبورد، اجناس و دسته‌بندی
 
-| File | Purpose |
-|------|---------|
-| `index.html` | Homepage with hero, products, services, testimonials |
-| `about.html` | Company information and team |
-| `products.html` | Product catalog with filters |
-| `services.html` | Services offered |
-| `blog.html` | Articles and news |
-| `blog-details.html` | Single article view |
-| `gallery.html` | Image gallery |
-| `contact.html` | Contact form and map |
-| `faq.html` | Frequently asked questions |
-| `privacy.html` | Privacy policy |
-| `terms.html` | Terms and conditions |
+- سایدبار سرمه‌ای با آیکن‌های مستقل، پس‌زمینهٔ روشن‌تر صفحه و سازگاری با تم تاریک و رنگ انتخابی.
+- خوش‌آمدید با نام کاربر، تاریخ و ساعت زندهٔ کابل؛ میانبر ثبت خرید، فروش، افزودن کالا و گزارشات؛ جدول‌های مستقل آخرین فروش‌ها، آخرین خریدها و هشدار موجودی.
+- مدیریت اجناس با جستجوی نام/کد/بارکد، فیلتر دسته و زیرمجموعه‌ها، وضعیت، موجودی و ترتیب نمایش. تصویر PNG/JPEG/WebP تا ۲ مگابایت، بارکد و توضیحات ذخیره می‌شود. برای اجناس قدیمی بدون تصویر، جای‌نگهدار نمایش داده می‌شود.
+- پنجرهٔ جزئیات جنس، تصویر و قیمت خرید/فروش، سود هر واحد، موجودی، حداقل هشدار و سایر مشخصات را از سرور دریافت می‌کند.
+- دسته‌بندی دارای والد، زیرمجموعه، توضیحات و وضعیت است. نمای درختی و جدول قابل‌جستجو هر دو در یک صفحه هستند. شمارش هر شاخه شامل اجناس تمام زیرمجموعه‌هاست. انتخاب دستهٔ والد به‌صورت حلقه‌ای و حذف دستهٔ دارای جنس یا زیرمجموعه مسدود می‌شود.
+- مهاجرت `V3__product_details_and_category_tree.sql` اطلاعات موجود را حفظ می‌کند و ستون‌های جدید را اضافه می‌کند.
 
-### Admin Dashboard (restricted access)
-
-| File | Purpose |
-|------|---------|
-| `dashboard.html` | Main dashboard with stats and charts |
-| `products.html` | Product management |
-| `categories.html` | Category tree management |
-| `suppliers.html` | Supplier management |
-| `customers.html` | Customer management with balance |
-| `purchases.html` | Purchase invoice management |
-| `sales.html` | Sales invoice management |
-| `inventory.html` | Stock and inventory tracking |
-| `payments.html` | Payment tracking |
-| `expenses.html` | Expense management |
-| `financial-transactions.html` | Financial reports |
-| `reports.html` | Various business reports |
-| `users.html` | User management |
-| `customer-balance.html` | Detailed customer balance statement |
-| `receipts.html` | Payment receipts |
-| `price-list.html` | Product price list |
-| `website-management.html` | CMS for public site |
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Any modern web browser (Chrome, Firefox, Edge, Safari)
-- Local server (recommended: VS Code Live Server)
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/JalaluddinKhafi/Khorasan-ERP-Dashboard
-
-2. **Open with Live Server**
-
-Using VS Code: Install "Live Server" extension
-
-Right-click on dashboard/dashboard.html → "Open with Live Server"
-
-Or use any HTTP server (Python, http-server, etc.)
-
-3. **No build step required** - Pure HTML/CSS/JS!
-
-### File Paths
-Dashboard entry: dashboard/dashboard.html
-
-Public site entry: public-site/index.html
-
-CSS: assets/css/style.css
-
-JavaScript modules: assets/js/
+آزمایش اختصاصی مرورگر: `node scripts/test-catalog.cjs` روی نمونهٔ مجزای QA در پورت 8081؛ این آزمایش دادهٔ آزمایشی ایجاد می‌کند.
