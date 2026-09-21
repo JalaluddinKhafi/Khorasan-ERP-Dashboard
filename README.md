@@ -30,57 +30,34 @@ docker compose up --build -d
 
 اجرای Java محلی و اجرای Docker برنامه را هم‌زمان روی پورت 8080 راه‌اندازی نکنید. رمزهای دیتابیس پس از ایجاد volume با تغییر `.env` خودکار عوض نمی‌شوند؛ تغییر رمز دیتابیس باید داخل MySQL نیز انجام شود. رمز اولیهٔ مدیر فقط هنگام ساخت نخستین حساب استفاده می‌شود؛ پس از آن رمز حساب از صفحهٔ حساب‌های کاربری تغییر می‌کند.
 
-## ✨ Features
+## شروع استفاده
 
-### 🏢 Public Website (10 Pages - SEO Optimized)
+1. در «تنظیمات شرکت» نام، تماس، آدرس، برندها و شرایط فاکتور را ثبت کنید. سربرگ کامل یا لوگو بارگذاری کنید؛ دکمهٔ استفاده از سربرگ نمونهٔ امینی گروپ نیز موجود است. تصویر نمونه از PDF نرخنامهٔ ارسالی استخراج شده است.
+2. واحد اصلی ثابت `USD` است. برای مثال `AFN` را با نام «افغانی» اضافه کنید. نرخ به معنی **تعداد واحد ارز فرعی در برابر یک دالر** است؛ برای مثال 70 یعنی 1 USD = 70 AFN.
+3. دسته‌بندی، اجناس، مشتریان و تهیه‌کنندگان را ثبت کنید. نرخ افتتاحیهٔ خرید و نرخ فروش اجناس به دالر است. موجودی افتتاحیه تنها هنگام ایجاد جنس درج می‌شود؛ تغییرات بعدی با خرید و فروش ثبت می‌شوند.
+4. باقی افتتاحیهٔ حساب مشتری/تهیه‌کننده به دالر قابل درج است. مبلغ منفی پیش‌پرداخت است. برای حفظ حساب، باقی افتتاحیه پس از ایجاد حساب تغییر نمی‌کند.
+5. فاکتور خرید یا فروش ثبت کنید و در صورت نیاز ارز و نرخ همان معامله را وارد کنید. پرداخت فاکتور از صفحهٔ دریافت و پرداخت ثبت می‌شود. پرداخت عمومی حساب نیز مجاز است و در بیلانس دیده می‌شود؛ «پرداخت مرتبط» فاکتور فقط پرداخت‌هایی را نشان می‌دهد که صریحاً به همان فاکتور وصل شده‌اند.
+6. از «کارمندان و معاش» کارمند بسازید و معاش هر ماه را ثبت کنید. حساب ورود کارمند جداگانه در «حساب‌های کاربری» ساخته می‌شود؛ داشتن پروفایل معاش به‌تنهایی اجازهٔ ورود نمی‌دهد.
+7. از «مدیریت وبسایت» مقاله، خدمت، پرسش، گالری و بنر منتشر کنید. برای متن صفحات ثابت، نوع «صفحه» و عنوان دقیق «دربارهٔ ما»، «حریم خصوصی» یا «شرایط همکاری» را انتخاب کنید. محتوای پیش‌نویس در وبسایت دیده نمی‌شود.
 
-| Page | Description |
-|------|-------------|
-| **Home** | Hero section, featured products/services, testimonials, contact |
-| **About Us** | Company history, vision, mission, team members |
-| **Products** | Product grid with search, category filters, details modal |
-| **Services** | Service list with benefits section |
-| **Blog** | Blog listing with categories, search, and tag cloud |
-| **Blog Details** | Full article view with comments section |
-| **Gallery** | Image gallery with lightbox and category filters |
-| **Contact Us** | Contact form, Google Maps, company info |
-| **FAQ** | Accordion-style frequently asked questions |
-| **Privacy & Terms** | Legal pages |
+فایل‌های PDF فقط نمونهٔ ساختار و هویت تجارتی هستند؛ مبالغ، مشتریان و معاملات تاریخی آن‌ها وارد دیتابیس عملیاتی نشده‌اند. دیتابیس جداگانهٔ `khorasan_qa` مخصوص آزمایش است و حاوی اطلاعات آزمایشی می‌باشد.
 
-### 📊 Admin Dashboard (13+ Pages)
+## حسابداری و دسترسی
 
-| Module | Features |
-|--------|----------|
-| **Dashboard** | Statistics cards (12 metrics), 4 interactive charts (ApexCharts), top products, recent invoices, low stock alerts, activity timeline |
-| **Products** | CRUD operations, image upload, search/filter, stock management |
-| **Categories** | Tree structure with parent-child relationships |
-| **Suppliers** | Complete profiles with transaction history |
-| **Customers** | Full profiles, purchase history, payment history, balance tracking |
-| **Purchases** | Create/edit invoices, dynamic product rows, auto-calculation, payment status |
-| **Sales** | Product search, dynamic rows, stock validation, invoice printing |
-| **Inventory** | Current stock, transaction history, low stock warnings |
-| **Payments** | Customer/supplier payments, payment history |
-| **Expenses** | Categorized expenses (rent, salary, electricity, transport, etc.) with charts |
-| **Financial** | Cash flow, profit/loss statements, transaction history |
-| **Reports** | 9 different report types with date filters and export options |
-| **Users** | User management with roles (Admin/Employee) |
-| **Website Management** | Pages, blog posts, slider, site settings |
-| **Customer Balance** | Complete transaction history (debit/credit) with print/PDF/Excel export |
+- محاسبات مالی در سرور با `BigDecimal` و چهار رقم اعشار انجام می‌شود؛ نرخ ارز تا هشت رقم اعشار نگهداری می‌شود.
+- نرخ هر فاکتور، پرداخت و مصرف مستقل ذخیره می‌شود. تغییر نرخ پیشنهادی ارز، معاملات قبلی را تغییر نمی‌دهد. تبدیل مبلغ به دالر برابر مبلغ تقسیم بر نرخ است.
+- خرید، فروش و تغییر موجودی در یک تراکنش دیتابیس ثبت می‌شوند. قفل سطری از فروش هم‌زمان بیش از موجودی جلوگیری می‌کند. مبلغ کل فاکتور از اقلام در سرور محاسبه می‌شود.
+- بهای موجودی از میانگین موزون خرید با احتساب تخفیف خرید محاسبه می‌شود. سود = فروش خالص − بهای اجناس فروخته‌شده − مصارف و معاش. این گزارش، دفتر کل دوطرفه یا محاسبهٔ سود و زیان تحقق‌یافتهٔ تبدیل ارز نیست.
+- فاکتور دارای پرداخت مرتبط قابل لغو نیست. لغو خرید پس از حرکت بعدی همان جنس نیز مسدود می‌شود تا بهای موجودی ناسازگار نشود. فاکتورهای ثبت‌شده مستقیم بازنویسی نمی‌شوند؛ اصلاح فاکتور بدون پرداخت با لغو و ثبت مجدد انجام می‌شود.
+- شناسهٔ یکتای درخواست از ثبت دوبارهٔ عملیات مالی هنگام تلاش مجدد جلوگیری می‌کند.
+- مدیر به تنظیمات، کاربران، معاش، مصارف، گزارش‌ها و نشر محتوا دسترسی دارد. کارمند به عملیات اجناس، حساب‌ها، خرید، فروش، پرداخت، گدام، بیلانس و اسناد دسترسی دارد. خلاصهٔ داشبورد شامل فروش و سود ماه نیز برای کارمند قابل مشاهده است.
+- رمزها با BCrypt نگهداری می‌شوند. نشست HttpOnly، محافظت CSRF، بررسی نقش در سرور و سوابق عملیات فعال است. تغییر نقش، رمز، نام کاربری یا غیرفعال کردن کاربر نشست قبلی او را باطل می‌کند.
 
-### 🎨 Design Features
+## اسناد و تم
 
-- ✅ Modern Corporate Design
-- ✅ Dark/Light Mode Toggle (persists via localStorage)
-- ✅ Fully Responsive (Mobile, Tablet, Desktop)
-- ✅ Persian (RTL) Support
-- ✅ Professional Typography (Inter Font)
-- ✅ Beautiful Cards and Tables
-- ✅ Toast Notifications
-- ✅ Confirmation Dialogs
-- ✅ Loading and Empty States
-- ✅ Form Validation
+فاکتور، بیلانس، رسید و نرخنامه از هویت مشترک شرکت استفاده می‌کنند. تصویر سربرگ PNG/JPEG/WebP تا ۲ مگابایت قابل بارگذاری است. دکمهٔ «چاپ / ذخیره PDF» پنجرهٔ چاپ مرورگر را باز می‌کند؛ برای فایل PDF گزینهٔ Save as PDF و اندازهٔ A4 را انتخاب کنید. خروجی CSV با UTF-8 برای Excel قابل دریافت است؛ خروجی بومی XLSX ارائه نشده است.
 
----
+تم روشن/تاریک و رنگ سبز/آبی/بنفش در مرورگر ذخیره می‌شود و بین صفحات مشترک است. حالت چاپ مستقل از تم و سفید است.
 
 ## 🛠️ Tech Stack
 
