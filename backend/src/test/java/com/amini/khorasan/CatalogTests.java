@@ -66,3 +66,26 @@ class CatalogTests {
       )
     );
   }
+
+  @Test
+  void storesParentDescriptionAndStatus() {
+    var root = category("اصلی", null);
+    var child = category("فرعی", id(root));
+    assertEquals(id(root), ((Number) child.get("parent_id")).longValue());
+    assertEquals("توضیحات دسته", child.get("description"));
+    assertEquals(true, child.get("active"));
+  }
+
+  @Test
+  void rejectsSelfParent() {
+    var root = category("اصلی", null);
+    var update = new HashMap<>(root);
+    update.put("parent_id", id(root));
+    assertThrows(IllegalArgumentException.class, () ->
+      controller.update("categories", "" + id(root), update)
+    );
+  }
+
+  @Test
+  void rejectsCycleAcrossThreeLevels() {
+    var root = category("اصلی", null);
