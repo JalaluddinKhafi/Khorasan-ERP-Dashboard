@@ -89,3 +89,24 @@ class CatalogTests {
   @Test
   void rejectsCycleAcrossThreeLevels() {
     var root = category("اصلی", null);
+    var child = category("فرعی", id(root));
+    var leaf = category("نهایی", id(child));
+    var update = new HashMap<>(root);
+    update.put("parent_id", id(leaf));
+    assertThrows(IllegalArgumentException.class, () ->
+      controller.update("categories", "" + id(root), update)
+    );
+  }
+
+  @Test
+  void countsProductsAndExposesParentName() {
+    var root = category("اصلی", null);
+    var child = category("فرعی", id(root));
+    controller.create("products", product(id(child)));
+    var listed = controller
+      .list("categories")
+      .stream()
+      .filter(c -> id(c) == id(child))
+      .findFirst()
+      .orElseThrow();
+    assertEquals(1, ((Number) listed.get("product_count")).intValue());
