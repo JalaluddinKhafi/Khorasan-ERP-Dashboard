@@ -26,3 +26,27 @@ class LedgerTests {
   JdbcTemplate db;
 
   @Autowired
+  MockMvc mvc;
+
+  long customer, supplier, product, employee;
+
+  @BeforeEach
+  void setup() {
+    db.update("DELETE FROM app_users WHERE username<>'admin'");
+    db.update(
+      "INSERT INTO app_users(username,password,name,role) VALUES('worker','test-hash','Worker','EMPLOYEE')"
+    );
+    for (String table : List.of(
+      "stock_movements",
+      "payments",
+      "invoice_items",
+      "invoices",
+      "expenses",
+      "employees",
+      "products",
+      "parties",
+      "audit_log"
+    ))
+      db.update("DELETE FROM " + table);
+    db.update("DELETE FROM currencies WHERE code<>'USD'");
+    db.update("INSERT INTO currencies VALUES('AFN','افغانی',70)");
