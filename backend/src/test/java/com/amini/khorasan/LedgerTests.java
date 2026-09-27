@@ -50,3 +50,26 @@ class LedgerTests {
       db.update("DELETE FROM " + table);
     db.update("DELETE FROM currencies WHERE code<>'USD'");
     db.update("INSERT INTO currencies VALUES('AFN','افغانی',70)");
+    db.update(
+      "INSERT INTO parties(kind,name) VALUES('CUSTOMER','مشتری آزمایشی')"
+    );
+    customer = ledger.inserted();
+    db.update(
+      "INSERT INTO parties(kind,name) VALUES('SUPPLIER','تهیه‌کننده آزمایشی')"
+    );
+    supplier = ledger.inserted();
+    db.update(
+      "INSERT INTO products(code,name,unit,purchase_price,sale_price,stock,min_stock) VALUES('TEST','پروفیل','شاخه',5,10,10,2)"
+    );
+    product = ledger.inserted();
+    db.update("INSERT INTO employees(name,salary) VALUES('کارمند',100)");
+    employee = ledger.inserted();
+  }
+
+  Map<String, Object> invoice(
+    String kind,
+    int qty,
+    String currency,
+    String rate,
+    String price
+  ) {
