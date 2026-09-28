@@ -120,3 +120,22 @@ class LedgerTests {
       BigDecimal.class,
       product
     );
+  }
+
+  @Test
+  void saleAndPaymentUseSnapshotRate() {
+    var i = ledger.invoice(invoice("SALE", 2, "AFN", "70", "700"));
+    assertEquals(
+      0,
+      new BigDecimal("20").compareTo((BigDecimal) i.get("total_usd"))
+    );
+    assertEquals(0, new BigDecimal("8").compareTo(stock()));
+    var p = payment(customer, "700");
+    p.put("invoice_id", i.get("id"));
+    ledger.payment(p);
+    db.update("UPDATE currencies SET rate=80 WHERE code='AFN'");
+    var s = ledger.statement(
+      customer,
+      java.time.LocalDate.of(2026, 1, 1),
+      java.time.LocalDate.of(2026, 12, 31)
+    );
