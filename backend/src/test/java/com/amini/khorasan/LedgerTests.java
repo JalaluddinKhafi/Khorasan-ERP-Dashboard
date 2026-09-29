@@ -139,3 +139,31 @@ class LedgerTests {
       java.time.LocalDate.of(2026, 1, 1),
       java.time.LocalDate.of(2026, 12, 31)
     );
+    assertEquals(
+      0,
+      new BigDecimal("10").compareTo((BigDecimal) s.get("closing"))
+    );
+  }
+
+  @Test
+  void insufficientStockRollsBack() {
+    assertThrows(IllegalArgumentException.class, () ->
+      ledger.invoice(invoice("SALE", 11, "USD", "1", "10"))
+    );
+    assertEquals(0, new BigDecimal("10").compareTo(stock()));
+    assertEquals(
+      0,
+      db.queryForObject("SELECT COUNT(*) FROM invoices", Integer.class)
+    );
+  }
+
+  @Test
+  void duplicateItemsAreRejected() {
+    var m = invoice("SALE", 1, "USD", "1", "10");
+    m.put(
+      "items",
+      Collections.nCopies(
+        2,
+        Map.of("product_id", product, "quantity", 1, "price", 10)
+      )
+    );
