@@ -213,3 +213,28 @@ class LedgerTests {
     var i = invoice("SALE", 1, "USD", "1", "10");
     i.put("discount", 11);
     assertThrows(IllegalArgumentException.class, () -> ledger.invoice(i));
+    assertThrows(IllegalArgumentException.class, () ->
+      ledger.invoice(invoice("SALE", -1, "USD", "1", "10"))
+    );
+  }
+
+  @Test
+  void zeroRateIsRejected() {
+    assertThrows(IllegalArgumentException.class, () ->
+      ledger.invoice(invoice("SALE", 1, "AFN", "0", "700"))
+    );
+  }
+
+  @Test
+  void voidSaleRestoresStock() {
+    var i = ledger.invoice(invoice("SALE", 2, "USD", "1", "10"));
+    ledger.voidInvoice(((Number) i.get("id")).longValue());
+    assertEquals(0, new BigDecimal("10").compareTo(stock()));
+    assertThrows(IllegalArgumentException.class, () ->
+      ledger.voidInvoice(((Number) i.get("id")).longValue())
+    );
+  }
+
+  @Test
+  void paidInvoiceCannotBeVoided() {
+    var i = ledger.invoice(invoice("SALE", 1, "USD", "1", "10"));
