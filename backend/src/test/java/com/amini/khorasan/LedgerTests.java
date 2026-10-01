@@ -262,3 +262,26 @@ class LedgerTests {
         "request_key",
         UUID.randomUUID().toString(),
         "employee_id",
+        employee,
+        "salary_month",
+        "2026-10",
+        "expense_date",
+        "2026-10-26",
+        "currency",
+        "USD",
+        "amount",
+        100,
+        "category",
+        "معاش"
+      )
+    );
+    ledger.expense(p, true);
+    p.put("request_key", UUID.randomUUID().toString());
+    assertThrows(
+      org.springframework.dao.DataIntegrityViolationException.class,
+      () -> ledger.expense(p, true)
+    );
+    assertEquals(
+      1,
+      db.queryForObject("SELECT COUNT(*) FROM expenses", Integer.class)
+    );
