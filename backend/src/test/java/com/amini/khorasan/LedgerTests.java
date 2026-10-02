@@ -306,3 +306,28 @@ class LedgerTests {
     mvc.perform(get("/api/products")).andExpect(status().isUnauthorized());
     mvc.perform(get("/api/public/products")).andExpect(status().isOk());
   }
+
+  @Test
+  void employeeCannotManageUsersOrPayroll() throws Exception {
+    mvc
+      .perform(get("/api/users").with(user("worker").roles("EMPLOYEE")))
+      .andExpect(status().isForbidden());
+    mvc
+      .perform(
+        post("/api/expenses/payroll")
+          .with(user("worker").roles("EMPLOYEE"))
+          .with(csrf())
+          .contentType("application/json")
+          .content("{}")
+      )
+      .andExpect(status().isForbidden());
+  }
+
+  @Test
+  void retryInvoiceDoesNotDuplicateStockMovement() {
+    var request = invoice("SALE", 2, "USD", "1", "10");
+    var a = ledger.invoice(request);
+    var b = ledger.invoice(request);
+    assertEquals(a.get("id"), b.get("id"));
+    assertEquals(0, new BigDecimal("8").compareTo(stock()));
+  }
