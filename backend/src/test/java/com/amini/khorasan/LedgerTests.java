@@ -285,3 +285,24 @@ class LedgerTests {
       1,
       db.queryForObject("SELECT COUNT(*) FROM expenses", Integer.class)
     );
+  }
+
+  @Test
+  void statementOpeningAndPrepayment() {
+    ledger.payment(payment(customer, "700"));
+    var s = ledger.statement(
+      customer,
+      java.time.LocalDate.of(2026, 11, 1),
+      java.time.LocalDate.of(2026, 12, 31)
+    );
+    assertEquals(
+      0,
+      new BigDecimal("-10").compareTo((BigDecimal) s.get("opening"))
+    );
+  }
+
+  @Test
+  void anonymousCannotAccessPrivateData() throws Exception {
+    mvc.perform(get("/api/products")).andExpect(status().isUnauthorized());
+    mvc.perform(get("/api/public/products")).andExpect(status().isOk());
+  }
