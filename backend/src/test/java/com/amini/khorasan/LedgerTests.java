@@ -331,3 +331,31 @@ class LedgerTests {
     assertEquals(a.get("id"), b.get("id"));
     assertEquals(0, new BigDecimal("8").compareTo(stock()));
   }
+
+  @Test
+  void openingBalanceAppearsInStatement() {
+    db.update(
+      "UPDATE parties SET opening_balance=123,opening_date='2026-01-01' WHERE id=?",
+      customer
+    );
+    var s = ledger.statement(
+      customer,
+      java.time.LocalDate.of(2026, 2, 1),
+      java.time.LocalDate.of(2026, 12, 31)
+    );
+    assertEquals(
+      0,
+      new BigDecimal("123").compareTo((BigDecimal) s.get("opening"))
+    );
+  }
+
+  @Test
+  void disabledUserSessionIsRevoked() throws Exception {
+    var session = new org.springframework.mock.web.MockHttpSession();
+    mvc
+      .perform(
+        get("/api/products")
+          .session(session)
+          .with(user("worker").roles("EMPLOYEE"))
+      )
+      .andExpect(status().isOk());
