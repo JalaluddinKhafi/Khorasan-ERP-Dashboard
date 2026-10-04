@@ -379,3 +379,25 @@ class LedgerTests {
           .content("{}")
       )
       .andExpect(status().isForbidden());
+  }
+
+  @Test
+  void concurrentSalesCannotOversell() throws Exception {
+    var pool = Executors.newFixedThreadPool(2);
+    try {
+      var tasks = List.<Callable<Boolean>>of(
+        () -> {
+          try {
+            ledger.invoice(invoice("SALE", 8, "USD", "1", "10"));
+            return true;
+          } catch (IllegalArgumentException e) {
+            return false;
+          }
+        },
+        () -> {
+          try {
+            ledger.invoice(invoice("SALE", 8, "USD", "1", "10"));
+            return true;
+          } catch (IllegalArgumentException e) {
+            return false;
+          }
