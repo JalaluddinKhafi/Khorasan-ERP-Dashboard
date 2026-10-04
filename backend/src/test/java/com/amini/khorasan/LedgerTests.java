@@ -401,3 +401,25 @@ class LedgerTests {
           } catch (IllegalArgumentException e) {
             return false;
           }
+        }
+      );
+      var results = pool.invokeAll(tasks);
+      assertEquals(
+        1,
+        results
+          .stream()
+          .filter(f -> {
+            try {
+              return f.get();
+            } catch (Exception e) {
+              throw new RuntimeException(e);
+            }
+          })
+          .count()
+      );
+      assertEquals(0, new BigDecimal("2").compareTo(stock()));
+    } finally {
+      pool.shutdownNow();
+    }
+  }
+}
