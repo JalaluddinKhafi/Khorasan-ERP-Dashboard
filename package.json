@@ -1,0 +1,16 @@
+{
+  "devDependencies": {
+    "playwright": "1.62.1",
+    "prettier": "3.6.2",
+    "prettier-plugin-java": "^2.11.0"
+  },
+  "name": "khorasan-system",
+  "scripts": {
+    "format": "prettier --write \"assets/js/{app,public,login,theme,api-service,catalog,icons}.js\" assets/css/app.css \"dashboard/*.html\" \"public-site/*.html\" scripts/e2e.cjs",
+    "test:ui": "node scripts/e2e.cjs",
+    "format:java": "prettier --plugin=prettier-plugin-java --write \"backend/src/**/*.java\"",
+    "test:login": "node scripts/test-login.cjs",
+    "test:catalog": "node scripts/test-catalog.cjs"
+  },
+  "private": true
+}
