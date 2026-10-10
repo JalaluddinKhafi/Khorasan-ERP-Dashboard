@@ -22,3 +22,18 @@ const env = Object.fromEntries(
       process.env.BROWSER_CHANNEL ||
       (process.platform === "win32" ? "msedge" : undefined),
   });
+  const context = await browser.newContext({
+    viewport: { width: 1440, height: 1000 },
+  });
+  const page = await context.newPage();
+  const errors = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  const goto = async (name) => {
+    await page.goto(base + "/dashboard/" + name + ".html");
+    await page.locator("#app h1").waitFor();
+    assert(
+      !(await page.locator("#app").innerText()).includes(
+        "دریافت معلومات انجام نشد",
+      ),
+    );
+  };
