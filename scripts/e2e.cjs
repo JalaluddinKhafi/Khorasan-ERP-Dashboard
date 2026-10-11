@@ -60,3 +60,20 @@ const env = Object.fromEntries(
     .fill(process.env.E2E_PASSWORD || env.ADMIN_PASSWORD);
   await page.getByRole("button", { name: "ورود به داشبورد" }).click();
   await page.waitForURL("**/dashboard.html");
+  const create = async (route, values) => {
+    await goto(route);
+    await page.locator("#add").click();
+    for (const [name, value] of Object.entries(values)) {
+      const el = page.locator("#editor [name=" + name + "]");
+      if ((await el.evaluate((e) => e.tagName)) === "SELECT")
+        await el.selectOption(String(value));
+      else await el.fill(String(value));
+    }
+    await page.locator("#editor button[type=submit]").click();
+    await page.locator("#editor").waitFor({ state: "hidden" });
+  };
+  const baseline = (await api("reports")).data;
+  const tag = Date.now().toString();
+  await create("categories", { name: "آزمایشی " + tag });
+  const cats = (await api("categories")).data;
+  const cat = cats.find((c) => c.name.includes(tag));
