@@ -77,3 +77,29 @@ const env = Object.fromEntries(
   await create("categories", { name: "آزمایشی " + tag });
   const cats = (await api("categories")).data;
   const cat = cats.find((c) => c.name.includes(tag));
+  await create("products", {
+    code: "QA-" + tag,
+    name: "پروفیل آزمایشی " + tag,
+    unit: "شاخه",
+    category_id: cat.id,
+    sale_price: 10,
+    purchase_price: 5,
+    stock: 10,
+    min_stock: 2,
+  });
+  await create("customers", {
+    name: "مشتری آزمایشی " + tag,
+    phone: "0700000000",
+    address: "هرات",
+  });
+  await create("suppliers", {
+    name: "تهیه‌کننده آزمایشی " + tag,
+    phone: "0700000001",
+    address: "هرات",
+  });
+  await create("employees", {
+    name: "کارمند آزمایشی " + tag,
+    phone: "0700000002",
+    position: "فروشنده",
+    salary: 100,
+  });
