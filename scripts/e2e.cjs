@@ -121,3 +121,25 @@ const env = Object.fromEntries(
     rate: 70,
   });
   assert([200, 409].includes(currency.status));
+  async function invoice(route, party, qty, currency, price) {
+    await goto(route);
+    await page.locator("#new-invoice").click();
+    await page.locator("#editor [name=party_id]").selectOption(String(party));
+    await page.locator("#editor [name=currency]").selectOption(currency);
+    await page
+      .locator("#editor [data-product]")
+      .selectOption(String(product.id));
+    await page.locator("#editor [data-quantity]").fill(String(qty));
+    if (price !== undefined)
+      await page.locator("#editor [data-price]").fill(String(price));
+    await page.locator("#editor button[type=submit]").click();
+    await page.locator("#editor").waitFor({ state: "hidden" });
+  }
+  await invoice("purchases", supplier.id, 5, "USD", 8);
+  await invoice("sales", customer.id, 2, "AFN", 700);
+  const sale = (await api("invoices?kind=SALE")).data.find(
+    (i) => i.party_id === customer.id,
+  );
+  assert.equal(Number(sale.total_usd), 20);
+  await goto("payments");
+  await page.locator("#add-payment").click();
