@@ -163,3 +163,20 @@ const env = Object.fromEntries(
   const stock = (await api("products")).data.find((p) => p.id === product.id);
   assert.equal(Number(stock.stock), 13);
   assert.equal(Number(stock.purchase_price), 6);
+  const st = (await api("statement/" + customer.id)).data;
+  assert.equal(Number(st.closing), 10);
+  assert.equal(st.rows.length, 2);
+  const report = (await api("reports")).data;
+  assert.equal(Number(report.sales) - Number(baseline.sales), 20);
+  assert.equal(Number(report.cost) - Number(baseline.cost), 12);
+  assert.equal(Number(report.expenses) - Number(baseline.expenses), 105);
+  assert.equal(Number(report.profit) - Number(baseline.profit), -97);
+  const over = await api("payments", {
+    request_key: crypto.randomUUID(),
+    party_id: customer.id,
+    invoice_id: sale.id,
+    payment_date: "2026-10-26",
+    amount: 11,
+    currency: "USD",
+  });
+  assert.equal(over.status, 400);
