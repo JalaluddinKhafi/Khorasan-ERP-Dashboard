@@ -143,3 +143,23 @@ const env = Object.fromEntries(
   assert.equal(Number(sale.total_usd), 20);
   await goto("payments");
   await page.locator("#add-payment").click();
+  await page
+    .locator("#editor [name=party_id]")
+    .selectOption(String(customer.id));
+  await page.locator("#editor [name=invoice_id]").selectOption(String(sale.id));
+  await page.locator("#editor [name=currency]").selectOption("AFN");
+  await page.locator("#editor [name=amount]").fill("700");
+  await page.locator("#editor button[type=submit]").click();
+  await page.locator("#editor").waitFor({ state: "hidden" });
+  await goto("employees");
+  await page.locator('[data-payroll="' + employee.id + '"]').click();
+  await page.locator("#editor button[type=submit]").click();
+  await page.locator("#editor").waitFor({ state: "hidden" });
+  await goto("expenses");
+  await page.locator("#add-expense").click();
+  await page.locator("#editor [name=amount]").fill("5");
+  await page.locator("#editor button[type=submit]").click();
+  await page.locator("#editor").waitFor({ state: "hidden" });
+  const stock = (await api("products")).data.find((p) => p.id === product.id);
+  assert.equal(Number(stock.stock), 13);
+  assert.equal(Number(stock.purchase_price), 6);
