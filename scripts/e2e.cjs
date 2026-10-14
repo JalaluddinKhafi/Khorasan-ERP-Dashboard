@@ -180,3 +180,28 @@ const env = Object.fromEntries(
     currency: "USD",
   });
   assert.equal(over.status, 400);
+  const oversell = await api("invoices", {
+    request_key: crypto.randomUUID(),
+    kind: "SALE",
+    party_id: customer.id,
+    invoice_date: "2026-10-26",
+    currency: "USD",
+    discount: 0,
+    items: [{ product_id: product.id, quantity: 100, price: 10 }],
+  });
+  assert.equal(oversell.status, 400);
+  await goto("settings");
+  await page
+    .locator("#header-upload")
+    .setInputFiles("assets/images/amini-letterhead.jpg");
+  await page.locator("#settings-form button.primary").click();
+  await page
+    .getByRole("status")
+    .filter({ hasText: "تنظیمات ذخیره شد" })
+    .waitFor();
+  await page.goto(base + "/dashboard/sales-invoice.html?id=" + sale.id);
+  await page.locator(".print-sheet .header-image").waitFor();
+  await page.screenshot({ path: "tmp/invoice-screen.png", fullPage: true });
+  await page.emulateMedia({ media: "print" });
+  await page.screenshot({ path: "tmp/invoice-print.png", fullPage: true });
+  await page.emulateMedia({ media: "screen" });
