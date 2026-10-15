@@ -226,3 +226,26 @@ const env = Object.fromEntries(
     .getByRole("link")
     .click();
   await page.getByRole("heading", { name: "مقاله آزمایشی " + tag }).waitFor();
+  await page.goto(base + "/public-site/contact.html");
+  await page.locator("[name=name]").fill("پیام آزمایشی " + tag);
+  await page.locator("[name=email]").fill("test@example.com");
+  await page.locator("[name=message]").fill("پیام آزمایشی");
+  await page.getByRole("button", { name: "ارسال پیام" }).click();
+  await page
+    .getByRole("status")
+    .filter({ hasText: "پیام شما ثبت شد" })
+    .waitFor();
+  const publics = [
+    "index",
+    "about",
+    "products",
+    "services",
+    "blog",
+    "gallery",
+    "contact",
+    "faq",
+    "privacy",
+    "terms",
+  ];
+  for (const route of publics) {
+    await page.goto(base + "/public-site/" + route + ".html");
