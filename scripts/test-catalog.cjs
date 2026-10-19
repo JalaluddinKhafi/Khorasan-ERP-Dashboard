@@ -40,3 +40,26 @@ const env = Object.fromEntries(
       ),
     );
   };
+  const api = (path, data, method) =>
+    page.evaluate(
+      async ({ path, data, method }) => {
+        const c = await (await fetch("/api/csrf")).json();
+        const r = await fetch("/api/" + path, {
+          method: method || (data ? "POST" : "GET"),
+          headers: {
+            "Content-Type": "application/json",
+            [c.headerName]: c.token,
+          },
+          ...(data ? { body: JSON.stringify(data) } : {}),
+        });
+        return { status: r.status, data: await r.json() };
+      },
+      { path, data, method },
+    );
+  await page.goto(base + "/dashboard/login.html");
+  await page.locator("[name=username]").fill("admin");
+  await page
+    .locator("[name=password]")
+    .fill(process.env.E2E_PASSWORD || env.ADMIN_PASSWORD);
+  await page.getByRole("button", { name: "ورود به داشبورد" }).click();
+  await page.waitForURL("**/dashboard.html");
