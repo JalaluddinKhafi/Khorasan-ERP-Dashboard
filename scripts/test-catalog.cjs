@@ -63,3 +63,25 @@ const env = Object.fromEntries(
     .fill(process.env.E2E_PASSWORD || env.ADMIN_PASSWORD);
   await page.getByRole("button", { name: "ورود به داشبورد" }).click();
   await page.waitForURL("**/dashboard.html");
+  await page.evaluate(() => {
+    setTheme("light");
+    setAccent("blue");
+  });
+  await goto("categories");
+  await page.locator("#add").click();
+  await page.locator("#editor [name=name]").fill(rootName);
+  await page
+    .locator("#editor [name=description]")
+    .fill("دستهٔ اصلی اجناس برقی");
+  await page.locator("#editor button[type=submit]").click();
+  await page.locator("#editor").waitFor({ state: "hidden" });
+  let cats = (await api("categories")).data;
+  const root = cats.find((c) => c.name === rootName);
+  await page.locator('[data-child="' + root.id + '"]').click();
+  assert.equal(
+    await page.locator("#editor [name=parent_id]").inputValue(),
+    String(root.id),
+  );
+  await page.locator("#editor [name=name]").fill(childName);
+  await page.locator("#editor [name=description]").fill("انواع لپ تاپ");
+  await page.locator("#editor button[type=submit]").click();
