@@ -129,3 +129,24 @@ const env = Object.fromEntries(
   const product = (await api("products")).data.find(
     (p) => p.code === "P-" + tag,
   );
+  assert(product.image.startsWith("data:image/png;base64,"));
+  assert.equal(product.barcode, "BAR-" + tag);
+  assert(product.description.includes("ضمانت"));
+  const low = (
+    await api("products", {
+      code: "LOW-" + tag,
+      name: "لپ تاپ کم‌موجود " + tag,
+      category_id: leaf.id,
+      unit: "عدد",
+      purchase_price: 400,
+      sale_price: 500,
+      stock: 1,
+      min_stock: 4,
+      barcode: "LOW-" + tag,
+      description: "موجودی محدود",
+      active: true,
+      image: product.image,
+    })
+  ).data;
+  await api("products", {
+    code: "OFF-" + tag,
