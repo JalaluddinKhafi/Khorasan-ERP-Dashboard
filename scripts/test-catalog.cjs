@@ -150,3 +150,23 @@ const env = Object.fromEntries(
   ).data;
   await api("products", {
     code: "OFF-" + tag,
+    name: "جنس غیرفعال " + tag,
+    category_id: other.id,
+    unit: "عدد",
+    purchase_price: 20,
+    sale_price: 30,
+    stock: 3,
+    min_stock: 1,
+    active: false,
+  });
+  await goto("products");
+  await page.locator("#category-filter").selectOption(String(root.id));
+  assert.equal(await page.locator("#records tbody tr").count(), 2);
+  await page.locator("#stock-filter").selectOption("low");
+  assert.equal(await page.locator("#records tbody tr").count(), 1);
+  assert((await page.locator("#records").innerText()).includes(low.name));
+  await page.locator("#product-filters button[type=reset]").click();
+  await page.locator("#search").fill("BAR-" + tag);
+  assert.equal(await page.locator("#records tbody tr").count(), 1);
+  await page.locator('[data-details="' + product.id + '"]').click();
+  await page.locator("#product-details").waitFor();
