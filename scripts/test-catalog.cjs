@@ -170,3 +170,27 @@ const env = Object.fromEntries(
   assert.equal(await page.locator("#records tbody tr").count(), 1);
   await page.locator('[data-details="' + product.id + '"]').click();
   await page.locator("#product-details").waitFor();
+  for (const label of [
+    "کد کالا",
+    "نام کالا",
+    "دسته‌بندی",
+    "قیمت خرید",
+    "قیمت فروش",
+    "سود هر واحد",
+    "موجودی فعلی",
+    "حداقل موجودی هشدار",
+    "وضعیت",
+    "بارکد",
+    "توضیحات",
+  ])
+    assert(
+      (await page.locator("#product-details").innerText()).includes(label),
+    );
+  assert.equal(await page.locator("#product-details img").count(), 1);
+  assert(
+    (await page.locator("#product-details").innerText()).includes("BAR-" + tag),
+  );
+  await page.screenshot({
+    path: "tmp/catalog-details-light.png",
+    fullPage: true,
+  });
