@@ -1,66 +1,20 @@
-// سرویس عمومی برای اتصال به API
-const API_BASE = 'http://localhost:8080/api';
-
-export async function fetchData(endpoint, options = {}) {
-    try {
-        const url = `${API_BASE}${endpoint.startsWith('/') ? '' : '/'}${endpoint}`;
-        const response = await fetch(url, {
-            headers: { 'Content-Type': 'application/json' },
-            ...options
-        });
-
-        if (!response.ok) {
-            throw new Error(`Request failed with status ${response.status}`);
-        }
-
-        const payload = await response.json();
-        return payload && Object.prototype.hasOwnProperty.call(payload, 'data') ? payload.data : payload;
-    } catch (error) {
-        console.warn('API unavailable, using mock data:', error);
-        return mockDatabase[endpoint] || [];
-    }
+// Frontend adapter. A Spring Boot adapter can replace this module later.
+export async function fetchData(endpoint) {
+    const name=String(endpoint).replace(/^\//,'');
+    const store=window.FrontendStore;
+    const seeds=window.DemoData;
+    if(!store || !seeds) throw new Error('Load frontend-store.js and demo-data.js first');
+    if(name==='users' && window.OrgContext)return OrgContext.accounts();
+    const collections={products:'products',customers:'customers',suppliers:'suppliers',categories:'categories',sales:'sales',purchases:'purchases',expenses:'expenses',users:'users',receipts:'receipts'};
+    if(collections[name]) return store.read(name,seeds[name]);
+    if(name==='sales/latest') return store.read('sales',seeds.sales).slice(-5).reverse();
+    if(name==='products/top') return store.read('products',seeds.products).slice(0,5);
+    if(name==='dashboard' || name==='dashboard/stats') return {
+        totalProducts:store.read('products',seeds.products).length,
+        totalCustomers:store.read('customers',seeds.customers).length,
+        totalSuppliers:store.read('suppliers',seeds.suppliers).length,
+        totalPurchaseInvoices:store.read('purchases',seeds.purchases).length,
+        totalSalesInvoices:store.read('sales',seeds.sales).length
+    };
+    throw new Error('Unknown frontend collection: '+name);
 }
-
-// دیتابیس محلی با اطلاعات فارسی
-const mockDatabase = {
-    'dashboard': {
-        totalProducts: 248,
-        totalCustomers: 1240,
-        totalSuppliers: 56,
-        totalPurchaseInvoices: 312,
-        totalSalesInvoices: 589,
-        todaySales: 18420000,
-        monthSales: 478300000,
-        monthProfit: 112400000,
-        debtCustomers: 45800000,
-        debtSuppliers: 23700000,
-        pendingOrders: 23,
-        lowStockCount: 8
-    },
-    'dashboard/stats': {
-        totalProducts: 248,
-        totalCustomers: 1240,
-        totalSuppliers: 56,
-        totalPurchaseInvoices: 312,
-        totalSalesInvoices: 589,
-        todaySales: 18420000,
-        monthSales: 478300000,
-        monthProfit: 112400000,
-        debtCustomers: 45800000,
-        debtSuppliers: 23700000
-    },
-    'products': [
-        { id: 1, code: 'P1001', name: 'لپ تاپ ایسوس', category: 'الکترونیک', purchasePrice: 25000000, salePrice: 28500000, unit: 'عدد', status: 'موجود', stock: 45, description: 'لپ تاپ گیمینگ', image: '' },
-        { id: 2, code: 'P1002', name: 'گوشی سامسونگ', category: 'الکترونیک', purchasePrice: 38000000, salePrice: 42000000, unit: 'عدد', status: 'موجود', stock: 28, description: '', image: '' },
-        { id: 3, code: 'P1003', name: 'هدفون سونی', category: 'الکترونیک', purchasePrice: 6500000, salePrice: 8900000, unit: 'عدد', status: 'موجود', stock: 112, description: '', image: '' }
-    ],
-    'products/top': [
-        { name: 'لپ تاپ ایسوس', sales: 342 },
-        { name: 'گوشی سامسونگ', sales: 298 },
-        { name: 'هدفون بلوتوثی', sales: 512 }
-    ],
-    'sales/latest': [
-        { id: 1001, customer: 'آرمان پوراحمد', total: 12500000, date: '1402/12/05' },
-        { id: 1002, customer: 'شرکت تدبیر', total: 33600000, date: '1402/12/04' }
-    ]
-};
