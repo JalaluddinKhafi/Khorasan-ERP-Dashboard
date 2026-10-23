@@ -194,3 +194,23 @@ const env = Object.fromEntries(
     path: "tmp/catalog-details-light.png",
     fullPage: true,
   });
+  await page.locator("#product-details [data-close]").first().click();
+  await page.locator('[data-edit="' + product.id + '"]').click();
+  assert.equal(
+    await page.locator("#editor [name=barcode]").inputValue(),
+    "BAR-" + tag,
+  );
+  await page
+    .locator("#editor [name=description]")
+    .fill("توضیحات ویرایش‌شده و ذخیره‌شده");
+  await page.locator("#editor button[type=submit]").click();
+  await page.locator("#editor").waitFor({ state: "hidden" });
+  const updated = (await api("products/" + product.id)).data;
+  assert.equal(updated.description, "توضیحات ویرایش‌شده و ذخیره‌شده");
+  assert.equal(updated.image, product.image);
+  await page.locator("#status-filter").selectOption("inactive");
+  assert(
+    (await page.locator("#records").innerText()).includes("جنس غیرفعال " + tag),
+  );
+  await page.locator("#product-filters button[type=reset]").click();
+  await page.locator("#category-filter").selectOption(String(root.id));
