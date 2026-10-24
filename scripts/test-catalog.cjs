@@ -258,3 +258,25 @@ const env = Object.fromEntries(
   assert.equal(await page.locator("#latest-sales table").count(), 1);
   assert.equal(await page.locator("#latest-purchases table").count(), 1);
   assert.equal(await page.locator("#low-stock table").count(), 1);
+  assert((await page.locator("#low-stock").innerText()).includes(low.name));
+  assert.equal(await page.locator(".quick-actions > a").count(), 4);
+  const colors = await page.evaluate(() => ({
+    nav: getComputedStyle(document.querySelector(".sidebar")).backgroundImage,
+    body: getComputedStyle(document.body).backgroundColor,
+  }));
+  assert.notEqual(colors.nav, "none");
+  await page.screenshot({
+    path: "tmp/catalog-dashboard-light.png",
+    fullPage: true,
+  });
+  await page.locator('.quick-actions a[href="products.html?new=1"]').click();
+  await page.locator("#editor").waitFor();
+  assert(!new URL(page.url()).searchParams.has("new"));
+  await page.locator("#cancel-editor").click();
+  await goto("dashboard");
+  await page.locator("#theme").click();
+  await page.screenshot({
+    path: "tmp/catalog-dashboard-dark.png",
+    fullPage: true,
+  });
+  await goto("products");
