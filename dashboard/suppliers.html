@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مدیریت تامین‌کنندگان | داشبورد</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link href="../assets/vendor/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/vendor/all.min.css">
+    <link rel="stylesheet" href="../assets/vendor/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../assets/js/frontend-store.js"></script>
+    <script src="../assets/js/demo-data.js"></script>
+    <script src="../assets/js/organization.js"></script>
+    <script src="../assets/js/persian.js"></script>
+    <script src="../assets/js/utils.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -109,10 +114,9 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/vendor/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/jquery-3.6.0.min.js"></script>
+    <script src="../assets/vendor/jquery.dataTables.min.js"></script>
     <script src="../assets/js/components.js"></script>
     <script>
         let suppliersData = [];
@@ -120,26 +124,24 @@
         let currentSupplierId = null;
         
         function loadSuppliers() {
-            suppliersData = [
-                { id: 1, code: "SUP-001", name: "توزیع کننده البرز", phone: "۰۲۱-۵۵۵۵۱۲۳۴", email: "info@alborz.com", address: "تهران، خیابان آزادی", account: "IR1234567890", status: "فعال", debt: 56000000 },
-                { id: 2, code: "SUP-002", name: "واردات سامسونگ", phone: "۰۲۱-۵۵۵۵۶۷۸۹", email: "sales@samsung.ir", address: "تهران، خیابان ولیعصر", account: "IR0987654321", status: "فعال", debt: 234000000 },
-                { id: 3, code: "SUP-003", name: "بازرگانی نوین", phone: "۰۲۱-۵۵۵۵۹۰۱۲", email: "info@novin.com", address: "کرج، میدان آزادگان", account: "", status: "غیرفعال", debt: 0 }
-            ];
+            suppliersData = FrontendStore.read('suppliers', DemoData.suppliers);
             renderSuppliersTable();
         }
         
         function renderSuppliersTable() {
+            FrontendStore.write('suppliers', suppliersData);
+            destroyDataTable('suppliersTable');
             const tbody = document.getElementById('suppliersTableBody');
             if (!tbody) return;
             
             tbody.innerHTML = suppliersData.map(s => `
                 <tr>
-                    <td>${s.code}</td>
-                                        <td>${s.name}</td>
-                    <td>${s.phone}</td>
-                    <td>${s.email}</td>
+                    <td>${escapeHTML(s.code)}</td>
+                                        <td>${escapeHTML(s.name)}</td>
+                    <td>${escapeHTML(s.phone)}</td>
+                    <td>${escapeHTML(s.email)}</td>
                     <td class="${s.debt > 0 ? 'text-danger fw-bold' : 'text-success'}">${s.debt.toLocaleString()} تومان</td>
-                    <td><span class="badge ${s.status === 'فعال' ? 'bg-success' : 'bg-secondary'}">${s.status}</span></td>
+                    <td><span class="badge ${s.status === 'فعال' ? 'bg-success' : 'bg-secondary'}">${escapeHTML(s.status)}</span></td>
                     <td>
                         <button class="btn btn-sm btn-info edit-supplier" data-id="${s.id}"><i class="fas fa-edit"></i></button>
                         <button class="btn btn-sm btn-primary view-details" data-id="${s.id}"><i class="fas fa-eye"></i></button>
@@ -148,9 +150,10 @@
                 </tr>
             `).join('');
             
-            if (suppliersTable) suppliersTable.destroy();
+
+            $('#suppliersTable').off('draw.dt.khorasan').on('draw.dt.khorasan', attachSupplierEvents);
             suppliersTable = $('#suppliersTable').DataTable({
-                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                language: window.PersianTableLanguage,
                 pageLength: 10
             });
             
@@ -159,13 +162,13 @@
         
         function attachSupplierEvents() {
             document.querySelectorAll('.edit-supplier').forEach(btn => {
-                btn.addEventListener('click', () => editSupplier(parseInt(btn.dataset.id)));
+                btn.onclick = () => editSupplier(parseInt(btn.dataset.id));
             });
             document.querySelectorAll('.view-details').forEach(btn => {
-                btn.addEventListener('click', () => viewSupplierDetails(parseInt(btn.dataset.id)));
+                btn.onclick = () => viewSupplierDetails(parseInt(btn.dataset.id));
             });
             document.querySelectorAll('.delete-supplier').forEach(btn => {
-                btn.addEventListener('click', () => showDeleteSupplierModal(parseInt(btn.dataset.id)));
+                btn.onclick = () => showDeleteSupplierModal(parseInt(btn.dataset.id));
             });
         }
         
@@ -191,7 +194,7 @@
             if (!supplier) return;
             
             // تاریخچه تراکنش‌های نمونه
-            const transactions = [
+            const transactions = OrgContext.isBranch()?FrontendStore.read('purchases',[]).filter(p=>p.supplier===supplier.name).map(p=>({...p,amount:p.total})):[
                 { date: "۱۴۰۲/۱۲/۰۵", invoiceNo: "P-2024-001", amount: 56000000, status: "پرداخت کامل" },
                 { date: "۱۴۰۲/۱۱/۲۰", invoiceNo: "P-2024-002", amount: 125000000, status: "پرداخت جزئی" }
             ];
@@ -199,26 +202,27 @@
             document.getElementById('supplierDetails').innerHTML = `
                 <div class="row">
                     <div class="col-md-6">
-                        <p><strong>نام تامین‌کننده:</strong> ${supplier.name}</p>
-                        <p><strong>کد اقتصادی:</strong> ${supplier.code}</p>
-                        <p><strong>شماره تماس:</strong> ${supplier.phone}</p>
+                        <p><strong>نام تامین‌کننده:</strong> ${escapeHTML(supplier.name)}</p>
+                        <p><strong>کد اقتصادی:</strong> ${escapeHTML(supplier.code)}</p>
+                        <p><strong>شماره تماس:</strong> ${escapeHTML(supplier.phone)}</p>
                     </div>
                     <div class="col-md-6">
-                        <p><strong>ایمیل:</strong> ${supplier.email}</p>
-                        <p><strong>آدرس:</strong> ${supplier.address}</p>
+                        <p><strong>ایمیل:</strong> ${escapeHTML(supplier.email)}</p>
+                        <p><strong>آدرس:</strong> ${escapeHTML(supplier.address)}</p>
                         <p><strong>بدهی جاری:</strong> <span class="text-danger">${supplier.debt.toLocaleString()} تومان</span></p>
                     </div>
                 </div>
             `;
             
+            destroyDataTable('transactionHistoryTable');
             const tbody = document.getElementById('transactionHistoryBody');
             if (tbody) {
                 tbody.innerHTML = transactions.map(t => `
                     <tr>
-                        <td>${t.date}</td>
-                        <td>${t.invoiceNo}</td>
+                        <td>${escapeHTML(t.date)}</td>
+                        <td>${escapeHTML(t.invoiceNo)}</td>
                         <td>${t.amount.toLocaleString()} تومان</td>
-                        <td><span class="badge ${t.status === 'پرداخت کامل' ? 'bg-success' : 'bg-warning'}">${t.status}</span></td>
+                        <td><span class="badge ${t.status === 'پرداخت کامل' ? 'bg-success' : 'bg-warning'}">${escapeHTML(t.status)}</span></td>
                     </tr>
                 `).join('');
             }
@@ -227,6 +231,7 @@
         }
         
         function saveSupplier() {
+            if (!validateForm('supplierForm')) return;
             const id = document.getElementById('supplierId').value;
             
             const supplier = {

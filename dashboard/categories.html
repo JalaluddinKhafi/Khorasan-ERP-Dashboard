@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مدیریت دسته‌بندی | داشبورد</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link href="../assets/vendor/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/vendor/all.min.css">
+    <link rel="stylesheet" href="../assets/vendor/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../assets/js/frontend-store.js"></script>
+    <script src="../assets/js/demo-data.js"></script>
+    <script src="../assets/js/organization.js"></script>
+    <script src="../assets/js/persian.js"></script>
+    <script src="../assets/js/utils.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -116,10 +121,9 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/vendor/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/jquery-3.6.0.min.js"></script>
+    <script src="../assets/vendor/jquery.dataTables.min.js"></script>
     <script src="../assets/js/components.js"></script>
     <script>
         let categoriesData = [];
@@ -127,16 +131,9 @@
         let categoriesTable = null;
         
         function loadCategories() {
-            categoriesData = [
-                { id: 1, name: "الکترونیک", parentId: null, parentName: "ریشه", productCount: 48, status: "active", description: "محصولات الکترونیکی" },
-                { id: 2, name: "لپ تاپ", parentId: 1, parentName: "الکترونیک", productCount: 15, status: "active", description: "" },
-                { id: 3, name: "گوشی موبایل", parentId: 1, parentName: "الکترونیک", productCount: 12, status: "active", description: "" },
-                { id: 4, name: "هدفون", parentId: 1, parentName: "الکترونیک", productCount: 8, status: "active", description: "" },
-                { id: 5, name: "پوشاک", parentId: null, parentName: "ریشه", productCount: 32, status: "active", description: "" },
-                { id: 6, name: "زنانه", parentId: 5, parentName: "پوشاک", productCount: 18, status: "active", description: "" },
-                { id: 7, name: "مردانه", parentId: 5, parentName: "پوشاک", productCount: 14, status: "inactive", description: "" }
-            ];
+            categoriesData = FrontendStore.read('categories', DemoData.categories);
             
+            categoriesData.forEach(c => { c.parentName = categoriesData.find(p => p.id === c.parentId)?.name || 'ریشه'; });
             renderCategoryTree();
             renderCategoriesTable();
         }
@@ -159,14 +156,14 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <i class="fas fa-folder-${children.length > 0 ? 'open' : 'closed'} text-warning me-2"></i>
-                            <span>${category.name}</span>
+                            <span>${escapeHTML(category.name)}</span>
                             <span class="category-badge me-2">${category.productCount} محصول</span>
                             ${category.status === 'inactive' ? '<span class="badge bg-secondary">غیرفعال</span>' : ''}
                         </div>
                         <div class="tree-actions">
                             <button class="btn btn-sm btn-info edit-category" data-id="${category.id}"><i class="fas fa-edit"></i></button>
                             <button class="btn btn-sm btn-danger delete-category" data-id="${category.id}"><i class="fas fa-trash"></i></button>
-                            <button class="btn btn-sm btn-success add-subcategory" data-id="${category.id}" data-name="${category.name}"><i class="fas fa-plus"></i> زیرمجموعه</button>
+                            <button class="btn btn-sm btn-success add-subcategory" data-id="${category.id}" data-name="${escapeHTML(category.name)}"><i class="fas fa-plus"></i> زیرمجموعه</button>
                         </div>
                     </div>
                 </div>
@@ -184,14 +181,16 @@
         }
         
         function renderCategoriesTable() {
+            FrontendStore.write('categories', categoriesData);
+            destroyDataTable('categoriesTable');
             const tbody = document.getElementById('categoriesTableBody');
             if (!tbody) return;
             
             tbody.innerHTML = categoriesData.map(cat => `
                 <tr>
                     <td>${cat.id}</td>
-                    <td>${cat.name}</td>
-                    <td>${cat.parentName || '---'}</td>
+                    <td>${escapeHTML(cat.name)}</td>
+                    <td>${escapeHTML(cat.parentName || '---')}</td>
                     <td>${cat.productCount}</td>
                     <td>
                         <button class="btn btn-sm btn-info edit-category-table" data-id="${cat.id}"><i class="fas fa-edit"></i></button>
@@ -200,9 +199,10 @@
                 </tr>
             `).join('');
             
-            if (categoriesTable) categoriesTable.destroy();
+
+            $('#categoriesTable').off('draw.dt.khorasan').on('draw.dt.khorasan', attachTableEvents);
             categoriesTable = $('#categoriesTable').DataTable({
-                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" }
+                language: window.PersianTableLanguage
             });
             
             attachTableEvents();
@@ -210,10 +210,10 @@
         
         function attachTableEvents() {
             document.querySelectorAll('.edit-category-table').forEach(btn => {
-                btn.addEventListener('click', () => editCategory(parseInt(btn.dataset.id)));
+                btn.onclick = () => editCategory(parseInt(btn.dataset.id));
             });
             document.querySelectorAll('.delete-category-table').forEach(btn => {
-                btn.addEventListener('click', () => showDeleteModal(parseInt(btn.dataset.id)));
+                btn.onclick = () => showDeleteModal(parseInt(btn.dataset.id));
             });
         }
         
@@ -237,9 +237,18 @@
         }
         
         function saveCategory() {
+            if (!validateForm('categoryForm')) return;
             const id = document.getElementById('categoryId').value;
             const parentId = document.getElementById('parentCategory').value;
             
+            const categoryId = Number(id);
+            let ancestor = Number(parentId);
+            const seen = new Set();
+            while (ancestor) {
+                if (ancestor === categoryId || seen.has(ancestor)) { showToast('دسته‌بندی والد نامعتبر است', 'error'); return; }
+                seen.add(ancestor);
+                ancestor = categoriesData.find(c => c.id === ancestor)?.parentId;
+            }
             const newCategory = {
                 id: id ? parseInt(id) : Date.now(),
                 name: document.getElementById('categoryName').value,
@@ -247,7 +256,7 @@
                 parentName: parentId ? categoriesData.find(c => c.id === parseInt(parentId))?.name : 'ریشه',
                 description: document.getElementById('categoryDesc').value,
                 status: document.getElementById('categoryStatus').value,
-                productCount: 0
+                productCount: categoriesData.find(c => c.id === Number(id))?.productCount || 0
             };
             
             if (id) {
@@ -261,6 +270,7 @@
                 showToast('دسته‌بندی با موفقیت اضافه شد', 'success');
             }
             
+            categoriesData.forEach(c => { c.parentName = categoriesData.find(p => p.id === c.parentId)?.name || 'ریشه'; });
             renderCategoryTree();
             renderCategoriesTable();
             bootstrap.Modal.getInstance(document.getElementById('categoryModal')).hide();
@@ -269,7 +279,12 @@
         
         function confirmDelete() {
             if (deleteCategoryId) {
-                categoriesData = categoriesData.filter(c => c.id !== deleteCategoryId);
+                const removed = new Set([deleteCategoryId]);
+                for (let changed = true; changed;) {
+                    changed = false;
+                    categoriesData.forEach(c => { if (removed.has(c.parentId) && !removed.has(c.id)) { removed.add(c.id); changed = true; } });
+                }
+                categoriesData = categoriesData.filter(c => !removed.has(c.id));
                 renderCategoryTree();
                 renderCategoriesTable();
                 showToast('دسته‌بندی با موفقیت حذف شد', 'success');
@@ -301,13 +316,13 @@
         function attachTreeEvents() {
             setTimeout(() => {
                 document.querySelectorAll('.edit-category').forEach(btn => {
-                    btn.addEventListener('click', () => editCategory(parseInt(btn.dataset.id)));
+                    btn.onclick = () => editCategory(parseInt(btn.dataset.id));
                 });
                 document.querySelectorAll('.delete-category').forEach(btn => {
-                    btn.addEventListener('click', () => showDeleteModal(parseInt(btn.dataset.id)));
+                    btn.onclick = () => showDeleteModal(parseInt(btn.dataset.id));
                 });
                 document.querySelectorAll('.add-subcategory').forEach(btn => {
-                    btn.addEventListener('click', () => addSubcategory(parseInt(btn.dataset.id), btn.dataset.name));
+                    btn.onclick = () => addSubcategory(parseInt(btn.dataset.id), btn.dataset.name);
                 });
             }, 100);
         }

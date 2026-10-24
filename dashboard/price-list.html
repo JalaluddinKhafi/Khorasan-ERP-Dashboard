@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لیست قیمت محصولات | داشبورد</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link href="../assets/vendor/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/vendor/all.min.css">
+    <link rel="stylesheet" href="../assets/vendor/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         .price-list-header {
@@ -76,6 +76,11 @@
             }
         }
     </style>
+    <script src="../assets/js/frontend-store.js"></script>
+    <script src="../assets/js/demo-data.js"></script>
+    <script src="../assets/js/organization.js"></script>
+    <script src="../assets/js/persian.js"></script>
+    <script src="../assets/js/utils.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -153,14 +158,13 @@
         <i class="fas fa-print"></i>
     </button>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/vendor/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/jquery-3.6.0.min.js"></script>
+    <script src="../assets/vendor/jquery.dataTables.min.js"></script>
     <script src="../assets/js/components.js"></script>
     <script>
         // داده‌های محصولات
-        const productsList = [
+        const productsList = FrontendStore.read('products', [
             { id: 1, code: "P1001", name: "لپ تاپ ایسوس ROG Zephyrus", category: "الکترونیک", purchasePrice: 28500000, salePrice: 35500000, unit: "عدد", stock: 45, image: "" },
             { id: 2, code: "P1002", name: "گوشی سامسونگ Galaxy S24 Ultra", category: "الکترونیک", purchasePrice: 38000000, salePrice: 42000000, unit: "عدد", stock: 8, image: "" },
             { id: 3, code: "P1003", name: "هدفون سونی WH-1000XM5", category: "الکترونیک", purchasePrice: 6500000, salePrice: 8900000, unit: "عدد", stock: 112, image: "" },
@@ -168,33 +172,34 @@
             { id: 5, code: "P1005", name: "موس بی سیم لاجیتک MX Master 3", category: "الکترونیک", purchasePrice: 1850000, salePrice: 2500000, unit: "عدد", stock: 250, image: "" },
             { id: 6, code: "P1006", name: "کیبورد مکانیکال ریزر", category: "الکترونیک", purchasePrice: 3200000, salePrice: 4500000, unit: "عدد", stock: 34, image: "" },
             { id: 7, code: "P1007", name: "مانیتور سامسونگ 32 اینچ", category: "الکترونیک", purchasePrice: 12500000, salePrice: 15900000, unit: "عدد", stock: 12, image: "" }
-        ];
+        ]);
 
         let priceTable = null;
 
-        function renderPriceList() {
+        function renderPriceList(rows = productsList) {
+            destroyDataTable('priceListTable');
             const tbody = document.getElementById('priceListBody');
             if (!tbody) return;
 
-            tbody.innerHTML = productsList.map((p, index) => `
+            tbody.innerHTML = rows.map((p, index) => `
                 <tr class="price-row">
                     <td>${index + 1}</td>
-                    <td>${p.code}</td>
-                    <td><img src="${p.image || 'https://via.placeholder.com/40x40/e2e8f0/64748b?text=No'}" width="40" height="40" style="object-fit: cover; border-radius: 8px;"></td>
-                    <td>${p.name}</td>
-                    <td>${p.category}</td>
+                    <td>${escapeHTML(p.code)}</td>
+                    <td><img src="${safeImageURL(p.image || '../assets/images/placeholders/18d31093d3bb.svg')}" width="40" height="40" style="object-fit: cover; border-radius: 8px;"></td>
+                    <td>${escapeHTML(p.name)}</td>
+                    <td>${escapeHTML(p.category)}</td>
                     <td>${p.purchasePrice.toLocaleString()}</td>
                     <td class="text-primary fw-bold">${p.salePrice.toLocaleString()}</td>
-                    <td>${p.unit}</td>
+                    <td>${escapeHTML(p.unit)}</td>
                     <td class="${p.stock <= 10 ? 'text-danger fw-bold' : ''}">${p.stock}</td>
                 </tr>
             `).join('');
 
-            document.getElementById('totalProductsCount').innerHTML = productsList.length;
+            document.getElementById('totalProductsCount').innerHTML = rows.length;
 
-            if (priceTable) priceTable.destroy();
+
             priceTable = $('#priceListTable').DataTable({
-                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                language: window.PersianTableLanguage,
                 pageLength: 25,
                 searching: false,
                 ordering: true
@@ -210,30 +215,7 @@
                 const matchCategory = !category || p.category === category;
                 return matchSearch && matchCategory;
             });
-
-            const tbody = document.getElementById('priceListBody');
-            if (tbody) {
-                tbody.innerHTML = filtered.map((p, index) => `
-                    <tr class="price-row">
-                        <td>${index + 1}</td>
-                        <td>${p.code}</td>
-                        <td><img src="${p.image || 'https://via.placeholder.com/40x40/e2e8f0/64748b?text=No'}" width="40" height="40" style="object-fit: cover; border-radius: 8px;"></td>
-                        <td>${p.name}</td>
-                        <td>${p.category}</td>
-                        <td>${p.purchasePrice.toLocaleString()}</td>
-                        <td class="text-primary fw-bold">${p.salePrice.toLocaleString()}</td>
-                        <td>${p.unit}</td>
-                        <td class="${p.stock <= 10 ? 'text-danger fw-bold' : ''}">${p.stock}</td>
-                    </tr>
-                `).join('');
-                document.getElementById('totalProductsCount').innerHTML = filtered.length;
-            }
-
-            if (priceTable) {
-                priceTable.clear();
-                priceTable.rows.add(filtered);
-                priceTable.draw();
-            }
+            renderPriceList(filtered);
         }
 
         function printPriceList() {
@@ -248,7 +230,7 @@
         document.getElementById('printPriceList')?.addEventListener('click', printPriceList);
         document.getElementById('fabPrintBtn')?.addEventListener('click', printPriceList);
 
-        loadSidebarAndNavbar('products');
+        loadSidebarAndNavbar('price');
         renderPriceList();
     </script>
 </body>
