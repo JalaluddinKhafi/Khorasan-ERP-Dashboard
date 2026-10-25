@@ -1,138 +1,330 @@
-// داده‌های نمونه برای داشبورد
-const dashboardData = {
-    stats: {
-        totalProducts: 248,
-        totalCustomers: 1240,
-        totalSuppliers: 56,
-        totalPurchaseInvoices: 312,
-        totalSalesInvoices: 589,
-        todaySales: 18420000,
-        monthSales: 478300000,
-        monthProfit: 112400000,
-        debtCustomers: 45800000,
-        debtSuppliers: 23700000
-    },
-    topProducts: [
-        { name: "لپ تاپ ایسوس ROG", sales: 342, amount: 11970000000 },
-        { name: "گوشی سامسونگ S24", sales: 298, amount: 12516000000 },
-        { name: "هدفون سونی XM5", sales: 512, amount: 4556800000 },
-        { name: "تبلت اپل iPad Pro", sales: 187, amount: 7480000000 }
-    ],
-    latestSales: [
-        { id: "F-1001", customer: "آرمان پوراحمد", amount: 12500000, date: "۱۴۰۲/۱۲/۰۵" },
-        { id: "F-1002", customer: "شرکت تدبیر", amount: 33600000, date: "۱۴۰۲/۱۲/۰۴" },
-        { id: "F-1003", customer: "مهدی رضایی", amount: 8900000, date: "۱۴۰۲/۱۲/۰۴" },
-        { id: "F-1004", customer: "فروشگاه دیجیتال", amount: 45200000, date: "۱۴۰۲/۱۲/۰۳" }
-    ],
-    latestPurchases: [
-        { id: "P-2001", supplier: "توزیع کننده البرز", amount: 56000000, date: "۱۴۰۲/۱۲/۰۵" },
-        { id: "P-2002", supplier: "واردات سامسونگ", amount: 234000000, date: "۱۴۰۲/۱۲/۰۴" }
-    ]
+// ============================================
+// داده‌های داشبورد (با API واقعی و fallback Mock)
+// ============================================
+
+let dashboardStats = {
+    totalProducts: 0,
+    totalCustomers: 0,
+    totalSuppliers: 0,
+    totalPurchaseInvoices: 0,
+    totalSalesInvoices: 0,
+    todaySales: 0,
+    weekSales: 0,
+    monthSales: 0,
+    yearSales: 0,
+    monthProfit: 0,
+    monthProfitPercent: 0,
+    debtCustomers: 0,
+    debtSuppliers: 0,
+    pendingOrders: 0,
+    lowStockCount: 0
 };
 
-function renderDashboardHome() {
-    renderStats();
-    renderCharts();
+const fallbackDashboardStats = {
+    totalProducts: 248,
+    totalCustomers: 1240,
+    totalSuppliers: 56,
+    totalPurchaseInvoices: 312,
+    totalSalesInvoices: 589,
+    todaySales: 18420000,
+    weekSales: 124500000,
+    monthSales: 478300000,
+    yearSales: 5240000000,
+    monthProfit: 112400000,
+    monthProfitPercent: 18.5,
+    debtCustomers: 45800000,
+    debtSuppliers: 23700000,
+    pendingOrders: 23,
+    lowStockCount: 8
+};
+
+let topProducts = [
+    { id: 1, name: "لپ تاپ ایسوس ROG", sales: 342, amount: 12150000000, growth: 12.5, image: "../assets/images/placeholders/d8fff340a52a.svg" },
+    { id: 2, name: "گوشی سامسونگ S24", sales: 298, amount: 12516000000, growth: 8.2, image: "../assets/images/placeholders/97d5c6e8f53e.svg" },
+    { id: 3, name: "هدفون سونی XM5", sales: 512, amount: 4556800000, growth: 15.3, image: "../assets/images/placeholders/a06406b3992f.svg" },
+    { id: 4, name: "تبلت اپل iPad Pro", sales: 187, amount: 9150000000, growth: -2.1, image: "../assets/images/placeholders/d9a003dbd4cb.svg" },
+    { id: 5, name: "موس بی سیم لاجیتک", sales: 423, amount: 1057500000, growth: 22.7, image: "../assets/images/placeholders/bc0f7f0be41f.svg" }
+];
+
+let latestSales = [
+    { id: "F-1001", customer: "آرمان پوراحمد", amount: 12500000, date: "۱۴۰۲/۱۲/۰۵", status: "پرداخت شده" },
+    { id: "F-1002", customer: "شرکت تدبیر", amount: 33600000, date: "۱۴۰۲/۱۲/۰۴", status: "در انتظار" },
+    { id: "F-1003", customer: "مهدی رضایی", amount: 8900000, date: "۱۴۰۲/۱۲/۰۴", status: "پرداخت شده" },
+    { id: "F-1004", customer: "فروشگاه دیجیتال", amount: 45200000, date: "۱۴۰۲/۱۲/۰۳", status: "پرداخت شده" },
+    { id: "F-1005", customer: "آیدا محمدی", amount: 23000000, date: "۱۴۰۲/۱۲/۰۳", status: "در انتظار" }
+];
+
+let latestPurchases = [
+    { id: "P-2001", supplier: "توزیع کننده البرز", amount: 56000000, date: "۱۴۰۲/۱۲/۰۵", status: "پرداخت شده" },
+    { id: "P-2002", supplier: "واردات سامسونگ", amount: 234000000, date: "۱۴۰۲/۱۲/۰۴", status: "پرداخت جزئی" },
+    { id: "P-2003", supplier: "بازرگانی نوین", amount: 12500000, date: "۱۴۰۲/۱۲/۰۳", status: "پرداخت شده" },
+    { id: "P-2004", supplier: "توزیع کننده البرز", amount: 89000000, date: "۱۴۰۲/۱۲/۰۲", status: "پرداخت نشده" }
+];
+
+let lowStockProducts = [
+    { id: 1, name: "گوشی سامسونگ S24", code: "P1002", stock: 3, minStock: 15, category: "الکترونیک" },
+    { id: 2, name: "تبلت اپل iPad Pro", code: "P1004", stock: 2, minStock: 10, category: "الکترونیک" },
+    { id: 3, name: "پاوربانک شیائومی", code: "P1008", stock: 5, minStock: 20, category: "لوازم جانبی" }
+];
+
+let recentActivities = [
+    { time: "۱۰:۳۰", action: "فاکتور فروش جدید", user: "admin", details: "فاکتور شماره F-1006 به مبلغ ۱۵,۲۰۰,۰۰۰ تومان صادر شد", icon: "fa-file-invoice", color: "bg-danger" },
+    { time: "۰۹:۴۵", action: "افزودن کالا", user: "admin", details: "کالای جدید با نام 'هدفون جی بی ال' به انبار اضافه شد", icon: "fa-box", color: "bg-success" },
+    { time: "۰۹:۱۵", action: "پرداخت", user: "admin", details: "پرداخت مبلغ ۵,۰۰۰,۰۰۰ تومان از مشتری آرمان پوراحمد", icon: "fa-credit-card", color: "bg-info" },
+    { time: "۰۸:۳۰", action: "هشدار موجودی", user: "سیستم", details: "موجودی گوشی سامسونگ S24 به زیر حد مجاز رسید", icon: "fa-exclamation-triangle", color: "bg-warning" }
+];
+
+async function loadDashboardData() {
+    dashboardStats = OrgContext.isBranch()?Object.fromEntries(Object.keys(fallbackDashboardStats).map(key=>[key,0])):{...fallbackDashboardStats};
+    if(OrgContext.isBranch()){topProducts=[];latestSales=[];latestPurchases=[];lowStockProducts=[];recentActivities=[];}
+    const sales = FrontendStore.read('sales', DemoData.sales);
+    const purchases = FrontendStore.read('purchases', DemoData.purchases);
+    if (OrgContext.isBranch() || FrontendStore.has('products')) {
+        const products = FrontendStore.read('products', DemoData.products);
+        dashboardStats.totalProducts = products.length;
+        lowStockProducts = products.filter(p => p.stock <= p.minStock);
+        dashboardStats.lowStockCount = lowStockProducts.length;
+    }
+    if (OrgContext.isBranch() || FrontendStore.has('sales')) {
+        dashboardStats.totalSalesInvoices = sales.length;
+        dashboardStats.todaySales = sales.filter(s=>dateKey(s.date)===dateKey(todayISO())).reduce((sum,s)=>sum+s.total,0);
+        dashboardStats.monthSales = sales.filter(s=>dateKey(s.date).slice(0,7)===dateKey(todayISO()).slice(0,7)).reduce((sum,s)=>sum+s.total,0);
+        latestSales = sales.slice(-4).reverse().map(s=>({...s,id:s.invoiceNo,amount:s.total}));
+    }
+    if (OrgContext.isBranch() || FrontendStore.has('purchases')) {
+        dashboardStats.totalPurchaseInvoices = purchases.length;
+        latestPurchases = purchases.slice(-4).reverse().map(p=>({...p,id:p.invoiceNo,amount:p.total}));
+    }
+    if (OrgContext.isBranch() || FrontendStore.has('customers')) dashboardStats.totalCustomers = FrontendStore.read('customers',[]).length;
+    if (OrgContext.isBranch() || FrontendStore.has('suppliers')) dashboardStats.totalSuppliers = FrontendStore.read('suppliers',[]).length;
+
+    if(OrgContext.isBranch()){
+        dashboardStats.debtCustomers=FrontendStore.read('customers',[]).reduce((sum,c)=>sum+c.debt,0);
+        dashboardStats.debtSuppliers=FrontendStore.read('suppliers',[]).reduce((sum,c)=>sum+c.debt,0);
+        dashboardStats.pendingOrders=FrontendStore.read('orders',[]).filter(o=>o.status==='pending').length;
+        const groups=new Map();sales.forEach(s=>(s.items||[]).forEach(i=>{const p=groups.get(i.productId)||{name:i.name,sales:0,amount:0,growth:0,image:'../assets/images/placeholder.svg'};p.sales+=i.quantity;p.amount+=i.total;groups.set(i.productId,p);}));topProducts=[...groups.values()].sort((a,b)=>b.sales-a.sales).slice(0,5);
+        const monthSales=sales.filter(s=>dateKey(s.date).slice(0,7)===dateKey(todayISO()).slice(0,7));
+        const cost=monthSales.reduce((sum,s)=>sum+(s.items||[]).reduce((t,i)=>t+(i.costPrice||0)*i.quantity,0),0);
+        const expense=FrontendStore.read('expenses',[]).filter(e=>dateKey(e.isoDate||e.date).slice(0,7)===dateKey(todayISO()).slice(0,7)).reduce((sum,e)=>sum+e.amount,0);
+        dashboardStats.monthProfit=dashboardStats.monthSales-cost-expense;
+    }
+    renderStatsCards();
     renderTopProducts();
+    renderRecentActivities();
     renderLatestTables();
+    renderLowStockAlert();
 }
 
-function renderStats() {
-    const stats = dashboardData.stats;
-    const container = document.getElementById('statsContainer');
-    if (!container) return;
-    
-    container.innerHTML = `
-        <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-primary"><i class="fas fa-box"></i></div><div class="stat-info"><h3>${stats.totalProducts}</h3><p>کل کالاها</p></div></div></div>
-        <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-success"><i class="fas fa-user-friends"></i></div><div class="stat-info"><h3>${stats.totalCustomers}</h3><p>مشتریان</p></div></div></div>
-        <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-warning"><i class="fas fa-truck-loading"></i></div><div class="stat-info"><h3>${stats.totalSuppliers}</h3><p>تامین‌کنندگان</p></div></div></div>
-        <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-danger"><i class="fas fa-file-invoice"></i></div><div class="stat-info"><h3>${stats.totalPurchaseInvoices}</h3><p>فاکتورهای خرید</p></div></div></div>
-        <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-info"><i class="fas fa-file-signature"></i></div><div class="stat-info"><h3>${stats.totalSalesInvoices}</h3><p>فاکتورهای فروش</p></div></div></div>
-        <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-secondary"><i class="fas fa-dollar-sign"></i></div><div class="stat-info"><h3>${stats.todaySales.toLocaleString()} تومان</h3><p>فروش امروز</p></div></div></div>
-        <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-dark"><i class="fas fa-chart-line"></i></div><div class="stat-info"><h3>${stats.monthSales.toLocaleString()} تومان</h3><p>فروش ماه جاری</p></div></div></div>
-        <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-purple"><i class="fas fa-coins"></i></div><div class="stat-info"><h3>${stats.monthProfit.toLocaleString()} تومان</h3><p>سود ماه جاری</p></div></div></div>
-        <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-danger"><i class="fas fa-hand-holding-usd"></i></div><div class="stat-info"><h3>${stats.debtCustomers.toLocaleString()} تومان</h3><p>بدهی مشتریان</p></div></div></div>
-        <div class="col-xl-3 col-md-6"><div class="stat-card"><div class="stat-icon bg-orange"><i class="fas fa-money-bill-wave"></i></div><div class="stat-info"><h3>${stats.debtSuppliers.toLocaleString()} تومان</h3><p>بدهی به تامین‌کنندگان</p></div></div></div>
-    `;
+// ============================================
+// توابع رندرینگ
+// ============================================
+
+// رندر تاریخ امروز
+function renderDate() {
+    const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+    const today = new Date().toLocaleDateString('fa-IR', options);
+    document.getElementById('todayDate').innerHTML = today;
 }
 
-function renderCharts() {
-    // نمودار فروش روزانه
-    new ApexCharts(document.querySelector("#dailySalesChart"), {
-        series: [{ name: 'فروش', data: [12, 19, 15, 17, 24, 28, 31] }],
-        chart: { type: 'line', height: 300, toolbar: { show: false } },
-        xaxis: { categories: ['شنبه', 'یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه'] },
-        colors: ['#2563eb'],
-        title: { text: 'فروش روزانه (میلیون تومان)' }
-    }).render();
+// رندر کارت‌های آماری
+function renderStatsCards() {
+    const row1 = document.getElementById('statsRow1');
+    const row2 = document.getElementById('statsRow2');
     
-    // نمودار فروش ماهانه
-    new ApexCharts(document.querySelector("#monthlySalesChart"), {
-        series: [{ name: 'فروش', data: [185, 202, 230, 245, 268, 290, 310, 335, 360, 385, 410, 445] }],
-        chart: { type: 'bar', height: 300 },
-        xaxis: { categories: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'] },
-        colors: ['#10b981']
-    }).render();
+    const stats1 = [
+        { icon: "fas fa-box", color: "bg-primary", value: dashboardStats.totalProducts, label: "کل کالاها", trend: "+۱۲", trendUp: true },
+        { icon: "fas fa-users", color: "bg-success", value: dashboardStats.totalCustomers, label: "کل مشتریان", trend: "+۲۴", trendUp: true },
+        { icon: "fas fa-truck", color: "bg-warning", value: dashboardStats.totalSuppliers, label: "تامین‌کنندگان", trend: "+۳", trendUp: true },
+        { icon: "fas fa-file-invoice", color: "bg-danger", value: dashboardStats.totalPurchaseInvoices, label: "فاکتورهای خرید", trend: "+۱۸", trendUp: true },
+        { icon: "fas fa-file-signature", color: "bg-info", value: dashboardStats.totalSalesInvoices, label: "فاکتورهای فروش", trend: "+۲۵", trendUp: true },
+        { icon: "fas fa-dollar-sign", color: "bg-secondary", value: dashboardStats.todaySales, label: "فروش امروز", isPrice: true, trend: "+۸%", trendUp: true }
+    ];
     
-    // نمودار خرید ماهانه
-    new ApexCharts(document.querySelector("#monthlyPurchaseChart"), {
-        series: [{ name: 'خرید', data: [95, 112, 130, 125, 148, 160, 155, 170, 185, 190, 210, 225] }],
-        chart: { type: 'area', height: 300 },
-        xaxis: { categories: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'] },
-        colors: ['#f59e0b']
-    }).render();
+    const stats2 = [
+        { icon: "fas fa-chart-line", color: "bg-dark", value: dashboardStats.monthSales, label: "فروش ماه جاری", isPrice: true, trend: "+۱۲%", trendUp: true },
+        { icon: "fas fa-coins", color: "bg-purple", value: dashboardStats.monthProfit, label: "سود ماه جاری", isPrice: true, trend: "+۵%", trendUp: true },
+        { icon: "fas fa-hand-holding-usd", color: "bg-danger", value: dashboardStats.debtCustomers, label: "بدهی مشتریان", isPrice: true, trend: "+۲%", goodWhenDown: true },
+        { icon: "fas fa-money-bill-wave", color: "bg-orange", value: dashboardStats.debtSuppliers, label: "بدهی به تامین‌کنندگان", isPrice: true, trend: "-۳%", goodWhenDown: true },
+        { icon: "fas fa-clock", color: "bg-warning", value: dashboardStats.pendingOrders, label: "سفارشات در انتظار", trend: "+۵" },
+        { icon: "fas fa-exclamation-triangle", color: "bg-danger", value: dashboardStats.lowStockCount, label: "محصولات کم موجود", trend: "+۲", goodWhenDown: true }
+    ];
     
-    // نمودار سود و زیان
-    new ApexCharts(document.querySelector("#profitLossChart"), {
-        series: [{ name: 'سود خالص', data: [45, 62, 75, 85, 95, 108, 120, 135, 148, 160, 175, 195] }],
-        chart: { type: 'line', height: 300 },
-        xaxis: { categories: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'] },
-        colors: ['#8b5cf6']
-    }).render();
+    row1.innerHTML = stats1.map(renderStatCard).join('');
+    row2.innerHTML = stats2.map(renderStatCard).join('');
 }
 
-function renderTopProducts() {
-    const tbody = document.querySelector('#topProductsTable tbody');
-    if (!tbody) return;
-    
-    tbody.innerHTML = dashboardData.topProducts.map(p => `
-        <tr>
-            <td>${p.name}</td>
-            <td>${p.sales} عدد</td>
-            <td>${p.amount.toLocaleString()} تومان</td>
-        </tr>
-    `).join('');
-    
-    $('#topProductsTable').DataTable({
-        language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
-        pageLength: 5
+// اعداد فارسی + تفکیک هزارگان
+function toPersianDigits(value) {
+    return String(value).replace(/[0-9]/g, function (d) {
+        return '۰۱۲۳۴۵۶۷۸۹'[d];
     });
 }
 
+function formatStatNumber(stat) {
+    if (stat.isPrice) {
+        // میلیون تومان با یک رقم اعشار، به فارسی
+        var millions = stat.value / 1000000;
+        var text = millions.toLocaleString('en-US', {
+            minimumFractionDigits: millions < 100 ? 1 : 0,
+            maximumFractionDigits: 1
+        });
+        return toPersianDigits(text) + 'M';
+    }
+    return toPersianDigits(stat.value.toLocaleString('en-US'));
+}
+
+function renderStatCard(s) {
+    if(OrgContext.isBranch())s={...s,trend:"0"};
+    // جهت از خود عدد استخراج می‌شود تا هرگز با علامت درصد اختلاف نداشته باشد
+    var rawTrend = String(s.trend).replace(/[۰-۹]/g, function (d) {
+        return '۰۱۲۳۴۵۶۷۸۹'.indexOf(d);
+    });
+    var trendValue = parseFloat(rawTrend.replace(/[^0-9.\-]/g, '')) || 0;
+    var isUp = trendValue > 0;
+    var isFlat = trendValue === 0;
+
+    var trendIcon = isFlat ? 'fa-minus' : (isUp ? 'fa-arrow-up' : 'fa-arrow-down');
+
+    // رنگ بر اساس «خوب/بد» است، نه صرفاً بالا/پایین:
+    // برای شاخص‌های منفی (بدهی، کمبود موجودی...) افزایش بد است.
+    var good = isFlat ? null : (s.goodWhenDown ? !isUp : isUp);
+    var trendClass = good === null ? 'trend-flat' : (good ? 'trend-up' : 'trend-down');
+
+    // علامت همیشه اول عدد بیاید: «۱۲+» → «+۱۲»
+    var trendLabel = String(s.trend).replace(/^([۰-۹\d.,٪%]+)([+\-−])$/, '$2$1');
+
+    return `
+        <div class="col-xl-2 col-md-4 col-sm-6">
+            <div class="stat-card-dashboard"${s.link ? ` onclick="window.location.href='${s.link}'"` : ''}>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="stat-icon ${s.color}"><i class="${s.icon}"></i></div>
+                    <div class="text-end">
+                        <h3 class="mb-0">${formatStatNumber(s)}</h3>
+                        <small class="text-muted">${s.label}</small>
+                        <div class="${trendClass}" dir="ltr">
+                            <i class="fas ${trendIcon}"></i>
+                            <span class="trend-label">${trendLabel}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// رندر محصولات پرفروش
+function renderTopProducts() {
+    const container = document.getElementById('topProductsList');
+    const maxSales = Math.max(...topProducts.map(p => p.sales));
+    
+    container.innerHTML = topProducts.map(p => `
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="d-flex align-items-center gap-3">
+                <img src="${p.image}" class="top-product-img" alt="${escapeHTML(p.name)}">
+                <div>
+                    <h6 class="mb-0">${escapeHTML(p.name)}</h6>
+                    <small class="text-muted">${p.sales} عدد فروش</small>
+                </div>
+            </div>
+            <div class="text-end">
+                <div class="fw-bold">${(p.amount / 1000000).toFixed(0)}M تومان</div>
+                <small class="${p.growth >= 0 ? 'text-success' : 'text-danger'}">
+                    <i class="fas fa-arrow-${p.growth >= 0 ? 'up' : 'down'}"></i> ${Math.abs(p.growth)}%
+                </small>
+            </div>
+        </div>
+        <div class="percentage-bar mb-3">
+            <div class="percentage-fill" style="width: ${(p.sales / maxSales) * 100}%"></div>
+        </div>
+    `).join('');
+}
+
+// رندر فعالیت‌های اخیر
+function renderRecentActivities() {
+    const container = document.getElementById('activityTimeline');
+    container.innerHTML = recentActivities.map(a => `
+        <div class="timeline-item">
+            <div class="timeline-icon ${a.color} text-white">
+                <i class="fas ${a.icon}"></i>
+            </div>
+            <div class="flex-grow-1">
+                <div class="d-flex justify-content-between">
+                    <strong>${a.action}</strong>
+                    <small class="text-muted">${a.time}</small>
+                </div>
+                <p class="mb-0 small">${a.details}</p>
+                <small class="text-muted">کاربر: ${a.user}</small>
+            </div>
+        </div>
+    `).join('');
+}
+
+// رندر جداول آخرین فاکتورها
 function renderLatestTables() {
-    const salesTbody = document.querySelector('#latestSalesTable tbody');
-    if (salesTbody) {
-        salesTbody.innerHTML = dashboardData.latestSales.map(s => `
-            <tr><td>${s.id}</td><td>${s.customer}</td><td>${s.amount.toLocaleString()} تومان</td><td>${s.date}</td></tr>
+    const salesBody = document.querySelector('#latestSalesTable tbody');
+    const purchasesBody = document.querySelector('#latestPurchasesTable tbody');
+
+    if (salesBody) {
+        salesBody.innerHTML = latestSales.map(s => `
+            <tr>
+                <td>${s.id}</td>
+                <td>${escapeHTML(s.customer)}</td>
+                <td>${s.amount.toLocaleString()} تومان</td>
+                <td>${escapeHTML(s.date)}</td>
+                <td><span class="badge ${s.status === 'پرداخت شده' ? 'bg-success' : 'bg-warning'}">${escapeHTML(s.status)}</span></td>
+            </tr>
         `).join('');
     }
     
-    const purchasesTbody = document.querySelector('#latestPurchasesTable tbody');
-    if (purchasesTbody) {
-        purchasesTbody.innerHTML = dashboardData.latestPurchases.map(p => `
-            <tr><td>${p.id}</td><td>${p.supplier}</td><td>${p.amount.toLocaleString()} تومان</td><td>${p.date}</td></tr>
+    if (purchasesBody) {
+        purchasesBody.innerHTML = latestPurchases.map(p => `
+            <tr>
+                <td>${p.id}</td>
+                <td>${escapeHTML(p.supplier)}</td>
+                <td>${p.amount.toLocaleString()} تومان</td>
+                <td>${escapeHTML(p.date)}</td>
+                <td><span class="badge ${p.status === 'پرداخت شده' ? 'bg-success' : (p.status === 'پرداخت جزئی' ? 'bg-warning' : 'bg-danger')}">${escapeHTML(p.status)}</span></td>
+            </tr>
         `).join('');
     }
 }
 
-// نمونه fetch برای اتصال به API واقعی
-async function fetchDashboardData() {
-    try {
-        const response = await fetch('http://localhost:8080/api/dashboard');
-        const payload = await response.json();
-        return payload && payload.data ? payload.data : payload;
-    } catch (error) {
-        console.log('Using mock data');
-        return dashboardData.stats;
+// رندر هشدار موجودی کم
+function renderLowStockAlert() {
+    const container = document.getElementById('lowStockAlert');
+    if (lowStockProducts.length === 0) {
+        container.innerHTML = '<div class="text-center text-muted py-3">همه محصولات دارای موجودی مناسب هستند</div>';
+        return;
     }
+
+    container.innerHTML = `
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr><th>کد کالا</th><th>نام کالا</th><th>دسته‌بندی</th><th>موجودی فعلی</th><th>حداقل مجاز</th><th>وضعیت</th><th>عملیات</th></tr>
+                </thead>
+                <tbody>
+                    ${lowStockProducts.map(p => `
+                        <tr>
+                            <td>${escapeHTML(p.code)}</td>
+                            <td>${escapeHTML(p.name)}</td>
+                            <td>${escapeHTML(p.category)}</td>
+                            <td class="text-danger fw-bold">${p.stock}</td>
+                            <td>${p.minStock}</td>
+                            <td><span class="badge bg-warning text-dark">نیاز به سفارش</span></td>
+                            <td><button class="btn btn-sm btn-primary" onclick="queueOrder(lowStockProducts.find(x=>x.id===${p.id}))">ثبت سفارش</button></td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        </div>
+    `;
 }
+
+// ============================================
+// مقداردهی اولیه
+// ============================================
+
+loadSidebarAndNavbar('dashboard');
+renderDate();
+loadDashboardData();
