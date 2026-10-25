@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>فاکتور فروش | مدیریت جامع</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="../assets/vendor/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/vendor/all.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         @media print {
@@ -201,6 +201,11 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
     </style>
+    <script src="../assets/js/frontend-store.js"></script>
+    <script src="../assets/js/demo-data.js"></script>
+    <script src="../assets/js/organization.js"></script>
+    <script src="../assets/js/persian.js"></script>
+    <script src="../assets/js/utils.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -349,41 +354,12 @@
         </main>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/vendor/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/jquery-3.6.0.min.js"></script>
     <script src="../assets/js/components.js"></script>
     <script>
         // تابع تبدیل عدد به حروف
-        function numberToWords(num) {
-            const units = ["", "یک", "دو", "سه", "چهار", "پنج", "شش", "هفت", "هشت", "نه"];
-            const tens = ["", "ده", "بیست", "سی", "چهل", "پنجاه", "شصت", "هفتاد", "هشتاد", "نود"];
-            const hundreds = ["", "یکصد", "دویست", "سیصد", "چهارصد", "پانصد", "ششصد", "هفتصد", "هشتصد", "نهصد"];
-            
-            if (num === 0) return "صفر تومان";
-            
-            let word = "";
-            if (num >= 1000000) {
-                word += numberToWords(Math.floor(num / 1000000)) + " میلیون ";
-                num %= 1000000;
-            }
-            if (num >= 1000) {
-                word += numberToWords(Math.floor(num / 1000)) + " هزار ";
-                num %= 1000;
-            }
-            if (num >= 100) {
-                word += hundreds[Math.floor(num / 100)] + " ";
-                num %= 100;
-            }
-            if (num >= 20) {
-                word += tens[Math.floor(num / 10)] + " ";
-                num %= 10;
-            }
-            if (num > 0 && num < 10) {
-                word += units[num] + " ";
-            }
-            return word.trim() + " تومان";
-        }
+
 
         // داده‌های نمونه فاکتور
         const invoiceData = {
@@ -403,6 +379,14 @@
             paymentMethod: "نقدی / کارت به کارت"
         };
 
+        const selectedSale = FrontendStore.read('sales', []).find(s => String(s.id) === getUrlParam('id'));
+        if (selectedSale) {
+            const party = FrontendStore.read('customers', DemoData.customers).find(c=>c.name===selectedSale.customer);
+            Object.assign(invoiceData, {invoiceNo:selectedSale.invoiceNo, invoiceDate:selectedSale.date, dueDate:selectedSale.date,
+                customer:{name:selectedSale.customer,phone:party?.phone || '',address:party?.address || ''},
+                items:selectedSale.items.map((item,index)=>({...item,row:index+1})),taxRate:selectedSale.taxRate ?? 0});
+        }
+        if(OrgContext.isBranch() && !selectedSale)Object.assign(invoiceData,{invoiceNo:'---',invoiceDate:'---',dueDate:'---',customer:{name:'---',phone:'',address:''},items:[],taxRate:0});
         function renderInvoice() {
             // اطلاعات پایه
             document.getElementById('invoiceNo').innerText = invoiceData.invoiceNo;
@@ -423,15 +407,15 @@
             let discountTotal = 0;
             
             tbody.innerHTML = invoiceData.items.map(item => {
-                subTotal += item.total;
+                subTotal += item.quantity * item.price;
                 discountTotal += item.discount;
                 return `
                     <tr>
                         <td>${item.row}</td>
-                        <td>${item.code}</td>
-                        <td>${item.name}</td>
+                        <td>${escapeHTML(item.code)}</td>
+                        <td>${escapeHTML(item.name)}</td>
                         <td>${item.quantity}</td>
-                        <td>${item.unit}</td>
+                        <td>${escapeHTML(item.unit)}</td>
                         <td>${item.price.toLocaleString()}</td>
                         <td class="text-danger">${item.discount.toLocaleString()}</td>
                         <td class="fw-bold">${item.total.toLocaleString()}</td>
@@ -440,14 +424,14 @@
             }).join('');
             
             // محاسبات مالی
-            const tax = Math.round((subTotal - discountTotal) * 0.09);
+            const tax = Math.round((subTotal - discountTotal) * (invoiceData.taxRate ?? 0.09));
             const grandTotal = subTotal - discountTotal + tax;
             
             document.getElementById('subTotal').innerHTML = subTotal.toLocaleString() + ' تومان';
             document.getElementById('discountTotal').innerHTML = discountTotal.toLocaleString() + ' تومان';
             document.getElementById('taxTotal').innerHTML = tax.toLocaleString() + ' تومان';
             document.getElementById('grandTotal').innerHTML = grandTotal.toLocaleString() + ' تومان';
-            document.getElementById('amountInWords').innerHTML = numberToWords(grandTotal);
+            document.getElementById('amountInWords').innerHTML = numberToWords(grandTotal) + ' تومان';
         }
 
         function printInvoice() {
@@ -455,13 +439,13 @@
         }
 
         function downloadPDF() {
-            showToast('در حال آماده‌سازی PDF...', 'info');
+            exportElementPDF(document.getElementById('invoiceContent') || document.querySelector('.invoice-container'), 'invoice-'+invoiceData.invoiceNo);
             // در حالت واقعی، می‌توان از کتابخانه‌هایی مثل html2pdf.js استفاده کرد
             // html2pdf().from(document.getElementById('invoiceContent')).save();
         }
 
         function shareInvoice() {
-            showToast('لینک فاکتور کپی شد', 'success');
+            copyToClipboard(location.href);
         }
 
         document.getElementById('printInvoiceBtn')?.addEventListener('click', printInvoice);

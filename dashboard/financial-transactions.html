@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تراکنش‌های مالی | داشبورد</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link href="../assets/vendor/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/vendor/all.min.css">
+    <link rel="stylesheet" href="../assets/vendor/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../assets/js/frontend-store.js"></script>
+    <script src="../assets/js/demo-data.js"></script>
+    <script src="../assets/js/organization.js"></script>
+    <script src="../assets/js/persian.js"></script>
+    <script src="../assets/js/utils.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -85,14 +89,6 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <h5>نمودار جریان نقدی ماهانه</h5>
-                            </div>
-                            <div class="card-body">
-                                <div id="cashflowChart"></div>
-                            </div>
-                        </div>
                         <div class="card">
                             <div class="card-header">
                                 <h5>سود و زیان</h5>
@@ -107,10 +103,9 @@
         </main>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/vendor/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/jquery-3.6.0.min.js"></script>
+    <script src="../assets/vendor/jquery.dataTables.min.js"></script>
     <script src="../assets/js/components.js"></script>
     <script>
         let transactionsData = [];
@@ -126,35 +121,42 @@
                 { id: 6, date: "۱۴۰۲/۱۲/۰۳", type: "outcome", title: "اجاره دفتر", amount: 25000000, category: "مصارف", status: "تایید شده" }
             ];
             
+            if (OrgContext.isBranch() || ['sales','purchases','expenses','allPayments'].some(name=>FrontendStore.has(name))) {
+                transactionsData = [
+                    ...FrontendStore.read('sales',DemoData.sales).map(s=>({id:'sale-'+s.id,date:s.date,type:'income',title:'فروش کالا - فاکتور '+s.invoiceNo,amount:s.total,category:'فروش',status:'تایید شده'})),
+                    ...FrontendStore.read('purchases',DemoData.purchases).map(p=>({id:'purchase-'+p.id,date:p.date,type:'outcome',title:'خرید کالا - فاکتور '+p.invoiceNo,amount:p.total,category:'خرید',status:'تایید شده'})),
+                    ...FrontendStore.read('expenses',DemoData.expenses).map(e=>({id:'expense-'+e.id,date:e.date,type:'outcome',title:e.desc,amount:e.amount,category:'مصارف',status:'تایید شده'}))
+                ];
+            }
             renderTransactionsTable();
             calculateFinancialStats();
-            renderCashflowChart();
             renderProfitLossSummary();
         }
         
-        function renderTransactionsTable() {
+        function renderTransactionsTable(rows = transactionsData) {
+            destroyDataTable('transactionsTable');
             const tbody = document.getElementById('transactionsTableBody');
             if (!tbody) return;
             
-            tbody.innerHTML = transactionsData.map(t => `
+            tbody.innerHTML = rows.map(t => `
                 <tr>
-                    <td>${t.date}</td>
+                    <td>${escapeHTML(t.date)}</td>
                     <td><span class="badge ${t.type === 'income' ? 'bg-success' : 'bg-danger'}">${t.type === 'income' ? 'ورودی' : 'خروجی'}</span></td>
-                    <td>${t.title}</td>
+                    <td>${escapeHTML(t.title)}</td>
                     <td class="${t.type === 'income' ? 'text-success' : 'text-danger'} fw-bold">${t.amount.toLocaleString()} تومان</td>
-                    <td>${t.category}</td>
-                    <td><span class="badge bg-success">${t.status}</span></td>
+                    <td>${escapeHTML(t.category)}</td>
+                    <td><span class="badge bg-success">${escapeHTML(t.status)}</span></td>
                 </tr>
             `).join('');
             
-            if (transactionsTable) transactionsTable.destroy();
+
             transactionsTable = $('#transactionsTable').DataTable({
-                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                language: window.PersianTableLanguage,
                 pageLength: 10,
                 searching: false
             });
             
-            setupTransactionFilters();
+
         }
         
         function setupTransactionFilters() {
@@ -180,22 +182,9 @@
                     (type === 'outcome' && t.type === 'outcome');
                 return matchSearch && matchType;
             });
-            
-            const tbody = document.getElementById('transactionsTableBody');
-            if (tbody) {
-                tbody.innerHTML = filtered.map(t => `
-                    <tr>
-                        <td>${t.date}</td>
-                        <td><span class="badge ${t.type === 'income' ? 'bg-success' : 'bg-danger'}">${t.type === 'income' ? 'ورودی' : 'خروجی'}</span></td>
-                        <td>${t.title}</td>
-                        <td class="${t.type === 'income' ? 'text-success' : 'text-danger'} fw-bold">${t.amount.toLocaleString()} تومان</td>
-                        <td>${t.category}</td>
-                        <td><span class="badge bg-success">${t.status}</span></td>
-                    </tr>
-                `).join('');
-            }
+            renderTransactionsTable(filtered);
         }
-        
+
         function calculateFinancialStats() {
             const totalIncome = transactionsData.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
             const totalOutcome = transactionsData.filter(t => t.type === 'outcome').reduce((sum, t) => sum + t.amount, 0);
@@ -208,22 +197,6 @@
             document.getElementById('netCashflowFinancial').style.color = netCashflow >= 0 ? '#10b981' : '#ef4444';
             document.getElementById('profitMargin').innerHTML = profitMargin + '%';
             document.getElementById('profitMargin').style.color = profitMargin >= 0 ? '#10b981' : '#ef4444';
-        }
-        
-        function renderCashflowChart() {
-            const monthlyIncome = [185, 202, 230, 245, 268, 290, 310, 335, 360, 385, 410, 445];
-            const monthlyOutcome = [95, 112, 130, 125, 148, 160, 155, 170, 185, 190, 210, 225];
-            
-            new ApexCharts(document.querySelector("#cashflowChart"), {
-                series: [
-                    { name: 'ورودی', data: monthlyIncome },
-                    { name: 'خروجی', data: monthlyOutcome }
-                ],
-                chart: { type: 'bar', height: 300, stacked: false },
-                xaxis: { categories: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'] },
-                colors: ['#10b981', '#ef4444'],
-                title: { text: 'جریان نقدی ماهانه (میلیون تومان)' }
-            }).render();
         }
         
         function renderProfitLossSummary() {
@@ -264,6 +237,7 @@
             }
         }
         
+        setupTransactionFilters();
         loadSidebarAndNavbar('financial');
         loadTransactions();
     </script>

@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مدیریت مصارف | داشبورد</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link href="../assets/vendor/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/vendor/all.min.css">
+    <link rel="stylesheet" href="../assets/vendor/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../assets/js/frontend-store.js"></script>
+    <script src="../assets/js/demo-data.js"></script>
+    <script src="../assets/js/organization.js"></script>
+    <script src="../assets/js/persian.js"></script>
+    <script src="../assets/js/utils.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -94,14 +98,6 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <h5>نمودار توزیع مصارف</h5>
-                            </div>
-                            <div class="card-body">
-                                <div id="expenseChart"></div>
-                            </div>
-                        </div>
                         <div class="card">
                             <div class="card-header">
                                 <h5>مصارف بر اساس دسته‌بندی</h5>
@@ -152,7 +148,7 @@
                         </div>
                         <div class="mb-3">
                             <label>مبلغ (تومان)</label>
-                            <input type="number" id="expenseAmount" class="form-control" required>
+                            <input type="number" id="expenseAmount" class="form-control" required min="0" step="any">
                         </div>
                         <div class="mb-3">
                             <label>نحوه پرداخت</label>
@@ -196,43 +192,36 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/vendor/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/jquery-3.6.0.min.js"></script>
+    <script src="../assets/vendor/jquery.dataTables.min.js"></script>
     <script src="../assets/js/components.js"></script>
     <script>
         let expensesData = [];
         let expensesTable = null;
         let deleteExpenseId = null;
-        let expenseChart = null;
         
         function loadExpenses() {
-            expensesData = [
-                { id: 1, date: "۱۴۰۲/۱۲/۰۵", category: "کرایه", desc: "اجاره ماهانه دفتر", amount: 25000000, method: "واریز بانکی", docNo: "CHK-001" },
-                { id: 2, date: "۱۴۰۲/۱۲/۰۵", category: "معاش", desc: "حقوق آذر ماه", amount: 185000000, method: "واریز بانکی", docNo: "SAL-001" },
-                { id: 3, date: "۱۴۰۲/۱۲/۰۴", category: "برق", desc: "قبض برق آبان", amount: 3850000, method: "نقدی", docNo: "" },
-                { id: 4, date: "۱۴۰۲/۱۲/۰۳", category: "حمل و نقل", desc: "هزینه حمل کالا", amount: 5600000, method: "کارت به کارت", docNo: "TRX-001" },
-                { id: 5, date: "۱۴۰۲/۱۲/۰۲", category: "سایر", desc: "خرید لوازم التحریر", amount: 850000, method: "نقدی", docNo: "" }
-            ];
+            expensesData = FrontendStore.read('expenses', DemoData.expenses);
             
             renderExpensesTable();
             renderStats();
-            renderCharts();
             renderCategoryBreakdown();
         }
         
-        function renderExpensesTable() {
+        function renderExpensesTable(rows = expensesData) {
+            FrontendStore.write('expenses', expensesData);
+            destroyDataTable('expensesTable');
             const tbody = document.getElementById('expensesTableBody');
             if (!tbody) return;
             
-            tbody.innerHTML = expensesData.map(e => `
+            tbody.innerHTML = rows.map(e => `
                 <tr>
-                    <td>${e.date}</td>
-                    <td><span class="badge bg-secondary">${e.category}</span></td>
-                    <td>${e.desc}</td>
+                    <td>${escapeHTML(e.date)}</td>
+                    <td><span class="badge bg-secondary">${escapeHTML(e.category)}</span></td>
+                    <td>${escapeHTML(e.desc)}</td>
                     <td class="text-danger fw-bold">${e.amount.toLocaleString()} تومان</td>
-                    <td>${e.method}</td>
+                    <td>${escapeHTML(e.method)}</td>
                     <td>
                         <button class="btn btn-sm btn-info edit-expense" data-id="${e.id}"><i class="fas fa-edit"></i></button>
                         <button class="btn btn-sm btn-danger delete-expense" data-id="${e.id}"><i class="fas fa-trash"></i></button>
@@ -240,23 +229,24 @@
                 </tr>
             `).join('');
             
-            if (expensesTable) expensesTable.destroy();
+
+            $('#expensesTable').off('draw.dt.khorasan').on('draw.dt.khorasan', attachExpenseEvents);
             expensesTable = $('#expensesTable').DataTable({
-                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                language: window.PersianTableLanguage,
                 pageLength: 10,
                 searching: false
             });
             
             attachExpenseEvents();
-            setupFilters();
+
         }
         
         function attachExpenseEvents() {
             document.querySelectorAll('.edit-expense').forEach(btn => {
-                btn.addEventListener('click', () => editExpense(parseInt(btn.dataset.id)));
+                btn.onclick = () => editExpense(parseInt(btn.dataset.id));
             });
             document.querySelectorAll('.delete-expense').forEach(btn => {
-                btn.addEventListener('click', () => showDeleteModal(parseInt(btn.dataset.id)));
+                btn.onclick = () => showDeleteModal(parseInt(btn.dataset.id));
             });
         }
         
@@ -281,30 +271,15 @@
                 const matchCategory = category === 'all' || e.category === category;
                 return matchSearch && matchCategory;
             });
-            
-            const tbody = document.getElementById('expensesTableBody');
-            if (tbody) {
-                tbody.innerHTML = filtered.map(e => `
-                    <tr>
-                        <td>${e.date}</td>
-                        <td><span class="badge bg-secondary">${e.category}</span></td>
-                        <td>${e.desc}</td>
-                        <td class="text-danger fw-bold">${e.amount.toLocaleString()} تومان</td>
-                        <td>${e.method}</td>
-                        <td>
-                            <button class="btn btn-sm btn-info edit-expense" data-id="${e.id}"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-danger delete-expense" data-id="${e.id}"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                `).join('');
-                attachExpenseEvents();
-            }
+            renderExpensesTable(filtered);
         }
-        
+
         function renderStats() {
-            const currentMonth = "۱۴۰۲/۱۲";
-            const currentMonthExpenses = expensesData.filter(e => e.date.startsWith("۱۴۰۲/۱۲"));
-            const lastMonthExpenses = expensesData.filter(e => e.date.startsWith("۱۴۰۲/۱۱"));
+            const currentMonth = dateKey(todayISO()).slice(0,7);
+            const previous = new Date(); previous.setDate(1); previous.setMonth(previous.getMonth()-1);
+            const previousMonth = dateKey(previous.toISOString().slice(0,10)).slice(0,7);
+            const currentMonthExpenses = expensesData.filter(e => dateKey(e.isoDate || e.date).startsWith(currentMonth));
+            const lastMonthExpenses = expensesData.filter(e => dateKey(e.isoDate || e.date).startsWith(previousMonth));
             
             const total = currentMonthExpenses.reduce((sum, e) => sum + e.amount, 0);
             const avg = Math.floor(total / 30) || 0;
@@ -318,22 +293,6 @@
             document.getElementById('expenseChange').style.color = change <= 0 ? '#10b981' : '#ef4444';
         }
         
-        function renderCharts() {
-            const categories = ['کرایه', 'معاش', 'برق', 'حمل و نقل', 'سایر'];
-            const amounts = [25000000, 185000000, 3850000, 5600000, 850000];
-            
-            if (expenseChart) expenseChart.destroy();
-            expenseChart = new ApexCharts(document.querySelector("#expenseChart"), {
-                series: amounts,
-                chart: { type: 'donut', height: 300 },
-                labels: categories,
-                colors: ['#f59e0b', '#ef4444', '#10b981', '#8b5cf6', '#06b6d4'],
-                legend: { position: 'bottom' },
-                title: { text: 'توزیع مصارف بر اساس دسته' }
-            });
-            expenseChart.render();
-        }
-        
         function renderCategoryBreakdown() {
             const categories = {};
             expensesData.forEach(e => {
@@ -345,7 +304,7 @@
             if (container) {
                 container.innerHTML = Object.entries(categories).map(([cat, amount]) => `
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span><i class="fas fa-circle" style="color: ${getCategoryColor(cat)}; font-size: 10px;"></i> ${cat}</span>
+                        <span><i class="fas fa-circle" style="color: ${getCategoryColor(cat)}; font-size: 10px;"></i> ${escapeHTML(cat)}</span>
                         <span class="fw-bold">${amount.toLocaleString()} تومان</span>
                     </div>
                     <div class="progress mb-3" style="height: 6px;">
@@ -361,15 +320,17 @@
         }
         
         function saveExpense() {
+            if (!validateForm('expenseForm')) return;
             const id = document.getElementById('expenseId').value;
             
             const expense = {
                 id: id ? parseInt(id) : Date.now(),
+                isoDate: document.getElementById('expenseDate').value,
                 date: document.getElementById('expenseDate').value ? 
                     new Date(document.getElementById('expenseDate').value).toLocaleDateString('fa-IR') : "۱۴۰۲/۱۲/۰۵",
                 category: document.getElementById('expenseCategory').value,
                 desc: document.getElementById('expenseDesc').value,
-                amount: parseInt(document.getElementById('expenseAmount').value),
+                amount: Number(document.getElementById('expenseAmount').value),
                 method: document.getElementById('expenseMethod').value,
                 docNo: document.getElementById('expenseDocNo').value
             };
@@ -387,7 +348,6 @@
             
             renderExpensesTable();
             renderStats();
-            renderCharts();
             renderCategoryBreakdown();
             
             bootstrap.Modal.getInstance(document.getElementById('expenseModal')).hide();
@@ -406,7 +366,7 @@
             document.getElementById('expenseDocNo').value = expense.docNo;
             
             // تبدیل تاریخ فارسی به میلادی برای input date
-            document.getElementById('expenseDate').value = '2024-01-15';
+            document.getElementById('expenseDate').value = expense.isoDate || dateInputValue(expense.date);
             
             new bootstrap.Modal(document.getElementById('expenseModal')).show();
         }
@@ -421,7 +381,6 @@
                 expensesData = expensesData.filter(e => e.id !== deleteExpenseId);
                 renderExpensesTable();
                 renderStats();
-                renderCharts();
                 renderCategoryBreakdown();
                 showToast('مصرف با موفقیت حذف شد', 'success');
                 bootstrap.Modal.getInstance(document.getElementById('deleteModal')).hide();
@@ -432,6 +391,7 @@
         document.getElementById('saveExpenseBtn')?.addEventListener('click', saveExpense);
         document.getElementById('confirmDeleteBtn')?.addEventListener('click', confirmDelete);
         
+        setupFilters();
         loadSidebarAndNavbar('expenses');
         loadExpenses();
     </script>

@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مدیریت پرداخت‌ها | داشبورد</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link href="../assets/vendor/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/vendor/all.min.css">
+    <link rel="stylesheet" href="../assets/vendor/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../assets/js/frontend-store.js"></script>
+    <script src="../assets/js/demo-data.js"></script>
+    <script src="../assets/js/organization.js"></script>
+    <script src="../assets/js/persian.js"></script>
+    <script src="../assets/js/utils.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -155,7 +160,7 @@
                         </div>
                         <div class="mb-3">
                             <label>مبلغ (تومان)</label>
-                            <input type="number" id="paymentAmount" class="form-control" required>
+                            <input type="number" id="paymentAmount" class="form-control" required min="0" step="any">
                         </div>
                         <div class="mb-3">
                             <label>تاریخ پرداخت</label>
@@ -188,10 +193,9 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/vendor/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/jquery-3.6.0.min.js"></script>
+    <script src="../assets/vendor/jquery.dataTables.min.js"></script>
     <script src="../assets/js/components.js"></script>
     <script>
         let customerDebts = [];
@@ -199,22 +203,24 @@
         let allPayments = [];
         
         function loadPaymentsData() {
-            customerDebts = [
+            customerDebts = FrontendStore.read('customerDebts', [
                 { id: 1, name: "آرمان پوراحمد", phone: "۰۹۱۲۱۲۳۴۵۶۷", debt: 12500000, lastPurchase: "۱۴۰۲/۱۲/۰۵" },
                 { id: 2, name: "شرکت تدبیر", phone: "۰۲۱-۸۸۷۷۶۶۵۵", debt: 33600000, lastPurchase: "۱۴۰۲/۱۲/۰۴" },
                 { id: 3, name: "فروشگاه دیجیتال", phone: "۰۲۱-۵۵۴۴۳۳۲۱", debt: 45200000, lastPurchase: "۱۴۰۲/۱۲/۰۳" }
-            ];
+            ]);
             
-            supplierDebts = [
+            supplierDebts = FrontendStore.read('supplierDebts', [
                 { id: 1, name: "توزیع کننده البرز", phone: "۰۲۱-۵۵۵۵۱۲۳۴", debt: 56000000, lastPurchase: "۱۴۰۲/۱۲/۰۵" },
                 { id: 2, name: "واردات سامسونگ", phone: "۰۲۱-۵۵۵۵۶۷۸۹", debt: 234000000, lastPurchase: "۱۴۰۲/۱۲/۰۴" }
-            ];
+            ]);
             
-            allPayments = [
+            allPayments = FrontendStore.read('allPayments', [
                 { date: "۱۴۰۲/۱۲/۰۵", type: "دریافت", party: "آرمان پوراحمد", amount: 5000000, method: "کارت به کارت", tracking: "TRX001", status: "تایید شده" },
                 { date: "۱۴۰۲/۱۲/۰۴", type: "پرداخت", party: "توزیع کننده البرز", amount: 20000000, method: "واریز بانکی", tracking: "BNK002", status: "تایید شده" }
-            ];
+            ]);
             
+            if(FrontendStore.has('customers')) customerDebts=FrontendStore.read('customers',[]).map(c=>({...c,lastPurchase:c.lastPurchase || '---'}));
+            if(FrontendStore.has('suppliers')) supplierDebts=FrontendStore.read('suppliers',[]).map(s=>({...s,lastPurchase:s.lastPurchase || '---'}));
             renderCustomerDebts();
             renderSupplierDebts();
             renderAllPayments();
@@ -222,17 +228,19 @@
         }
         
         function renderCustomerDebts() {
+            FrontendStore.write('customerDebts', customerDebts);
+            destroyDataTable('customerDebtsTable');
             const tbody = document.getElementById('customerDebtsBody');
             if (!tbody) return;
             
             tbody.innerHTML = customerDebts.map(c => `
                 <tr>
-                    <td>${c.name}</td>
-                    <td>${c.phone}</td>
+                    <td>${escapeHTML(c.name)}</td>
+                    <td>${escapeHTML(c.phone)}</td>
                                         <td class="text-danger fw-bold">${c.debt.toLocaleString()} تومان</td>
-                    <td>${c.lastPurchase}</td>
+                    <td>${escapeHTML(c.lastPurchase)}</td>
                     <td>
-                        <button class="btn btn-sm btn-success register-payment" data-type="customer" data-id="${c.id}" data-name="${c.name}" data-debt="${c.debt}">
+                        <button class="btn btn-sm btn-success register-payment" data-type="customer" data-id="${c.id}" data-name="${escapeHTML(c.name)}" data-debt="${c.debt}">
                             <i class="fas fa-hand-holding-usd"></i> ثبت پرداخت
                         </button>
                         <button class="btn btn-sm btn-info view-payment-history" data-type="customer" data-id="${c.id}">
@@ -242,8 +250,9 @@
                 </tr>
             `).join('');
             
+            $('#customerDebtsTable').off('draw.dt.khorasan').on('draw.dt.khorasan', attachPaymentButtons);
             $('#customerDebtsTable').DataTable({
-                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                language: window.PersianTableLanguage,
                 destroy: true,
                 pageLength: 10
             });
@@ -252,17 +261,19 @@
         }
         
         function renderSupplierDebts() {
+            FrontendStore.write('supplierDebts', supplierDebts);
+            destroyDataTable('supplierDebtsTable');
             const tbody = document.getElementById('supplierDebtsBody');
             if (!tbody) return;
             
             tbody.innerHTML = supplierDebts.map(s => `
                 <tr>
-                    <td>${s.name}</td>
-                    <td>${s.phone}</td>
+                    <td>${escapeHTML(s.name)}</td>
+                    <td>${escapeHTML(s.phone)}</td>
                     <td class="text-danger fw-bold">${s.debt.toLocaleString()} تومان</td>
-                    <td>${s.lastPurchase}</td>
+                    <td>${escapeHTML(s.lastPurchase)}</td>
                     <td>
-                        <button class="btn btn-sm btn-success register-payment" data-type="supplier" data-id="${s.id}" data-name="${s.name}" data-debt="${s.debt}">
+                        <button class="btn btn-sm btn-success register-payment" data-type="supplier" data-id="${s.id}" data-name="${escapeHTML(s.name)}" data-debt="${s.debt}">
                             <i class="fas fa-money-bill-wave"></i> ثبت پرداخت
                         </button>
                         <button class="btn btn-sm btn-info view-payment-history" data-type="supplier" data-id="${s.id}">
@@ -272,8 +283,9 @@
                 </tr>
             `).join('');
             
+            $('#supplierDebtsTable').off('draw.dt.khorasan').on('draw.dt.khorasan', attachPaymentButtons);
             $('#supplierDebtsTable').DataTable({
-                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                language: window.PersianTableLanguage,
                 destroy: true,
                 pageLength: 10
             });
@@ -282,23 +294,25 @@
         }
         
         function renderAllPayments() {
+            FrontendStore.write('allPayments', allPayments);
+            destroyDataTable('allPaymentsTable');
             const tbody = document.getElementById('allPaymentsBody');
             if (!tbody) return;
             
             tbody.innerHTML = allPayments.map(p => `
                 <tr>
-                    <td>${p.date}</td>
-                    <td><span class="badge ${p.type === 'دریافت' ? 'bg-success' : 'bg-danger'}">${p.type}</span></td>
-                    <td>${p.party}</td>
+                    <td>${escapeHTML(p.date)}</td>
+                    <td><span class="badge ${p.type === 'دریافت' ? 'bg-success' : 'bg-danger'}">${escapeHTML(p.type)}</span></td>
+                    <td>${escapeHTML(p.party)}</td>
                     <td>${p.amount.toLocaleString()} تومان</td>
-                    <td>${p.method}</td>
-                    <td>${p.tracking}</td>
-                    <td><span class="badge bg-success">${p.status}</span></td>
+                    <td>${escapeHTML(p.method)}</td>
+                    <td>${escapeHTML(p.tracking)}</td>
+                    <td><span class="badge bg-success">${escapeHTML(p.status)}</span></td>
                 </tr>
             `).join('');
             
             $('#allPaymentsTable').DataTable({
-                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                language: window.PersianTableLanguage,
                 destroy: true,
                 order: [[0, 'desc']]
             });
@@ -329,23 +343,24 @@
                 modalTitle.innerText = 'ثبت دریافت از مشتری';
                 partyLabel.innerText = 'انتخاب مشتری';
                 partySelect.innerHTML = '<option value="">انتخاب مشتری</option>' + 
-                    customerDebts.map(c => `<option value="customer_${c.id}" data-name="${c.name}" data-debt="${c.debt}">${c.name} (بدهی: ${c.debt.toLocaleString()} تومان)</option>`).join('');
+                    customerDebts.map(c => `<option value="customer_${c.id}" data-name="${escapeHTML(c.name)}" data-debt="${c.debt}">${escapeHTML(c.name)} (بدهی: ${c.debt.toLocaleString()} تومان)</option>`).join('');
             } else {
                 modalTitle.innerText = 'ثبت پرداخت به تامین‌کننده';
                 partyLabel.innerText = 'انتخاب تامین‌کننده';
                 partySelect.innerHTML = '<option value="">انتخاب تامین‌کننده</option>' + 
-                    supplierDebts.map(s => `<option value="supplier_${s.id}" data-name="${s.name}" data-debt="${s.debt}">${s.name} (بدهی: ${s.debt.toLocaleString()} تومان)</option>`).join('');
+                    supplierDebts.map(s => `<option value="supplier_${s.id}" data-name="${escapeHTML(s.name)}" data-debt="${s.debt}">${escapeHTML(s.name)} (بدهی: ${s.debt.toLocaleString()} تومان)</option>`).join('');
             }
         }
         
         function registerPayment() {
+            if (!validateForm('paymentForm')) return;
             const partyValue = document.getElementById('partySelect').value;
             if (!partyValue) {
                 showToast('لطفاً طرف حساب را انتخاب کنید', 'error');
                 return;
             }
             
-            const amount = parseInt(document.getElementById('paymentAmount').value);
+            const amount = Number(document.getElementById('paymentAmount').value);
             if (!amount || amount <= 0) {
                 showToast('لطفاً مبلغ معتبر وارد کنید', 'error');
                 return;
@@ -381,8 +396,11 @@
             
             // ثبت در تاریخچه
             allPayments.unshift({
-                date: new Date().toLocaleDateString('fa-IR'),
-                type: currentPaymentType === 'customer' ? 'دریافت' : 'پرداخت',
+                date: document.getElementById('paymentDate').value || todayISO(),
+                partyId: Number(id),
+                partyType: type,
+                description: document.getElementById('paymentDesc').value,
+                type: type === 'customer' ? 'دریافت' : 'پرداخت',
                 party: partyName,
                 amount: amount,
                 method: document.getElementById('paymentMethod').value,
@@ -390,6 +408,21 @@
                 status: 'تایید شده'
             });
             
+            const collection=type==='customer'?'customers':'suppliers';
+            const parties=FrontendStore.read(collection,DemoData[collection]);
+            const party=parties.find(p=>p.id===Number(id));
+            if(party)party.debt=Math.max(0,party.debt-amount);
+            const invoiceCollection=type==='customer'?'sales':'purchases';
+            const invoices=FrontendStore.read(invoiceCollection,DemoData[invoiceCollection]);
+            let unallocated=amount;
+            invoices.filter(i=>(type==='customer'?i.customer:i.supplier)===partyName).forEach(invoice=>{
+                const outstanding=invoice.remaining ?? (invoice.total-(invoice.paid || 0));
+                const applied=Math.min(unallocated,Math.max(0,outstanding));
+                if(!applied)return;
+                invoice.paid=(invoice.paid || 0)+applied;invoice.remaining=Math.max(0,invoice.total-invoice.paid);
+                invoice.status=invoice.remaining===0?'پرداخت شده':'پرداخت جزئی';unallocated-=applied;
+            });
+            FrontendStore.writeMany({[collection]:parties,[invoiceCollection]:invoices,customerDebts,supplierDebts,allPayments});
             renderAllPayments();
             calculateStats();
             
@@ -416,15 +449,15 @@
             const partySelect = document.getElementById('partySelect');
             
             if (type === 'customer') {
-                modalTitle.innerText = `ثبت دریافت از ${name}`;
-                partySelect.innerHTML = `<option value="customer_${btn.dataset.id}" data-name="${name}" data-debt="${debt}" selected>${name} (بدهی: ${debt.toLocaleString()} تومان)</option>`;
+                modalTitle.innerText = `ثبت دریافت از ${escapeHTML(name)}`;
+                partySelect.innerHTML = `<option value="customer_${btn.dataset.id}" data-name="${escapeHTML(name)}" data-debt="${debt}" selected>${escapeHTML(name)} (بدهی: ${debt.toLocaleString()} تومان)</option>`;
             } else {
-                modalTitle.innerText = `ثبت پرداخت به ${name}`;
-                partySelect.innerHTML = `<option value="supplier_${btn.dataset.id}" data-name="${name}" data-debt="${debt}" selected>${name} (بدهی: ${debt.toLocaleString()} تومان)</option>`;
+                modalTitle.innerText = `ثبت پرداخت به ${escapeHTML(name)}`;
+                partySelect.innerHTML = `<option value="supplier_${btn.dataset.id}" data-name="${escapeHTML(name)}" data-debt="${debt}" selected>${escapeHTML(name)} (بدهی: ${debt.toLocaleString()} تومان)</option>`;
             }
             
             document.getElementById('paymentAmount').value = '';
-            document.getElementById('paymentDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('paymentDate').value = todayISO();
             document.getElementById('paymentMethod').value = 'نقدی';
             document.getElementById('paymentTracking').value = '';
             document.getElementById('paymentDesc').value = '';
@@ -434,6 +467,15 @@
         
         document.getElementById('registerPaymentBtn')?.addEventListener('click', registerPayment);
         
+        document.addEventListener('click',e=>{
+            const button=e.target.closest('.view-payment-history'); if(!button)return;
+            const parties=button.dataset.type==='customer'?customerDebts:supplierDebts;
+            const party=parties.find(p=>p.id===Number(button.dataset.id)); if(!party)return;
+            const rows=allPayments.filter(p=>p.partyId ? p.partyId===party.id && p.partyType===button.dataset.type : p.party===party.name);
+            const modal=document.createElement('div'); modal.className='modal fade';
+            modal.innerHTML=`<div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><h5>${escapeHTML(party.name)}</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><table class="table"><tbody>${rows.map(p=>`<tr><td>${escapeHTML(p.date)}</td><td>${p.amount.toLocaleString()} تومان</td><td>${escapeHTML(p.method)}</td><td>${escapeHTML(p.tracking)}</td></tr>`).join('')}</tbody></table></div></div></div>`;
+            document.body.appendChild(modal); modal.addEventListener('hidden.bs.modal',()=>modal.remove()); new bootstrap.Modal(modal).show();
+        });
         loadSidebarAndNavbar('payments');
         loadPaymentsData();
     </script>

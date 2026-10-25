@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مدیریت مشتریان | داشبورد</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link href="../assets/vendor/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/vendor/all.min.css">
+    <link rel="stylesheet" href="../assets/vendor/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../assets/js/frontend-store.js"></script>
+    <script src="../assets/js/demo-data.js"></script>
+    <script src="../assets/js/organization.js"></script>
+    <script src="../assets/js/persian.js"></script>
+    <script src="../assets/js/utils.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -88,7 +93,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label>سقف اعتبار (تومان)</label>
-                                <input type="number" id="customerCreditLimit" class="form-control" value="0">
+                                <input type="number" id="customerCreditLimit" class="form-control" value="0" min="0" step="any">
                             </div>
                         </div>
                     </form>
@@ -134,10 +139,9 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/vendor/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/jquery-3.6.0.min.js"></script>
+    <script src="../assets/vendor/jquery.dataTables.min.js"></script>
     <script src="../assets/js/components.js"></script>
     <script>
         let customersData = [];
@@ -145,26 +149,23 @@
         let currentCustomerId = null;
         
         function loadCustomers() {
-            customersData = [
-                { id: 1, code: "C-1001", name: "آرمان پوراحمد", type: "حقیقی", phone: "۰۹۱۲۱۲۳۴۵۶۷", email: "arman@gmail.com", address: "تهران، خیابان انقلاب", nationalId: "۱۲۳۴۵۶۷۸۹۰", creditLimit: 50000000, debt: 12500000, totalPurchases: 3 },
-                { id: 2, code: "C-1002", name: "شرکت تدبیر", type: "حقوقی", phone: "۰۲۱-۸۸۷۷۶۶۵۵", email: "info@tadbir.com", address: "تهران، خیابان ولیعصر", nationalId: "۱۰۱۰۱۲۳۴۵۶۷", creditLimit: 200000000, debt: 33600000, totalPurchases: 8 },
-                { id: 3, code: "C-1003", name: "مهدی رضایی", type: "حقیقی", phone: "۰۹۳۵۵۴۴۳۳۲۲", email: "mahdi@yahoo.com", address: "اصفهان، خیابان سپاه", nationalId: "۲۳۴۵۶۷۸۹۰۱", creditLimit: 20000000, debt: 0, totalPurchases: 1 },
-                { id: 4, code: "C-1004", name: "فروشگاه دیجیتال", type: "حقوقی", phone: "۰۲۱-۵۵۴۴۳۳۲۱", email: "shop@digital.com", address: "مشهد، خیابان احمدآباد", nationalId: "۱۰۱۰۹۸۷۶۵۴۳", creditLimit: 150000000, debt: 45200000, totalPurchases: 12 }
-            ];
+            customersData = FrontendStore.read('customers', DemoData.customers);
             renderCustomersTable();
         }
         
-        function renderCustomersTable() {
+        function renderCustomersTable(rows = customersData) {
+            FrontendStore.write('customers', customersData);
+            destroyDataTable('customersTable');
             const tbody = document.getElementById('customersTableBody');
             if (!tbody) return;
             
-            tbody.innerHTML = customersData.map(c => `
+            tbody.innerHTML = rows.map(c => `
                 <tr>
-                    <td>${c.code}</td>
-                    <td>${c.name}</td>
-                    <td><span class="badge ${c.type === 'حقوقی' ? 'bg-info' : 'bg-success'}">${c.type}</span></td>
-                    <td>${c.phone}</td>
-                    <td>${c.email}</td>
+                    <td>${escapeHTML(c.code)}</td>
+                    <td>${escapeHTML(c.name)}</td>
+                    <td><span class="badge ${c.type === 'حقوقی' ? 'bg-info' : 'bg-success'}">${escapeHTML(c.type)}</span></td>
+                    <td>${escapeHTML(c.phone)}</td>
+                    <td>${escapeHTML(c.email)}</td>
                     <td class="${c.debt > 0 ? 'text-danger fw-bold' : 'text-success'}">${c.debt.toLocaleString()} تومان</td>
                     <td>${c.totalPurchases}</td>
                     <td>
@@ -175,26 +176,27 @@
                 </tr>
             `).join('');
             
-            if (customersTable) customersTable.destroy();
+
+            $('#customersTable').off('draw.dt.khorasan').on('draw.dt.khorasan', attachCustomerEvents);
             customersTable = $('#customersTable').DataTable({
-                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                language: window.PersianTableLanguage,
                 pageLength: 10,
                 searching: false
             });
             
             attachCustomerEvents();
-            setupFilters();
+
         }
         
         function attachCustomerEvents() {
             document.querySelectorAll('.edit-customer').forEach(btn => {
-                btn.addEventListener('click', () => editCustomer(parseInt(btn.dataset.id)));
+                btn.onclick = () => editCustomer(parseInt(btn.dataset.id));
             });
             document.querySelectorAll('.view-customer-details').forEach(btn => {
-                btn.addEventListener('click', () => viewCustomerDetails(parseInt(btn.dataset.id)));
+                btn.onclick = () => viewCustomerDetails(parseInt(btn.dataset.id));
             });
             document.querySelectorAll('.delete-customer').forEach(btn => {
-                btn.addEventListener('click', () => deleteCustomer(parseInt(btn.dataset.id)));
+                btn.onclick = () => deleteCustomer(parseInt(btn.dataset.id));
             });
         }
         
@@ -219,29 +221,9 @@
                 const matchType = type === 'all' || c.type === type;
                 return matchSearch && matchType;
             });
-            
-            const tbody = document.getElementById('customersTableBody');
-            if (tbody) {
-                tbody.innerHTML = filtered.map(c => `
-                    <tr>
-                        <td>${c.code}</td>
-                        <td>${c.name}</td>
-                        <td><span class="badge ${c.type === 'حقوقی' ? 'bg-info' : 'bg-success'}">${c.type}</span></td>
-                        <td>${c.phone}</td>
-                        <td>${c.email}</td>
-                        <td class="${c.debt > 0 ? 'text-danger fw-bold' : 'text-success'}">${c.debt.toLocaleString()} تومان</td>
-                        <td>${c.totalPurchases}</td>
-                        <td>
-                            <button class="btn btn-sm btn-info edit-customer" data-id="${c.id}"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-primary view-customer-details" data-id="${c.id}"><i class="fas fa-eye"></i></button>
-                            <button class="btn btn-sm btn-danger delete-customer" data-id="${c.id}"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                `).join('');
-                attachCustomerEvents();
-            }
+            renderCustomersTable(filtered);
         }
-        
+
         function editCustomer(id) {
             const customer = customersData.find(c => c.id === id);
             if (!customer) return;
@@ -264,13 +246,13 @@
             if (!customer) return;
             
             // نمونه داده‌های تاریخچه خرید و پرداخت
-            const purchaseHistory = [
+            const purchaseHistory = OrgContext.isBranch()?FrontendStore.read('sales',[]).filter(s=>s.customer===customer.name).map(s=>({...s,amount:s.total})):[
                 { date: "۱۴۰۲/۱۲/۰۵", invoiceNo: "S-1001", amount: 12500000, status: "پرداخت شده" },
                 { date: "۱۴۰۲/۱۱/۲۰", invoiceNo: "S-0988", amount: 8900000, status: "پرداخت شده" },
                 { date: "۱۴۰۲/۱۰/۱۵", invoiceNo: "S-0955", amount: 33600000, status: "در انتظار پرداخت" }
             ];
             
-            const paymentHistory = [
+            const paymentHistory = OrgContext.isBranch()?FrontendStore.read('allPayments',[]).filter(p=>p.party===customer.name):[
                 { date: "۱۴۰۲/۱۲/۰۱", amount: 5000000, method: "کارت به کارت", tracking: "TRX123456" },
                 { date: "۱۴۰۲/۱۱/۲۵", amount: 10000000, method: "واریز بانکی", tracking: "BNK789012" }
             ];
@@ -278,12 +260,12 @@
             document.getElementById('customerDetails').innerHTML = `
                 <div class="row">
                     <div class="col-md-4">
-                        <p><strong>نام مشتری:</strong> ${customer.name}</p>
-                        <p><strong>نوع:</strong> ${customer.type}</p>
+                        <p><strong>نام مشتری:</strong> ${escapeHTML(customer.name)}</p>
+                        <p><strong>نوع:</strong> ${escapeHTML(customer.type)}</p>
                     </div>
                     <div class="col-md-4">
-                        <p><strong>شماره تماس:</strong> ${customer.phone}</p>
-                        <p><strong>ایمیل:</strong> ${customer.email}</p>
+                        <p><strong>شماره تماس:</strong> ${escapeHTML(customer.phone)}</p>
+                        <p><strong>ایمیل:</strong> ${escapeHTML(customer.email)}</p>
                     </div>
                     <div class="col-md-4">
                         <p><strong>بدهی جاری:</strong> <span class="text-danger">${customer.debt.toLocaleString()} تومان</span></p>
@@ -292,7 +274,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <p><strong>آدرس:</strong> ${customer.address || '---'}</p>
+                        <p><strong>آدرس:</strong> ${escapeHTML(customer.address || '---')}</p>
                     </div>
                 </div>
             `;
@@ -301,10 +283,10 @@
             if (purchaseBody) {
                 purchaseBody.innerHTML = purchaseHistory.map(p => `
                     <tr>
-                        <td>${p.date}</td>
-                        <td>${p.invoiceNo}</td>
+                        <td>${escapeHTML(p.date)}</td>
+                        <td>${escapeHTML(p.invoiceNo)}</td>
                         <td>${p.amount.toLocaleString()} تومان</td>
-                        <td><span class="badge ${p.status === 'پرداخت شده' ? 'bg-success' : 'bg-warning'}">${p.status}</span></td>
+                        <td><span class="badge ${p.status === 'پرداخت شده' ? 'bg-success' : 'bg-warning'}">${escapeHTML(p.status)}</span></td>
                     </tr>
                 `).join('');
             }
@@ -313,10 +295,10 @@
             if (paymentBody) {
                 paymentBody.innerHTML = paymentHistory.map(p => `
                     <tr>
-                        <td>${p.date}</td>
+                        <td>${escapeHTML(p.date)}</td>
                         <td>${p.amount.toLocaleString()} تومان</td>
-                        <td>${p.method}</td>
-                        <td>${p.tracking}</td>
+                        <td>${escapeHTML(p.method)}</td>
+                        <td>${escapeHTML(p.tracking)}</td>
                     </tr>
                 `).join('');
             }
@@ -325,6 +307,7 @@
         }
         
         function saveCustomer() {
+            if (!validateForm('customerForm')) return;
             const id = document.getElementById('customerId').value;
             
             const customer = {
@@ -375,6 +358,7 @@
         
         document.getElementById('saveCustomerBtn')?.addEventListener('click', saveCustomer);
         
+        setupFilters();
         loadSidebarAndNavbar('customers');
         loadCustomers();
     </script>

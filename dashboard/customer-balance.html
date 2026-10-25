@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بیلانس مشتری | داشبورد</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link href="../assets/vendor/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/vendor/all.min.css">
+    <link rel="stylesheet" href="../assets/vendor/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <!-- کتابخانه‌های مورد نیاز برای PDF و Excel -->
-    <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="../assets/vendor/xlsx.full.min.js"></script>
+    <script src="../assets/vendor/html2pdf.bundle.min.js"></script>
     <style>
         @media print {
             .no-print, .sidebar, .top-navbar, .action-buttons {
@@ -31,6 +31,11 @@
             border-radius: 50%;
         }
     </style>
+    <script src="../assets/js/frontend-store.js"></script>
+    <script src="../assets/js/demo-data.js"></script>
+    <script src="../assets/js/organization.js"></script>
+    <script src="../assets/js/persian.js"></script>
+    <script src="../assets/js/utils.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -156,10 +161,9 @@
         <button class="btn btn-info" id="fabPrint" title="چاپ"><i class="fas fa-print"></i></button>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/vendor/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/jquery-3.6.0.min.js"></script>
+    <script src="../assets/vendor/jquery.dataTables.min.js"></script>
     <script src="../assets/js/components.js"></script>
     <script>
         var customers = {
@@ -189,6 +193,16 @@
             ]
         };
 
+        var balanceCurrency=OrgContext.isBranch()?'تومان':'USD';
+        if(OrgContext.isBranch()){
+            customers={};transactions={};const select=document.getElementById('customerSelect');select.replaceChildren(new Option('-- انتخاب مشتری --',''));
+            FrontendStore.read('customers',[]).forEach(c=>{
+                customers[c.id]={...c,orderBy:'---'};select.add(new Option(c.name,c.id));
+                const sales=FrontendStore.read('sales',[]).filter(s=>s.customer===c.name),payments=FrontendStore.read('allPayments',[]).filter(p=>p.party===c.name && p.type==='دریافت');
+                const rows=[...sales.map(s=>({date:s.date,ref:s.invoiceNo,desc:'فاکتور فروش',debit:s.total,credit:0,type:'debit'})),...payments.map(p=>({date:p.date,ref:p.tracking,desc:'دریافت وجه',debit:0,credit:p.amount,type:'credit'}))].sort((a,b)=>dateKey(a.date).localeCompare(dateKey(b.date)));
+                let running=0;transactions[c.id]=rows.map((r,index)=>{running+=r.debit-r.credit;return {...r,row:index+1,balance:running};});
+            });
+        }
         var currentTable = null;
 
         function showBalance() {
@@ -201,11 +215,11 @@
             var cust = customers[customerId];
             var trans = transactions[customerId] || [];
 
-            document.getElementById('custOrderBy').innerHTML = cust.orderBy || '-';
-            document.getElementById('custCode').innerHTML = cust.code;
-            document.getElementById('custName').innerHTML = cust.name;
-            document.getElementById('custPhone').innerHTML = cust.phone;
-            document.getElementById('custAddress').innerHTML = cust.address;
+            document.getElementById('custOrderBy').textContent = cust.orderBy || '-';
+            document.getElementById('custCode').textContent = cust.code;
+            document.getElementById('custName').textContent = cust.name;
+            document.getElementById('custPhone').textContent = cust.phone;
+            document.getElementById('custAddress').textContent = cust.address;
 
             var totalDebit = 0, totalCredit = 0;
             for (var i = 0; i < trans.length; i++) {
@@ -214,15 +228,16 @@
             }
             var balance = totalDebit - totalCredit;
 
-            document.getElementById('totalDebit').innerHTML = totalDebit.toLocaleString() + ' USD';
-            document.getElementById('totalCredit').innerHTML = totalCredit.toLocaleString() + ' USD';
-            document.getElementById('currentBalance').innerHTML = balance.toLocaleString() + ' USD';
+            document.getElementById('totalDebit').innerHTML = totalDebit.toLocaleString() + ' '+balanceCurrency;
+            document.getElementById('totalCredit').innerHTML = totalCredit.toLocaleString() + ' '+balanceCurrency;
+            document.getElementById('currentBalance').innerHTML = balance.toLocaleString() + ' '+balanceCurrency;
 
             var balanceBox = document.getElementById('balanceBox');
             if (balance > 0) balanceBox.className = 'alert alert-danger text-center';
             else if (balance < 0) balanceBox.className = 'alert alert-success text-center';
             else balanceBox.className = 'alert alert-secondary text-center';
 
+            destroyDataTable('transTable');
             var tbody = document.getElementById('transBody');
             tbody.innerHTML = '';
             var sumDebit = 0, sumCredit = 0;
@@ -236,10 +251,10 @@
                 tbody.innerHTML += `
                     <tr>
                         <td>${t.row}</td>
-                        <td>${t.date}</td>
-                        <td>${t.ref}</td>
+                        <td>${escapeHTML(t.date)}</td>
+                        <td>${escapeHTML(t.ref)}</td>
                         <td><span class="badge ${typeClass}">${typeText}</span></td>
-                        <td>${t.desc}</td>
+                        <td>${escapeHTML(t.desc)}</td>
                         <td class="text-danger">${t.debit > 0 ? t.debit.toLocaleString() : '---'}</td>
                         <td class="text-success">${t.credit > 0 ? t.credit.toLocaleString() : '---'}</td>
                         <td class="fw-bold">${t.balance.toLocaleString()}</td>
@@ -250,9 +265,9 @@
             document.getElementById('footDebit').innerHTML = sumDebit.toLocaleString();
             document.getElementById('footCredit').innerHTML = sumCredit.toLocaleString();
 
-            if (currentTable) currentTable.destroy();
+
             currentTable = $('#transTable').DataTable({
-                language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
+                language: window.PersianTableLanguage,
                 pageLength: 15,
                 searching: false,
                 order: [[1, 'desc']]
@@ -268,8 +283,9 @@
         }
 
         function exportToPDF() {
-            var element = document.getElementById('reportContent');
-            html2pdf().from(element).save('customer_balance_' + new Date().toLocaleDateString('fa-IR') + '.pdf');
+            if(!document.getElementById('customerSelect').value) {alert('لطفاً ابتدا یک مشتری انتخاب کنید');return;}
+            showBalance();
+            exportElementPDF(document.getElementById('reportContent'),'customer_balance');
         }
 
         function exportToExcel() {
@@ -297,9 +313,9 @@
             }
             
             data.push(['خلاصه ارقام']);
-            data.push(['کل بدهکاری:', totalDebit.toLocaleString() + ' USD']);
-            data.push(['کل بستانکاری:', totalCredit.toLocaleString() + ' USD']);
-            data.push(['مانده جاری:', (totalDebit - totalCredit).toLocaleString() + ' USD']);
+            data.push(['کل بدهکاری:', totalDebit.toLocaleString() + ' '+balanceCurrency]);
+            data.push(['کل بستانکاری:', totalCredit.toLocaleString() + ' '+balanceCurrency]);
+            data.push(['مانده جاری:', (totalDebit - totalCredit).toLocaleString() + ' '+balanceCurrency]);
             data.push(['']);
             data.push(['ردیف', 'تاریخ', 'شماره مرجع', 'نوع', 'شرح', 'بدهکار', 'بستانکار', 'مانده']);
             
