@@ -280,3 +280,27 @@ const env = Object.fromEntries(
     fullPage: true,
   });
   await goto("products");
+  await page.locator("#category-filter").selectOption(String(root.id));
+  await page.screenshot({
+    path: "tmp/catalog-products-dark.png",
+    fullPage: true,
+  });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await goto("dashboard");
+  assert.equal(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth > innerWidth,
+    ),
+    false,
+  );
+  await page.screenshot({
+    path: "tmp/catalog-dashboard-mobile.png",
+    fullPage: true,
+  });
+  await goto("products");
+  assert.equal(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth > innerWidth,
+    ),
+    false,
+  );
