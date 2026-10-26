@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تماس با ما | مدیریت جامع</title>
     <meta name="description" content="ارتباط با تیم پشتیبانی و فروش مدیریت جامع">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/vendor/all.min.css">
+    <link href="../assets/vendor/inter.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         .contact-info-card {
@@ -42,6 +42,10 @@
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
         }
     </style>
+    <script src="../assets/js/frontend-store.js"></script>
+    <script src="../assets/js/demo-data.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/public-content.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -151,7 +155,7 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/bootstrap.bundle.min.js"></script>
     <script>
         document.getElementById('contactForm')?.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -171,7 +175,8 @@
                 // }
                 
                 // برای حال حاضر (بدون بک‌اند):
-                alert('پیام شما با موفقیت ارسال شد. کارشناسان ما به زودی با شما تماس می‌گیرند.');
+                if (!saveLocalForm(e.target, 'contactMessages')) return;
+            alert('پیام شما با موفقیت ارسال شد. کارشناسان ما به زودی با شما تماس می‌گیرند.');
                 e.target.reset();
                 
             } catch (error) {
@@ -179,7 +184,6 @@
             }
         });
     </script>
-    // Load shared navbar
-    <script src="../assets/js/utils.js"></script>
+    <!-- Load shared navbar -->
 </body>
 </html>

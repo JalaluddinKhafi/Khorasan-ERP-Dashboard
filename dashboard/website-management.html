@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مدیریت وبسایت | داشبورد</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link href="../assets/vendor/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/vendor/all.min.css">
+    <link rel="stylesheet" href="../assets/vendor/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         .page-card {
@@ -34,6 +34,11 @@
             border-right: 4px solid #f59e0b;
         }
     </style>
+    <script src="../assets/js/frontend-store.js"></script>
+    <script src="../assets/js/demo-data.js"></script>
+    <script src="../assets/js/organization.js"></script>
+    <script src="../assets/js/persian.js"></script>
+    <script src="../assets/js/utils.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -191,7 +196,7 @@
                                 <div class="row" id="sliderList">
                                     <div class="col-md-4 mb-3">
                                         <div class="card">
-                                            <img src="https://via.placeholder.com/400x200/2563eb/white?text=Slide+1" class="card-img-top" alt="اسلاید ۱">
+                                            <img src="../assets/images/placeholders/8749796bf8be.svg" class="card-img-top" alt="اسلاید ۱">
                                             <div class="card-body">
                                                 <h6>اسلاید اول</h6>
                                                 <p class="small text-muted">عنوان: مدیریت هوشمند کسب و کار</p>
@@ -202,7 +207,7 @@
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <div class="card">
-                                            <img src="https://via.placeholder.com/400x200/10b981/white?text=Slide+2" class="card-img-top" alt="اسلاید ۲">
+                                            <img src="../assets/images/placeholders/3d415de4559c.svg" class="card-img-top" alt="اسلاید ۲">
                                             <div class="card-body">
                                                 <h6>اسلاید دوم</h6>
                                                 <p class="small text-muted">عنوان: فروش ویژه محصولات</p>
@@ -213,7 +218,7 @@
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <div class="card">
-                                            <img src="https://via.placeholder.com/400x200/f59e0b/white?text=Slide+3" class="card-img-top" alt="اسلاید ۳">
+                                            <img src="../assets/images/placeholders/8c2a7e78c1f7.svg" class="card-img-top" alt="اسلاید ۳">
                                             <div class="card-body">
                                                 <h6>اسلاید سوم</h6>
                                                 <p class="small text-muted">عنوان: پشتیبانی ۲۴ ساعته</p>
@@ -312,35 +317,10 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/vendor/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/jquery-3.6.0.min.js"></script>
+    <script src="../assets/vendor/jquery.dataTables.min.js"></script>
     <script src="../assets/js/components.js"></script>
-    <script>
-        // راه‌اندازی DataTable برای صفحات
-        $('#pagesTable').DataTable({
-            language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
-            pageLength: 10
-        });
-
-        $('#blogTable').DataTable({
-            language: { url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json" },
-            pageLength: 10
-        });
-
-        // پیش‌نمایش سایت
-        document.getElementById('previewSiteBtn')?.addEventListener('click', function() {
-            window.open('../public-site/index.html', '_blank');
-        });
-
-        // ذخیره تنظیمات
-        document.getElementById('siteSettingsForm')?.addEventListener('submit', function(e) {
-            e.preventDefault();
-            showToast('تنظیمات با موفقیت ذخیره شد', 'success');
-        });
-
-        loadSidebarAndNavbar('website');
-    </script>
+    <script src="../assets/js/website-management.js"></script>
 </body>
 </html>

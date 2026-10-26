@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>گالری تصاویر | مدیریت جامع</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/vendor/all.min.css">
+    <link href="../assets/vendor/inter.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         .gallery-filter {
@@ -86,9 +86,13 @@
             cursor: pointer;
         }
     </style>
+    <script src="../assets/js/frontend-store.js"></script>
+    <script src="../assets/js/demo-data.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/public-content.js"></script>
 </head>
 <body>
-   // Navigation
+   <!-- Navigation -->
     <div id="shared-navbar"></div>
 
     <section class="bg-primary text-white py-5">
@@ -123,17 +127,17 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/bootstrap.bundle.min.js"></script>
     <script>
         const galleryItems = [
-            { id: 1, category: "products", title: "لپ تاپ ایسوس ROG", image: "https://via.placeholder.com/400x300/2563eb/white?text=ASUS+ROG" },
-            { id: 2, category: "products", title: "گوشی سامسونگ S24", image: "https://via.placeholder.com/400x300/10b981/white?text=Samsung+S24" },
-            { id: 3, category: "products", title: "هدفون سونی XM5", image: "https://via.placeholder.com/400x300/f59e0b/white?text=Sony+XM5" },
-            { id: 4, category: "events", title: "همایش سالانه ۱۴۰۲", image: "https://via.placeholder.com/400x300/ef4444/white?text=Event+2024" },
-            { id: 5, category: "events", title: "کارگاه آموزشی مدیریت فروش", image: "https://via.placeholder.com/400x300/8b5cf6/white?text=Workshop" },
-            { id: 6, category: "office", title: "دفتر مرکزی تهران", image: "https://via.placeholder.com/400x300/06b6d4/white?text=Office" },
-            { id: 7, category: "office", title: "تیم پشتیبانی", image: "https://via.placeholder.com/400x300/14b8a6/white?text=Support+Team" },
-            { id: 8, category: "products", title: "تبلت اپل iPad Pro", image: "https://via.placeholder.com/400x300/3b82f6/white?text=iPad+Pro" }
+            { id: 1, category: "products", title: "لپ تاپ ایسوس ROG", image: "../assets/images/placeholders/fb8e63ae96b3.svg" },
+            { id: 2, category: "products", title: "گوشی سامسونگ S24", image: "../assets/images/placeholders/3da1410114d0.svg" },
+            { id: 3, category: "products", title: "هدفون سونی XM5", image: "../assets/images/placeholders/079f8592f2fa.svg" },
+            { id: 4, category: "events", title: "همایش سالانه ۱۴۰۲", image: "../assets/images/placeholders/8a23c7c87254.svg" },
+            { id: 5, category: "events", title: "کارگاه آموزشی مدیریت فروش", image: "../assets/images/placeholders/1b73cb5a1f70.svg" },
+            { id: 6, category: "office", title: "دفتر مرکزی تهران", image: "../assets/images/placeholders/340abe184e63.svg" },
+            { id: 7, category: "office", title: "تیم پشتیبانی", image: "../assets/images/placeholders/1cfdb0788c33.svg" },
+            { id: 8, category: "products", title: "تبلت اپل iPad Pro", image: "../assets/images/placeholders/86e779077361.svg" }
         ];
         
         let currentFilter = "all";
@@ -145,9 +149,9 @@
             grid.innerHTML = filtered.map(item => `
                 <div class="col-md-4 col-sm-6">
                     <div class="gallery-item" data-id="${item.id}">
-                        <img src="${item.image}" alt="${item.title}">
+                        <img src="${item.image}" alt="${escapeHTML(item.title)}">
                         <div class="gallery-overlay">
-                            <h6 class="mb-0">${item.title}</h6>
+                            <h6 class="mb-0">${escapeHTML(item.title)}</h6>
                         </div>
                     </div>
                 </div>
@@ -185,7 +189,6 @@
         
         renderGallery();
     </script>
-    // Load shared navbar
-    <script src="../assets/js/utils.js"></script>
+    <!-- Load shared navbar -->
 </body>
 </html>

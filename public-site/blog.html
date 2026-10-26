@@ -8,9 +8,9 @@
     <meta property="og:title" content="وبلاگ مدیریت جامع">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="fa_IR">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/vendor/all.min.css">
+    <link href="../assets/vendor/inter.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         .blog-card {
@@ -77,6 +77,10 @@
             border-color: #2563eb;
         }
     </style>
+    <script src="../assets/js/frontend-store.js"></script>
+    <script src="../assets/js/demo-data.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/public-content.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -155,18 +159,19 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/bootstrap.bundle.min.js"></script>
     <script>
         // داده‌های مقالات
-        const blogPosts = [
-            { id: 1, title: "۱۰ راهکار برای افزایش فروش در سال ۱۴۰۳", category: "management", date: "۱۴۰۲/۱۲/۱۰", author: "احمد رضایی", image: "https://via.placeholder.com/800x400/2563eb/white?text=Sales+Tips", excerpt: "در این مقاله به بررسی راهکارهای عملی برای افزایش فروش در سال جدید می‌پردازیم...", tags: ["مدیریت فروش", "بازاریابی"] },
-            { id: 2, title: "بهترین نرم‌افزارهای انبارداری در ایران", category: "technology", date: "۱۴۰۲/۱۲/۰۸", author: "سارا کریمی", image: "https://via.placeholder.com/800x400/10b981/white?text=Warehouse", excerpt: "معرفی و مقایسه بهترین سیستم‌های مدیریت انبار متناسب با کسب و کار ایرانی...", tags: ["انبارداری", "نرم افزار"] },
-            { id: 3, title: "اصول حسابداری برای کسب و کارهای کوچک", category: "finance", date: "۱۴۰۲/۱۲/۰۵", author: "محمد حسینی", image: "https://via.placeholder.com/800x400/f59e0b/white?text=Accounting", excerpt: "آشنایی با اصول پایه حسابداری که هر صاحب کسب و کاری باید بداند...", tags: ["حسابداری", "مالی"] },
-            { id: 4, title: "نقش هوش مصنوعی در مدیریت مدرن", category: "technology", date: "۱۴۰۲/۱۲/۰۳", author: "دکتر کریمی", image: "https://via.placeholder.com/800x400/ef4444/white?text=AI", excerpt: "چگونه هوش مصنوعی می‌تواند فرآیندهای مدیریتی را متحول کند؟", tags: ["هوش مصنوعی", "فناوری"] },
-            { id: 5, title: "مدیریت استراتژیک زنجیره تامین", category: "management", date: "۱۴۰۲/۱۲/۰۱", author: "احمد رضایی", image: "https://via.placeholder.com/800x400/8b5cf6/white?text=Supply+Chain", excerpt: "بهبود کارایی زنجیره تامین با رویکردهای نوین مدیریتی...", tags: ["زنجیره تامین", "مدیریت"] },
-            { id: 6, title: "گزارشگیری حرفه‌ای با Power BI", category: "technology", date: "۱۴۰۲/۱۱/۲۸", author: "سارا کریمی", image: "https://via.placeholder.com/800x400/06b6d4/white?text=Power+BI", excerpt: "آموزش ساخت داشبوردهای مدیریتی با Power BI", tags: ["داشبورد", "گزارش"] }
-        ];
+        const blogPosts = frontendPosts([
+            { id: 1, title: "۱۰ راهکار برای افزایش فروش در سال ۱۴۰۳", category: "management", date: "۱۴۰۲/۱۲/۱۰", author: "احمد رضایی", image: "../assets/images/placeholders/a5c5a02c0e8e.svg", excerpt: "در این مقاله به بررسی راهکارهای عملی برای افزایش فروش در سال جدید می‌پردازیم...", tags: ["مدیریت فروش", "بازاریابی"] },
+            { id: 2, title: "بهترین نرم‌افزارهای انبارداری در ایران", category: "technology", date: "۱۴۰۲/۱۲/۰۸", author: "سارا کریمی", image: "../assets/images/placeholders/2bc45b9ff75a.svg", excerpt: "معرفی و مقایسه بهترین سیستم‌های مدیریت انبار متناسب با کسب و کار ایرانی...", tags: ["انبارداری", "نرم افزار"] },
+            { id: 3, title: "اصول حسابداری برای کسب و کارهای کوچک", category: "finance", date: "۱۴۰۲/۱۲/۰۵", author: "محمد حسینی", image: "../assets/images/placeholders/bbd887222e6a.svg", excerpt: "آشنایی با اصول پایه حسابداری که هر صاحب کسب و کاری باید بداند...", tags: ["حسابداری", "مالی"] },
+            { id: 4, title: "نقش هوش مصنوعی در مدیریت مدرن", category: "technology", date: "۱۴۰۲/۱۲/۰۳", author: "دکتر کریمی", image: "../assets/images/placeholders/74a10bffc354.svg", excerpt: "چگونه هوش مصنوعی می‌تواند فرآیندهای مدیریتی را متحول کند؟", tags: ["هوش مصنوعی", "فناوری"] },
+            { id: 5, title: "مدیریت استراتژیک زنجیره تامین", category: "management", date: "۱۴۰۲/۱۲/۰۱", author: "احمد رضایی", image: "../assets/images/placeholders/55834df4d948.svg", excerpt: "بهبود کارایی زنجیره تامین با رویکردهای نوین مدیریتی...", tags: ["زنجیره تامین", "مدیریت"] },
+            { id: 6, title: "گزارشگیری حرفه‌ای با Power BI", category: "technology", date: "۱۴۰۲/۱۱/۲۸", author: "سارا کریمی", image: "../assets/images/placeholders/8cb7892c9412.svg", excerpt: "آموزش ساخت داشبوردهای مدیریتی با Power BI", tags: ["داشبورد", "گزارش"] }
+        ]);
         
+        FrontendStore.write('publicBlogPosts',blogPosts);
         let currentPage = 1;
         const postsPerPage = 4;
         let currentCategory = "all";
@@ -194,15 +199,15 @@
             
             container.innerHTML = paginatedPosts.map(post => `
                 <div class="blog-card card">
-                    <img src="${post.image}" class="blog-img" alt="${post.title}">
+                    <img src="${post.image}" class="blog-img" alt="${escapeHTML(post.title)}">
                     <div class="card-body">
                         <div class="blog-meta">
-                            <span><i class="fas fa-calendar"></i> ${post.date}</span>
+                            <span><i class="fas fa-calendar"></i> ${escapeHTML(post.date)}</span>
                             <span class="mx-2">|</span>
-                            <span><i class="fas fa-user"></i> ${post.author}</span>
+                            <span><i class="fas fa-user"></i> ${escapeHTML(post.author)}</span>
                         </div>
-                        <h3 class="card-title h4">${post.title}</h3>
-                        <p class="card-text">${post.excerpt}</p>
+                        <h3 class="card-title h4">${escapeHTML(post.title)}</h3>
+                        <p class="card-text">${escapeHTML(post.excerpt)}</p>
                         <a href="blog-details.html?id=${post.id}" class="btn btn-outline-primary">ادامه مطلب <i class="fas fa-arrow-left"></i></a>
                     </div>
                 </div>
@@ -241,8 +246,8 @@
                 container.innerHTML = recent.map(post => `
                     <div class="mb-3">
                         <a href="blog-details.html?id=${post.id}" class="text-decoration-none">
-                            <small class="text-muted">${post.date}</small>
-                            <h6 class="mb-0">${post.title}</h6>
+                            <small class="text-muted">${escapeHTML(post.date)}</small>
+                            <h6 class="mb-0">${escapeHTML(post.title)}</h6>
                         </a>
                     </div>
                 `).join('');
@@ -276,6 +281,5 @@
         renderBlogPosts();
         renderRecentPosts();
     </script>
-    <script src="../assets/js/utils.js"></script>
 </body>
 </html>
