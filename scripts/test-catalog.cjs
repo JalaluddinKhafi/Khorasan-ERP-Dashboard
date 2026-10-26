@@ -323,3 +323,25 @@ const env = Object.fromEntries(
     path: "tmp/catalog-categories-mobile.png",
     fullPage: true,
   });
+  const empty = (
+    await api("categories", { name: "حذف آزمایشی " + tag, active: true })
+  ).data;
+  await goto("categories");
+  page.once("dialog", (d) => d.accept());
+  await page
+    .locator('#category-records [data-delete="' + empty.id + '"]')
+    .click();
+  await page.waitForFunction(
+    (id) =>
+      !document.querySelector('#category-records [data-delete="' + id + '"]'),
+    empty.id,
+  );
+  assert.deepEqual(errors, []);
+  console.log(
+    "PASS: category parent/child and tree counts, cycle protection, product image/barcode/details/edit, combined filters, dashboard clock/quick actions/three tables, light/dark/mobile, category delete.",
+  );
+  await browser.close();
+})().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
