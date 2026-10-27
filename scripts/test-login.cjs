@@ -36,3 +36,22 @@ const { chromium } = require("playwright");
     await page.route("**/api/login", (route) =>
       route.fulfill({ status, contentType: "application/json", body: "{}" }),
     );
+    await page.getByRole("button", { name: "ورود به داشبورد" }).click();
+    await page.locator("#login-error").filter({ hasText: expected }).waitFor();
+    await page.unroute("**/api/login");
+  }
+  await page.locator("[name=password]").fill(env.ADMIN_PASSWORD);
+  await page.getByRole("button", { name: "ورود به داشبورد" }).click();
+  await page.waitForURL("**/dashboard.html");
+  await page.locator("#app h1").filter({ hasText: "داشبورد" }).waitFor();
+  const response = await page.request.get(base + "/api/me");
+  assert.equal(response.status(), 200);
+  assert.equal((await response.json()).role, "ADMIN");
+  console.log(
+    "PASS: real admin login, invalid credentials, expired CSRF, wrong server URL and server failure messages.",
+  );
+  await browser.close();
+})().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
