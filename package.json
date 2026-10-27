@@ -1,0 +1,16 @@
+{
+  "name": "khorasan-system-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Browser-only frontend template; Spring Boot integration is deferred.",
+  "scripts": {
+    "start": "node tools/server.cjs",
+    "test": "node --test tests/frontend.test.cjs tests/organization.test.cjs",
+    "test:browser": "node tests/workflows.cjs",
+    "test:responsive": "node tests/responsive.cjs",
+    "test:organizations": "node tests/organizations.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}
