@@ -8,9 +8,11 @@
 ![RTL](https://img.shields.io/badge/RTL-Supported-green)
 ![Responsive](https://img.shields.io/badge/Responsive-Yes-brightgreen)
 
-> **A complete, production-ready Frontend system for managing Sales, Inventory, Purchases, Customer Balances, and Financial transactions.** Built specifically for Persian (RTL) businesses with a modern corporate design.
+> **A browser-only Frontend template for managing Sales, Inventory, Purchases, Customer Balances, and Financial transactions.** Built specifically for Persian (RTL) businesses with a modern corporate design.
 
 ---
+
+> **Frontend development status:** This version runs without a backend and persists demo data in browser localStorage. Real authentication, shared storage and Spring Boot integration are deferred. See [FRONTEND.md](FRONTEND.md) for execution, tests and limits.
 
 ## 📌 Table of Contents
 
