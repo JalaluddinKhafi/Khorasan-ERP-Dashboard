@@ -15,10 +15,23 @@ function initProductsPage() {
     setupEventListeners();
 }
 
-function loadProducts() {
-    // در حالت واقعی: fetch('/api/products')
-    productsData = [...sampleProducts];
-    renderProductsTable();
+async function loadProducts() {
+    try {
+        const response = await fetch('http://localhost:8080/api/products');
+        if (!response.ok) {
+            throw new Error('Failed to fetch products');
+        }
+
+        const payload = await response.json();
+        const result = Array.isArray(payload) ? payload : (payload && payload.data ? payload.data : []);
+        productsData = (result || []).map(normalizeProduct);
+        renderProductsTable();
+        return;
+    } catch (error) {
+        console.warn('Products API unavailable, using sample data', error);
+        productsData = [...sampleProducts];
+        renderProductsTable();
+    }
 }
 
 function renderProductsTable() {
@@ -30,9 +43,9 @@ function renderProductsTable() {
             <td>${p.code}</td>
             <td><img src="${p.image || 'https://via.placeholder.com/50'}" width="50" height="50" style="object-fit: cover; border-radius: 8px;"></td>
             <td>${p.name}</td>
-            <td>${p.category}</td>
-            <td>${p.purchasePrice.toLocaleString()}</td>
-            <td>${p.salePrice.toLocaleString()}</td>
+            <td>${p.category?.name || p.category || 'نامشخص'}</td>
+            <td>${Number(p.purchasePrice || 0).toLocaleString()}</td>
+            <td>${Number(p.salePrice || 0).toLocaleString()}</td>
             <td>${p.unit}</td>
             <td>${p.stock}</td>
             <td><span class="badge ${p.status === 'موجود' ? 'bg-success' : 'bg-danger'}">${p.status}</span></td>
@@ -74,8 +87,11 @@ function filterProducts() {
     const category = document.getElementById('categoryFilter')?.value || '';
     
     const filtered = productsData.filter(p => {
-        const matchSearch = p.name.toLowerCase().includes(search) || p.code.toLowerCase().includes(search);
-        const matchCategory = !category || p.category === category;
+        const productName = (p.name || '').toLowerCase();
+        const productCode = (p.code || '').toLowerCase();
+        const categoryName = (p.category?.name || p.category || '').toString();
+        const matchSearch = productName.includes(search) || productCode.includes(search);
+        const matchCategory = !category || categoryName === category;
         return matchSearch && matchCategory;
     });
     
@@ -187,7 +203,7 @@ function resetForm() {
 // نمونه fetch برای ذخیره در API
 async function saveProductToAPI(product) {
     try {
-        const response = await fetch('/api/products', {
+        const response = await fetch('http://localhost:8080/api/products', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(product)
